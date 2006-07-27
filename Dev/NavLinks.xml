@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Items>
+    <Item>
+		<Text>Developer Home</Text>
+		<Link>Dev/</Link>
+	</Item>
+	<Item>
+		<Text>Tasks</Text>
+		<Link>Dev/Tasks.aspx</Link>
+	</Item>
+</Items>
