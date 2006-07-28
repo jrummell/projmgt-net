@@ -1,5 +1,5 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMT", "http://localhost/PMT/PMT.csproj", "{BD5C31A0-A12C-4477-9901-27D330814ACD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMT", "http://localhost/projmgt-net/PMT.csproj", "{BD5C31A0-A12C-4477-9901-27D330814ACD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
