@@ -119,31 +119,9 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Default.aspx.cs"
-                    DependentUpon = "Default.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Default.aspx.resx"
-                    DependentUpon = "Default.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Error.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Error.aspx.cs"
-                    DependentUpon = "Error.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Error.aspx.resx"
-                    DependentUpon = "Error.aspx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Global.asax"
@@ -241,17 +219,6 @@
                     RelPath = "Admin\default.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
-                />
-                <File
-                    RelPath = "Admin\default.aspx.cs"
-                    DependentUpon = "default.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Admin\default.aspx.resx"
-                    DependentUpon = "default.aspx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "Admin\editMatrix.aspx"
@@ -397,17 +364,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Client\Default.aspx.cs"
-                    DependentUpon = "Default.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Client\Default.aspx.resx"
-                    DependentUpon = "Default.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Client\NavLinks.xml"
                     BuildAction = "Content"
                 />
@@ -548,17 +504,6 @@
                     BuildAction = "Content"
                 />
                 <File
-                    RelPath = "Dev\Default.aspx.cs"
-                    DependentUpon = "Default.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "Dev\Default.aspx.resx"
-                    DependentUpon = "Default.aspx.cs"
-                    BuildAction = "EmbeddedResource"
-                />
-                <File
                     RelPath = "Dev\NavLinks.xml"
                     BuildAction = "Content"
                 />
@@ -600,17 +545,6 @@
                     RelPath = "PM\Default.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
-                />
-                <File
-                    RelPath = "PM\Default.aspx.cs"
-                    DependentUpon = "Default.aspx"
-                    SubType = "ASPXCodeBehind"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "PM\Default.aspx.resx"
-                    DependentUpon = "Default.aspx.cs"
-                    BuildAction = "EmbeddedResource"
                 />
                 <File
                     RelPath = "PM\EditCompetency.aspx"

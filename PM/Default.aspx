@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="Default.aspx.cs" AutoEventWireup="false" Inherits="PMT.PM._Default" %>
+<%@ Page language="c#" AutoEventWireup="false" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %><%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
