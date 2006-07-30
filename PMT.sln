@@ -40,6 +40,7 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		UML\PMT.vsd = UML\PMT.vsd
+		readme.txt = readme.txt
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
