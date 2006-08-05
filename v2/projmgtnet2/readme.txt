@@ -1,0 +1,1 @@
+This web project is configured for the address http://localhost/projmgt-net/
