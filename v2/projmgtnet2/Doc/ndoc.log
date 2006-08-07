@@ -1,0 +1,234 @@
+Building documentation...
+Initializing...
+Merging XML documentation...
+Building file mapping...
+Loading XSLT files...
+    namespace.xslt
+    namespacehierarchy.xslt
+    type.xslt
+    typehierarchy.xslt
+    allmembers.xslt
+    individualmembers.xslt
+    event.xslt
+    member.xslt
+    memberoverload.xslt
+    property.xslt
+    field.xslt
+    htmlcontents.xslt
+Generating HTML pages...
+PMT.html
+PMTHierarchy.html
+PMT.DBDriver.html
+PMT.DBDriverMembers.html
+PMT.DBDriverConstructor.html
+PMT.DBDriverProperties.html
+PMT.DBDriver.Query.html
+PMT.DBDriverMethods.html
+PMT.DBDriver.addParam_overloads.html
+PMT.DBDriver.addParam_overload_1.html
+PMT.DBDriver.addParam_overload_2.html
+PMT.DBDriver.close.html
+PMT.DBDriver.createAdapter.html
+PMT.DBDriver.createReader.html
+PMT.DBDriver.Finalize.html
+PMT.DBDriver.nonQuery.html
+PMT.DBDriver.scalar.html
+PMTComponents.html
+PMTComponentsHierarchy.html
+PMTComponents.CompLevel.html
+PMTComponents.Encryption.html
+PMTComponents.EncryptionMembers.html
+PMTComponents.EncryptionConstructor.html
+PMTComponents.EncryptionMethods.html
+PMTComponents.Encryption.encrypt.html
+PMTComponents.Module.html
+PMTComponents.ModuleMembers.html
+PMTComponents.ModuleConstructor.html
+PMTComponents.ModuleConstructor1.html
+PMTComponents.ModuleConstructor2.html
+PMTComponents.ModuleProperties.html
+PMTComponents.Module.ProjectID.html
+PMTComponents.ModuleMethods.html
+PMTComponents.Module.RenderHtml.html
+PMTComponents.PMTUser.html
+PMTComponents.PMTUserMembers.html
+PMTComponents.PMTUserConstructor.html
+PMTComponents.PMTUserConstructor1.html
+PMTComponents.PMTUserConstructor2.html
+PMTComponents.PMTUserProperties.html
+PMTComponents.PMTUser.Address.html
+PMTComponents.PMTUser.City.html
+PMTComponents.PMTUser.Email.html
+PMTComponents.PMTUser.Enabled.html
+PMTComponents.PMTUser.FirstName.html
+PMTComponents.PMTUser.ID.html
+PMTComponents.PMTUser.LastName.html
+PMTComponents.PMTUser.Password.html
+PMTComponents.PMTUser.PhoneNumber.html
+PMTComponents.PMTUser.Role.html
+PMTComponents.PMTUser.State.html
+PMTComponents.PMTUser.UserName.html
+PMTComponents.PMTUser.ZipCode.html
+PMTComponents.PMTUserRole.html
+PMTComponents.Project.html
+PMTComponents.ProjectMembers.html
+PMTComponents.ProjectConstructor.html
+PMTComponents.ProjectConstructor1.html
+PMTComponents.ProjectConstructor2.html
+PMTComponents.ProjectProperties.html
+PMTComponents.Project.ManagerID.html
+PMTComponents.ProjectMethods.html
+PMTComponents.Project.RenderHtml.html
+PMTComponents.ProjectItem.html
+PMTComponents.ProjectItemMembers.html
+PMTComponents.ProjectItemFields.html
+PMTComponents.ProjectItem.actEndDate.html
+PMTComponents.ProjectItem.description.html
+PMTComponents.ProjectItem.expEndDate.html
+PMTComponents.ProjectItem.id.html
+PMTComponents.ProjectItem.name.html
+PMTComponents.ProjectItem.startDate.html
+PMTComponents.ProjectItemProperties.html
+PMTComponents.ProjectItem.ActEndDate.html
+PMTComponents.ProjectItem.Description.html
+PMTComponents.ProjectItem.ExpEndDate.html
+PMTComponents.ProjectItem.ID.html
+PMTComponents.ProjectItem.Name.html
+PMTComponents.ProjectItem.StartDate.html
+PMTComponents.ProjectItemMethods.html
+PMTComponents.ProjectItem.RenderHtml.html
+PMTComponents.ProjectItemType.html
+PMTComponents.Task.html
+PMTComponents.TaskMembers.html
+PMTComponents.TaskConstructor.html
+PMTComponents.TaskConstructor1.html
+PMTComponents.TaskConstructor2.html
+PMTComponents.TaskProperties.html
+PMTComponents.Task.DeveloperID.html
+PMTComponents.Task.ModuleID.html
+PMTComponents.Task.ProjectID.html
+PMTComponents.Task.Status.html
+PMTComponents.TaskMethods.html
+PMTComponents.Task.RenderHtml.html
+PMTComponents.TaskComplexity.html
+PMTComponents.TaskStatus.html
+PMTDataProvider.html
+PMTDataProviderHierarchy.html
+PMTDataProvider.Configuration.html
+PMTDataProvider.ConfigurationMembers.html
+PMTDataProvider.ConfigurationProperties.html
+PMTDataProvider.Configuration.ConnectionString.html
+PMTDataProvider.Configuration.DataProvider.html
+PMTDataProvider.DataProvider.html
+PMTDataProvider.DataProviderMembers.html
+PMTDataProvider.DataProviderMethods.html
+PMTDataProvider.DataProvider.CreateInstance.html
+PMTDataProvider.IDataProvider.html
+PMTDataProvider.IDataProviderMembers.html
+PMTDataProvider.IDataProviderMethods.html
+PMTDataProvider.IDataProvider.ApproveTask.html
+PMTDataProvider.IDataProvider.AssignDeveloper.html
+PMTDataProvider.IDataProvider.AuthenticateUser.html
+PMTDataProvider.IDataProvider.DeleteModule.html
+PMTDataProvider.IDataProvider.DeletePMTUser.html
+PMTDataProvider.IDataProvider.DeleteProject.html
+PMTDataProvider.IDataProvider.DeleteTask.html
+PMTDataProvider.IDataProvider.DisablePMTUser.html
+PMTDataProvider.IDataProvider.EnablePMTUser.html
+PMTDataProvider.IDataProvider.GetCompMatrix.html
+PMTDataProvider.IDataProvider.GetDeveloperAssignments.html
+PMTDataProvider.IDataProvider.GetDeveloperTasks.html
+PMTDataProvider.IDataProvider.GetEnabledPMTUsers.html
+PMTDataProvider.IDataProvider.GetManagerProjects.html
+PMTDataProvider.IDataProvider.GetModule.html
+PMTDataProvider.IDataProvider.GetModules.html
+PMTDataProvider.IDataProvider.GetModuleTasks.html
+PMTDataProvider.IDataProvider.GetPMTUserById.html
+PMTDataProvider.IDataProvider.GetPMTUserByUsername.html
+PMTDataProvider.IDataProvider.GetPMTUsers.html
+PMTDataProvider.IDataProvider.GetProject.html
+PMTDataProvider.IDataProvider.GetProjectModules.html
+PMTDataProvider.IDataProvider.GetProjects.html
+PMTDataProvider.IDataProvider.GetTask.html
+PMTDataProvider.IDataProvider.GetTasks.html
+PMTDataProvider.IDataProvider.InsertModule.html
+PMTDataProvider.IDataProvider.InsertPMTUser.html
+PMTDataProvider.IDataProvider.InsertProject.html
+PMTDataProvider.IDataProvider.InsertTask.html
+PMTDataProvider.IDataProvider.ResolveExpectedEndDate.html
+PMTDataProvider.IDataProvider.ResolvePercentComplete.html
+PMTDataProvider.IDataProvider.UpdateCompMatrix.html
+PMTDataProvider.IDataProvider.UpdateModule.html
+PMTDataProvider.IDataProvider.UpdatePMTUser.html
+PMTDataProvider.IDataProvider.UpdateProject.html
+PMTDataProvider.IDataProvider.UpdateTask.html
+PMTDataProvider.IDataProvider.VerifyEmailExists.html
+PMTDataProvider.MySqlDataProvider.html
+PMTDataProvider.MySqlDataProviderMembers.html
+PMTDataProvider.MySqlDataProviderConstructor.html
+PMTDataProvider.MySqlDataProviderMethods.html
+PMTDataProvider.MySqlDataProvider.ApproveTask.html
+PMTDataProvider.MySqlDataProvider.AssignDeveloper.html
+PMTDataProvider.MySqlDataProvider.AuthenticateUser.html
+PMTDataProvider.MySqlDataProvider.DeleteModule.html
+PMTDataProvider.MySqlDataProvider.DeletePMTUser.html
+PMTDataProvider.MySqlDataProvider.DeleteProject.html
+PMTDataProvider.MySqlDataProvider.DeleteTask.html
+PMTDataProvider.MySqlDataProvider.DisablePMTUser.html
+PMTDataProvider.MySqlDataProvider.EnablePMTUser.html
+PMTDataProvider.MySqlDataProvider.GetCompMatrix.html
+PMTDataProvider.MySqlDataProvider.GetDeveloperAssignments.html
+PMTDataProvider.MySqlDataProvider.GetDeveloperTasks.html
+PMTDataProvider.MySqlDataProvider.GetEnabledPMTUsers.html
+PMTDataProvider.MySqlDataProvider.GetManagerProjects.html
+PMTDataProvider.MySqlDataProvider.GetModule.html
+PMTDataProvider.MySqlDataProvider.GetModules.html
+PMTDataProvider.MySqlDataProvider.GetModuleTasks.html
+PMTDataProvider.MySqlDataProvider.GetPMTUserById.html
+PMTDataProvider.MySqlDataProvider.GetPMTUserByUsername.html
+PMTDataProvider.MySqlDataProvider.GetPMTUsers.html
+PMTDataProvider.MySqlDataProvider.GetProject.html
+PMTDataProvider.MySqlDataProvider.GetProjectModules.html
+PMTDataProvider.MySqlDataProvider.GetProjects.html
+PMTDataProvider.MySqlDataProvider.GetTask.html
+PMTDataProvider.MySqlDataProvider.GetTasks.html
+PMTDataProvider.MySqlDataProvider.InsertModule.html
+PMTDataProvider.MySqlDataProvider.InsertPMTUser.html
+PMTDataProvider.MySqlDataProvider.InsertProject.html
+PMTDataProvider.MySqlDataProvider.InsertTask.html
+PMTDataProvider.MySqlDataProvider.ResolveExpectedEndDate.html
+PMTDataProvider.MySqlDataProvider.ResolvePercentComplete.html
+PMTDataProvider.MySqlDataProvider.UpdateCompMatrix.html
+PMTDataProvider.MySqlDataProvider.UpdateModule.html
+PMTDataProvider.MySqlDataProvider.UpdatePMTUser.html
+PMTDataProvider.MySqlDataProvider.UpdateProject.html
+PMTDataProvider.MySqlDataProvider.UpdateTask.html
+PMTDataProvider.MySqlDataProvider.VerifyEmailExists.html
+PMTDataProvider.TransactionFailedHandler.html
+Generating HTML content file...
+transform the HHC contents file into html
+Compiling HTML Help file...
+Compiling Html Help file
+Microsoft HTML Help Compiler 4.74.8702
+
+Compiling d:\My Documents\Visual Studio Projects\projmgt-net\v2\projmgtnet2\doc\ndoc_msdn_temp\Documentation.chm
+
+HHC4006: Warning: The file "PMTComponents.ProjectItem.ActEndDate.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.Description.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.ExpEndDate.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.ID.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.Name.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.StartDate.html" is already listed in the [FILES] section of the project file.
+
+Compile time: 0 minutes, 1 second
+371	Topics
+1,268	Local links
+0	Internet links
+5	Graphics
+
+
+Created d:\My Documents\Visual Studio Projects\projmgt-net\v2\projmgtnet2\doc\ndoc_msdn_temp\Documentation.chm, 81,962 bytes
+Compression decreased file by 462,337 bytes.
+
+Html Help compile complete
+Done.
