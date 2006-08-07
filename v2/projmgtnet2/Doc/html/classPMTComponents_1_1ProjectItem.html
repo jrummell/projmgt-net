@@ -12,34 +12,37 @@
 </map>
 <center><font size="2">[<a target="top" href="graph_legend.html">legend</a>]</font></center>Collaboration diagram for PMTComponents::ProjectItem:<p><center><img src="classPMTComponents_1_1ProjectItem__coll__graph.png" border="0" usemap="#PMTComponents_1_1ProjectItem__coll__map" alt="Collaboration graph"></center>
 <center><font size="2">[<a target="top" href="graph_legend.html">legend</a>]</font></center><a href="classPMTComponents_1_1ProjectItem-members.html">List of all members.</a><hr><a name="_details"></a><h2>Detailed Description</h2>
-A <a class="el" href="classPMTComponents_1_1Project.html">Project</a> Item, super class for <a class="el" href="classPMTComponents_1_1Project.html">Project</a>, <a class="el" href="classPMTComponents_1_1Module.html">Module</a>, <a class="el" href="classPMTComponents_1_1Task.html">Task</a>  
+Base class for <a class="el" href="classPMTComponents_1_1Project.html">Project</a>, <a class="el" href="classPMTComponents_1_1Module.html">Module</a>, <a class="el" href="classPMTComponents_1_1Task.html">Task</a>  
 <p>
 
 <p>
-Definition at line <a class="el" href="Project_8cs-source.html#l00016">16</a> of file <a class="el" href="Project_8cs-source.html">Project.cs</a>.<table border=0 cellpadding=0 cellspacing=0>
+Definition at line <a class="el" href="Project_8cs-source.html#l00021">21</a> of file <a class="el" href="Project_8cs-source.html">Project.cs</a>.<table border=0 cellpadding=0 cellspacing=0>
 <tr><td></td></tr>
 <tr><td colspan=2><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align=right valign=top>void&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPMTComponents_1_1ProjectItem.html#PMTComponents_1_1ProjectItema0">update</a> (string name, string desc, string startDate)</td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>abstract string&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPMTComponents_1_1ProjectItem.html#PMTComponents_1_1ProjectItema0">RenderHtml</a> ()</td></tr>
 
-<tr><td colspan=2><br><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPMTComponents_1_1ProjectItem.html#PMTComponents_1_1ProjectItemb0">ProjectItem</a> (string name, string description, string startDate)</td></tr>
+<tr><td colspan=2><br><h2>Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>internal&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPMTComponents_1_1ProjectItem.html#PMTComponents_1_1ProjectItemd0">ProjectItem</a> (int id, string name, string description, DateTime startDate, DateTime expEndDate, DateTime actEndDate)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align=right valign=top>&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPMTComponents_1_1ProjectItem.html#PMTComponents_1_1ProjectItemb1">ProjectItem</a> (string id)</td></tr>
-
-<tr><td colspan=2><br><h2>Properties</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align=right valign=top>string&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPMTComponents_1_1ProjectItem.html#PMTComponents_1_1Task04">Name</a></td></tr>
+<tr><td class="memItemLeft" nowrap align=right valign=top>internal&nbsp;</td><td class="memItemRight" valign=bottom><a class="el" href="classPMTComponents_1_1ProjectItem.html#PMTComponents_1_1ProjectItemd1">ProjectItem</a> ()</td></tr>
 
 </table>
 <hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a name="PMTComponents_1_1ProjectItemb0" doxytag="PMTComponents::ProjectItem::ProjectItem"></a><p>
+<a name="PMTComponents_1_1ProjectItemd0" doxytag="PMTComponents::ProjectItem::ProjectItem"></a><p>
 <table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td class="md" nowrap valign="top"> PMTComponents::ProjectItem::ProjectItem </td>
+          <td class="md" nowrap valign="top"> internal PMTComponents::ProjectItem::ProjectItem </td>
           <td class="md" valign="top">(&nbsp;</td>
-          <td class="md" nowrap valign="top">string&nbsp;</td>
+          <td class="md" nowrap valign="top">int&nbsp;</td>
+          <td class="mdname" nowrap> <em>id</em>, </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>string&nbsp;</td>
           <td class="mdname" nowrap> <em>name</em>, </td>
         </tr>
         <tr>
@@ -51,13 +54,25 @@ Definition at line <a class="el" href="Project_8cs-source.html#l00016">16</a> of
         <tr>
           <td></td>
           <td></td>
-          <td class="md" nowrap>string&nbsp;</td>
-          <td class="mdname" nowrap> <em>startDate</em></td>
+          <td class="md" nowrap>DateTime&nbsp;</td>
+          <td class="mdname" nowrap> <em>startDate</em>, </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>DateTime&nbsp;</td>
+          <td class="mdname" nowrap> <em>expEndDate</em>, </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="md" nowrap>DateTime&nbsp;</td>
+          <td class="mdname" nowrap> <em>actEndDate</em></td>
         </tr>
         <tr>
           <td></td>
           <td class="md">)&nbsp;</td>
-          <td class="md" colspan="2"><code> [inline, protected]</code></td>
+          <td class="md" colspan="2"><code> [inline, private]</code></td>
         </tr>
 
       </table>
@@ -72,23 +87,22 @@ Definition at line <a class="el" href="Project_8cs-source.html#l00016">16</a> of
     <td>
 
 <p>
-Create a <a class="el" href="classPMTComponents_1_1Project.html">Project</a> Item, ONLY CALLED BY SubClasses     
+Main Constructor  
 <p>
-Definition at line <a class="el" href="Project_8cs-source.html#l00045">45</a> of file <a class="el" href="Project_8cs-source.html">Project.cs</a>.    </td>
+Definition at line <a class="el" href="Project_8cs-source.html#l00034">34</a> of file <a class="el" href="Project_8cs-source.html">Project.cs</a>.    </td>
   </tr>
 </table>
-<a name="PMTComponents_1_1ProjectItemb1" doxytag="PMTComponents::ProjectItem::ProjectItem"></a><p>
+<a name="PMTComponents_1_1ProjectItemd1" doxytag="PMTComponents::ProjectItem::ProjectItem"></a><p>
 <table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td class="md" nowrap valign="top"> PMTComponents::ProjectItem::ProjectItem </td>
+          <td class="md" nowrap valign="top"> internal PMTComponents::ProjectItem::ProjectItem </td>
           <td class="md" valign="top">(&nbsp;</td>
-          <td class="md" nowrap valign="top">string&nbsp;</td>
-          <td class="mdname1" valign="top" nowrap> <em>id</em>          </td>
+          <td class="mdname1" valign="top" nowrap>          </td>
           <td class="md" valign="top">&nbsp;)&nbsp;</td>
-          <td class="md" nowrap><code> [inline, protected]</code></td>
+          <td class="md" nowrap><code> [inline, private]</code></td>
         </tr>
 
       </table>
@@ -103,39 +117,23 @@ Definition at line <a class="el" href="Project_8cs-source.html#l00045">45</a> of
     <td>
 
 <p>
-Set the id field, ONLY CALLED BY SubClasses   
+Creates a blank <a class="el" href="classPMTComponents_1_1ProjectItem.html">ProjectItem</a>  
 <p>
-Definition at line <a class="el" href="Project_8cs-source.html#l00056">56</a> of file <a class="el" href="Project_8cs-source.html">Project.cs</a>.    </td>
+Definition at line <a class="el" href="Project_8cs-source.html#l00048">48</a> of file <a class="el" href="Project_8cs-source.html">Project.cs</a>.    </td>
   </tr>
 </table>
 <hr><h2>Member Function Documentation</h2>
-<a name="PMTComponents_1_1ProjectItema0" doxytag="PMTComponents::ProjectItem::update"></a><p>
+<a name="PMTComponents_1_1ProjectItema0" doxytag="PMTComponents::ProjectItem::RenderHtml"></a><p>
 <table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
   <tr>
     <td class="mdRow">
       <table cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td class="md" nowrap valign="top"> void PMTComponents::ProjectItem::update </td>
+          <td class="md" nowrap valign="top"> abstract string PMTComponents::ProjectItem::RenderHtml </td>
           <td class="md" valign="top">(&nbsp;</td>
-          <td class="md" nowrap valign="top">string&nbsp;</td>
-          <td class="mdname" nowrap> <em>name</em>, </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td class="md" nowrap>string&nbsp;</td>
-          <td class="mdname" nowrap> <em>desc</em>, </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td class="md" nowrap>string&nbsp;</td>
-          <td class="mdname" nowrap> <em>startDate</em></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="md">)&nbsp;</td>
-          <td class="md" colspan="2"><code> [inline]</code></td>
+          <td class="mdname1" valign="top" nowrap>          </td>
+          <td class="md" valign="top">&nbsp;)&nbsp;</td>
+          <td class="md" nowrap><code> [pure virtual]</code></td>
         </tr>
 
       </table>
@@ -150,40 +148,13 @@ Definition at line <a class="el" href="Project_8cs-source.html#l00056">56</a> of
     <td>
 
 <p>
-Update a <a class="el" href="classPMTComponents_1_1Project.html">Project</a> Item  Name Description Start Date 
+Return the <a class="el" href="classPMTComponents_1_1ProjectItem.html">ProjectItem</a> as Html   
 <p>
-Reimplemented in <a class="el" href="classPMTComponents_1_1Project.html#PMTComponents_1_1Projecta2">PMTComponents::Project</a>, <a class="el" href="classPMTComponents_1_1Module.html#PMTComponents_1_1Modulea2">PMTComponents::Module</a>, and <a class="el" href="classPMTComponents_1_1Task.html#PMTComponents_1_1Taska2">PMTComponents::Task</a>.
-<p>
-Definition at line <a class="el" href="Project_8cs-source.html#l00067">67</a> of file <a class="el" href="Project_8cs-source.html">Project.cs</a>.    </td>
-  </tr>
-</table>
-<hr><h2>Property Documentation</h2>
-<a name="PMTComponents_1_1Task04" doxytag="PMTComponents::ProjectItem::Name"></a><p>
-<table class="mdTable" width="100%" cellpadding="2" cellspacing="0">
-  <tr>
-    <td class="mdRow">
-      <table cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td class="md" nowrap valign="top"> string PMTComponents::ProjectItem::Name<code> [get]</code>
-      </table>
-    </td>
-  </tr>
-</table>
-<table cellspacing=5 cellpadding=0 border=0>
-  <tr>
-    <td>
-      &nbsp;
-    </td>
-    <td>
-
-<p>
-Public properties do we want setters???  
-<p>
-Definition at line <a class="el" href="Project_8cs-source.html#l00079">79</a> of file <a class="el" href="Project_8cs-source.html">Project.cs</a>.    </td>
+Implemented in <a class="el" href="classPMTComponents_1_1Project.html#PMTComponents_1_1Projecta2">PMTComponents::Project</a>, <a class="el" href="classPMTComponents_1_1Module.html#PMTComponents_1_1Modulea2">PMTComponents::Module</a>, and <a class="el" href="classPMTComponents_1_1Task.html#PMTComponents_1_1Taska2">PMTComponents::Task</a>.    </td>
   </tr>
 </table>
 <hr><address style="align: right;"><small>
-Generated on Sat Aug 5 14:40:53 2006 for PMT by <a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 6 23:06:07 2006 for PMT by <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border=0 width=110 height=53>
 </a> 1.3.1 using KingsTools</small></address>
 </body>

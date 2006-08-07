@@ -7,44 +7,45 @@
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Main Page"><param name="Local" value="main.html"><param name="ImageNumber" value="11"></OBJECT>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="File List"><param name="Local" value="files.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="DBDriver.cs"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="AssemblyInfo.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Encryption.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Project.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="User.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="AssemblyInfo.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTDataProvider/AssemblyInfo.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents/AssemblyInfo.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Assign.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="changeUser.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="CompLevel.cs"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Configuration.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="IDataProvider.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="MySqlDataProvider.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="AssemblyInfo.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="DBDriver.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Default.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="DisplayGridControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="EditCompetency.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="editMatrix.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Encryption.cs"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Global.asax.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="HeaderControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="IDataProvider.cs"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Login.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Logout.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Register.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="changeUser.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="editMatrix.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="maint.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="newUser.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="userList.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Profile.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Reports.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Default.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="viewMessage.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Projects.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="DisplayGridControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="HeaderControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="PageNameControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="ProfileControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="ReportGridControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="StyleControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="XmlNavBar.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Tasks.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Assign.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="EditCompetency.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Matrix.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="MySqlDataProvider.cs"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="NewItem.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Projects.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="newUser.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="PageNameControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Profile.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="ProfileControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Project.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Client/Projects.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="PM/Projects.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Register.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="ReportGridControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Reports.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="StyleControl.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Tasks.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="User.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="userList.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="ViewDevProfile.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="viewMessage.aspx.cs"><param name="ImageNumber" value="11"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="XmlNavBar.ascx.cs"><param name="ImageNumber" value="11"></OBJECT>
   </UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Compound List"><param name="Local" value="annotated.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
@@ -53,8 +54,6 @@
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::DBDriver"><param name="Local" value="classPMT_1_1DBDriver.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::DisplayGridControl"><param name="Local" value="classPMT_1_1Controls_1_1DisplayGridControl.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::EditCompetency"><param name="Local" value="classPMT_1_1PM_1_1EditCompetency.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="Admin::EditMatrix"><param name="Local" value="classPMT_1_1Admin_1_1EditMatrix.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::Global"><param name="Local" value="classPMT_1_1Global.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTDataProvider::IDataProvider"><param name="Local" value="interfacePMTDataProvider_1_1IDataProvider.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::Logout"><param name="Local" value="classPMT_1_1Logout.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Admin::Maint"><param name="Local" value="classPMT_1_1Admin_1_1Maint.html"><param name="ImageNumber" value="11"></OBJECT>
@@ -68,16 +67,12 @@
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::PMTUser"><param name="Local" value="classPMTComponents_1_1PMTUser.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::Project"><param name="Local" value="classPMTComponents_1_1Project.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::ProjectItem"><param name="Local" value="classPMTComponents_1_1ProjectItem.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::ProjectItem::ItemType"><param name="Local" value="structPMTComponents_1_1ProjectItem_1_1ItemType.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Client::Projects"><param name="Local" value="classPMT_1_1Client_1_1Projects.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::Projects"><param name="Local" value="classPMT_1_1PM_1_1Projects.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::Register"><param name="Local" value="classPMT_1_1Register.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::ReportGridControl"><param name="Local" value="classPMT_1_1Controls_1_1ReportGridControl.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="AllUsers::Reports"><param name="Local" value="classPMT_1_1AllUsers_1_1Reports.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::StyleControl"><param name="Local" value="classPMT_1_1Controls_1_1StyleControl.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::Task"><param name="Local" value="classPMTComponents_1_1Task.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Dev::Tasks"><param name="Local" value="classPMT_1_1Dev_1_1Tasks.html"><param name="ImageNumber" value="11"></OBJECT>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::TaskStatus"><param name="Local" value="structPMTComponents_1_1TaskStatus.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::ViewDevProfile"><param name="Local" value="classPMT_1_1PM_1_1ViewDevProfile.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Msg::viewMessage"><param name="Local" value="classPMT_1_1AllUsers_1_1Msg_1_1viewMessage.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::XmlNavBar"><param name="Local" value="classPMT_1_1Controls_1_1XmlNavBar.html"><param name="ImageNumber" value="11"></OBJECT>
@@ -90,7 +85,7 @@
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::Encryption"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="HttpApplication"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::Global"><param name="Local" value="classPMT_1_1Global.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::Global"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTDataProvider::IDataProvider"><param name="Local" value="interfacePMTDataProvider_1_1IDataProvider.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
@@ -99,10 +94,15 @@
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Page"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Admin::ChangeUser"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Admin::EditMatrix"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Admin::NewUser"><param name="Local" value="classPMT_1_1Admin_1_1NewUser.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Admin::Users"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="AllUsers::Profile"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="AllUsers::Reports"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::Login"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::Assign"><param name="Local" value="classPMT_1_1PM_1_1Assign.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::NewItem"><param name="Local" value="classPMT_1_1PM_1_1NewItem.html"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::Projects"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::Register"><param name="Local" value="classPMT_1_1Register.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::PMTUser"><param name="Local" value="classPMTComponents_1_1PMTUser.html"><param name="ImageNumber" value="11"></OBJECT>
@@ -112,35 +112,28 @@
     <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::Project"><param name="Local" value="classPMTComponents_1_1Project.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::Task"><param name="Local" value="classPMTComponents_1_1Task.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::ProjectItem::ItemType"><param name="Local" value="structPMTComponents_1_1ProjectItem_1_1ItemType.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="Page"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="Admin::EditMatrix"><param name="Local" value="classPMT_1_1Admin_1_1EditMatrix.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Admin::Maint"><param name="Local" value="classPMT_1_1Admin_1_1Maint.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Msg::Messages"><param name="Local" value="classPMT_1_1AllUsers_1_1Msg_1_1Messages.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Msg::viewMessage"><param name="Local" value="classPMT_1_1AllUsers_1_1Msg_1_1viewMessage.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="AllUsers::Reports"><param name="Local" value="classPMT_1_1AllUsers_1_1Reports.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Client::Projects"><param name="Local" value="classPMT_1_1Client_1_1Projects.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Dev::Tasks"><param name="Local" value="classPMT_1_1Dev_1_1Tasks.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::Logout"><param name="Local" value="classPMT_1_1Logout.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::Assign"><param name="Local" value="classPMT_1_1PM_1_1Assign.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::EditCompetency"><param name="Local" value="classPMT_1_1PM_1_1EditCompetency.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::Matrix"><param name="Local" value="classPMT_1_1PM_1_1Matrix.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::NewItem"><param name="Local" value="classPMT_1_1PM_1_1NewItem.html"><param name="ImageNumber" value="11"></OBJECT>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::Projects"><param name="Local" value="classPMT_1_1PM_1_1Projects.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="PMT::PM::ViewDevProfile"><param name="Local" value="classPMT_1_1PM_1_1ViewDevProfile.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="UserControl"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
-    <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::DisplayGridControl"><param name="Local" value="classPMT_1_1Controls_1_1DisplayGridControl.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::PageNameControl"><param name="Local" value="classPMT_1_1Controls_1_1PageNameControl.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::ReportGridControl"><param name="Local" value="classPMT_1_1Controls_1_1ReportGridControl.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::StyleControl"><param name="Local" value="classPMT_1_1Controls_1_1StyleControl.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::XmlNavBar"><param name="Local" value="classPMT_1_1Controls_1_1XmlNavBar.html"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
-  <LI><OBJECT type="text/sitemap"><param name="Name" value="PMTComponents::TaskStatus"><param name="Local" value="structPMTComponents_1_1TaskStatus.html"><param name="ImageNumber" value="11"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="UserControl"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::DisplayGridControl"><param name="Local" value="classPMT_1_1Controls_1_1DisplayGridControl.html"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::HeaderControl"><param name="ImageNumber" value="11"></OBJECT>
     <LI><OBJECT type="text/sitemap"><param name="Name" value="Controls::ProfileControl"><param name="ImageNumber" value="11"></OBJECT>
     </UL>
