@@ -5,12 +5,11 @@ using System.Web;
 using System.Web.SessionState;
 using System.Web.Security;
 using System.Security.Principal;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace PMT 
 {
-	/// <summary>
-	/// Summary description for Global.
-	/// </summary>
 	public class Global : HttpApplication
 	{
 		/// <summary>
@@ -23,6 +22,7 @@ namespace PMT
 			InitializeComponent();
 		}	
 		
+        #region HttpApplication Events
 		protected void Application_Start(Object sender, EventArgs e)
 		{
 
@@ -81,6 +81,43 @@ namespace PMT
 		{
 
 		}
+        #endregion
+
+        #region Web.config Settings
+        #region CSS Classes
+        public static string DataGridStyle
+        {
+            get {   return GetConfigSetting("", "DataGridStyle");           }
+        }
+        public static string DataGridItemStyle
+        {
+            get {   return GetConfigSetting("", "DataGridItemStyle");       }
+        }
+        public static string DataGridAltItemStyle
+        {
+            get {   return GetConfigSetting("", "DataGridAltItemStyle");    }
+        }
+        public static string DataGridHeaderStyle
+        {
+            get {   return GetConfigSetting("", "DataGridHeaderStyle");     }
+        }
+        #endregion
+
+        /// <summary>
+        /// Gets a Configuration Setting from web.config.  If no section is specified, defaults to appSettings.
+        /// </summary>
+        /// <param name="section">Configuration section</param>
+        /// <param name="setting">Configuration setting key</param>
+        /// <returns>Configuration setting value</returns>
+        private static string GetConfigSetting(string section, string setting)
+        {
+            if (section == String.Empty)
+                return ConfigurationSettings.AppSettings[setting];
+            else
+                return ((NameValueCollection)ConfigurationSettings.GetConfig(section))[setting];
+        }
+
+        #endregion
 
     	#region Web Form Designer generated code
 		/// <summary>

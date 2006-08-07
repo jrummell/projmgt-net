@@ -11,101 +11,93 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using PMT.Controls;
 using PMTComponents;
+using PMTDataProvider;
 
 namespace PMT.PM
 {
     /// <summary>
     /// Summary description for PMProjects.
     /// </summary>
-    public class NewItem : System.Web.UI.Page
+    public class NewItem : Page
     {
-        protected System.Web.UI.WebControls.Button SubmitButton;
-        protected System.Web.UI.WebControls.TextBox StartTextBox;
-        protected System.Web.UI.WebControls.RegularExpressionValidator StartRegularExpressionValidator;
-        protected System.Web.UI.WebControls.RequiredFieldValidator NameRequiredFieldValidator;
-        protected System.Web.UI.WebControls.RequiredFieldValidator StartRequiredFieldValidator;
-        protected System.Web.UI.WebControls.Label statusLabel;
+        protected Button SubmitButton;
+        protected TextBox StartTextBox;
+        protected RegularExpressionValidator StartRegularExpressionValidator;
+        protected RequiredFieldValidator NameRequiredFieldValidator;
+        protected RequiredFieldValidator StartRequiredFieldValidator;
+        protected Label statusLabel;
         protected System.Web.UI.HtmlControls.HtmlTextArea descriptionTextArea;
-        protected System.Web.UI.WebControls.TextBox NameTextBox;
-        protected System.Web.UI.WebControls.Panel ChooseItemPanel;
-        protected System.Web.UI.WebControls.Panel CreateItemPanel;
+        protected TextBox NameTextBox;
+        protected Panel ChooseItemPanel;
+        protected Panel CreateItemPanel;
         protected PageNameControl pageNameControl;
-        protected System.Web.UI.WebControls.HyperLink CreateProjectLink;
-        protected System.Web.UI.WebControls.HyperLink CreateModuleLink;
-        protected System.Web.UI.WebControls.HyperLink CreateTaskLink;
-        protected System.Web.UI.WebControls.Panel creationSuccessPanel;
-        protected System.Web.UI.WebControls.HyperLink addAnotherItemLink;
-        protected System.Web.UI.WebControls.DropDownList ModuleDropDownList;
-        protected System.Web.UI.WebControls.DropDownList ProjectDropDownList;
-        protected System.Web.UI.WebControls.Label InProjectLabel;
-        protected System.Web.UI.WebControls.Label InModuleLabel;
-        protected System.Web.UI.WebControls.CustomValidator DescriptionCustomValidator;
-        protected System.Web.UI.WebControls.CustomValidator ProjectDropDownValidator;
-        protected System.Web.UI.WebControls.RequiredFieldValidator ProjectDropDownListRequiredFieldValidator;
-        protected System.Web.UI.WebControls.RequiredFieldValidator ModuleDropDownListRequiredFieldValidator;
+        protected HyperLink CreateProjectLink;
+        protected HyperLink CreateModuleLink;
+        protected HyperLink CreateTaskLink;
+        protected Panel creationSuccessPanel;
+        protected HyperLink addAnotherItemLink;
+        protected DropDownList ModuleDropDownList;
+        protected DropDownList ProjectDropDownList;
+        protected Label InProjectLabel;
+        protected Label InModuleLabel;
+        protected CustomValidator DescriptionCustomValidator;
+        protected CustomValidator ProjectDropDownValidator;
+        protected RequiredFieldValidator ProjectDropDownListRequiredFieldValidator;
+        protected RequiredFieldValidator ModuleDropDownListRequiredFieldValidator;
         // the id of the parent item
-        protected string parentID;
-        protected string itemType;
         protected Project parentProject;
-        protected System.Web.UI.WebControls.CustomValidator StartDateCustomValidator;
-        protected System.Web.UI.WebControls.Label ParentDateLabel;
-        protected System.Web.UI.WebControls.DropDownList ComplexityDropDownList;
-        protected System.Web.UI.WebControls.Label ComplexityLabel;
-        protected System.Web.UI.WebControls.RequiredFieldValidator ComplexityDropDownListRequiredFieldValidator;
-        protected System.Web.UI.WebControls.HyperLink AddItemToParentHyperLink;
+        protected CustomValidator StartDateCustomValidator;
+        protected Label ParentDateLabel;
+        protected DropDownList ComplexityDropDownList;
+        protected Label ComplexityLabel;
+        protected RequiredFieldValidator ComplexityDropDownListRequiredFieldValidator;
+        protected HyperLink AddItemToParentHyperLink;
         protected Module parentModule;
 	
         private void Page_Load(object sender, System.EventArgs e)
         {
-            // get the item to create from the GET query string
-            itemType = this.Request["item"];
-
             // get parent item id, this will be useful when you would click
             //  a link like PMNewItem.aspx?item=task&parentID=5.  This will avoid
             //  using the drop down lists
-            parentID = this.Request["parentID"];
 
+            IDataProvider data = DataProvider.CreateInstance();
             // initialize parent item(s)
-            if (parentID != null) 
+            if (ParentID != -1) 
             {
-                if (itemType.Equals(ProjectItem.ItemType.MODULE))
+                if (ItemType.Equals(ProjectItemType.Module))
                 {
-                    parentProject = new Project(parentID);
+                    parentProject = data.GetProject(ParentID);
                 }
-                else if (itemType.Equals(ProjectItem.ItemType.TASK))
+                else if (ItemType.Equals(ProjectItemType.Task))
                 {
-                    parentModule = new Module(parentID);
-                    parentProject = new Project(parentModule.ProjectID);
+                    parentModule = data.GetModule(ParentID);
+                    parentProject = data.GetProject(parentModule.ProjectID);
                 }
             }
 
             // set the page title
-            if (!itemType.Equals(String.Empty))
+            //if (!ItemType.Equals(String.Empty))
             {
-                pageNameControl.PageTitle = "New " + itemType;
+                pageNameControl.PageTitle = "New " + ItemType.ToString();
             }
             
 
             // if there is no request item, or is not a valid option, 
             //  ask what to create
-            if (itemType == null || 
-                !(itemType.Equals(ProjectItem.ItemType.PROJECT) || 
-                itemType.Equals(ProjectItem.ItemType.MODULE) || 
-                itemType.Equals(ProjectItem.ItemType.TASK)))
-            {
-                pageNameControl.PageTitle = "What do you want to create?";
-                ChooseItemPanel.Visible = true;
-            }
+//            if (ItemType == -1 )
+//            {
+//                pageNameControl.PageTitle = "What do you want to create?";
+//                ChooseItemPanel.Visible = true;
+//            }
                 // show create selected item panel
-            else if (!Page.IsPostBack)
+            //else 
+            if (!IsPostBack)
             {
-                
-
                 // show the create item panel
                 CreateItemPanel.Visible = true;
 
                 // hide project or module drop down if not needed
-                if (itemType.Equals(ProjectItem.ItemType.PROJECT))
+                if (ItemType == ProjectItemType.Project)
                 {
                     ProjectDropDownList.Visible = false;
                     InProjectLabel.Visible = false;
@@ -117,7 +109,7 @@ namespace PMT.PM
                     ComplexityDropDownList.Visible = false;
                     ComplexityDropDownListRequiredFieldValidator.Enabled = false;
                 }
-                else if (itemType.Equals(ProjectItem.ItemType.MODULE))
+                else if (ItemType == ProjectItemType.Module)
                 {
                     ModuleDropDownList.Visible = false;
                     InModuleLabel.Visible = false;
@@ -128,7 +120,7 @@ namespace PMT.PM
 
                     fillProjectDropDownList();
                 }
-                else if (itemType.Equals(ProjectItem.ItemType.TASK))
+                else if (ItemType == ProjectItemType.Task)
                 {
                     // set auto post back to true for the project drop down list
                     // so that when it changes, it will update the module drop down
@@ -136,15 +128,7 @@ namespace PMT.PM
                     ComplexityLabel.Visible = true;
                     ComplexityDropDownList.Visible = true;
                     ComplexityDropDownListRequiredFieldValidator.Enabled = true;
-                    
-                    ComplexityDropDownList.Items.Insert(0,"");
-                    ComplexityDropDownList.Items.Insert(1,"Low");
-                    ComplexityDropDownList.Items[1].Value= "Low";
-                    ComplexityDropDownList.Items.Insert(2,"Medium");
-                    ComplexityDropDownList.Items[2].Value= "Medium";
-                    ComplexityDropDownList.Items.Insert(3,"High");
-                    ComplexityDropDownList.Items[3].Value= "High";
-
+                    ComplexityDropDownList.DataSource = Enum.GetNames(typeof(TaskComplexity));
 
                     fillProjectDropDownList();
                 }
@@ -182,26 +166,23 @@ namespace PMT.PM
         {
             // build project drop down list and
             // select list item that has value = id (if value != null)
-            DataSet ds=new DataSet();
-			ds = Project.getProjectsDataSet(Request.Cookies["user"]["id"]);
-            //create a datatable to fill the dropdown list from
-            DataTable dt=ds.Tables[0];
+            IDataProvider data = DataProvider.CreateInstance();
             //fill the dropdown list
-            ProjectDropDownList.DataSource=dt.DefaultView;
+            ProjectDropDownList.DataSource = data.GetManagerProjects(UserID);
             ProjectDropDownList.DataTextField="name";
             ProjectDropDownList.DataValueField="id";
             ProjectDropDownList.DataBind();
             ProjectDropDownList.Items.Insert(0,"");
 
             // select parent Project
-            if (parentID != null)
+            if (ParentID != -1)
             {
                 ProjectDropDownList.SelectedIndex 
                     = ProjectDropDownList.Items.IndexOf(
-                    ProjectDropDownList.Items.FindByValue(parentProject.ID));
+                    ProjectDropDownList.Items.FindByValue(parentProject.ID.ToString()));
                 ProjectDropDownList.Enabled = false;
 
-                if (itemType.Equals(ProjectItem.ItemType.TASK))
+                if (ItemType.Equals(ProjectItemType.Task))
                     fillModuleDropDownList();
             }
         }
@@ -209,25 +190,20 @@ namespace PMT.PM
         private void fillModuleDropDownList()
         {
             //build the module list
-            //create a data set
-            DataSet ds=new DataSet();
-			//ds = Module.getModulesDataSet(ProjectDropDownList.SelectedValue);
-            ds = parentProject.getModulesDataSet();
-            //create a datatable to fill the dropdown list from
-            DataTable dt=ds.Tables[0];
+            IDataProvider data = DataProvider.CreateInstance();
             //fill the dropdown list
-            ModuleDropDownList.DataSource=dt.DefaultView;
+            ModuleDropDownList.DataSource = data.GetProjectModules(Convert.ToInt32(ProjectDropDownList.SelectedValue));
             ModuleDropDownList.DataTextField="name";
             ModuleDropDownList.DataValueField="id";
             ModuleDropDownList.DataBind();
             ModuleDropDownList.Items.Insert(0, "");
 
             // select parent Module
-            if (parentID != null)
+            if (ParentID != -1)
             {
                 ModuleDropDownList.SelectedIndex 
                     = ModuleDropDownList.Items.IndexOf(
-                    ModuleDropDownList.Items.FindByValue(parentModule.ID));
+                    ModuleDropDownList.Items.FindByValue(parentModule.ID.ToString()));
                 ModuleDropDownList.Enabled = false;
             }
         }
@@ -238,49 +214,54 @@ namespace PMT.PM
             if (!Page.IsValid)
                 return;
 
+            IDataProvider data = DataProvider.CreateInstance();
             ProjectItem item;
 
-            if (itemType.Equals(ProjectItem.ItemType.PROJECT))
+            if (ItemType.Equals(ProjectItemType.Project))
             {
                 item = new Project(
-                            NameTextBox.Text,
-                            Request.Cookies["user"]["id"],
-                            descriptionTextArea.InnerText,
-                            StartTextBox.Text);
+                            UserID, 
+                            NameTextBox.Text, 
+                            descriptionTextArea.InnerText, 
+                            Convert.ToDateTime(StartTextBox.Text));
+                int id = data.InsertProject(item as Project, new TransactionFailedHandler(this.TransactionFailed));
                 // set the link for adding a child item
-                addAnotherItemLink.NavigateUrl += "?item="+ProjectItem.ItemType.MODULE+"&parentID="+item.ID;
+                addAnotherItemLink.NavigateUrl += "?item="+ProjectItemType.Module+"&parentID="+id;
                 addAnotherItemLink.Text = "Add a Module to " + NameTextBox.Text;
                 // set the link for adding another item to parent item
                 AddItemToParentHyperLink.Text = "Create another Project";
-                AddItemToParentHyperLink.NavigateUrl += "?item="+ProjectItem.ItemType.PROJECT;
+                AddItemToParentHyperLink.NavigateUrl += "?item="+ProjectItemType.Project;
             }
-            else if (itemType.Equals(ProjectItem.ItemType.MODULE))
+            else if (ItemType.Equals(ProjectItemType.Module))
             {
                 item = new Module(
+                            Convert.ToInt32(ProjectDropDownList.SelectedValue),
                             NameTextBox.Text, 
-                            ProjectDropDownList.SelectedValue,
                             descriptionTextArea.InnerText,
-                            StartTextBox.Text);
+                            Convert.ToDateTime(StartTextBox.Text));
+                int id = data.InsertModule(item as Module, new TransactionFailedHandler(this.TransactionFailed));
                 // set the link for adding a child item
-                addAnotherItemLink.NavigateUrl += "?item="+ProjectItem.ItemType.TASK+"&parentID="+item.ID;
+                addAnotherItemLink.NavigateUrl += "?item="+ProjectItemType.Task+"&parentID="+id;
                 addAnotherItemLink.Text = "Add a Task to " + NameTextBox.Text;
                 // set the link for adding another item to parent item
                 AddItemToParentHyperLink.Text = "Add another Module to " + ProjectDropDownList.SelectedItem.Text;
-                AddItemToParentHyperLink.NavigateUrl += "?item="+ProjectItem.ItemType.MODULE+"&parentID="+ProjectDropDownList.SelectedValue;
+                AddItemToParentHyperLink.NavigateUrl += "?item="+ProjectItemType.Module+"&parentID="+ProjectDropDownList.SelectedValue;
             }
             else //(itemType.Equals(ProjectItemType.TASK))
             {
                 item = new Task(
+                            Convert.ToInt32(ModuleDropDownList.SelectedValue),
+                            Convert.ToInt32(ProjectDropDownList.SelectedValue),
                             NameTextBox.Text, 
-                            ModuleDropDownList.SelectedValue,
                             descriptionTextArea.InnerText,
-                            StartTextBox.Text,
-                            ComplexityDropDownList.SelectedValue);
+                            (TaskComplexity)ComplexityDropDownList.SelectedIndex,
+                            Convert.ToDateTime(StartTextBox.Text));
+                data.InsertTask(item as Task, new TransactionFailedHandler(this.TransactionFailed));
                 // hide the add child item link
                 addAnotherItemLink.Visible = false;
                 // set the link for adding another item to parent item
                 AddItemToParentHyperLink.Text = "Add another Task to " + ModuleDropDownList.SelectedItem.Text;
-                AddItemToParentHyperLink.NavigateUrl += "?item="+ProjectItem.ItemType.TASK+"&parentID="+ModuleDropDownList.SelectedValue;
+                AddItemToParentHyperLink.NavigateUrl += "?item="+ProjectItemType.Task+"&parentID="+ModuleDropDownList.SelectedValue;
             }
 
             statusLabel.Text = NameTextBox.Text + " created.";
@@ -307,19 +288,15 @@ namespace PMT.PM
             DateTime parentStart = new DateTime();
 
             // check parent's start date against start date if not a project
-            if (!itemType.Equals(ProjectItem.ItemType.PROJECT))
+            if (!ItemType.Equals(ProjectItemType.Project))
             {
-                if (itemType.Equals(ProjectItem.ItemType.MODULE))
+                if (ItemType.Equals(ProjectItemType.Module))
                 {
-                    if (parentID == null)
-                        parentProject = new Project(ProjectDropDownList.SelectedValue);
-                    parentStart = Convert.ToDateTime(parentProject.StartDate);
+                    parentStart = parentProject.StartDate;
                 }
                 else //if (itemType.Equals(ProjectItemType.TASK))
                 {
-                    if (parentID == null)
-                        parentModule = new Module(ModuleDropDownList.SelectedValue);
-                    parentStart = Convert.ToDateTime(parentModule.StartDate);
+                    parentStart = parentModule.StartDate;
                 }
 
                 if (start < parentStart)
@@ -345,7 +322,7 @@ namespace PMT.PM
 
         private void ProjectDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            if (itemType.Equals(ProjectItem.ItemType.TASK))
+            if (ItemType.Equals(ProjectItemType.Task))
             {
                 fillModuleDropDownList();
             }
@@ -355,5 +332,56 @@ namespace PMT.PM
         {
         
         }
+
+        private void TransactionFailed(Exception ex)
+        {
+            statusLabel.Text = ex.Message;
+        }
+
+        #region Properties
+        public ProjectItemType ItemType
+        {
+            get 
+            {
+                try
+                {
+                    return (ProjectItemType)Enum.Parse(typeof(ProjectItemType), Request["item"]);   
+                }
+                catch
+                {
+                    throw new Exception("Invalid Item Type");
+                }
+            }
+        }
+        public int ParentID
+        {
+            get 
+            {
+                try
+                {
+                    return Convert.ToInt32(Request["parentID"]);    
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+        }
+        public int UserID
+        {
+            get
+            {
+                try
+                {
+                    return Convert.ToInt32(Request.Cookies["user"]["id"]);
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+
+        }
+        #endregion
     }
 }

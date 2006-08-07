@@ -62,6 +62,7 @@
                                     <asp:BoundColumn HeaderText="Complete (%)"></asp:BoundColumn>
                                 </Columns>
                             </asp:DataGrid>
+                            <asp:PlaceHolder ID="phReport" Runat="server" />
                         </asp:panel>
                         <H5></H5>
                         <H4></H4>

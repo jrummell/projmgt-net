@@ -10,61 +10,54 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using PMTComponents;
+using PMTDataProvider;
 
 namespace PMT.PM
 {
-	/// <summary>
-	/// Summary description for PMProjects.
-	/// </summary>
-	public class Projects : System.Web.UI.Page
+	public class Projects : Page
 	{
-		protected System.Web.UI.WebControls.HyperLink newProjectLink;
-		protected System.Web.UI.WebControls.Panel projectPanel;
-        protected string itemType;
-        protected System.Web.UI.WebControls.HyperLink AddItemHyperLink;
-        protected System.Web.UI.WebControls.DataGrid DataGrid1;
-        protected System.Web.UI.WebControls.Label ItemLabel;
+		protected HyperLink newProjectLink;
+        protected Label lblResult;
+		protected Panel projectPanel;
+        protected HyperLink AddItemHyperLink;
+        protected DataGrid DataGrid1;
+        protected Label ItemLabel;
         protected string id;
 	
         private void Page_Load(object sender, System.EventArgs e)
         {
-            // Put user code to initialize the page here
+            if (!Page.IsPostBack)
+            {
+                BindData();
+            }
+        }
 
-            // the item type and id
-            itemType = Request["item"];
-            id   = Request["id"];
-
-            // default to displaying projects
-            if (itemType == null)
-                itemType = ProjectItem.ItemType.PROJECT;
-
+        private void BindData()
+        {
+            IDataProvider data = DataProvider.CreateInstance();
             // the project item to display
             ProjectItem item;
-
-            // id is the project manager's id if item is project
-            if (itemType.Equals(ProjectItem.ItemType.PROJECT))
-                id = Request.Cookies["user"]["id"];
             
             //create a data set
-            DataSet ds=new DataSet();
+            DataTable dt = new DataTable();
 
             // list all projects assigned to logged in PM
-            if (itemType.Equals(ProjectItem.ItemType.PROJECT))
+            if (ItemType.Equals(ProjectItemType.Project))
             {
-                ds = Project.getProjectsDataSet(id);
+                dt = data.GetManagerProjects(UserID);
                 item = null;
             }
                 // list all modules in specified project
-            else if (itemType.Equals(ProjectItem.ItemType.MODULE))
+            else if (ItemType.Equals(ProjectItemType.Module))
             {
-                item = new Project(id);
-                ds = ((Project)item).getModulesDataSet();
+                item = data.GetProject(ItemID);
+                dt = data.GetProjectModules(item.ID);
             }
                 // list all tasks in specified module
             else //if (itemType.Equals(ProjectItemType.TASK))
             {
-                item = new Module(id);
-                ds = ((Module)item).getTasksDataSet();
+                item = data.GetModule(ItemID);
+                dt = data.GetModuleTasks(item.ID);
                 BoundColumn ComplexityColumn = new BoundColumn();
                 ComplexityColumn.HeaderText = "Complexity";
                 ComplexityColumn.DataField = "complexity";
@@ -74,23 +67,20 @@ namespace PMT.PM
 
             // set the display grid data source
             setDisplayItemType();
-            DataGrid1.DataSource = ds;
-            if (!Page.IsPostBack)
-            {
-                DataGrid1.DataBind();
-            }
+            DataGrid1.DataSource = dt;
+            DataGrid1.DataBind();
 
             // set the create/add new item link and item label
             if (item != null)
             {
                 AddItemHyperLink.NavigateUrl 
-                    = "NewItem.aspx?item=" + itemType + "&parentID=" + item.ID;
-                AddItemHyperLink.Text = "Add a " + itemType + " to " + item.Name;
-                ItemLabel.Text = itemType +"s in " + item.Name;
+                    = "NewItem.aspx?item=" + ItemType + "&parentID=" + item.ID;
+                AddItemHyperLink.Text = "Add a " + ItemType.ToString() + " to " + item.Name;
+                ItemLabel.Text = ItemType +"s in " + item.Name;
             }
             else
             {
-                AddItemHyperLink.NavigateUrl = "NewItem.aspx?item=Project";
+                AddItemHyperLink.NavigateUrl = String.Format("NewItem.aspx?item={0}", ProjectItemType.Project);
                 AddItemHyperLink.Text = "Create a new project";
                 ItemLabel.Text = "Your projects";
             }
@@ -124,18 +114,19 @@ namespace PMT.PM
         /// <summary>
         /// Delete the clicked row
         /// </summary>
-        private void DeleteButton_Pushed(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+        private void DeleteButton_Pushed(object source, DataGridCommandEventArgs e)
         {
-            string delID = DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text;
+            int delID = Convert.ToInt32(DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text);
+            IDataProvider data = DataProvider.CreateInstance();
 
-            if (itemType.Equals(ProjectItem.ItemType.PROJECT))
-                Project.remove(delID);
-            else if (itemType.Equals(ProjectItem.ItemType.MODULE))
-                Module.remove(delID);
-            else if (itemType.Equals(ProjectItem.ItemType.TASK))
-                Task.remove(delID);
+            if (ItemType.Equals(ProjectItemType.Project))
+                data.DeleteProject(delID, new TransactionFailedHandler(this.TransactionFailed));
+            else if (ItemType.Equals(ProjectItemType.Module))
+                data.DeleteModule(delID, new TransactionFailedHandler(this.TransactionFailed));
+            else if (ItemType.Equals(ProjectItemType.Task))
+                data.DeleteTask(delID, new TransactionFailedHandler(this.TransactionFailed));
 
-            Response.Redirect(Request.Url.PathAndQuery);
+            BindData();
         }
 
         /// <summary>
@@ -144,77 +135,127 @@ namespace PMT.PM
         private void setDisplayItemType()
         {
             // change the name column to a BoundColumn instead of a HypLinkColumn
-            if (itemType.Equals(ProjectItem.ItemType.TASK))
+            if (ItemType.Equals(ProjectItemType.Task))
             {
                 // set the link url for the name column
                 ((HyperLinkColumn)DataGrid1.Columns[1]).DataNavigateUrlFormatString = "Assign.aspx?taskID={0}";
-                DataGrid1.Columns[1].HeaderText = itemType + " Name (Click to assign)";
+                DataGrid1.Columns[1].HeaderText = ItemType + " Name (Click to assign)";
 
                 return;
             }
 
-            string item = "";
-
-            // set item type to be displayed
-            if (itemType.Equals(ProjectItem.ItemType.PROJECT))
-                item = ProjectItem.ItemType.MODULE;
-            else if(itemType.Equals(ProjectItem.ItemType.MODULE))
-                item = ProjectItem.ItemType.TASK;
-
             // set the link url for the name column
-            ((HyperLinkColumn)DataGrid1.Columns[1]).DataNavigateUrlFormatString = "Projects.aspx?item="+item+"&id={0}";
-            DataGrid1.Columns[1].HeaderText = itemType + " Name";
+            ((HyperLinkColumn)DataGrid1.Columns[1]).DataNavigateUrlFormatString = "Projects.aspx?item="+ItemType+"&id={0}";
+            DataGrid1.Columns[1].HeaderText = ItemType + " Name";
         }
 
         /// <summary>
         /// Make the row editable
         /// </summary>
-        private void EditButton_Pushed(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+        private void EditButton_Pushed(object source, DataGridCommandEventArgs e)
         {
-            DataGrid1.EditItemIndex=e.Item.ItemIndex;
-            DataGrid1.DataBind();
+            DataGrid1.EditItemIndex = e.Item.ItemIndex;
+            BindData();
         }
 
-        private void UpdateCommand_Pushed(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+        private void UpdateCommand_Pushed(object source, DataGridCommandEventArgs e)
         {
             TextBox tb;
             string name = ((HyperLink)e.Item.Cells[1].Controls[0]).Text;
             tb = (TextBox)e.Item.Cells[2].Controls[0];
             string desc = tb.Text;
             tb = (TextBox)e.Item.Cells[3].Controls[0];
-            string start = tb.Text;
+            DateTime start = Convert.ToDateTime(tb.Text);
 
-            string id = DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text;
+            int id = Convert.ToInt32(DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text);
 
+            IDataProvider data = DataProvider.CreateInstance();
             
             ProjectItem item;
 
-            if(itemType.Equals(ProjectItem.ItemType.PROJECT))
+            if(ItemType.Equals(ProjectItemType.Project))
             {
-                item = new Project(id);
-                ((Project)item).update(name, desc, start);
+                item = data.GetProject(id);
+                item.Name = name;
+                item.Description = desc;
+                item.StartDate = start;
+                data.UpdateProject(item as Project, new TransactionFailedHandler(this.TransactionFailed));
             }
-            else if (itemType.Equals(ProjectItem.ItemType.MODULE))
+            else if (ItemType.Equals(ProjectItemType.Module))
             {
-                item = new Module(id);
-                ((Module)item).update(name, desc, start);
+                item = data.GetModule(id);
+                item.Name = name;
+                item.Description = desc;
+                item.StartDate = start;
+                data.UpdateModule(item as Module, new TransactionFailedHandler(this.TransactionFailed));
             }
-            else //if (itemType.Equals(ProjectItem.ItemType.TASK))
+            else //if (itemType.Equals(ProjectItemType.Task))
             {
-                item = new Task(id);
-                ((Task)item).update(name, desc, start);
+                item = data.GetTask(id);
+                item.Name = name;
+                item.Description = desc;
+                item.StartDate = start;
+                data.UpdateTask(item as Task, new TransactionFailedHandler(this.TransactionFailed));
             }
 
-            item.update(name, desc, start);
-
-            DataGrid1.EditItemIndex=-1;
-            Server.Transfer(Request.Url.AbsolutePath);
+            DataGrid1.EditItemIndex = -1;
+            DataGrid1.DataBind();
         }
 
-        private void CancelCommand_Clicked(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+        private void CancelCommand_Clicked(object source, DataGridCommandEventArgs e)
         {
-            DataGrid1.EditItemIndex=-1;
-            Server.Transfer(Request.Url.AbsolutePath);
+            DataGrid1.EditItemIndex = -1;
+            BindData();
+        }
+
+        private void TransactionFailed(Exception ex)
+        {
+            lblResult.Text = ex.Message;
+        }
+
+        public ProjectItemType ItemType
+        {
+            get 
+            {
+                try
+                {
+                    return (ProjectItemType)Enum.Parse(typeof(ProjectItemType), Request["item"]);     
+                }
+                catch
+                {
+                    //throw new Exception("Invalid Item Type");
+                    // default to project
+                    return ProjectItemType.Project;
+                }
+            }
+        }
+        public int ItemID
+        {
+            get
+            {
+                try
+                {
+                    return Convert.ToInt32(Request["id"]);   
+                }
+                catch
+                {
+                    throw new Exception("Invalid Item ID");
+                }
+            }
+        }
+        public int UserID
+        {
+            get
+            {
+                try
+                {
+                    return Convert.ToInt32(Request.Cookies["user"]["id"]);   
+                }
+                catch
+                {
+                    throw new Exception("Invalid Cookie");
+                }
+            }
         }
 	}
 }

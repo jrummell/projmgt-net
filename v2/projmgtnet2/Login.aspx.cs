@@ -33,7 +33,9 @@ namespace PMT
         {
             // if the user is currently logged in, log them out
             if (User.Identity.IsAuthenticated)
+            {
                 FormsAuthentication.SignOut();
+            }
         }
 
         #region Web Form Designer generated code

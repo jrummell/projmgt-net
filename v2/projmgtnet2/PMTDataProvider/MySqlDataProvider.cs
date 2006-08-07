@@ -459,6 +459,715 @@ namespace PMTDataProvider
         */
         #endregion PMTUser
 
+        #region C vs C Matrix
+        public DataTable GetCompMatrix()
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from compMatrix";
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public bool UpdateCompMatrix(CompLevel level, double low, double med, double high, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "update compMatrix set lowComplexity=?low, medComplexity=?med, highComplexity=?high where compLevel=?level";
+                command.Parameters.Add("?low", low);
+                command.Parameters.Add("?med", med);
+                command.Parameters.Add("?high", high);
+                command.Parameters.Add("?level", (int)level);
+                
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+        #endregion
+
+        #region Projects
+        public DataTable GetProjects()
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from projects";
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public Project GetProject(int id)
+        {
+            Project project = null;
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from projects where id=?id";
+                command.Parameters.Add("?id", id);
+                
+                MySqlDataReader dr = command.ExecuteReader();
+                try
+                {
+                    while (dr.Read())
+                    {
+                        project = new Project(
+                            Convert.ToInt32(dr["id"]),
+                            Convert.ToInt32(dr["managerID"]),
+                            dr["name"].ToString(),
+                            dr["description"].ToString(),
+                            Convert.ToDateTime(dr["startDate"]),
+                            Convert.ToDateTime(dr["expEndDate"]),
+                            Convert.ToDateTime(dr["actEndDate"]));
+                    }
+                }
+                finally{}
+            }
+            return project;
+        }
+
+        public DataTable GetManagerProjects(int mgrID)
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("select * from projects p left join userReference u on p.ID=u.projectID \n");
+                sbCommand.Append("where u.managerID=?id");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?id", mgrID);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public DataTable GetProjectModules(int projID)
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from modules where projectID=?id";
+                command.Parameters.Add("?id", projID);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public int InsertProject(Project project, TransactionFailedHandler handler)
+        {
+            int id = -1;
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                // insert the project
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("insert into projects (name, description, startDate, expEndDate) \n");
+                sbCommand.Append("values (?name, ?desc, ?start, ?expEnd)");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?name", project.Name);
+                command.Parameters.Add("?desc", project.Description);
+                command.Parameters.Add("?start", project.StartDate);
+                command.Parameters.Add("?expEnd", project.ExpEndDate);
+                
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return id;
+                }
+
+                // get its id
+                command = conn.CreateCommand();
+                command.CommandText = "select LAST_INSERT_ID()";
+
+                try
+                {
+                    id = Convert.ToInt32(this.ExecuteScalar(command));
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return id;
+                }
+
+                // tie the project to its manager
+                command = conn.CreateCommand();
+                command.CommandText = "insert into userReference (userID, projectID, managerID) values (?uID, ?pID, ?mID)";
+                command.Parameters.Add("?uID", project.ManagerID);
+                command.Parameters.Add("?pID", id);
+                command.Parameters.Add("?mID", project.ManagerID);
+
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return id;
+                }
+            }
+            return id;
+        }
+
+        public bool UpdateProject(Project project, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("update projects set name=?name, description=?desc, startDate=?start, expEndDate=?expEnd, actEndDate=?actEnd \n");
+                sbCommand.Append("where id=?id");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?id", project.ID);
+                command.Parameters.Add("?name", project.Name);
+                command.Parameters.Add("?desc", project.Description);
+                command.Parameters.Add("?start", project.StartDate);
+                command.Parameters.Add("?expEnd", project.ExpEndDate);
+                command.Parameters.Add("?actEnd", project.ActEndDate);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool DeleteProject(int projID, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("delete from projects where id=?id");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?id", projID);
+                
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+        #endregion Projects
+
+        #region Modules
+        public DataTable GetModules()
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from modules";
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public PMTComponents.Module GetModule(int id)
+        {
+            PMTComponents.Module module = null;
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from modules where id=?id";
+                command.Parameters.Add("?id", id);
+                
+                MySqlDataReader dr = command.ExecuteReader();
+                try
+                {
+                    while (dr.Read())
+                    {
+                        module = new PMTComponents.Module(
+                            Convert.ToInt32(dr["id"]),
+                            Convert.ToInt32(dr["projectID"]),
+                            dr["name"].ToString(),
+                            dr["description"].ToString(),
+                            Convert.ToDateTime(dr["startDate"]),
+                            Convert.ToDateTime(dr["expEndDate"]),
+                            Convert.ToDateTime(dr["actEndDate"]));
+                    }
+                }
+                finally{}
+            }
+            return module;
+        }
+
+        public DataTable GetModuleTasks(int modID)
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from tasks where moduleID=?id";
+                command.Parameters.Add("?id", modID);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public int InsertModule(PMTComponents.Module module, TransactionFailedHandler handler)
+        {
+            int id = -1;
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("insert into modules (projectID, name, description, startDate, expEndDate) \n");
+                sbCommand.Append("values (?projID, ?name, ?desc, ?start, ?expEnd)");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?projID", module.ProjectID);
+                command.Parameters.Add("?name", module.Name);
+                command.Parameters.Add("?desc", module.Description);
+                command.Parameters.Add("?start", module.StartDate);
+                command.Parameters.Add("?expEnd", module.ExpEndDate);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return id;
+                }
+
+                command = conn.CreateCommand();
+                command.CommandText = "select LAST_INSERT_ID()";
+
+                try
+                {
+                    id = Convert.ToInt32(this.ExecuteScalar(command));
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return id;
+                }
+            }
+            return id;
+        }
+
+        public bool UpdateModule(PMTComponents.Module module, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("update modules set projectID=?projID, name=?name, description=?desc, startDate=?start, expEndDate=?expEnd, actEndDate=?actEnd \n");
+                sbCommand.Append("where id=?id");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?id", module.ID);
+                command.Parameters.Add("?projID", module.ProjectID);
+                command.Parameters.Add("?name", module.Name);
+                command.Parameters.Add("?desc", module.Description);
+                command.Parameters.Add("?start", module.StartDate);
+                command.Parameters.Add("?expEnd", module.ExpEndDate);
+                command.Parameters.Add("?actEnd", module.ActEndDate);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool DeleteModule(int modID, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("delete from modules where id=?id");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?id", modID);
+                
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+        #endregion Modules
+
+        #region Tasks
+        public DataTable GetTasks()
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from tasks";
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public Task GetTask(int id)
+        {
+            Task task = null;
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from tasks where id=?id";
+                command.Parameters.Add("?id", id);
+                
+                MySqlDataReader dr = command.ExecuteReader();
+                try
+                {
+                    while (dr.Read())
+                    {
+                        task = new Task(
+                            Convert.ToInt32(dr["id"]),
+                            Convert.ToInt32(dr["moduleID"]),
+                            Convert.ToInt32(dr["projectID"]),
+                            dr["name"].ToString(),
+                            dr["description"].ToString(),
+                            (TaskComplexity)Convert.ToInt32(dr["complexity"]),
+                            Convert.ToDateTime(dr["startDate"]),
+                            Convert.ToDateTime(dr["expEndDate"]),
+                            Convert.ToDateTime(dr["actEndDate"]));
+                    }
+                }
+                finally{}
+            }
+            return task;
+        }
+
+        public DataTable GetDeveloperTasks(int devID)
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("select * from tasks t left join taskAssignments a on t.ID=t.taskID \n");
+                sbCommand.Append("where u.devID=?id");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?id", devID);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public int InsertTask(Task task, TransactionFailedHandler handler)
+        {
+            int id = -1;
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("insert into tasks (moduleID, projectID, name, description, startDate, expEndDate) \n");
+                sbCommand.Append("values (?modID, ?projID, ?name, ?desc, ?start, ?expEnd)");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?modID", task.ModuleID);
+                command.Parameters.Add("?projID", task.ProjectID);
+                command.Parameters.Add("?name", task.Name);
+                command.Parameters.Add("?desc", task.Description);
+                command.Parameters.Add("?start", task.StartDate);
+                command.Parameters.Add("?expEnd", task.ExpEndDate);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return id;
+                }
+
+                try
+                {
+                    id = Convert.ToInt32(this.ExecuteScalar(command));
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return id;
+                }
+
+            }
+            return id;
+        }
+
+        public bool UpdateTask(Task task, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("update tasks set moduleID=?modID, projectID=?projID, name=?name, description=?desc, startDate=?start, expEndDate=?expEnd, actEndDate=?actEnd \n");
+                sbCommand.Append("where id=?id");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?modID", task.ModuleID);
+                command.Parameters.Add("?projID", task.ProjectID);
+                command.Parameters.Add("?id", task.ID);
+                command.Parameters.Add("?name", task.Name);
+                command.Parameters.Add("?desc", task.Description);
+                command.Parameters.Add("?start", task.StartDate);
+                command.Parameters.Add("?expEnd", task.ExpEndDate);
+                command.Parameters.Add("?actEnd", task.ActEndDate);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool DeleteTask(int taskID, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "delete from tasks where id=?id";
+                command.Parameters.Add("?id", taskID);
+                
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool AssignDeveloper(int devID, int taskID, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "insert into taskAssignments (devID, taskID) values (?devID, ?taskID)";
+                command.Parameters.Add("?devID", devID);
+                command.Parameters.Add("?taskID", taskID);
+
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        #endregion Tasks
+
+        public DataTable GetDeveloperAssignments()
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("select * from (users u left join taskAssignments a on u.id=a.devID) \n");
+                sbCommand.Append("left join tasks t on a.taskID=t.ID where u.Role=?role \n");
+                sbCommand.Append("order by u.UserName");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?role", (int)PMTUserRole.Developer);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public bool ApproveTask(int taskID, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "update tasks set Status=?status, actEndDate=?date \n";
+                command.Parameters.Add("?status", (int)TaskStatus.Approved);
+                command.Parameters.Add("?date", DateTime.Now);
+
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public double ResolvePercentComplete(ProjectItem item)
+        {
+            /*
+                int count = 0;
+                int approved = 0;
+
+                DataTable modsTable = this.getModulesDataSet().Tables[0];
+                foreach (DataRow modRow in modsTable.Rows)
+                {
+                    DataTable tasksTable = new Module(modRow["id"].ToString()).getTasksDataSet().Tables[0];
+                    foreach (DataRow taskRow in tasksTable.Rows)
+                    {
+                        if (taskRow["complete"].ToString().Equals(TaskStatus.APPROVED))
+                            approved++;
+                        count++;
+                    }
+                }
+                double pct = (double)approved/(double)count;
+                if (Double.IsNaN(pct))
+                    pct = 0;
+                return Convert.ToString(pct.ToString(percentFormatter));
+            */
+
+            /*
+                int count = 0;
+                int approved = 0;
+
+                DataTable dt = this.getTasksDataSet().Tables[0];
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["complete"].ToString().Equals(TaskStatus.APPROVED))
+                        approved++;
+                    count++;
+                }
+                double pct = (double)approved/(double)count;
+                if (Double.IsNaN(pct))
+                    pct = 0;
+                return Convert.ToString(pct.ToString(percentFormatter));
+            */
+            return 0;
+        }
+
+        public DateTime ResolveExpectedEndDate(ProjectItem item)
+        {
+            return DateTime.Now;
+        }
+
         #region Managed Query Execution
         /// <summary>
         /// Execute a query that returns the number of rows affected, and not data
