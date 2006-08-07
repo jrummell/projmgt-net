@@ -23,6 +23,7 @@
                     <td id="Navigation" vAlign="top"><pmt:navcontrol id="NavControl1" runat="server"></pmt:navcontrol></td>
                     <td id="Main" vAlign="top">
                         <P><pmt:pagenamecontrol id="PageNameControl1" runat="server" PageTitle="Projects"></pmt:pagenamecontrol></P>
+                        <asp:Label ID="lblResult" Runat="server" />
                         <asp:panel id="projectPanel" runat="server">
                             <H4>
                                 <asp:Label id="ItemLabel" runat="server"></asp:Label></H4>

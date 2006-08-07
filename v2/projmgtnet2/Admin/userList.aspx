@@ -1,8 +1,9 @@
-<%@ Page language="c#" Codebehind="userList.aspx.cs" AutoEventWireup="false" Inherits="PMT.Admin.Users" %>
-<%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %>
+<%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
+<%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
+<%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
+<%@ Page language="c#" Codebehind="userList.aspx.cs" AutoEventWireup="false" Inherits="PMT.Admin.Users" %>
+<%@ Import Namespace="PMT" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
   <HEAD>
@@ -25,20 +26,18 @@
                     <td id="Navigation" valign="top">
                         <pmt:NavControl xmlSource="AdminNavLinks.xml" runat="server" id="NavControl1" /></td>
                     <td id="Main" valign="top"><pmt:PageNameControl PageTitle="User Administration" runat="server" id="PageNameControl1" />
-                        <asp:DataGrid id="UserDataGrid" runat="server" CssClass="dg" HeaderStyle-CssClass="dgHeader" AlternatingItemStyle-CssClass="dgAltItem"
+                        <asp:DataGrid id="UserDataGrid" runat="server" 
+                            CssClass="<%# Global.DataGridStyle %>" 
+                            HeaderStyle-CssClass="<%# Global.DataGridHeaderStyle %>" 
+                            ItemStyle-CssClass="<%# Global.DataGridItemStyle %>"
+                            AlternatingItemStyle-CssClass="<%# Global.DataGridAltItemStyle %>"
                             AutoGenerateColumns="False" AllowPaging="True">
-<AlternatingItemStyle CssClass="dgAltItem">
-</AlternatingItemStyle>
-
-<HeaderStyle CssClass="dgHeader">
-</HeaderStyle>
-
-<Columns>
-<asp:HyperLinkColumn DataNavigateUrlField="id" DataNavigateUrlFormatString="changeUser.aspx?id={0}&amp;type=current" DataTextField="username" HeaderText="User"></asp:HyperLinkColumn>
-<asp:BoundColumn DataField="firstName" HeaderText="First Name"></asp:BoundColumn>
-<asp:BoundColumn DataField="lastName" HeaderText="Last Name"></asp:BoundColumn>
-<asp:BoundColumn DataField="role" HeaderText="Role"></asp:BoundColumn>
-</Columns>
+                            <Columns>
+                            <asp:HyperLinkColumn DataNavigateUrlField="id" DataNavigateUrlFormatString="changeUser.aspx?id={0}&amp;type=current" DataTextField="username" HeaderText="User"></asp:HyperLinkColumn>
+                            <asp:BoundColumn DataField="firstName" HeaderText="First Name"></asp:BoundColumn>
+                            <asp:BoundColumn DataField="lastName" HeaderText="Last Name"></asp:BoundColumn>
+                            <asp:BoundColumn DataField="role" HeaderText="Role"></asp:BoundColumn>
+                            </Columns>
                         </asp:DataGrid></td>
                 </tr>
             </table>

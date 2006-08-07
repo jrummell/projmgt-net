@@ -83,12 +83,12 @@ namespace PMT.Dev
             foreach (DataGridItem item in DataGrid1.Items)
             {
                 CheckBox cb = (CheckBox)item.FindControl("CompleteCheckBox");
-                if (item.Cells[7].Text.Equals(TaskStatus.APPROVED))
+                if (item.Cells[7].Text.Equals(TaskStatus.Approved.ToString()))
                 {
                     cb.Checked = true;
                     cb.Enabled = false;
                 }
-                if (item.Cells[7].Text.Equals(TaskStatus.COMPLETE))
+                if (item.Cells[7].Text.Equals(TaskStatus.Complete.ToString()))
                 {
                     cb.Checked = true;
                 }
@@ -105,6 +105,7 @@ namespace PMT.Dev
 
         private void CommitButton_Click(object sender, System.EventArgs e)
         {
+            /*
             DBDriver db = new DBDriver();
 
             foreach (DataGridItem itm in DataGrid1.Items)
@@ -114,12 +115,13 @@ namespace PMT.Dev
                 {
                     db.Query = "update tasks set complete=@complete\n"
                         + "where id=@id;";
-                    db.addParam("@complete", cb.Checked?TaskStatus.COMPLETE:TaskStatus.INPROGRESS);
+                    db.addParam("@complete", cb.Checked?TaskStatus.Complete:TaskStatus.INPROGRESS);
                     db.addParam("@id", itm.Cells[0].Text);
                     db.nonQuery();
                 }
             }
             Server.Transfer(Request.Url.AbsolutePath);
+            */
         }
 	}
 }

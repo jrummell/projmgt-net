@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using PMTComponents;
@@ -11,10 +12,9 @@ namespace PMT.Controls
 	/// <summary>
 	///		Summary description for DisplayGridControl.
 	/// </summary>
-	public class DisplayGridControl : System.Web.UI.UserControl
+	public class DisplayGridControl : UserControl
 	{
-        protected System.Web.UI.WebControls.DataGrid DataGrid1;
-        string type;
+        protected DataGrid DataGrid1;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
@@ -48,38 +48,6 @@ namespace PMT.Controls
             {   
                 DataGrid1.DataSource = value;
                 DataGrid1.DataBind();
-            }
-        }
-
-        public string ReportType
-        {
-            get {   return type;    }
-            set
-            {
-                type = value;
-
-                DataGrid1.Columns[0].HeaderText = value + " Name";
-
-                if (value.Equals(ProjectItem.ItemType.TASK))
-                    return;
-
-                //HyperLinkColumn col = (HyperLinkColumn) DataGrid1.Columns[0];
-                HyperLinkColumn col = new HyperLinkColumn();
-                col.HeaderText = DataGrid1.Columns[0].HeaderText;
-                col.DataTextField = "name";
-                col.DataNavigateUrlField = "id";
-
-                // set item type to be displayed
-                string item = "";
-
-                if (value.Equals(ProjectItem.ItemType.PROJECT))
-                    item = ProjectItem.ItemType.MODULE;
-                else if(value.Equals(ProjectItem.ItemType.MODULE))
-                    item = ProjectItem.ItemType.TASK;                
-
-                col.DataNavigateUrlFormatString = Request.ApplicationPath + "/PM/Projects.aspx?item="+item+"&id={0}";
-                DataGrid1.Columns.Remove(DataGrid1.Columns[0]);
-                DataGrid1.Columns.AddAt(0, col);
             }
         }
 	}
