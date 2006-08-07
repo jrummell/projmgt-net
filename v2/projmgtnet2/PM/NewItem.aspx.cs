@@ -60,7 +60,7 @@ namespace PMT.PM
             //  a link like PMNewItem.aspx?item=task&parentID=5.  This will avoid
             //  using the drop down lists
 
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             // initialize parent item(s)
             if (ParentID != -1) 
             {
@@ -166,7 +166,7 @@ namespace PMT.PM
         {
             // build project drop down list and
             // select list item that has value = id (if value != null)
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             //fill the dropdown list
             ProjectDropDownList.DataSource = data.GetManagerProjects(UserID);
             ProjectDropDownList.DataTextField="name";
@@ -190,7 +190,7 @@ namespace PMT.PM
         private void fillModuleDropDownList()
         {
             //build the module list
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             //fill the dropdown list
             ModuleDropDownList.DataSource = data.GetProjectModules(Convert.ToInt32(ProjectDropDownList.SelectedValue));
             ModuleDropDownList.DataTextField="name";
@@ -214,7 +214,7 @@ namespace PMT.PM
             if (!Page.IsValid)
                 return;
 
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             ProjectItem item;
 
             if (ItemType.Equals(ProjectItemType.Project))

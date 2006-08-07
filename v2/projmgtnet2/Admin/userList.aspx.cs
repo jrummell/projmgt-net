@@ -22,7 +22,7 @@ namespace PMT.Admin
             // Put user code to initialize the page here
             if(!Page.IsPostBack)
             {
-                IDataProvider data = DataProvider.CreateInstance();
+                IDataProvider data = DataProviderFactory.CreateInstance();
                 UserDataGrid.DataSource = data.GetPMTUsers();
                 UserDataGrid.DataBind();
             }

@@ -38,7 +38,7 @@ namespace PMT.AllUsers
             {
                 if (UserRole.Equals(PMTUserRole.Manager))
                 {
-                    IDataProvider data = DataProvider.CreateInstance();
+                    IDataProvider data = DataProviderFactory.CreateInstance();
                     //fill the dropdown list
                     ProjectDropDownList.DataSource = data.GetProjects();
                     ProjectDropDownList.DataTextField="name";
@@ -141,7 +141,7 @@ namespace PMT.AllUsers
             if (!Page.IsValid)
                 return;
 
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             //DataTable dt = new DataTable();
 
             if ( buttonID.Equals( "ViewProjectButton" ) )

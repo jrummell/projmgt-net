@@ -100,7 +100,7 @@ namespace PMT.PM
 
         private void BindData()
         {
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             
             dgAssignments.DataSource = data.GetDeveloperAssignments();
             dgAssignments.DataBind();
@@ -138,7 +138,7 @@ namespace PMT.PM
         private void Username_Click(object source, DataGridCommandEventArgs e)
         {
             /*
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
                 // get the developer ID
                 //string devID = DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text;
 
@@ -210,7 +210,7 @@ namespace PMT.PM
                 CheckBox cb = (CheckBox)item.FindControl("ApproveCheckBox");
                 if(cb.Enabled)
                 {
-                    IDataProvider data = DataProvider.CreateInstance();
+                    IDataProvider data = DataProviderFactory.CreateInstance();
                     data.ApproveTask(Convert.ToInt32(item.Cells[1].Text), new TransactionFailedHandler(this.TransactionFailed));
                 }
             }

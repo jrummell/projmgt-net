@@ -93,7 +93,7 @@ namespace PMT
         bool CustomAuthenticate(string username, string password)
         {
             
-            IDataProvider conn = DataProvider.CreateInstance();
+            IDataProvider conn = DataProviderFactory.CreateInstance();
             if (conn.AuthenticateUser(username, password, new TransactionFailedHandler(this.TransactionFailed)))
                 user = conn.GetPMTUserByUsername(username);
             else

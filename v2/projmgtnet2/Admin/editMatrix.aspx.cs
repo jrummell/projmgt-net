@@ -29,7 +29,7 @@ namespace PMT.Admin
 
         private void BindGrid()
         {
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             compMatrixGrid.DataSource = data.GetCompMatrix();
             compMatrixGrid.DataBind();
         }
@@ -90,7 +90,7 @@ namespace PMT.Admin
             CompLevel level = (CompLevel)Convert.ToInt32(e.Item.Cells[0].Text);
 
             //store new values to DB
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             if (data.UpdateCompMatrix(level, high, med, low, new TransactionFailedHandler(this.TransactionFailed)))
             {
                 //make sure nothing is being edited, and reload the page
