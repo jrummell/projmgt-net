@@ -1,0 +1,20 @@
+Microsoft HTML Help Compiler 4.74.8702
+
+Compiling d:\My Documents\Visual Studio Projects\projmgt-net\v2\projmgtnet2\doc\ndoc_msdn_temp\Documentation.chm
+
+HHC4006: Warning: The file "PMTComponents.ProjectItem.ActEndDate.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.Description.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.ExpEndDate.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.ID.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.Name.html" is already listed in the [FILES] section of the project file.
+HHC4006: Warning: The file "PMTComponents.ProjectItem.StartDate.html" is already listed in the [FILES] section of the project file.
+
+Compile time: 0 minutes, 1 second
+371	Topics
+1,268	Local links
+0	Internet links
+5	Graphics
+
+
+Created d:\My Documents\Visual Studio Projects\projmgt-net\v2\projmgtnet2\doc\ndoc_msdn_temp\Documentation.chm, 81,962 bytes
+Compression decreased file by 462,337 bytes.
