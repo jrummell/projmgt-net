@@ -68,7 +68,7 @@ namespace PMT
             StatusLabel.Text = "";
             StatusPanel.Visible = true;
 
-            IDataProvider conn = DataProvider.CreateInstance();
+            IDataProvider conn = DataProviderFactory.CreateInstance();
             //BEFORE WE INSERT ANYTHING, verify email address and username do not exist already
             //email address verification
             if(conn.VerifyEmailExists(ProfileControl1.Email))

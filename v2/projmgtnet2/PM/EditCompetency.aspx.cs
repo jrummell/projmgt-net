@@ -38,7 +38,7 @@ namespace PMT.PM
 
 			if(!Page.IsPostBack)
 			{
-				/// fill drop down list
+				// fill drop down list
 				// initialize the DB object
 				DBDriver myDB=new DBDriver();
 				//set the query to select all projects

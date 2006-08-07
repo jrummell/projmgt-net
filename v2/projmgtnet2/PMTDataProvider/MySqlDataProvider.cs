@@ -68,10 +68,6 @@ namespace PMTDataProvider
         }
 
         #region PMTUser Management
-        /// <summary>
-        /// Enable a new user
-        /// </summary>
-        /// <param name="id">User id</param>
         public bool EnablePMTUser(int id, TransactionFailedHandler handler)
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
@@ -103,10 +99,6 @@ namespace PMTDataProvider
             return true;
         }
 
-        /// <summary>
-        /// Disables a user
-        /// </summary>
-        /// <param name="id">User ID</param>
         public bool DisablePMTUser(int id, TransactionFailedHandler handler)
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
@@ -138,10 +130,6 @@ namespace PMTDataProvider
             return true;
         }
 
-        /// <summary>
-        /// Delete a PMTUser
-        /// </summary>
-        /// <param name="id">User ID</param>
         public bool DeletePMTUser(int id, TransactionFailedHandler handler)
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
@@ -228,9 +216,6 @@ namespace PMTDataProvider
             return true;
         }
 
-        /// <summary>
-        /// Update an existing user
-        /// </summary>
         public bool UpdatePMTUser(PMTUser user, TransactionFailedHandler handler)
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
@@ -292,9 +277,6 @@ namespace PMTDataProvider
         #endregion PMTUser Management
 
         #region Get Users
-        /// <summary>
-        /// Gets all users
-        /// </summary>
         public DataTable GetPMTUsers()
         {
             DataTable dt = new DataTable();
@@ -315,10 +297,6 @@ namespace PMTDataProvider
             return dt;
         }
 
-        /// <summary>
-        /// Gets either enabled or disabled users
-        /// </summary>
-        /// <param name="enabled">Enabled or Disabled users?</param>
         public DataTable GetEnabledPMTUsers(bool enabled)
         {
             DataTable dt = new DataTable();
@@ -342,10 +320,6 @@ namespace PMTDataProvider
         #endregion Get Users
 
         #region Get PMTUser
-        /// <summary>
-        /// Gets a user by id
-        /// </summary>
-        /// <param name="id">User ID</param>
         public PMTUser GetPMTUserById(int id)
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
@@ -390,9 +364,6 @@ namespace PMTDataProvider
             return user;
         }
 
-        /// <summary>
-        /// Returns a PMTUser by username
-        /// </summary>
         public PMTUser GetPMTUserByUsername(string username)
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
@@ -407,11 +378,7 @@ namespace PMTDataProvider
             }
         }
         #endregion Get PMTUser
-
-        /// <summary>
-        /// Is the email address in the userInfo table?
-        /// </summary>
-        /// <param name="email">Email Address</param>
+        
         public bool VerifyEmailExists(string email)
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
@@ -1050,6 +1017,28 @@ namespace PMTDataProvider
             return true;
         }
 
+        public bool ApproveTask(int taskID, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "update tasks set Status=?status, actEndDate=?date \n";
+                command.Parameters.Add("?status", (int)TaskStatus.Approved);
+                command.Parameters.Add("?date", DateTime.Now);
+
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public bool AssignDeveloper(int devID, int taskID, TransactionFailedHandler handler)
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
@@ -1071,8 +1060,6 @@ namespace PMTDataProvider
             }
             return false;
         }
-
-        #endregion Tasks
 
         public DataTable GetDeveloperAssignments()
         {
@@ -1098,28 +1085,7 @@ namespace PMTDataProvider
             }
             return dt;
         }
-
-        public bool ApproveTask(int taskID, TransactionFailedHandler handler)
-        {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
-            {
-                MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "update tasks set Status=?status, actEndDate=?date \n";
-                command.Parameters.Add("?status", (int)TaskStatus.Approved);
-                command.Parameters.Add("?date", DateTime.Now);
-
-                try
-                {
-                    this.ExecuteNonQuery(command);
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return false;
-                }
-            }
-            return true;
-        }
+        #endregion Tasks
 
         public double ResolvePercentComplete(ProjectItem item)
         {

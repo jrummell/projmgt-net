@@ -17,7 +17,7 @@ namespace PMT.PM
 	/// <summary>
 	/// Summary description for ViewDevProfile.
 	/// </summary>
-	public class ViewDevProfile : System.Web.UI.Page
+	public class ViewDevProfile : Page
 	{
         protected System.Web.UI.WebControls.LinkButton BackLinkButton;
         protected System.Web.UI.WebControls.HyperLink BackHyperLink;
@@ -29,7 +29,7 @@ namespace PMT.PM
 
             int devID = Convert.ToInt32(Request["devID"]);
             ProfileControl1.Editable = false;
-            IDataProvider conn = DataProvider.CreateInstance();
+            IDataProvider conn = DataProviderFactory.CreateInstance();
             PMTUser dev = conn.GetPMTUserById(Convert.ToInt32(devID));
             ProfileControl1.fillForm(dev);
 		}

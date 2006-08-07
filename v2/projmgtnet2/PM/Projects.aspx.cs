@@ -34,7 +34,7 @@ namespace PMT.PM
 
         private void BindData()
         {
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             // the project item to display
             ProjectItem item;
             
@@ -117,7 +117,7 @@ namespace PMT.PM
         private void DeleteButton_Pushed(object source, DataGridCommandEventArgs e)
         {
             int delID = Convert.ToInt32(DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text);
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
 
             if (ItemType.Equals(ProjectItemType.Project))
                 data.DeleteProject(delID, new TransactionFailedHandler(this.TransactionFailed));
@@ -169,7 +169,7 @@ namespace PMT.PM
 
             int id = Convert.ToInt32(DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text);
 
-            IDataProvider data = DataProvider.CreateInstance();
+            IDataProvider data = DataProviderFactory.CreateInstance();
             
             ProjectItem item;
 

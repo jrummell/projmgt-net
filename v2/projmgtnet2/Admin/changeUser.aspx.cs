@@ -23,7 +23,7 @@ namespace PMT.Admin
 
         private void Page_Load(object sender, System.EventArgs e)
         {
-            IDataProvider conn = DataProvider.CreateInstance();
+            IDataProvider conn = DataProviderFactory.CreateInstance();
 
             if (this.UserType.Equals("new"))
             {
@@ -72,7 +72,7 @@ namespace PMT.Admin
 
         private void Submit_Click(object sender, System.EventArgs e)
         {
-            IDataProvider conn = DataProvider.CreateInstance();
+            IDataProvider conn = DataProviderFactory.CreateInstance();
 
             //store new user information to database
             user = conn.GetPMTUserById(this.UserID);

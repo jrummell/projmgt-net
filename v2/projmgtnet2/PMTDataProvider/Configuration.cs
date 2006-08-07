@@ -4,18 +4,26 @@ using System.Configuration;
 namespace PMTDataProvider
 {
 	/// <summary>
-	/// Summary description for Configuration.
+	/// Provides Configuration Information
 	/// </summary>
 	public class Configuration
 	{
-        // hide constructor
+        /// <summary>
+        /// Hiding the constructor ...
+        /// </summary>
 		private Configuration()	{}
 
+        /// <summary>
+        /// Gets the Connection String
+        /// </summary>
         public static string ConnectionString
         {
             get {   return ConfigurationSettings.AppSettings["ConnectionString"];   }
         }
 
+        /// <summary>
+        /// Gets the DataProvider name
+        /// </summary>
         public static string DataProvider
         {
             get {   return ConfigurationSettings.AppSettings["DataProvider"];   }

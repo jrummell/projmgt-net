@@ -27,7 +27,7 @@ namespace PMT.Admin
             if(!Page.IsPostBack)
             {
                 //fill the datagrid with wannabe users
-                IDataProvider data = DataProvider.CreateInstance();
+                IDataProvider data = DataProviderFactory.CreateInstance();
                 NewUserDataGrid.DataSource = data.GetEnabledPMTUsers(false);
                 NewUserDataGrid.DataBind();
             }
@@ -59,7 +59,7 @@ namespace PMT.Admin
         private void NewUserDataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
             string delID = (NewUserDataGrid.Items[e.Item.ItemIndex].Cells[0].Text);
-            IDataProvider conn = DataProvider.CreateInstance();
+            IDataProvider conn = DataProviderFactory.CreateInstance();
             conn.DeletePMTUser(Convert.ToInt32(delID), null);
             NewUserDataGrid.DataBind();
         }
