@@ -8,10 +8,18 @@ using PMT;
 
 namespace PMTComponents
 {
+    /// <summary>
+    /// User Roles
+    /// </summary>
     public enum PMTUserRole { Client=0, Developer, Manager, Administrator }
 
     /// <summary>
-    /// Summary description for User.
+    /// Developer Competency Levels
+    /// </summary>
+    public enum CompLevel { Low=0, Medium, High }
+
+    /// <summary>
+    /// Represents a Project Management .Net User
     /// </summary>
     public class PMTUser
     {
@@ -80,7 +88,6 @@ namespace PMTComponents
             get {	return id;	    }
             set {   id = value;     }
         }
-
         /// <summary>
         /// Gets or sets the **Encrypted** password
         /// </summary>
@@ -89,7 +96,6 @@ namespace PMTComponents
             get {   return password;    }
             set {   password = value;   }
         }
-
         /// <summary>
         /// Gets or sets the first name
         /// </summary>
@@ -98,7 +104,6 @@ namespace PMTComponents
             get {   return firstName;	    }
             set {   firstName = value;      }
         }
-
         /// <summary>
         /// Gets or sets the last name
         /// </summary>
@@ -107,7 +112,6 @@ namespace PMTComponents
             get {	return lastName;    }
             set {   lastName = value;   }
         }
-
         /// <summary>
         /// Gets or sets the username
         /// </summary>
@@ -116,7 +120,6 @@ namespace PMTComponents
             get {	return userName;    }
             set {   userName = value;   }
         }
-
         /// <summary>
         /// Gets or sets the street address
         /// </summary>
@@ -125,7 +128,6 @@ namespace PMTComponents
             get {   return address;     }
             set {   address = value;    }
         }
-
         /// <summary>
         /// Gets or sets the city
         /// </summary>
@@ -134,7 +136,6 @@ namespace PMTComponents
             get	{   return city;    }
             set {   city = value;   }
         }
-
         /// <summary>
         /// Getsor sets the state
         /// </summary>
@@ -143,7 +144,6 @@ namespace PMTComponents
             get {   return state;   }
             set {   state = value;  }
         }
-
         /// <summary>
         /// Gets or sets the zip code
         /// </summary>
@@ -152,7 +152,6 @@ namespace PMTComponents
             get {   return zip;     }
             set {   zip = value;    }
         }
-
         /// <summary>
         /// Gets or sets the phone number
         /// </summary>
@@ -161,7 +160,6 @@ namespace PMTComponents
             get {   return phone;	}
             set {   phone = value;  }
         }
-
         /// <summary>
         /// Gets or sets the email address
         /// </summary>
@@ -170,7 +168,6 @@ namespace PMTComponents
             get {   return email;	}
             set {   email = value;  }
         }
-
         /// <summary>
         /// Gets or sets the role (security level)
         /// </summary>
@@ -179,7 +176,6 @@ namespace PMTComponents
             get {   return role;    }
             set {   role = value;   }
         }
-
         /// <summary>
         /// Gets or sets if the user is approved
         /// </summary>

@@ -100,11 +100,6 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "CompLevel.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "Encryption.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
