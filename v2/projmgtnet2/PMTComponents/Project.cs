@@ -50,31 +50,49 @@ namespace PMTComponents
         #endregion
  
         #region Properties
+        /// <summary>
+        /// Gets or sets the id
+        /// </summary>
         public int ID
         {
             get {   return id;  }
             set {   id = value; }
         }
+        /// <summary>
+        /// Gets or sets the name
+        /// </summary>
         public string Name
         {
             get {   return name;    }
             set {   name = value;   }
         }
+        /// <summary>
+        /// Gets or sets the description
+        /// </summary>
         public string Description
         {
             get {   return description;     }
             set {   description = value;    }
         }
+        /// <summary>
+        /// Gets or sets the start date
+        /// </summary>
         public DateTime StartDate
         {
             get {   return startDate;   }
             set {   startDate = value;  }
         }
+        /// <summary>
+        /// Gets or sets the expected end date
+        /// </summary>
         public DateTime ExpEndDate
         {
             get {   return expEndDate;  }
             set {   expEndDate = value; }
         }
+        /// <summary>
+        /// Gets or sets the actual end date
+        /// </summary>
         public DateTime ActEndDate
         {
             get {   return actEndDate;  }
@@ -85,7 +103,6 @@ namespace PMTComponents
         /// <summary>
         /// Return the ProjectItem as Html
         /// </summary>
-        /// <returns></returns>
         public abstract string RenderHtml();
     }
     #endregion
@@ -98,17 +115,34 @@ namespace PMTComponents
     {
         private int mgrID;
 
+        /// <summary>
+        /// Main Constructor
+        /// </summary>
+        /// <param name="id">project id</param>
+        /// <param name="mgrID">manager id</param>
+        /// <param name="name">name</param>
+        /// <param name="description">description</param>
+        /// <param name="startDate">start date</param>
+        /// <param name="expEndDate">expected end date</param>
+        /// <param name="actEndDate">actual end date</param>
         public Project(int id, int mgrID, string name, string description, DateTime startDate, DateTime expEndDate, DateTime actEndDate)
             : base(id, name, description, startDate, expEndDate, actEndDate)
         {
             this.mgrID = mgrID;
         }
 
+        /// <summary>
+        /// Constructor used for a new Project
+        /// </summary>
+        /// <param name="mgrID">manager id</param>
+        /// <param name="name">name</param>
+        /// <param name="description">description</param>
+        /// <param name="startDate">start date</param>
         public Project(int mgrID, string name, string description, DateTime startDate)
             : this(-1, mgrID, name, description, startDate, DateTime.MinValue, DateTime.MinValue) {}
 
         /// <summary>
-        /// ID of the ProjectManager assigned to this Project
+        /// Gets or sets the manager id assigned to this project
         /// </summary>
         public int ManagerID
         {
@@ -131,6 +165,16 @@ namespace PMTComponents
 	{
         private int projID;
 
+        /// <summary>
+        /// Main Constructor
+        /// </summary>
+        /// <param name="id">Module id</param>
+        /// <param name="projID">Project id</param>
+        /// <param name="name">name</param>
+        /// <param name="description">description</param>
+        /// <param name="startDate">start date</param>
+        /// <param name="expEndDate">expected end date</param>
+        /// <param name="actEndDate">actual end date</param>
         public Module(int id, int projID, string name, string description, 
             DateTime startDate, DateTime expEndDate, DateTime actEndDate)
             : base(id, name, description, startDate, expEndDate, actEndDate)
@@ -138,12 +182,19 @@ namespace PMTComponents
             this.projID = projID;
         }
 
+        /// <summary>
+        /// Constructor used for a new Module
+        /// </summary>
+        /// <param name="projID">Project id</param>
+        /// <param name="name">name</param>
+        /// <param name="description">description</param>
+        /// <param name="startDate">start date</param>
         public Module(int projID, string name, string description, DateTime startDate)
             : this(-1, projID, name, description, startDate, DateTime.MinValue, DateTime.MinValue) {}
        
 
         /// <summary>
-        /// Get the Project id this Module belongs to
+        /// Gets or sets the Project id this Module belongs to
         /// </summary>
         public int ProjectID
         {
@@ -160,9 +211,12 @@ namespace PMTComponents
 
     #region Task
     /// <summary>
-    /// The Status of a Task
+    /// Task Statuses
     /// </summary>
     public enum TaskStatus { Unassigned=0, InProgress, Complete, Approved }
+    /// <summary>
+    /// Task Complexities
+    /// </summary>
     public enum TaskComplexity { Low=0, Medium, High }
 
     /// <summary>
@@ -176,6 +230,18 @@ namespace PMTComponents
         private TaskStatus status;
         private TaskComplexity complexity;
 
+        /// <summary>
+        /// Main Constructor
+        /// </summary>
+        /// <param name="id">Task id</param>
+        /// <param name="modID">Module id</param>
+        /// <param name="projID">Project id</param>
+        /// <param name="name">name</param>
+        /// <param name="description">description</param>
+        /// <param name="complexity">complexity</param>
+        /// <param name="startDate">start date</param>
+        /// <param name="expEndDate">expected end date</param>
+        /// <param name="actEndDate">actual end date</param>
        public Task(int id, int modID, int projID, string name, string description, TaskComplexity complexity, 
             DateTime startDate, DateTime expEndDate, DateTime actEndDate)
             : base(id, name, description, startDate, expEndDate, actEndDate)
@@ -185,6 +251,15 @@ namespace PMTComponents
             this.complexity = complexity;
         }
 
+        /// <summary>
+        /// Constructor used for a new task
+        /// </summary>
+        /// <param name="modID">Module id</param>
+        /// <param name="projID">Project id</param>
+        /// <param name="name">name</param>
+        /// <param name="description">description</param>
+        /// <param name="complexity">complexity</param>
+        /// <param name="startDate">start date</param>
         public Task(int modID, int projID, string name, string description, 
             TaskComplexity complexity, DateTime startDate)
             : this(-1, modID, projID, name, description, complexity, 

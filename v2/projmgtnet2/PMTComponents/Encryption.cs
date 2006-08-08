@@ -7,7 +7,7 @@ namespace PMTComponents
 	public class Encryption
 	{
         /// <summary>
-        /// Encrypt the users password
+        /// Encrypt a users password
         /// </summary>
         /// <param name="toEncrypt">Password to encrypt</param>
         /// <returns>Encrypted password</returns>
