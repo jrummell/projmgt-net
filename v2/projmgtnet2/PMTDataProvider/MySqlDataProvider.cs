@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Text;
+using System.Collections;
 using MySql;
 using MySql.Data;
 using MySql.Data.MySqlClient;
@@ -938,7 +939,6 @@ namespace PMTDataProvider
                 command.Parameters.Add("?start", task.StartDate);
                 command.Parameters.Add("?expEnd", task.ExpEndDate);
                 
-                MySqlDataAdapter da = new MySqlDataAdapter(command);
                 try
                 {
                     this.ExecuteNonQuery(command);
@@ -948,6 +948,9 @@ namespace PMTDataProvider
                     handler(ex);
                     return id;
                 }
+
+                command = conn.CreateCommand();
+                command.CommandText = "select LAST_INSERT_ID()";
 
                 try
                 {
@@ -1087,6 +1090,7 @@ namespace PMTDataProvider
         }
         #endregion Tasks
 
+        /// <remarks>NEEDS IMPLIMENTED</remarks>
         public double ResolvePercentComplete(ProjectItem item)
         {
             /*
@@ -1129,10 +1133,258 @@ namespace PMTDataProvider
             return 0;
         }
 
+        /// <remarks>NEEDS IMPLIMENTED</remarks>
         public DateTime ResolveExpectedEndDate(ProjectItem item)
         {
             return DateTime.Now;
         }
+
+        #region Messaging
+        public DataTable GetSentMessages(int userID)
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from messages where senderID=?id";
+                command.Parameters.Add("?id", userID);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public DataTable GetReceivedMessages(int userID)
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from recipients where recipientID=?id";
+                command.Parameters.Add("?id", userID);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public Message GetMessage(int id)
+        {
+            Message m = null;
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("select * from messages m left join recipients r on m.id=r.messageID \n");
+                sbCommand.Append("where ID=?id");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?id", id);
+                
+                MySqlDataReader dr = command.ExecuteReader();
+                try
+                {
+                    while(dr.Read())
+                    {
+                        m = new Message();
+                        m.ID = id;
+                        m.Sender = GetPMTUserById(Convert.ToInt32(dr["m.senderID"]));
+                        m.DateSent = Convert.ToDateTime(dr["m.dateSent"]);
+                        m.Subject = dr["m.subject"].ToString();
+                        m.Body = dr["m.body"].ToString();
+                    }
+                }
+                finally
+                {
+                    dr.Close();
+                }
+
+                DataTable recipients = this.GetMessageRecipients(id);
+                ArrayList users = new ArrayList();
+                foreach (DataRow row in recipients.Rows)
+                {
+                    users.Add(GetPMTUserById(Convert.ToInt32(row["recipientID"])));
+                }
+
+                m.Recipients = (PMTUser[]) users.ToArray(typeof(PMTUser));
+            }
+            return m;
+        }
+
+        private DataTable GetMessageRecipients(int messageID)
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select * from recipients where messageID=?id";
+                command.Parameters.Add("?id", messageID);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+
+        public int InsertMessage(Message m, TransactionFailedHandler handler)
+        {
+            int id = -1;
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                // insert the message
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("insert into messages (senderID, dateSent, subject, body) \n");
+                sbCommand.Append("values (?sender, ?sent, ?subject, ?body)");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?sender", m.Sender.ID);
+                command.Parameters.Add("?sent", m.DateSent);
+                command.Parameters.Add("?subject", m.Subject);
+                command.Parameters.Add("?body", m.Body);
+                
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return id;
+                }
+
+                // get message id
+                command = conn.CreateCommand();
+                command.CommandText = "select LAST_INSERT_ID()";
+
+                try
+                {
+                    id = Convert.ToInt32(this.ExecuteScalar(command));
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return id;
+                }
+
+                // add recipients
+                sbCommand = new StringBuilder();
+                sbCommand.Append("insert into recipients (messageID, recipientID) \n");
+                sbCommand.Append("values (?messageID, ?recipientID)");
+
+                command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                
+                foreach(PMTUser user in m.Recipients)
+                {
+                    command.Parameters.Clear();
+                    command.Parameters.Add("?messageID", id);
+                    command.Parameters.Add("?recipientID", user.ID);
+
+                    try
+                    {
+                        this.ExecuteNonQuery(command);
+                    }
+                    catch (MySqlException ex)
+                    {
+                        handler(ex);
+                        return id;
+                    }
+                }
+            }
+            return id;
+        }
+
+        public bool DeleteMessage(int messageID, int recipientID, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                // delete recipient's message
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "delete from recipients where messageID=?mID and recipientID=?rID";
+                command.Parameters.Add("?mID", messageID);
+                command.Parameters.Add("?rID", recipientID);
+
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+
+                // get the number of recipients for this message
+                command = conn.CreateCommand();
+                command.CommandText = "select count(*) from recipients where messageID=?mID";
+                command.Parameters.Add("?mID", messageID);
+
+                int count = 0;
+                try
+                {
+                    count = Convert.ToInt32(this.ExecuteScalar(command));
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+
+                // if there are no recipients, delete the message
+                if (count == 0)
+                {
+                    command.CommandText = "delete from messages where id=?mID";
+                    
+                    try
+                    {
+                        this.ExecuteNonQuery(command);
+                    }
+                    catch (MySqlException ex)
+                    {
+                        handler(ex);
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public DataTable GetContacts()
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = "select u.id as id, u.username as username from users u left join userReference r on u.id=r.userID"; /* where r.projectID=?pID";*/
+                //command.Parameters.Add("?pID", projectID);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+
+                try
+                {
+                    da.Fill(dt);
+                }
+                finally{}
+            }
+            return dt;
+        }
+        #endregion
 
         #region Managed Query Execution
         /// <summary>

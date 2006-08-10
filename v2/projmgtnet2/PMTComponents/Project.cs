@@ -139,7 +139,7 @@ namespace PMTComponents
         /// <param name="description">description</param>
         /// <param name="startDate">start date</param>
         public Project(int mgrID, string name, string description, DateTime startDate)
-            : this(-1, mgrID, name, description, startDate, DateTime.MinValue, DateTime.MinValue) {}
+            : this(0, mgrID, name, description, startDate, DateTime.MinValue, DateTime.MinValue) {}
 
         /// <summary>
         /// Gets or sets the manager id assigned to this project
@@ -190,7 +190,7 @@ namespace PMTComponents
         /// <param name="description">description</param>
         /// <param name="startDate">start date</param>
         public Module(int projID, string name, string description, DateTime startDate)
-            : this(-1, projID, name, description, startDate, DateTime.MinValue, DateTime.MinValue) {}
+            : this(0, projID, name, description, startDate, DateTime.MinValue, DateTime.MinValue) {}
        
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace PMTComponents
         /// <param name="startDate">start date</param>
         public Task(int modID, int projID, string name, string description, 
             TaskComplexity complexity, DateTime startDate)
-            : this(-1, modID, projID, name, description, complexity, 
+            : this(0, modID, projID, name, description, complexity, 
                 startDate, DateTime.MinValue, DateTime.MinValue) {}
 
 
