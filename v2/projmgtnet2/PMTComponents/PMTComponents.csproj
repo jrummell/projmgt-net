@@ -85,11 +85,6 @@
                     HintPath = "C:\Program Files (x86)\MySQL\MySQL Connector Net 1.0.7\bin\.NET 1.1\MySql.Data.dll"
                     AssemblyFolderKey = "hklm\mysql connector net 1.0.7"
                 />
-                <Reference
-                    Name = "DBDriver"
-                    Project = "{EE60ECB8-4BF0-480A-90F3-B05A4D680797}"
-                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
-                />
             </References>
         </Build>
         <Files>
@@ -101,6 +96,11 @@
                 />
                 <File
                     RelPath = "Encryption.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Message.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

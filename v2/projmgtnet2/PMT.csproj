@@ -350,6 +350,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "AllUsers\Msg\newMessage.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AllUsers\Msg\newMessage.aspx.cs"
+                    DependentUpon = "newMessage.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AllUsers\Msg\newMessage.aspx.resx"
+                    DependentUpon = "newMessage.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AllUsers\Msg\viewMessage.aspx"
                     BuildAction = "Content"
                 />
@@ -637,6 +653,10 @@
                 />
                 <File
                     RelPath = "PM\Web.config"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "template\template.aspx"
                     BuildAction = "Content"
                 />
             </Include>

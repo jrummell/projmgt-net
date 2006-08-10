@@ -221,5 +221,16 @@ namespace PMTDataProvider
         /// Returns the expected end date of the item based on the C vs. C Matrix
         /// </summary>
         DateTime ResolveExpectedEndDate(ProjectItem item);
+
+        DataTable GetSentMessages(int userID);
+        DataTable GetReceivedMessages(int userID);
+        Message GetMessage(int id);
+        int InsertMessage(Message m, TransactionFailedHandler handler);
+        bool DeleteMessage(int messageID, int recipientID, TransactionFailedHandler handler);
+
+        /// <summary>
+        /// Gets all contacts ... this will need to change
+        /// </summary>
+        DataTable GetContacts();
 	}
 }

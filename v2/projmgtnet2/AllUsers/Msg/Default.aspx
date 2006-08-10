@@ -24,71 +24,31 @@
                     <td id="Main" vAlign="top">
                         <pmt:pagenamecontrol id="PageNameControl1" PageTitle="Messaging" runat="server"></pmt:pagenamecontrol>
                         <P></P>
-                        <asp:linkbutton id="ComposeLinkButton" runat="server">Compose message</asp:linkbutton>
-                        <asp:LinkButton id="UpdateLinkButton" runat="server">Check for new messages</asp:LinkButton><BR>
+                        <a href="newMessage.aspx">Compose message</a>
+                        <a href="default.aspx">Check for new messages</a><BR>
                         <asp:panel id="ComposePanel" runat="server" Visible="False">
-                            <H4>Compose Message</H4>
-                            <TABLE id="Table1" cellSpacing="1" cellPadding="1" border="0">
-                                <TR>
-                                    <TD></TD>
-                                    <TD colSpan="2">
-                                        <asp:ValidationSummary id="ComposeValidationSummary" runat="server"></asp:ValidationSummary></TD>
-                                    <TD></TD>
-                                </TR>
-                                <TR>
-                                    <TD>To:</TD>
-                                    <TD width="150"><BR>
-                                        <asp:ListBox id="ToListBox" runat="server" AutoPostBack="True"></asp:ListBox></TD>
-                                    <TD>Contacts:<BR>
-                                        <asp:ListBox id="ContactsListBox" runat="server" AutoPostBack="True"></asp:ListBox></TD>
-                                    <TD>
-                                        <asp:CustomValidator id="ToCustomValidator" runat="server" ErrorMessage="Please select a recipient."
-                                            Display="None"></asp:CustomValidator></TD>
-                                </TR>
-                                <TR>
-                                    <TD>Subject:</TD>
-                                    <TD colSpan="2">
-                                        <asp:TextBox id="SubjectTextBox" runat="server" Width="100%" Columns="50"></asp:TextBox></TD>
-                                    <TD>
-                                        <asp:RequiredFieldValidator id="SubjectRequiredFieldValidator" runat="server" ErrorMessage="Please enter a subject."
-                                            Display="None" ControlToValidate="SubjectTextBox"></asp:RequiredFieldValidator></TD>
-                                </TR>
-                                <TR>
-                                    <TD vAlign="top">Message:</TD>
-                                    <TD colSpan="2"><TEXTAREA id="MessageTextBox" rows="15" cols="45" runat="server"></TEXTAREA></TD>
-                                    <TD vAlign="top">
-                                        <asp:RequiredFieldValidator id="MessageRequiredFieldValidator" runat="server" ErrorMessage="Please enter a message."
-                                            Display="None" ControlToValidate="MessageTextBox"></asp:RequiredFieldValidator></TD>
-                                </TR>
-                                <TR>
-                                    <TD></TD>
-                                    <TD colSpan="2">
-                                        <asp:Button id="SendButton" runat="server" Text="Send"></asp:Button></TD>
-                                    <TD></TD>
-                                </TR>
-                            </TABLE>
+                            
                         </asp:panel>
                         <P></P>
                         <asp:panel id="MessagesPanel" runat="server">
                             <H4>Inbox</H4>
-                            <asp:DataGrid id="MessagesDataGrid" runat="server" AllowPaging="True" AutoGenerateColumns="False"
+                            <asp:DataGrid id="MessagesDataGrid" runat="server" AllowPaging="True" AutoGenerateColumns="True"
                                 PagerStyle-Mode="NumericPages" AlternatingItemStyle-CssClass="dgAltItem" HeaderStyle-CssClass="dgHeader"
                                 CssClass="dg" CellPadding="2">
                                 <AlternatingItemStyle CssClass="dgAltItem"></AlternatingItemStyle>
                                 <HeaderStyle CssClass="dgHeader"></HeaderStyle>
+                                <%--
                                 <Columns>
                                     <asp:BoundColumn Visible="False" DataField="messID"></asp:BoundColumn>
                                     <asp:BoundColumn DataField="sender" HeaderText="From">
-                                        <HeaderStyle Width="20%"></HeaderStyle>
                                     </asp:BoundColumn>
                                     <asp:HyperLinkColumn DataNavigateUrlField="id" DataNavigateUrlFormatString="viewMessage.aspx?id={0}"
                                         DataTextField="subject" HeaderText="Subject"></asp:HyperLinkColumn>
                                     <asp:BoundColumn DataField="date" HeaderText="Date">
-                                        <HeaderStyle Width="20%"></HeaderStyle>
                                     </asp:BoundColumn>
                                     <asp:ButtonColumn Text="Delete" ButtonType="PushButton" HeaderText="Delete?" CommandName="Delete"></asp:ButtonColumn>
                                 </Columns>
-                                <PagerStyle Mode="NumericPages"></PagerStyle>
+                                --%>
                             </asp:DataGrid>
                         </asp:panel></td>
                 </tr>

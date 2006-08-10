@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using MySql;
 using MySql.Data;
 using MySql.Data.MySqlClient;
-using PMT;
 
 namespace PMTComponents
 {
@@ -23,6 +22,7 @@ namespace PMTComponents
     /// </summary>
     public class PMTUser
     {
+        #region Attributes
         private string userName;
         private string password;
         private int id;
@@ -36,6 +36,7 @@ namespace PMTComponents
         private string state;
         private string zip;
         private bool enabled;
+        #endregion
 
         #region Constructors
         /// <summary>
