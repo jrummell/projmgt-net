@@ -33,19 +33,20 @@
                                 AlternatingItemStyle-CssClass="dgAltItem"
                                 AutoGenerateColumns="False">
                                 <Columns>
-                                    <asp:BoundColumn Visible="False" DataField="ID" ReadOnly="True" HeaderText="ID"></asp:BoundColumn>
-                                    <asp:HyperLinkColumn DataNavigateUrlField="id" DataTextField="name" HeaderText="Name"></asp:HyperLinkColumn>
-                                    <asp:BoundColumn DataField="description" HeaderText="Description"></asp:BoundColumn>
-                                    <asp:BoundColumn DataField="startDate" HeaderText="Start Date"></asp:BoundColumn>
-                                    <asp:BoundColumn DataField="expEndDate" ReadOnly="True" HeaderText="Exp End Date"></asp:BoundColumn>
-                                    <asp:BoundColumn DataField="actEndDate" ReadOnly="True" HeaderText="Act End Date"></asp:BoundColumn>
+                                    <asp:BoundColumn Visible="False" DataField="ID" ReadOnly="True" HeaderText="ID" />
+                                    <asp:HyperLinkColumn HeaderText="Name" 
+                                        DataTextField="name" />
+                                    <asp:BoundColumn DataField="description" HeaderText="Description" />
+                                    <asp:BoundColumn DataField="startDate" HeaderText="Start Date" />
+                                    <asp:BoundColumn DataField="expEndDate" ReadOnly="True" HeaderText="Exp End Date" />
+                                    <asp:BoundColumn DataField="actEndDate" ReadOnly="True" HeaderText="Act End Date" />
                                     <asp:EditCommandColumn ButtonType="LinkButton" UpdateText="Update" HeaderText="Change?" CancelText="Cancel"
-                                        EditText="Edit"></asp:EditCommandColumn>
-                                    <asp:ButtonColumn Text="Delete" ButtonType="PushButton" CommandName="Delete"></asp:ButtonColumn>
+                                        EditText="Edit" />
+                                    <asp:ButtonColumn Text="Delete" ButtonType="PushButton" CommandName="Delete" />
                                 </Columns>
                             </asp:datagrid>
                             <BR>
-                            <asp:HyperLink id="AddItemHyperLink" runat="server" NavigateUrl="NewItem.aspx?item=Module&amp;parentID="></asp:HyperLink>
+                            <asp:HyperLink id="AddItemHyperLink" runat="server" NavigateUrl="NewItem.aspx?item=Module&amp;parentID=" />
                         </asp:panel></td>
                 </tr>
             </table>

@@ -22,7 +22,6 @@ namespace PMT.PM
         protected HyperLink AddItemHyperLink;
         protected DataGrid DataGrid1;
         protected Label ItemLabel;
-        protected string id;
 	
         private void Page_Load(object sender, System.EventArgs e)
         {
@@ -35,26 +34,40 @@ namespace PMT.PM
         private void BindData()
         {
             IDataProvider data = DataProviderFactory.CreateInstance();
-            // the project item to display
-            ProjectItem item;
-            
-            //create a data set
             DataTable dt = new DataTable();
 
-            // list all projects assigned to logged in PM
+            try
+            {
+                ProjectItemType type = ItemType;
+            }
+            catch
+            {
+                DataGrid1.DataSource = data.GetManagerProjects(UserID);
+                DataGrid1.DataBind();
+
+                AddItemHyperLink.NavigateUrl = String.Format("NewItem.aspx?item={0}", ProjectItemType.Project);
+                AddItemHyperLink.Text = "Create a new project";
+                ItemLabel.Text = "Your projects";
+                return;
+            }
+
+            // the parent item whose sub items we are viewing
+            ProjectItem item;
+            ProjectItemType childType = ProjectItemType.Module;
+
             if (ItemType.Equals(ProjectItemType.Project))
             {
-                dt = data.GetManagerProjects(UserID);
-                item = null;
+                item = data.GetProject(ItemID);
+                dt = data.GetProjectModules(ItemID);
+                childType = ProjectItemType.Module;
             }
-                // list all modules in specified project
             else if (ItemType.Equals(ProjectItemType.Module))
             {
-                item = data.GetProject(ItemID);
-                dt = data.GetProjectModules(item.ID);
+                item = data.GetModule(ItemID);
+                dt = data.GetModuleTasks(ItemID);
+                childType = ProjectItemType.Task;
             }
-                // list all tasks in specified module
-            else //if (itemType.Equals(ProjectItemType.TASK))
+            else //if (ItemType.Equals(ProjectItemType.Task))
             {
                 item = data.GetModule(ItemID);
                 dt = data.GetModuleTasks(item.ID);
@@ -65,24 +78,17 @@ namespace PMT.PM
                 DataGrid1.Columns.AddAt(3, ComplexityColumn);
             }
 
-            // set the display grid data source
-            setDisplayItemType();
             DataGrid1.DataSource = dt;
             DataGrid1.DataBind();
 
-            // set the create/add new item link and item label
-            if (item != null)
+            if (ItemType != ProjectItemType.Task)
             {
-                AddItemHyperLink.NavigateUrl 
-                    = "NewItem.aspx?item=" + ItemType + "&parentID=" + item.ID;
-                AddItemHyperLink.Text = "Add a " + ItemType.ToString() + " to " + item.Name;
-                ItemLabel.Text = ItemType +"s in " + item.Name;
-            }
-            else
-            {
-                AddItemHyperLink.NavigateUrl = String.Format("NewItem.aspx?item={0}", ProjectItemType.Project);
-                AddItemHyperLink.Text = "Create a new project";
-                ItemLabel.Text = "Your projects";
+                // set the create/add new item link and item label
+                AddItemHyperLink.NavigateUrl = 
+                    String.Format("NewItem.aspx?item={0}&parentID={1}", childType, item.ID);
+                AddItemHyperLink.Text = 
+                    String.Format("Add a {0} to {1}", childType, item.Name);
+                ItemLabel.Text = String.Format("{0}s in {1} {2}", childType, item.Type, item.Name);
             }
         }
 
@@ -102,10 +108,11 @@ namespace PMT.PM
 		/// </summary>
 		private void InitializeComponent()
 		{    
-            this.DataGrid1.CancelCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.CancelCommand_Clicked);
-            this.DataGrid1.EditCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.EditButton_Pushed);
-            this.DataGrid1.UpdateCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.UpdateCommand_Pushed);
-            this.DataGrid1.DeleteCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DeleteButton_Pushed);
+            DataGrid1.ItemDataBound += new DataGridItemEventHandler(DataGrid1_ItemDataBound);
+            DataGrid1.CancelCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.CancelCommand_Clicked);
+            DataGrid1.EditCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.EditButton_Pushed);
+            DataGrid1.UpdateCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.UpdateCommand_Pushed);
+            DataGrid1.DeleteCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DeleteButton_Pushed);
             this.Load += new System.EventHandler(this.Page_Load);
 
         }
@@ -127,26 +134,6 @@ namespace PMT.PM
                 data.DeleteTask(delID, new TransactionFailedHandler(this.TransactionFailed));
 
             BindData();
-        }
-
-        /// <summary>
-        /// Display a hyperlink name column for project and modules, and a regular column for tasks
-        /// </summary>
-        private void setDisplayItemType()
-        {
-            // change the name column to a BoundColumn instead of a HypLinkColumn
-            if (ItemType.Equals(ProjectItemType.Task))
-            {
-                // set the link url for the name column
-                ((HyperLinkColumn)DataGrid1.Columns[1]).DataNavigateUrlFormatString = "Assign.aspx?taskID={0}";
-                DataGrid1.Columns[1].HeaderText = ItemType + " Name (Click to assign)";
-
-                return;
-            }
-
-            // set the link url for the name column
-            ((HyperLinkColumn)DataGrid1.Columns[1]).DataNavigateUrlFormatString = "Projects.aspx?item="+ItemType+"&id={0}";
-            DataGrid1.Columns[1].HeaderText = ItemType + " Name";
         }
 
         /// <summary>
@@ -189,7 +176,7 @@ namespace PMT.PM
                 item.StartDate = start;
                 data.UpdateModule(item as Module, new TransactionFailedHandler(this.TransactionFailed));
             }
-            else //if (itemType.Equals(ProjectItemType.Task))
+            else if (ItemType.Equals(ProjectItemType.Task))
             {
                 item = data.GetTask(id);
                 item.Name = name;
@@ -213,7 +200,8 @@ namespace PMT.PM
             lblResult.Text = ex.Message;
         }
 
-        public ProjectItemType ItemType
+        #region Properties
+        private ProjectItemType ItemType
         {
             get 
             {
@@ -223,13 +211,11 @@ namespace PMT.PM
                 }
                 catch
                 {
-                    //throw new Exception("Invalid Item Type");
-                    // default to project
-                    return ProjectItemType.Project;
+                    throw new Exception("Invalid Item Type");
                 }
             }
         }
-        public int ItemID
+        private int ItemID
         {
             get
             {
@@ -243,7 +229,7 @@ namespace PMT.PM
                 }
             }
         }
-        public int UserID
+        private int UserID
         {
             get
             {
@@ -257,5 +243,37 @@ namespace PMT.PM
                 }
             }
         }
-	}
+        #endregion
+
+        /// <summary>
+        /// Display a hyperlink name column for project and modules
+        /// </summary>
+        private void DataGrid1_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            DataGridItem item = e.Item;
+            if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+            {
+                ProjectItemType type;
+                try
+                {
+                    if (ItemType == ProjectItemType.Project)
+                        type = ProjectItemType.Module;
+                    else //if (ItemType == ProjectItemType.Module)
+                        type = ProjectItemType.Task;
+                }
+                catch
+                {
+                    type = ProjectItemType.Project;
+                }
+
+                // set the hyperlink
+                HyperLink hl = item.Cells[1].Controls[0] as HyperLink;
+                int id = Convert.ToInt32(DataBinder.Eval(item.DataItem, "id"));
+                if (type != ProjectItemType.Task)
+                    hl.NavigateUrl = String.Format("Projects.aspx?item={0}&id={1}", type, id);
+                else
+                    hl.NavigateUrl = String.Format("Assign.aspx?taskID={0}", id);
+            }
+        }
+    }
 }

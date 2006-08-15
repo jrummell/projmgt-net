@@ -211,10 +211,11 @@ namespace PMTDataProvider
         /// <summary>
         /// Gets all assignments
         /// </summary>
-        DataTable GetDeveloperAssignments();        
+        DataTable GetDeveloperAssignments();
 
         /// <summary>
-        /// Returns the percent complete of an item.
+        /// Returns the percent complete of an item. 
+        /// (number of approved tasks / number of tasks)
         /// </summary>
         double ResolvePercentComplete(ProjectItem item);
         /// <summary>
@@ -222,10 +223,28 @@ namespace PMTDataProvider
         /// </summary>
         DateTime ResolveExpectedEndDate(ProjectItem item);
 
+        /// <summary>
+        /// Gets a user's sent messages
+        /// </summary>
         DataTable GetSentMessages(int userID);
+        /// <summary>
+        /// Get a user's received messages
+        /// </summary>
         DataTable GetReceivedMessages(int userID);
+        /// <summary>
+        /// Gets a message by its id
+        /// </summary>
         Message GetMessage(int id);
+        /// <summary>
+        /// Inserts (Sends) a message
+        /// </summary>
+        /// <param name="m">message</param>
         int InsertMessage(Message m, TransactionFailedHandler handler);
+        /// <summary>
+        /// Deletes a message
+        /// </summary>
+        /// <param name="messageID"></param>
+        /// <param name="recipientID"></param>
         bool DeleteMessage(int messageID, int recipientID, TransactionFailedHandler handler);
 
         /// <summary>

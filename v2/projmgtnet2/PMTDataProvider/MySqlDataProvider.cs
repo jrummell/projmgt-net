@@ -496,9 +496,10 @@ namespace PMTDataProvider
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "select * from projects where id=?id";
+                command.CommandText = "select * from projects p left join userReference u on p.id=u.projectID where id=?id";
                 command.Parameters.Add("?id", id);
                 
+                conn.Open();
                 MySqlDataReader dr = command.ExecuteReader();
                 try
                 {
@@ -514,7 +515,10 @@ namespace PMTDataProvider
                             Convert.ToDateTime(dr["actEndDate"]));
                     }
                 }
-                finally{}
+                finally
+                {
+                    dr.Close();
+                }
             }
             return project;
         }
@@ -707,6 +711,7 @@ namespace PMTDataProvider
                 command.CommandText = "select * from modules where id=?id";
                 command.Parameters.Add("?id", id);
                 
+                conn.Open();
                 MySqlDataReader dr = command.ExecuteReader();
                 try
                 {
@@ -1090,47 +1095,53 @@ namespace PMTDataProvider
         }
         #endregion Tasks
 
-        /// <remarks>NEEDS IMPLIMENTED</remarks>
         public double ResolvePercentComplete(ProjectItem item)
         {
-            /*
-                int count = 0;
-                int approved = 0;
+            double percentComplete = 0;
+            if (item is Project)
+            {
+                DataTable modules = GetProjectModules(item.ID);
 
-                DataTable modsTable = this.getModulesDataSet().Tables[0];
-                foreach (DataRow modRow in modsTable.Rows)
+                int count = 0;
+                int completed = 0;
+                foreach(DataRow modRow in modules.Rows)
                 {
-                    DataTable tasksTable = new Module(modRow["id"].ToString()).getTasksDataSet().Tables[0];
-                    foreach (DataRow taskRow in tasksTable.Rows)
+                    int id = Convert.ToInt32(modRow["id"]);
+                    DataTable tasks = GetModuleTasks(id);
+
+                    count += tasks.Rows.Count;
+                    foreach(DataRow row in tasks.Rows)
                     {
-                        if (taskRow["complete"].ToString().Equals(TaskStatus.APPROVED))
-                            approved++;
-                        count++;
+                        TaskStatus status = (TaskStatus)Convert.ToInt32(row["Status"]);
+                        if (status == TaskStatus.Approved)
+                            completed ++;
                     }
                 }
-                double pct = (double)approved/(double)count;
-                if (Double.IsNaN(pct))
-                    pct = 0;
-                return Convert.ToString(pct.ToString(percentFormatter));
-            */
 
-            /*
-                int count = 0;
-                int approved = 0;
+                percentComplete = (double)completed/(double)count; 
+            }
+            else if (item is Module)
+            {
+                DataTable tasks = GetModuleTasks(item.ID);
 
-                DataTable dt = this.getTasksDataSet().Tables[0];
-                foreach (DataRow row in dt.Rows)
+                int count = tasks.Rows.Count;
+                int completed = 0;
+                foreach(DataRow row in tasks.Rows)
                 {
-                    if (row["complete"].ToString().Equals(TaskStatus.APPROVED))
-                        approved++;
-                    count++;
+                    TaskStatus status = (TaskStatus)Convert.ToInt32(row["Status"]);
+                    if (status == TaskStatus.Approved)
+                        completed ++;
                 }
-                double pct = (double)approved/(double)count;
-                if (Double.IsNaN(pct))
-                    pct = 0;
-                return Convert.ToString(pct.ToString(percentFormatter));
-            */
-            return 0;
+
+                percentComplete = (double)completed/(double)count;
+            }
+            else if (item is Task)
+            {
+                TaskStatus status = (item as Task).Status;
+                percentComplete = status == TaskStatus.Approved ? 1 : 0;
+            }
+
+            return Double.IsNaN(percentComplete) ? 0 : percentComplete;
         }
 
         /// <remarks>NEEDS IMPLIMENTED</remarks>
