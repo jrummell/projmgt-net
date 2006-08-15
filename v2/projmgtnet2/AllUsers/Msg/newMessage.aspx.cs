@@ -32,17 +32,38 @@ namespace PMT.AllUsers.Msg
 
 		private void Page_Load(object sender, EventArgs e)
 		{
-            // fill the contact list
             if (!this.IsPostBack)
             {
-                int userID = Convert.ToInt32(Request.Cookies["user"]["id"]);
-
                 //fill the Contacts list box
                 IDataProvider data = DataProviderFactory.CreateInstance();
                 ContactsListBox.DataSource = data.GetContacts();
                 ContactsListBox.DataTextField = "username";
                 ContactsListBox.DataValueField = "id";
                 ContactsListBox.DataBind();
+
+                if (Action != null)
+                {
+                    Message oldMessage = data.GetMessage(MessageID);
+                    Message newMessage = new Message();
+                    newMessage.Sender = data.GetPMTUserById(UserID);
+
+                    if (Action.Equals("reply"))
+                    {
+                        newMessage.Reply(oldMessage);
+                        // add sender to recipients
+                        ListItem item = new ListItem(newMessage.Recipients[0].UserName, newMessage.Recipients[0].ID.ToString());
+                        ToListBox.Items.Add(item);
+                        item = new ListItem(item.Text, item.Value);
+                        ContactsListBox.Items.Remove(item);
+                    }
+                    else if (Action.Equals("forward"))
+                    {
+                        newMessage.Forward(oldMessage);
+                    }
+
+                    SubjectTextBox.Text = newMessage.Subject;
+                    MessageTextBox.Value = newMessage.Body;
+                }
             }
 		}
 
@@ -76,8 +97,6 @@ namespace PMT.AllUsers.Msg
             if (!Page.IsValid)
                 return;
 
-            int userID = Convert.ToInt32(Request.Cookies["user"]["id"]);
-
             ArrayList toList = new ArrayList();
             foreach (ListItem item in ToListBox.Items)
             {
@@ -86,7 +105,7 @@ namespace PMT.AllUsers.Msg
 
             IDataProvider data = DataProviderFactory.CreateInstance();
             Message msg = new Message();
-            msg.Sender = data.GetPMTUserById(userID);
+            msg.Sender = data.GetPMTUserById(UserID);
             msg.Subject = SubjectTextBox.Text;
             msg.Body = MessageTextBox.Value;
             msg.DateSent = DateTime.Now;
@@ -121,6 +140,38 @@ namespace PMT.AllUsers.Msg
             lblResult.Text = String.Format("Error: {0}", ex.Message);
         }
 
+        #region Properties
+        protected int MessageID
+        {
+            get 
+            {
+                int id = 0;
+                try
+                {
+                    id = Convert.ToInt32(Request["id"]);
+                }
+                catch {}
+                return id;
+            }
+        }
+        protected string Action
+        {
+            get {   return Request["action"];   }
+        }
+        private int UserID
+        {
+            get 
+            {
+                int user = 0;
+                try
+                {
+                    user = Convert.ToInt32(Request.Cookies["user"]["id"]);
+                }
+                catch {}
+                return user;
+            }
+        }
+        #endregion
 
 		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)

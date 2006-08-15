@@ -76,6 +76,12 @@ input
     */
 }
 
+.Message
+{ 
+    border: 1px solid LightGrey; 
+    padding: 1em;
+}
+
 select
 {
     width: 10em;
