@@ -24,8 +24,6 @@ namespace PMT.AllUsers.Msg
     
         private void Page_Load(object sender, System.EventArgs e)
         {
-            int userID = Convert.ToInt32(Request.Cookies["user"]["id"]);
-
             if (!this.IsPostBack)
             {
                 BindGrid();
@@ -56,19 +54,31 @@ namespace PMT.AllUsers.Msg
 
         private void BindGrid()
         {
-            int userID = Convert.ToInt32(Request.Cookies["user"]["id"]);
             IDataProvider data = DataProviderFactory.CreateInstance();
-            MessagesDataGrid.DataSource = data.GetReceivedMessages(userID);
+            MessagesDataGrid.DataSource = data.GetReceivedMessages(UserID);
             MessagesDataGrid.DataBind();
         }
 
         private void MessagesDataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
-            int userID = Convert.ToInt32(Request.Cookies["user"]["id"]);
             int delID = Convert.ToInt32(e.Item.Cells[0].Text);
             IDataProvider data = DataProviderFactory.CreateInstance();
-            data.DeleteMessage(delID, userID, null); 
+            data.DeleteMessage(delID, UserID, null); 
             BindGrid();
+        }
+
+        private int UserID
+        {
+            get 
+            {
+                int user = 0;
+                try
+                {
+                    user = Convert.ToInt32(Request.Cookies["user"]["id"]);
+                }
+                catch {}
+                return user;
+            }
         }
     }
 }

@@ -50,6 +50,14 @@ namespace PMTComponents
         #endregion
  
         #region Properties
+        public ProjectItemType Type
+        {
+            get 
+            {
+                string className = this.ToString().Substring(this.ToString().IndexOf('.')+1);
+                return (ProjectItemType) Enum.Parse(typeof(ProjectItemType), className);
+            }
+        }
         /// <summary>
         /// Gets or sets the id
         /// </summary>
@@ -99,11 +107,6 @@ namespace PMTComponents
             set {   actEndDate = value; }
         }
         #endregion
-
-        /// <summary>
-        /// Return the ProjectItem as Html
-        /// </summary>
-        public abstract string RenderHtml();
     }
     #endregion
 
@@ -148,11 +151,6 @@ namespace PMTComponents
         {
             get {   return mgrID;   }
             set {   mgrID = value;  }
-        }
-        
-        public override string RenderHtml()
-        {
-            return "";
         }
 	}
     #endregion
@@ -200,11 +198,6 @@ namespace PMTComponents
         {
             get {   return projID;  }
             set {   projID = value; }
-        }
-        
-        public override string RenderHtml()
-        {
-            return "";
         }
 	}
     #endregion
@@ -265,7 +258,6 @@ namespace PMTComponents
             : this(0, modID, projID, name, description, complexity, 
                 startDate, DateTime.MinValue, DateTime.MinValue) {}
 
-
         #region Properties
         public int DeveloperID
         {
@@ -288,11 +280,6 @@ namespace PMTComponents
             set {   status = value; }
         }
         #endregion
-	
-        public override string RenderHtml()
-        {
-            return "";
-        }
     }
     #endregion
 }

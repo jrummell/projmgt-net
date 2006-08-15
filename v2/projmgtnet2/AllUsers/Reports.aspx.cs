@@ -9,6 +9,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using PMT.Controls;
 using PMTComponents;
 using PMTDataProvider;
 
@@ -28,7 +29,7 @@ namespace PMT.AllUsers
         protected Label ProjectLabel;
         protected string role;
         protected DataGrid DisplayGrid;
-        protected PlaceHolder phReport;
+        protected Report report;
 
         private void Page_Load(object sender, System.EventArgs e)
         {
@@ -151,9 +152,8 @@ namespace PMT.AllUsers
                 ModuleLabel.Visible = false;
                 TaskLabel.Visible = false;
 
-                Label lbl = new Label();
-                lbl.Text = project.Name + " " + project.Description;
-                phReport.Controls.Add(lbl);
+                report.Item = project;
+                report.FillForm();
             }
             else if ( buttonID.Equals( "ViewModuleButton" ) )
             {
@@ -209,6 +209,7 @@ namespace PMT.AllUsers
 
         private void ProjectDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
+            enableProjectControls(true);
             /*
             //create a data set
             DataSet ds = Module.getModulesDataSet(ProjectDropDownList.SelectedValue);

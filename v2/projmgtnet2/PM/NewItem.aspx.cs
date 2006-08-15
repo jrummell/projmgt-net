@@ -129,6 +129,8 @@ namespace PMT.PM
                     ComplexityDropDownList.Visible = true;
                     ComplexityDropDownListRequiredFieldValidator.Enabled = true;
                     ComplexityDropDownList.DataSource = Enum.GetNames(typeof(TaskComplexity));
+                    ComplexityDropDownList.DataBind();
+                    ComplexityDropDownList.Items.Add(String.Empty);
 
                     fillProjectDropDownList();
                 }
@@ -154,7 +156,6 @@ namespace PMT.PM
         {    
             this.ProjectDropDownList.SelectedIndexChanged += new System.EventHandler(this.ProjectDropDownList_SelectedIndexChanged);
             this.StartDateCustomValidator.ServerValidate += new System.Web.UI.WebControls.ServerValidateEventHandler(this.ValidateStartDate);
-            this.ComplexityDropDownList.SelectedIndexChanged += new System.EventHandler(this.ComplexityDropDownList_SelectedIndexChanged);
             this.DescriptionCustomValidator.ServerValidate += new System.Web.UI.WebControls.ServerValidateEventHandler(this.ValidateDescription);
             this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
             this.Load += new System.EventHandler(this.Page_Load);
@@ -326,11 +327,6 @@ namespace PMT.PM
             {
                 fillModuleDropDownList();
             }
-        }
-
-        private void ComplexityDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-        
         }
 
         private void TransactionFailed(Exception ex)

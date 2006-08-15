@@ -473,6 +473,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Controls\Report.ascx"
+                    SubType = "UserControl"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Controls\Report.ascx.cs"
+                    DependentUpon = "Report.ascx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Controls\Report.ascx.resx"
+                    DependentUpon = "Report.ascx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Controls\ReportGridControl.ascx"
                     SubType = "UserControl"
                     BuildAction = "Content"
