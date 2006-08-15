@@ -6,14 +6,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
     <HEAD>
-        <title>Message View</title>
-        <meta name="GENERATOR" Content="Microsoft Visual Studio .NET 7.1">
-        <meta name="CODE_LANGUAGE" Content="C#">
-        <meta name="vs_defaultClientScript" content="JavaScript">
-        <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+        <title>Messaging</title>
         <pmt:StyleControl runat="server" id="StyleControl1" />
     </HEAD>
-    <body MS_POSITIONING="GridLayout">
+    <body>
         <form id="Form1" method="post" runat="server">
             <table width="100%" height="100%">
                 <tr>
@@ -27,28 +23,34 @@
                     <td id="Main" valign="top">
                         <P><pmt:PageNameControl PageTitle="Messaging" runat="server" id="PageNameControl1" /></P>
                         <P>
-                            <asp:HyperLink id="ReturnHyperLink" runat="server" NavigateUrl="default.aspx">Return to Inbox</asp:HyperLink></P>
+                            <a href="default.aspx">Return to Inbox</a> | 
+                            <a href="newMessage.aspx?action=reply&amp;id=<%= MessageID %>">Reply</a> | 
+                            <a href="newMessage.aspx?action=forward&amp;id=<%= MessageID %>">Forward</a></P>
                         <H4>View Message</H4>
-                        <TABLE id="Table1" cellSpacing="1" cellPadding="1" border="0">
+                        <TABLE>
                             <TR>
                                 <td>Subject:</td>
                                 <TD>
-                                    <asp:Label id="subjectLabel" runat="server" ForeColor="Black"></asp:Label></TD>
+                                    <asp:Label id="subjectLabel" runat="server" ForeColor="Black" /></TD>
                             </TR>
                             <TR>
-                                <TD>Sender:</TD>
+                                <TD>From:</TD>
                                 <TD>
-                                    <asp:Label id="senderLabel" runat="server"></asp:Label></TD>
+                                    <asp:Label id="senderLabel" runat="server" /></TD>
                             </TR>
+                            <tr>
+                                <td>To:</td>
+                                <td></td>
+                            </tr>
                             <TR>
                                 <TD>Date:</TD>
                                 <TD>
-                                    <asp:Label id="dateLabel" runat="server"></asp:Label></TD>
+                                    <asp:Label id="dateLabel" runat="server" /></TD>
                             </TR>
                             <TR>
                                 <TD valign="top">Message:</TD>
-                                <TD>
-                                    <asp:Label id="messageLabel" runat="server" Width="424px" Height="96px"></asp:Label></TD>
+                                <TD class="Message">
+                                    <asp:Label ID="lblMessage" Runat="server" /></TD>
                             </TR>
                         </TABLE>
                     </td>

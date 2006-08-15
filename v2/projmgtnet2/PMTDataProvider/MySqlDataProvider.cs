@@ -1095,6 +1095,7 @@ namespace PMTDataProvider
         }
         #endregion Tasks
 
+        #region ProjectItem Common
         public double ResolvePercentComplete(ProjectItem item)
         {
             double percentComplete = 0;
@@ -1149,6 +1150,7 @@ namespace PMTDataProvider
         {
             return DateTime.Now;
         }
+        #endregion
 
         #region Messaging
         public DataTable GetSentMessages(int userID)
@@ -1175,8 +1177,13 @@ namespace PMTDataProvider
             DataTable dt = new DataTable();
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
             {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("select m.id as messageID, u.username as senderName, r.dateReceived as date, m.subject as subject \n");
+                sbCommand.Append("from recipients r left join messages m on r.messageID=m.id left join users u on u.id=r.recipientID \n");
+                sbCommand.Append("where r.recipientID=?id");
+                
                 MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "select * from recipients where recipientID=?id";
+                command.CommandText = sbCommand.ToString();
                 command.Parameters.Add("?id", userID);
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
@@ -1202,6 +1209,7 @@ namespace PMTDataProvider
                 command.CommandText = sbCommand.ToString();
                 command.Parameters.Add("?id", id);
                 
+                conn.Open();
                 MySqlDataReader dr = command.ExecuteReader();
                 try
                 {
@@ -1209,10 +1217,10 @@ namespace PMTDataProvider
                     {
                         m = new Message();
                         m.ID = id;
-                        m.Sender = GetPMTUserById(Convert.ToInt32(dr["m.senderID"]));
-                        m.DateSent = Convert.ToDateTime(dr["m.dateSent"]);
-                        m.Subject = dr["m.subject"].ToString();
-                        m.Body = dr["m.body"].ToString();
+                        m.Sender = GetPMTUserById(Convert.ToInt32(dr["senderID"]));
+                        m.DateSent = Convert.ToDateTime(dr["dateSent"]);
+                        m.Subject = dr["subject"].ToString();
+                        m.Body = dr["body"].ToString();
                     }
                 }
                 finally
@@ -1382,7 +1390,7 @@ namespace PMTDataProvider
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "select u.id as id, u.username as username from users u left join userReference r on u.id=r.userID"; /* where r.projectID=?pID";*/
+                command.CommandText = "select u.id as id, u.username as username from users u "; /*left join userReference r on u.id=r.userID where r.projectID=?pID";*/
                 //command.Parameters.Add("?pID", projectID);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);

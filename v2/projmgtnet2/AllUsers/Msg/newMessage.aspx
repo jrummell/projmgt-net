@@ -22,7 +22,7 @@
 					<td id="Navigation" valign="top">
 						<pmt:NavControl runat="server" id="NavControl1" /></td>
 					<td id="Main" valign="top">
-					    <pmt:PageNameControl PageTitle="[Page Title]" runat="server" id="PageNameControl1" />
+					    <pmt:PageNameControl PageTitle="Messaging" runat="server" id="PageNameControl1" />
 					    <H4>Compose Message</H4>
 					    <asp:Label ID="lblResult" Runat="server" />
                         <TABLE id="Table1" cellSpacing="1" cellPadding="1" border="0">
@@ -53,7 +53,7 @@
                             </TR>
                             <TR>
                                 <TD vAlign="top">Message:</TD>
-                                <TD colSpan="2"><TEXTAREA id="MessageTextBox" rows="15" cols="45" runat="server" NAME="MessageTextBox"></TEXTAREA></TD>
+                                <TD colSpan="2"><TEXTAREA id="MessageTextBox" class="Message" cols="80" rows="20" runat="server" NAME="MessageTextBox"></TEXTAREA></TD>
                                 <TD vAlign="top">
                                     <asp:RequiredFieldValidator id="MessageRequiredFieldValidator" runat="server" ErrorMessage="Please enter a message."
                                         Display="None" ControlToValidate="MessageTextBox"></asp:RequiredFieldValidator></TD>

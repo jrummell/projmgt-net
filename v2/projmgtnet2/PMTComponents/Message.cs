@@ -145,8 +145,10 @@ namespace PMTComponents
         public void Reply(Message m)
         {
             Subject = String.Format("RE: {0}", m.Subject);
-
             Body = GetReplyForwardBlock(m);
+
+            recipients = new PMTUser[1];
+            recipients[0] = m.Sender;
         }
 
         /// <summary>
@@ -156,7 +158,6 @@ namespace PMTComponents
         public void Forward(Message m)
         {
             Subject = String.Format("FW: {0}", m.Subject);
-
             Body = GetReplyForwardBlock(m);
         }
 
@@ -166,12 +167,13 @@ namespace PMTComponents
         private string GetReplyForwardBlock(Message m)
         {
             StringBuilder block = new StringBuilder();
-            block.Append("\n\n<br/>");
+            block.Append("\n\n");
             block = new StringBuilder();
-            block.AppendFormat("<b>From: </b> {1}, {0}", m.Sender.FirstName, m.Sender.LastName);
-            block.AppendFormat("<b>Sent: </b> {0} {1}", m.DateSent.ToLongDateString(), m.DateSent.ToShortTimeString());
-            block.AppendFormat("<b>To: </b> {1}, {0}", Sender.FirstName, Sender.LastName);
-            block.AppendFormat("<b>Subject: </b> {0}", m.Subject);
+            block.Append(" --- Original Message --- \n");
+            block.AppendFormat("From: {1}, {0} \n", m.Sender.FirstName, m.Sender.LastName);
+            block.AppendFormat("Sent: {0} \n", m.DateSent.ToString());
+            block.AppendFormat("To: {1}, {0} \n", Sender.FirstName, Sender.LastName);
+            block.AppendFormat("Subject: {0}", m.Subject);
             block.Append("\n\n");
             block.Append(m.Body);
             return block.ToString();
