@@ -134,12 +134,17 @@ namespace PMTDataProvider
         /// </summary>
         bool UpdateProject(Project project, TransactionFailedHandler handler);
         /// <summary>
-        /// Delete's a project
+        /// Deletes a project by its id
         /// </summary>
-        /// <param name="projID"></param>
-        /// <param name="handler"></param>
-        /// <returns></returns>
+        /// <param name="projID">project id</param>
         bool DeleteProject(int projID, TransactionFailedHandler handler);
+
+        /// <summary>
+        /// Gets all projects that belong the logged in Client
+        /// </summary>
+        /// <param name="clientID"></param>
+        /// <returns></returns>
+        DataTable GetClientProjects(int clientID);
 
         /// <summary>
         /// Gets all modules
