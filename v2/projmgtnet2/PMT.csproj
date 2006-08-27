@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Web"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{BD5C31A0-A12C-4477-9901-27D330814ACD}"
     >
@@ -12,7 +12,7 @@
                 AssemblyName = "PMT"
                 AssemblyOriginatorKeyFile = ""
                 DefaultClientScript = "JScript"
-                DefaultHTMLPageLayout = "Grid"
+                DefaultHTMLPageLayout = "Flow"
                 DefaultTargetSchema = "IE50"
                 DelaySign = "false"
                 OutputType = "Library"

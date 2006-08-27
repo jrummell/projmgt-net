@@ -35,7 +35,7 @@ namespace PMT.Controls
                 IDataProvider data = DataProviderFactory.CreateInstance();
                 double status = data.ResolvePercentComplete(item);
 
-                lblItemStatus.Text = String.Format("{0:n2}%", status * 100);
+                lblItemStatus.Text = status.ToString("p");
             }
         }
 

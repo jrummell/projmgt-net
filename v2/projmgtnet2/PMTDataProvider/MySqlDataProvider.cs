@@ -681,6 +681,14 @@ namespace PMTDataProvider
             }
             return true;
         }
+
+        /// <summary>
+        /// IMPLIMENT ME !!!
+        /// </summary>
+        public DataTable GetClientProjects(int clientID)
+        {
+            return new DataTable();
+        }
         #endregion Projects
 
         #region Modules
@@ -881,6 +889,7 @@ namespace PMTDataProvider
                 command.CommandText = "select * from tasks where id=?id";
                 command.Parameters.Add("?id", id);
                 
+                conn.Open();
                 MySqlDataReader dr = command.ExecuteReader();
                 try
                 {
