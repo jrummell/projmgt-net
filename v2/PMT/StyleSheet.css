@@ -1,0 +1,113 @@
+body
+{
+	padding: 0px;
+	margin: 0px;
+	font-family: Verdana, Arial;
+}
+
+/* Layout Classes */
+
+#Header
+{
+	height: 100px;
+	margin: 0px;
+	padding: 5px;
+	background-color: Navy;
+	color: White;
+}
+
+#Navigation
+{
+	width: 20%;
+	margin: 0px;
+	padding: 5px;
+	background-color: Navy;
+	color: White;
+}
+
+#Main
+{
+	width: 80%;
+	margin: 0px;
+	padding: 5px;
+	color: Black;
+}
+
+/* Link Classes */
+
+a.nav
+{
+	display: block;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: bold;
+	border-bottom: 1px dashed white;
+}
+a.nav:link
+{
+	color: White;
+	text-decoration: none;
+}
+
+a.nav:visited
+{
+	color: White;
+	text-decoration: none;
+}
+
+a.nav:hover
+{
+	color: Black;
+	background-color: Silver;
+}
+
+a.nav:active
+{
+	text-decoration: underline;
+}
+
+
+input
+{
+    /*
+    width: 15em;
+    */
+}
+
+.Message
+{ 
+    border: 1px solid LightGrey; 
+    padding: 1em;
+}
+
+select
+{
+    width: 10em;
+}
+
+hr
+{
+    border-color: White;
+    border-bottom-style: solid;
+}
+
+
+/* DataGrid Classes */
+
+.dg td
+{
+    text-align: left;
+    padding: 2px;
+}
+
+.dgHeader
+{
+    font-weight: bold;
+}
+
+.dgAltItem
+{
+    background-color: lightblue;
+}
