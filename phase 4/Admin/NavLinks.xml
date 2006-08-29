@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Items>
+    <Item>
+  		<Text>Administrator Home</Text>
+	  	<Link>admin</Link>
+    </Item>
+    <Item>
+      <Text>New User Requests</Text>
+      <Link>admin/newUser.aspx</Link>
+    </Item>
+    <Item>
+      <Text>User Administration</Text>
+      <Link>admin/userList.aspx</Link>
+    </Item>
+    <Item>
+      <Text>Competency Matrix Editor</Text>
+      <Link>admin/editMatrix.aspx</Link>
+    </Item>
+    <Item>
+      <Text>Maintenance Functions</Text>
+      <Link>admin/maint.aspx</Link>
+    </Item>
+</Items>
