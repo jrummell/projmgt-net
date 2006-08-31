@@ -25,10 +25,9 @@ namespace PMT.PM
         protected Button CommitButton;
         protected Button CancelButton;
         protected Label ErrorLabel;
-        protected TextBox ThresholdTextBox;
+        protected DropDownList ddlTaskThreshold;
         protected DataGrid dgAvailableDevs;
         protected DataGrid dgAssignments;
-        protected RegularExpressionValidator ThreshholdTextBoxRegularExpressionValidator;
 
 	
         private void Page_Load(object sender, System.EventArgs e)
@@ -37,106 +36,94 @@ namespace PMT.PM
                 AvailDevLabel.Text = "Choose Developer to be assigned to Task " + TaskID;
 
             if (!IsPostBack)
-                BindData();
-
-            // fill available developers data grid
-            //TODO: FINISH THIS
-
-            //			int Threshold = Convert.ToInt32(ThresholdTextBox.Text);
-
-            /*
-            DBDriver myDB = new DBDriver();
-            string s = "select p.ID as ID, p.lastName as lastName, p.firstName as firstName,\n"
-                + "u.username as username, c.competence as competence, count(a.devID) as taskCount\n"
-                + "from person p, compLevels c, assignments a, users u\n"
-                + "where p.ID = u.ID\n"
-                + "and u.security = 'Developer'\n"
-                + "and p.ID = a.devID\n"
-                + "and p.ID = c.ID\n"
-                + "group by p.ID, p.lastName, p.firstName, u.userName, c.competence\n"
-                + "having count(a.devID) < 10"  // set to 10 for testing
-                + "order by p.lastName;";
+            {
+                // bind task threshold drop down list
+                for (int i=1; i<=10; i++)
+                    ddlTaskThreshold.Items.Add(i.ToString());
                 
+                ddlTaskThreshold.Items.Add(new ListItem(">10", "11"));
+                ddlTaskThreshold.SelectedIndex = 4;
 
-
-            //				if(Threshold != -1 )
-            //					s +="having count(a.devID) < @Threshold";
-            //
-            //                    s += "order by p.lastName;";
-
-            myDB.Query = s;
-            //			if( Threshold != -1 )
-            //				myDB.addParam( "@Threshold", Threshold );
-
-            
-            DataSet ds = new DataSet();
-            myDB.createAdapter().Fill(ds);
-            DataGrid1.DataSource = ds;
-            DataGrid1.DataBind();
-
-            // fill assignments data grid
-            DBDriver myDB2 = new DBDriver();
-            s = "select assignments.taskID as taskID, users.ID as devID, users.username as username, tasks.name as taskName, \n"
-                + "modules.name as moduleName, projects.name as projectName, assignments.dateAss as date, tasks.complete as complete\n"
-                + "from assignments, users, tasks, modules, projects\n"
-                + "where users.ID = assignments.devID\n"
-                + "and users.security = 'Developer'\n"
-                + "and assignments.taskID = tasks.ID\n"
-                + "and tasks.moduleID = modules.ID\n"
-                + "and modules.projectID = projects.ID\n"
-                + "and projects.managerID = @mgrID \n"
-                + "order by projects.name, modules.name, tasks.name, users.username;";
-
-            myDB2.Query = s;
-            myDB2.addParam("@mgrID", Request.Cookies["user"]["id"]);
-            DataSet ads = new DataSet();
-            myDB2.createAdapter().Fill(ads);
-            DataGrid2.DataSource = ads;
-            if( !Page.IsPostBack )
-                DataGrid2.DataBind();
-                */
-
+                BindGrids();
+            }
         }
 
-        private void BindData()
+        private void BindGrids()
         {
             IDataProvider data = DataProviderFactory.CreateInstance();
             
             dgAssignments.DataSource = data.GetDeveloperAssignments();
             dgAssignments.DataBind();
 
-            //dgAvailableDevs.DataSource = data.GetAvailableDevelopers(numTasks);
-            //dgAvailableDevs.DataBind();
+            dgAvailableDevs.DataSource = data.GetAvailableDevelopers(Convert.ToInt32(ddlTaskThreshold.SelectedValue));
+            dgAvailableDevs.DataBind();
         }
 
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
+        #region dg ItemDataBound
+        private void dgAvailableDevs_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
+            DataGrid dg = sender as DataGrid;
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                // display Comp Level description
+                CompLevel level = (CompLevel)Convert.ToInt32(e.Item.Cells[3].Text);
+                e.Item.Cells[3].Text = level.ToString();
+            }
         }
-		
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {    
-            this.dgAvailableDevs.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.Username_Click);
-            this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
-            this.CommitButton.Click += new System.EventHandler(this.CommitButton_Click);
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
-            this.Load += new System.EventHandler(this.Page_Load);
 
+        private void dgAssignments_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            DataGrid dg = sender as DataGrid;
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                // show status description
+                TaskStatus status = (TaskStatus)Convert.ToInt32(e.Item.Cells[5].Text);
+                e.Item.Cells[5].Text = status.ToString();
+
+                DateTime end = Convert.ToDateTime(e.Item.Cells[7].Text);
+                if (end == DateTime.MinValue)
+                {
+                    e.Item.Cells[7].Text = String.Empty;
+                }
+
+                // init approve column if visible
+                if (dg.Columns[dg.Columns.Count-1].Visible)
+                {
+                    CheckBox cb = e.Item.Cells[e.Item.Cells.Count-1].Controls[1] as CheckBox;
+                   
+                    if (status == TaskStatus.Approved)
+                    {
+                        cb.Checked = true;
+                        cb.Enabled = false;
+                    }
+                    else if (status == TaskStatus.Complete)
+                    {
+                        cb.Checked = false;
+                        cb.Enabled = true;
+                    }
+                    else 
+                    {
+                        cb.Checked = false;
+                        cb.Enabled = false;
+                    }
+                }
+            }
         }
         #endregion
 
+        private void ddlTaskThreshold_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindGrids();
+        }
 
+        #region Button Events
         private void Username_Click(object source, DataGridCommandEventArgs e)
         {
+            int devID = Convert.ToInt32(e.Item.Cells[0].Text);
+            IDataProvider data = DataProviderFactory.CreateInstance();
+            data.AssignDeveloper(devID, TaskID, new TransactionFailedHandler(this.TransactionFailed));
+            BindGrids();
+
             /*
             IDataProvider data = DataProviderFactory.CreateInstance();
                 // get the developer ID
@@ -169,33 +156,13 @@ namespace PMT.PM
             UpdateButton.Enabled = false;
             CommitButton.Enabled = true;
             CancelButton.Enabled = true;
-            dgAssignments.Columns[8].Visible = true;
-
-            // set check boxes to checked, not checked or checked and disabled
-            foreach (DataGridItem item in dgAssignments.Items)
-            {
-                CheckBox cb = (CheckBox)item.FindControl("ApproveCheckBox");
-                if (item.Cells[7].Text.Equals(TaskStatus.Approved))
-                {
-                    cb.Checked = true;
-                    cb.Enabled = true;
-                }
-                if (item.Cells[7].Text.Equals(TaskStatus.Complete))
-                {
-                    cb.Checked = false;
-                    cb.Enabled = true;
-                }
-                if (item.Cells[7].Text.Equals(TaskStatus.InProgress) )
-                {
-                    cb.Checked = false;
-                    cb.Enabled = false;
-                }
-            }
+            dgAssignments.Columns[dgAssignments.Columns.Count-1].Visible = true;
+            BindGrids();
         }
 
         private void CancelButton_Click(object sender, System.EventArgs e)
         {
-            dgAssignments.Columns[8].Visible = false;
+            dgAssignments.Columns[dgAssignments.Columns.Count-1].Visible = false;
             UpdateButton.Enabled = true;
             CommitButton.Enabled = false;
             CancelButton.Enabled = false;
@@ -208,12 +175,15 @@ namespace PMT.PM
                 CheckBox cb = (CheckBox)item.FindControl("ApproveCheckBox");
                 if(cb.Enabled)
                 {
+                    int id = Convert.ToInt32(item.Cells[1].Text);
+                    TaskStatus status = cb.Checked ? TaskStatus.Approved : TaskStatus.Complete;
                     IDataProvider data = DataProviderFactory.CreateInstance();
-                    data.ApproveTask(Convert.ToInt32(item.Cells[1].Text), new TransactionFailedHandler(this.TransactionFailed));
+                    data.UpdateTaskStatus(id, status, new TransactionFailedHandler(this.TransactionFailed));
                 }
             }
-            this.BindData();
+            BindGrids();
         }
+        #endregion
 
         private void TransactionFailed(Exception ex)
         {
@@ -236,5 +206,33 @@ namespace PMT.PM
             }
         }
         #endregion
-	}
+
+        #region Web Form Designer generated code
+        override protected void OnInit(EventArgs e)
+        {
+            //
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            //
+            InitializeComponent();
+            base.OnInit(e);
+        }
+		
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {    
+            ddlTaskThreshold.SelectedIndexChanged += new EventHandler(ddlTaskThreshold_SelectedIndexChanged);
+            dgAvailableDevs.ItemDataBound += new DataGridItemEventHandler(dgAvailableDevs_ItemDataBound);
+            dgAssignments.ItemDataBound += new DataGridItemEventHandler(dgAssignments_ItemDataBound);
+            dgAvailableDevs.ItemCommand += new DataGridCommandEventHandler(Username_Click);
+            UpdateButton.Click += new EventHandler(UpdateButton_Click);
+            CommitButton.Click += new EventHandler(CommitButton_Click);
+            CancelButton.Click += new EventHandler(CancelButton_Click);
+            Load += new System.EventHandler(Page_Load);
+
+        }
+        #endregion
+    }
 }

@@ -1034,14 +1034,24 @@ namespace PMTDataProvider
             return true;
         }
 
-        public bool ApproveTask(int taskID, TransactionFailedHandler handler)
+        public bool UpdateTaskStatus(int taskID, TaskStatus status, TransactionFailedHandler handler)
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "update tasks set Status=?status, actEndDate=?date \n";
-                command.Parameters.Add("?status", (int)TaskStatus.Approved);
-                command.Parameters.Add("?date", DateTime.Now);
+
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("update tasks set Status=?status ");
+                if (status == TaskStatus.Approved)
+                {
+                    sbCommand.Append(", actEndDate=?date \n");
+                    command.Parameters.Add("?date", DateTime.Now);
+                }
+                sbCommand.Append("where id=?id");
+
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?status", (int)status);
+                command.Parameters.Add("?id", taskID);
 
                 try
                 {
@@ -1060,6 +1070,7 @@ namespace PMTDataProvider
         {
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
             {
+                // assign the task
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "insert into taskAssignments (devID, taskID) values (?devID, ?taskID)";
                 command.Parameters.Add("?devID", devID);
@@ -1074,8 +1085,50 @@ namespace PMTDataProvider
                     handler(ex);
                     return false;
                 }
+
+                // update the task status
+                command = new MySqlCommand();
+                command.CommandText = "update tasks set status=?status where id=?id";
+                command.Parameters.Add("?status", (int)TaskStatus.InProgress);
+                command.Parameters.Add("?id", taskID);
+
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
             }
             return false;
+        }
+
+        public DataTable GetAvailableDevelopers(int numTasks)
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            {
+                StringBuilder sbCommand = new StringBuilder();
+                sbCommand.Append("select u.id as userID, u.userName as userName, count(t.id) as numTasks, c.competence as competence \n");
+                sbCommand.Append("from users u inner join taskAssignments a on u.id=a.devID \n");
+                sbCommand.Append("left join tasks t on a.taskID=t.ID \n");
+                sbCommand.Append("left join compLevels c on a.devID=c.userID \n");
+                sbCommand.Append("group by userID, userName, competence having numTasks<?numTasks");
+
+                MySqlCommand command = conn.CreateCommand();
+                command.CommandText = sbCommand.ToString();
+                command.Parameters.Add("?numTasks", numTasks);
+                MySqlDataAdapter da = new MySqlDataAdapter(command);
+
+                //try
+                {
+                    da.Fill(dt);
+                }
+                //catch{}
+            }
+            return dt;
         }
 
         public DataTable GetDeveloperAssignments()
@@ -1084,8 +1137,14 @@ namespace PMTDataProvider
             using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
-                sbCommand.Append("select * from (users u left join taskAssignments a on u.id=a.devID) \n");
-                sbCommand.Append("left join tasks t on a.taskID=t.ID where u.Role=?role \n");
+                sbCommand.Append("select u.id as userID, u.userName as userName, t.id as taskID, t.name as taskName, t.status as taskStatus, \n");
+                sbCommand.Append("m.id as moduleID, m.name as moduleName, p.id as projectID, p.name as projectName, \n");
+                sbCommand.Append("a.dateAssigned as assignDate, t.actEndDate finishDate \n");
+                sbCommand.Append("from users u inner join taskAssignments a on u.id=a.devID \n");
+                sbCommand.Append("left join tasks t on a.taskID=t.ID \n");
+                sbCommand.Append("left join modules m on t.moduleID=m.id \n");
+                sbCommand.Append("left join projects p on t.projectID=p.id \n");
+                sbCommand.Append("where u.Role=?role \n");
                 sbCommand.Append("order by u.UserName");
 
                 MySqlCommand command = conn.CreateCommand();
