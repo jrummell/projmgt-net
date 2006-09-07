@@ -66,7 +66,7 @@ namespace PMT
                 return;
 
             string username = UserTextBox.Text;
-            string password = Encryption.encrypt(PasswordTextBox.Text);
+            string password = Encryption.MD5Encrypt(PasswordTextBox.Text);
 
 			if (CustomAuthenticate(username, password)) 
 			{
