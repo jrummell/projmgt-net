@@ -1,7 +1,7 @@
 <VisualStudioProject>
     <CSHARP
         ProjectType = "Local"
-        ProductVersion = "7.10.3077"
+        ProductVersion = "7.10.6030"
         SchemaVersion = "2.0"
         ProjectGuid = "{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}"
     >
@@ -89,6 +89,11 @@
                     Name = "PMTComponents"
                     Project = "{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "System.Web"
+                    AssemblyName = "System.Web"
+                    HintPath = "..\..\..\..\..\..\WINNT\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
                 />
             </References>
         </Build>
