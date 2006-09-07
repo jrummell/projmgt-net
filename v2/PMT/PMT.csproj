@@ -274,6 +274,22 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
+                    RelPath = "Admin\Settings.aspx"
+                    SubType = "Form"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Admin\Settings.aspx.cs"
+                    DependentUpon = "Settings.aspx"
+                    SubType = "ASPXCodeBehind"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Admin\Settings.aspx.resx"
+                    DependentUpon = "Settings.aspx.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "Admin\userList.aspx"
                     SubType = "Form"
                     BuildAction = "Content"
