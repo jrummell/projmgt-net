@@ -10,6 +10,8 @@ using System.Collections.Specialized;
 
 namespace PMT 
 {
+    public enum DatabaseType { MySql, SqlServer }
+
 	public class Global : HttpApplication
 	{
 		/// <summary>
@@ -116,7 +118,6 @@ namespace PMT
             else
                 return ((NameValueCollection)ConfigurationSettings.GetConfig(section))[setting];
         }
-
         #endregion
 
     	#region Web Form Designer generated code
