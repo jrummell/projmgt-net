@@ -321,7 +321,7 @@ namespace PMT.Controls
             user.State = this.StateTextBox.Text;
             user.ZipCode = this.ZipTextBox.Text;
             if (NewPassword1TextBox.Text.Length > 0)
-                user.Password = Encryption.encrypt(this.NewPassword1TextBox.Text);
+                user.Password = Encryption.MD5Encrypt(this.NewPassword1TextBox.Text);
         }
 
         #region User Properties
