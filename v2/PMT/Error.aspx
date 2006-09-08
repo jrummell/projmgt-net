@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="Controls/PageNameControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="StyleControl" src="Controls/StyleControl.ascx" %>
-<%@ Page language="c#" Codebehind="Error.aspx.cs" AutoEventWireup="false" Inherits="PMT.Error" %>
+<%@ Page language="c#" AutoEventWireup="false" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
     <HEAD>
