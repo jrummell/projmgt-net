@@ -22,7 +22,23 @@ namespace PMT
 		public Global()
 		{
 			InitializeComponent();
-		}	
+		}
+
+        /// <summary>
+        /// Gets the application path ending with a "/".
+        /// </summary>
+        public static string ApplicationPath
+        {
+            get
+            {
+                string path = HttpContext.Current.Request.ApplicationPath;
+                if (!path.EndsWith("/"))
+                {
+                    path += "/";
+                }
+                return path;
+            }
+        }
 		
         #region HttpApplication Events
 		protected void Application_Start(Object sender, EventArgs e)
