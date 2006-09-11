@@ -193,10 +193,6 @@
                     BuildAction = "EmbeddedResource"
                 />
                 <File
-                    RelPath = "StyleSheet.css"
-                    BuildAction = "Content"
-                />
-                <File
                     RelPath = "Web.config"
                     BuildAction = "Content"
                 />
@@ -680,6 +676,10 @@
                 />
                 <File
                     RelPath = "PM\Web.config"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "Style\default.css"
                     BuildAction = "Content"
                 />
                 <File
