@@ -104,7 +104,6 @@ namespace PMT.Admin
             //PMTDataProvider.Configuration.ConnectionString = cs.ToString();
         }
 
-		#region Web Form Designer generated code
 		override protected void OnInit(EventArgs e)
 		{
             this.Load += new System.EventHandler(this.Page_Load);
@@ -113,6 +112,5 @@ namespace PMT.Admin
             btnUpdate.Click += new EventHandler(btnUpdate_Click);
 			base.OnInit(e);
 		}
-        #endregion
     }
 }

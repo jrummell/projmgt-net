@@ -37,9 +37,14 @@ namespace PMTDataProvider
             return ConfigurationSettings.AppSettings[setting];
         }
 
+        /// <summary>
+        /// This throws an exception ... write access denied ...
+        /// </summary>
+        /// <param name="key">setting key</param>
+        /// <param name="val">setting value</param>
         private static void SetValue(string key, string val)
         {
-            string path = System.Web.HttpRuntime.AppDomainAppPath + "conn.xml";
+            string path = System.Web.HttpRuntime.AppDomainAppPath + "web.config";
             DataSet ds = new DataSet();
 
             ds.ReadXml(path);

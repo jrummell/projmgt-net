@@ -1,9 +1,9 @@
-<%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
-<%@ Import Namespace="PMT" %>
 <%@ Page language="c#" AutoEventWireup="false" Codebehind="Settings.aspx.cs" Inherits="PMT.Admin.Settings" %>
+<%@ Import Namespace="PMT" %>
+<%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
+<%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
+<%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
+<%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
   <HEAD>
@@ -24,7 +24,7 @@
 					<td id="Main" valign="top">
 					    <pmt:PageNameControl PageTitle="Configuration Settings" runat="server" id="PageNameControl1" />
 					    <p>Warning:  Any changes made on this page will restart the ASP .Net Application.</p>
-					    <asp:ValidationSummary Runat="server" />
+					    <asp:ValidationSummary Runat="server" id=ValidationSummary1 />
 					    <h3>Database</h3>
 					    <table>
 					        <tr>
@@ -62,7 +62,7 @@
 					            <td>Password</td>
 					            <td>
 					                <asp:TextBox id="txtPassword1" TextMode="Password" Runat="server" />
-					                <asp:RequiredFieldValidator Enabled="False" ID="rfvPassword1" ControlToValidate="txtPassword1" Text="*" ErrorMessage="Password is required." Display="Dynamic" Runat="server" /><br/>
+					                <asp:RequiredFieldValidator Enabled="False" ID="rfvPassword1" ControlToValidate="txtPassword1" Text="*" ErrorMessage="Password is required." Display="Dynamic" Runat="server" /><br>
 					                <asp:TextBox id="txtPassword2" TextMode="Password" Runat="server" />
 					                <asp:RequiredFieldValidator Enabled="False" ID="rfvPassword2" ControlToValidate="txtPassword2" Text="*" ErrorMessage="Password is required." Display="Dynamic" Runat="server" />
 					                <asp:CompareValidator Enabled="False" ID="cvPassword" ControlToValidate="txtPassword1" ControlToCompare="txtPassword2" Operator="Equal" ErrorMessage="Passwords do not match." Display="Dynamic" Text="*" Runat="server" />
