@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Text;
@@ -10,16 +11,15 @@ using PMTComponents;
 namespace PMT.Controls
 {
     /// <summary>
-    ///		Summary description for XmlNavBar.
+    /// Navigation Control.  Parses links from an xml in the user's role directory.
     /// </summary>
-    public class XmlNavBar : System.Web.UI.UserControl
+    public class XmlNavBar : UserControl
     {
-        protected System.Web.UI.WebControls.Table navTable;
+        protected Table navTable;
 
         private void Page_Load(object sender, System.EventArgs e)
         {
-            // if the users is logged in, add a logged in links
-            // else add a login and register links
+            // if the user is logged in, give them links
             if(Context.User.Identity.IsAuthenticated)
             {
                 string appPath = Request.ApplicationPath;
@@ -38,14 +38,6 @@ namespace PMT.Controls
                     loadXmlLinks(appPath+"/Client/"+xmlFile);
 
                 addLink("Reports", "AllUsers/Reports.aspx");
-                addLink("Profile", "AllUsers/Profile.aspx");
-                addLink("Messaging", "AllUsers/Msg/");
-                addLink("Logout", "Logout.aspx");
-            }
-            else
-            {
-                addLink("Login", "Login.aspx");
-                addLink("Register", "Register.aspx");
             }
         }
 

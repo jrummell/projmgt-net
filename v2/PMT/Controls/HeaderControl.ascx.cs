@@ -11,32 +11,38 @@ namespace PMT.Controls
 {
 	public class HeaderControl : UserControl
 	{
-		protected Label userTypeLabel;
-		protected Label PMTLabel;
-        protected Label userNameLabel;
+        protected Label lblRole;
+        protected Label lblUsername;
+        protected HyperLink hlProfile;
+        protected HyperLink hlLogout;
+        protected HyperLink hlMessages;
+        protected HyperLink hlRegister;
+        protected HyperLink hlLogin;
+        protected Panel pnlLoggedIn;
+        protected Panel pnlLoggedOut;
 
 		private void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
             if(Context.User.Identity.IsAuthenticated)
             {
-                userTypeLabel.Text = Request.Cookies["user"]["role"];
-                
-				StringBuilder s = new StringBuilder();
-				s.Append("Welcome ");
-				s.Append(Request.Cookies["user"]["fname"]);
-				s.Append(" ");
-				s.Append(Request.Cookies["user"]["lname"]);
-				s.Append(", you are logged in as ");
-				s.Append(Request.Cookies["user"]["name"]);
-				s.Append(".");
+                lblRole.Text = Request.Cookies["user"]["role"];
+				lblUsername.Text = Request.Cookies["user"]["name"];
+                hlProfile.NavigateUrl = Global.ApplicationPath + "AllUsers/Profile.aspx";
+                hlMessages.NavigateUrl = Global.ApplicationPath + "AllUsers/Msg";
+                hlLogout.NavigateUrl = Global.ApplicationPath + "Logout.aspx";
 
-				userNameLabel.Text = s.ToString();
+                pnlLoggedIn.Visible = true;
+                pnlLoggedOut.Visible = false;
             }
             else
             {
-                userTypeLabel.Text = "";
-                userNameLabel.Text = "";
+                lblRole.Text = String.Empty;
+                hlRegister.NavigateUrl = Global.ApplicationPath + "Register.aspx";
+                hlLogin.NavigateUrl = Global.ApplicationPath + "Login.aspx";
+
+                pnlLoggedIn.Visible = false;
+                pnlLoggedOut.Visible = true;
             }
 		}
 
