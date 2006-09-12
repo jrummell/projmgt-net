@@ -52,10 +52,6 @@
                                 HeaderStyle-CssClass="dgHeader" 
                                 CssClass="dg">
                                 <Columns>
-                                    <%--
-                                    <asp:BoundColumn Visible="False" DataField="devID" ReadOnly="True" HeaderText="devID" />
-                                    <asp:BoundColumn Visible="False" DataField="taskID" HeaderText="taskID" />
-                                    --%>
                                     <asp:BoundColumn DataField="username" HeaderText="Developer" />
                                     <asp:BoundColumn DataField="taskID" HeaderText="Task ID" />
                                     <asp:BoundColumn DataField="taskName" HeaderText="Task" />

@@ -14,7 +14,7 @@ using PMTDataProvider;
 namespace PMT.PM
 {
 	/// <summary>
-	/// Summary description for Assign.
+	/// View developer assignments or assign a task.
 	/// </summary>
     public class Assign : Page
     {
@@ -80,10 +80,15 @@ namespace PMT.PM
                 TaskStatus status = (TaskStatus)Convert.ToInt32(e.Item.Cells[5].Text);
                 e.Item.Cells[5].Text = status.ToString();
 
-                DateTime end = Convert.ToDateTime(e.Item.Cells[7].Text);
-                if (end == DateTime.MinValue)
+                DateTime date = Convert.ToDateTime(e.Item.Cells[7].Text);
+                if (date == DateTime.MinValue)
                 {
                     e.Item.Cells[7].Text = String.Empty;
+                }
+                date = Convert.ToDateTime(e.Item.Cells[6].Text);
+                if (date == DateTime.MinValue)
+                {
+                    e.Item.Cells[6].Text = String.Empty;
                 }
 
                 // init approve column if visible
@@ -119,35 +124,13 @@ namespace PMT.PM
         #region Button Events
         private void Username_Click(object source, DataGridCommandEventArgs e)
         {
+            if (TaskID == -1)
+                return;
+
             int devID = Convert.ToInt32(e.Item.Cells[0].Text);
             IDataProvider data = DataProviderFactory.CreateInstance();
             data.AssignDeveloper(devID, TaskID, new TransactionFailedHandler(this.TransactionFailed));
             BindGrids();
-
-            /*
-            IDataProvider data = DataProviderFactory.CreateInstance();
-                // get the developer ID
-                //string devID = DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text;
-
-            // if the taskID is not defined, goto Dev Profile
-            if (TaskID == -1)
-            {
-                //Response.Redirect("ViewDevProfile.aspx?devID="+devID);
-                return;
-            }
-
-            // assign the developer to the selected task
-            Task task = data.GetTask(TaskID);
-            //if ( task.DeveloperID == null )
-            {
-                data.AssignDeveloper(devID, TaskID, new TransactionFailedHandler(this.TransactionFailed));
-            }
-//            else
-//            {
-//                ErrorLabel.Text = "'" + task.Name + "' has already been assigned.";
-//                //Response.Redirect(Request.Url.AbsolutePath+"?error="+error);
-//            }
-            */
         }
 
         private void UpdateButton_Click(object sender, System.EventArgs e)
@@ -195,34 +178,22 @@ namespace PMT.PM
         {
             get 
             {
+                if (Request["taskID"] == null)
+                    return -1;
+
+                int id = -1;
                 try
                 {
-                    return Convert.ToInt32(Request["taskID"]);  
+                    id = Convert.ToInt32(Request["taskID"]);  
                 }
-                catch
-                {
-                    return -1;
-                }
+                catch{}
+                return id;
             }
         }
         #endregion
 
-        #region Web Form Designer generated code
         override protected void OnInit(EventArgs e)
         {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-		
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {    
             ddlTaskThreshold.SelectedIndexChanged += new EventHandler(ddlTaskThreshold_SelectedIndexChanged);
             dgAvailableDevs.ItemDataBound += new DataGridItemEventHandler(dgAvailableDevs_ItemDataBound);
             dgAssignments.ItemDataBound += new DataGridItemEventHandler(dgAssignments_ItemDataBound);
@@ -231,8 +202,7 @@ namespace PMT.PM
             CommitButton.Click += new EventHandler(CommitButton_Click);
             CancelButton.Click += new EventHandler(CancelButton_Click);
             Load += new System.EventHandler(Page_Load);
-
+            base.OnInit(e);
         }
-        #endregion
     }
 }
