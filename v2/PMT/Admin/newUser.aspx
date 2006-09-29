@@ -1,11 +1,11 @@
-<%@ Page language="c#" Codebehind="newUser.aspx.cs" AutoEventWireup="false" Inherits="PMT.Admin.NewUser" %>
+<%@ Page language="c#" Inherits="PMT.Admin.NewUser" CodeFile="newUser.aspx.cs" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-  <HEAD>
+  <HEAD runat="server">
         <title>Project Management Tool</title>
         <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
         <meta content="C#" name="CODE_LANGUAGE">

@@ -16,21 +16,11 @@ namespace PMT.PM
 	/// <summary>
 	/// View developer assignments or assign a task.
 	/// </summary>
-    public class Assign : Page
+    public partial class Assign : Page
     {
-        protected Label AvailDevLabel;
-        protected Panel AvailableDevPanel;
-        protected Panel AssignmentsPanel;
-        protected Button UpdateButton;
-        protected Button CommitButton;
-        protected Button CancelButton;
-        protected Label ErrorLabel;
-        protected DropDownList ddlTaskThreshold;
-        protected DataGrid dgAvailableDevs;
-        protected DataGrid dgAssignments;
 
 	
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             if (TaskID != -1)
                 AvailDevLabel.Text = "Choose Developer to be assigned to Task " + TaskID;

@@ -18,18 +18,12 @@ using PMTDataProvider;
 
 namespace PMT
 {
-    public class Login : Page
+    public partial class Login : Page
     {
-        protected TextBox UserTextBox;
-        protected Button SubmitButton;
-        protected TextBox PasswordTextBox;
-        protected RequiredFieldValidator UserRequiredFieldValidator;
-        protected RequiredFieldValidator PasswordRequiredFieldValidator;
-        protected Label ErrorLabel;
 
         private PMTUser user;
     
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             // if the user is currently logged in, log them out
             if (User.Identity.IsAuthenticated)
@@ -54,13 +48,11 @@ namespace PMT
         /// </summary>
         private void InitializeComponent()
         {    
-			this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
         #endregion
 
-        private void SubmitButton_Click(object sender, System.EventArgs e)
+        protected void SubmitButton_Click(object sender, System.EventArgs e)
         {
             if (!this.IsValid)
                 return;

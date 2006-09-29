@@ -14,13 +14,10 @@ using PMTDataProvider;
 
 namespace PMT.AllUsers
 {
-	public class Profile : Page
+	public partial class PMTProfile : Page
 	{
-        protected Button SubmitButton;
-        protected Label StatusLabel;
-        protected ProfileControl ProfileControl1;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
             if (!Page.IsPostBack)
@@ -54,13 +51,11 @@ namespace PMT.AllUsers
 		/// </summary>
 		private void InitializeComponent()
 		{    
-            this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
 		#endregion
 
-        private void SubmitButton_Click(object sender, System.EventArgs e)
+        protected void SubmitButton_Click(object sender, System.EventArgs e)
         {
             StatusLabel.Visible = false;
             if (!Page.IsValid)

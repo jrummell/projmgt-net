@@ -1,11 +1,11 @@
-<%@ Page language="c#" Codebehind="viewMessage.aspx.cs" AutoEventWireup="false" Inherits="PMT.AllUsers.Msg.viewMessage" %>
+<%@ Page language="c#" Inherits="PMT.AllUsers.Msg.viewMessage" CodeFile="viewMessage.aspx.cs" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../../Controls/PageNameControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../../Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../../Controls/XmlNavBar.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="StyleControl" src="../../Controls/StyleControl.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-    <HEAD>
+    <HEAD runat="server">
         <title>Messaging</title>
         <pmt:StyleControl runat="server" id="StyleControl1" />
     </HEAD>

@@ -2,10 +2,10 @@
 <%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
-<%@ Page language="c#" Codebehind="EditCompetency.aspx.cs" AutoEventWireup="false" Inherits="PMT.PM.EditCompetency" %>
+<%@ Page language="c#" Inherits="PMT.PM.EditCompetency" CodeFile="EditCompetency.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-    <HEAD>
+    <HEAD runat="server">
         <title>Project Management Tool</title>
         <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
         <meta content="C#" name="CODE_LANGUAGE">
@@ -29,7 +29,7 @@
                         <P>
                             <asp:Label id="IDLabel" runat="server">Developer ID</asp:Label>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
                             &nbsp;
-                            <asp:DropDownList id="DeveloperDropDownList" runat="server" AutoPostBack="True"></asp:DropDownList></P>
+                            <asp:DropDownList id="DeveloperDropDownList" runat="server" AutoPostBack="True" onselectedindexchanged="DeveloperDropDownList_SelectedIndexChanged"></asp:DropDownList></P>
                         <asp:Panel id="DeveloperPanel" runat="server" Visible="False">
                             <P>
                                 <asp:Label id="FirstNameLabel" runat="server">First Name</asp:Label>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -41,8 +41,8 @@
                                 <asp:Label id="PresentCompetenceLabel" runat="server"> Competence:</asp:Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <asp:DropDownList id="CompetenceDropDownList" runat="server"></asp:DropDownList></P>
                             <P>&nbsp;
-                                <asp:Button id="SaveButton" runat="server" Visible="False" Text="Save"></asp:Button>
-                                <asp:Button id="CancelButton" runat="server" Visible="False" Text="Cancel"></asp:Button></P>
+                                <asp:Button id="SaveButton" runat="server" Visible="False" Text="Save" onclick="Button_Click"></asp:Button>
+                                <asp:Button id="CancelButton" runat="server" Visible="False" Text="Cancel" onclick="Button_Click"></asp:Button></P>
                         </asp:Panel>
                     </td>
                 </tr>

@@ -2,10 +2,10 @@
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %>
-<%@ Page language="c#" Codebehind="NewItem.aspx.cs" AutoEventWireup="false" Inherits="PMT.PM.NewItem" %>
+<%@ Page language="c#" Inherits="PMT.PM.NewItem" CodeFile="NewItem.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-    <HEAD>
+    <HEAD runat="server">
         <title>Project Management Tool</title>
         <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
         <meta content="C#" name="CODE_LANGUAGE">
@@ -37,7 +37,7 @@
                                     <TD style="WIDTH: 125px">
                                         <asp:Label id="InProjectLabel" runat="server">In project:</asp:Label></TD>
                                     <TD>
-                                        <asp:DropDownList id="ProjectDropDownList" runat="server"></asp:DropDownList></TD>
+                                        <asp:DropDownList id="ProjectDropDownList" runat="server" onselectedindexchanged="ProjectDropDownList_SelectedIndexChanged"></asp:DropDownList></TD>
                                     <TD>
                                         <asp:RequiredFieldValidator id="ProjectDropDownListRequiredFieldValidator" runat="server" ErrorMessage="Please select a project."
                                             Display="Dynamic" ControlToValidate="ProjectDropDownList"></asp:RequiredFieldValidator></TD>
@@ -93,7 +93,7 @@
                                 <TR>
                                     <TD style="WIDTH: 125px"></TD>
                                     <TD>
-                                        <asp:button id="SubmitButton" runat="server" Text="Submit"></asp:button></TD>
+                                        <asp:button id="SubmitButton" runat="server" Text="Submit" onclick="SubmitButton_Click"></asp:button></TD>
                                     <TD></TD>
                                 </TR>
                             </TABLE>

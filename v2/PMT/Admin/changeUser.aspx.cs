@@ -14,14 +14,11 @@ using PMTDataProvider;
 
 namespace PMT.Admin
 {
-    public class ChangeUser : Page
+    public partial class ChangeUser : Page
     {
-        protected ProfileControl ProfileControl1;
-        protected Button Submit;
-        protected Button Cancel;
         private PMTUser user;
 
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             IDataProvider conn = DataProviderFactory.CreateInstance();
 
@@ -63,14 +60,11 @@ namespace PMT.Admin
         /// </summary>
         private void InitializeComponent()
         {    
-            this.Submit.Click += new System.EventHandler(this.Submit_Click);
-            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
         #endregion
 
-        private void Submit_Click(object sender, System.EventArgs e)
+        protected void Submit_Click(object sender, System.EventArgs e)
         {
             IDataProvider conn = DataProviderFactory.CreateInstance();
 
@@ -80,7 +74,7 @@ namespace PMT.Admin
             conn.UpdatePMTUser(user, new TransactionFailedHandler(this.TransactionFailed));
         }
 
-        private void Cancel_Click(object sender, System.EventArgs e)
+        protected void Cancel_Click(object sender, System.EventArgs e)
         {
             //cancel user profile editing, return to user list page
             Response.Redirect("userList.aspx");

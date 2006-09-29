@@ -1,11 +1,11 @@
-<%@ Page language="c#" Codebehind="Register.aspx.cs" AutoEventWireup="false" Inherits="PMT.Register" %>
+<%@ Page language="c#" Inherits="PMT.Register" CodeFile="Register.aspx.cs" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="Controls/PageNameControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="Controls/XmlNavBar.ascx" %><%@ Register TagPrefix="pmt" TagName="StyleControl" src="Controls/StyleControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="ProfileControl" src="Controls/ProfileControl.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-    <HEAD>
+    <HEAD runat="server">
         <title>Project Management Tool</title>
         <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
         <meta content="C#" name="CODE_LANGUAGE">
@@ -24,7 +24,7 @@
                     <td id="Main" vAlign="top"><pmt:pagenamecontrol id="PageNameControl1" runat="server" PageTitle="Register"></pmt:pagenamecontrol><asp:panel id="RegisterPanel" runat="server">
                             <pmt:ProfileControl id="ProfileControl1" runat="server"></pmt:ProfileControl>
                             <BR>
-                            <asp:Button id="SubmitButton" runat="server" Text="Submit"></asp:Button>
+                            <asp:Button id="SubmitButton" runat="server" Text="Submit" onclick="SubmitButton_Click"></asp:Button>
                         </asp:panel>
                         <P>&nbsp;</P>
                         <asp:panel id="StatusPanel" runat="server" Visible="False">

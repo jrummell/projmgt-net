@@ -18,21 +18,10 @@ namespace PMT.PM
 	/// <summary>
 	/// Summary description for EditCompetency.
 	/// </summary>
-	public class EditCompetency : System.Web.UI.Page
+	public partial class EditCompetency : System.Web.UI.Page
 	{
-		protected System.Web.UI.WebControls.Label IDLabel;
-		protected System.Web.UI.WebControls.Label FirstNameLabel;
-		protected System.Web.UI.WebControls.Label LastNameLabel;
-		protected System.Web.UI.WebControls.Label PresentCompetenceLabel;
-		protected System.Web.UI.WebControls.Button SaveButton;
-		protected System.Web.UI.WebControls.Button CancelButton;
-		protected System.Web.UI.WebControls.Label devFirstLabel;
-		protected System.Web.UI.WebControls.Label devLastLabel;
-		protected System.Web.UI.WebControls.DropDownList DeveloperDropDownList;
-		protected System.Web.UI.WebControls.DropDownList CompetenceDropDownList;
-		protected System.Web.UI.WebControls.Panel DeveloperPanel;
 	
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
 
@@ -88,15 +77,11 @@ namespace PMT.PM
 		/// </summary>
 		private void InitializeComponent()
 		{    
-			this.DeveloperDropDownList.SelectedIndexChanged += new System.EventHandler(this.DeveloperDropDownList_SelectedIndexChanged);
-			this.SaveButton.Click += new System.EventHandler(this.Button_Click);
-			this.CancelButton.Click += new System.EventHandler(this.Button_Click);
-			this.Load += new System.EventHandler(this.Page_Load);
 
 		}
 		#endregion
 
-		private void DeveloperDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
+		protected void DeveloperDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			/*
 			 * get developer info and display it ...
@@ -141,7 +126,7 @@ namespace PMT.PM
 			DeveloperPanel.Visible = true;
 		}
 
-		private void Button_Click(object sender, System.EventArgs e)
+		protected void Button_Click(object sender, System.EventArgs e)
 		{
 			if (sender.Equals(this.SaveButton))
 			{

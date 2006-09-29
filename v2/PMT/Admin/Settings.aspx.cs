@@ -16,22 +16,10 @@ namespace PMT.Admin
 	/// <summary>
 	/// Allows the Administrator to configure the application
 	/// </summary>
-	public class Settings : Page
+	public partial class Settings : Page
 	{
-        protected RadioButtonList rblDbType;
-        protected TextBox txtServer;
-        protected TextBox txtDatabase;
-        protected CheckBox cbTrusted;
-        protected TextBox txtUsername;
-        protected TextBox txtPassword1;
-        protected TextBox txtPassword2;
-        protected RequiredFieldValidator rfvUsername;
-        protected RequiredFieldValidator rfvPassword1;
-        protected RequiredFieldValidator rfvPassword2;
-        protected CompareValidator cvPassword;
-        protected Button btnUpdate;
     
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
             if (!IsPostBack)
             {

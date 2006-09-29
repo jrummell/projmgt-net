@@ -13,11 +13,10 @@ namespace PMT.Controls
     /// <summary>
     /// Navigation Control.  Parses links from an xml in the user's role directory.
     /// </summary>
-    public class XmlNavBar : UserControl
+    public partial class XmlNavBar : UserControl
     {
-        protected Table navTable;
 
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             // if the user is logged in, give them links
             if(Context.User.Identity.IsAuthenticated)
@@ -57,7 +56,6 @@ namespace PMT.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
         #endregion

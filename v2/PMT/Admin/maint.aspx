@@ -1,10 +1,10 @@
-<%@ Page language="c#" Codebehind="maint.aspx.cs" AutoEventWireup="false" Inherits="PMT.Admin.Maint" %>
+<%@ Page language="c#" Inherits="PMT.Admin.Maint" CodeFile="maint.aspx.cs" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %><%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-  <HEAD>
+  <HEAD runat="server">
     <title>Project Management Tool</title>
     <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
     <meta content="C#" name="CODE_LANGUAGE">
@@ -26,9 +26,9 @@
           <td id="Main" valign="top">
             <P><pmt:PageNameControl PageTitle="Maintenance Functions" runat="server" id="PageNameControl1" /></P>
             <P>
-              <asp:Button id="cleanMail" runat="server" Text="Mail Cleanup"></asp:Button></P>
+              <asp:Button id="cleanMail" runat="server" Text="Mail Cleanup" onclick="cleanMail_Click"></asp:Button></P>
             <P>
-              <asp:Button id="cleanPeople" runat="server" Text="People Cleanup"></asp:Button></P>
+              <asp:Button id="cleanPeople" runat="server" Text="People Cleanup" onclick="cleanPeople_Click"></asp:Button></P>
           </td>
         </tr>
       </table>

@@ -14,16 +14,11 @@ using PMTDataProvider;
 
 namespace PMT.PM
 {
-	public class Projects : Page
+	public partial class Projects : Page
 	{
 		protected HyperLink newProjectLink;
-        protected Label lblResult;
-		protected Panel projectPanel;
-        protected HyperLink AddItemHyperLink;
-        protected DataGrid DataGrid1;
-        protected Label ItemLabel;
 	
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!Page.IsPostBack)
             {
@@ -113,7 +108,6 @@ namespace PMT.PM
             DataGrid1.EditCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.EditButton_Pushed);
             DataGrid1.UpdateCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.UpdateCommand_Pushed);
             DataGrid1.DeleteCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DeleteButton_Pushed);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
 		#endregion

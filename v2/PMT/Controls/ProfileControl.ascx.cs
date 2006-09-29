@@ -10,57 +10,10 @@ namespace PMT.Controls
     using System.Collections;
     using PMTComponents;
 
-    public class ProfileControl : UserControl
+    public partial class ProfileControl : UserControl
     {
-        protected RequiredFieldValidator SecurityRequiredFieldValidator;
-        protected DropDownList SecurityDropDownList;
-        protected RegularExpressionValidator EmailRegularExpressionValidator;
-        protected RequiredFieldValidator EmailRequiredFieldValidator;
-        protected TextBox EmailTextBox;
-        protected RegularExpressionValidator PhoneRegularExpressionValidator;
-        protected RequiredFieldValidator PhoneRequiredFieldValidator;
-        protected TextBox PhoneTextBox;
-        protected RegularExpressionValidator ZipRegularExpressionValidator;
-        protected RequiredFieldValidator ZipRequiredFieldValidator;
-        protected TextBox ZipTextBox;
-        protected RequiredFieldValidator StateRequiredFieldValidator;
-        protected TextBox StateTextBox;
-        protected RequiredFieldValidator CityRequiredFieldValidator;
-        protected TextBox CityTextBox;
-        protected RequiredFieldValidator AddressRequiredFieldValidator;
-        protected TextBox AddressTextBox;
-        protected CompareValidator PasswordCompareValidator;
-        protected RequiredFieldValidator Password2RequiredFieldValidator;
-        protected RequiredFieldValidator Password1RequiredFieldValidator;
-        protected RequiredFieldValidator UsernameRequiredFieldValidator;
-        protected RequiredFieldValidator LastNameRequiredFieldValidator;
-        protected TextBox LastNameTextBox;
-        protected RequiredFieldValidator FirstNameRequiredFieldValidator;
-        protected TextBox FirstNameTextBox;
-        protected TextBox OldPasswordTextBox;
-        protected RequiredFieldValidator OldPasswordRequiredFieldValidator;
-        protected Label NewPassword1Label;
-        protected Label NewPassword2Label;
-        protected TextBox UsernameTextBox;
-        protected Label OldPasswordLabel;
-        protected CheckBox ChangePasswordCheckBox;
-        protected TextBox NewPassword1TextBox;
-        protected TextBox NewPassword2TextBox;
-        protected Label FirstNameLabel;
-        protected Label LastNameLabel;
-        protected Label UsernamePromptLabel;
-        protected Label UsernameLabel;
-        protected Label AddressLabel;
-        protected Label CityLabel;
-        protected Label StateLabel;
-        protected Label ZipLabel;
-        protected Label PhoneLabel;
-        protected Label EmailLabel;
-        protected Label SecurityPromptLabel;
-        protected Label SecurityLabel;
-        protected ValidationSummary ValidationSummary1;
 
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             // Put user code to initialize the page here
             if (!this.IsPostBack)
@@ -220,8 +173,6 @@ namespace PMT.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            this.ChangePasswordCheckBox.CheckedChanged += new System.EventHandler(this.ChangePasswordCheckBox_CheckedChanged);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
         #endregion
@@ -229,7 +180,7 @@ namespace PMT.Controls
         /// <summary>
         /// Show or hide the old and new password fields
         /// </summary>
-        private void ChangePasswordCheckBox_CheckedChanged(object sender, System.EventArgs e)
+        protected void ChangePasswordCheckBox_CheckedChanged(object sender, System.EventArgs e)
         {
             showChangePassword(ChangePasswordCheckBox.Checked);
         }

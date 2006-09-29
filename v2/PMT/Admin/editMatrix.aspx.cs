@@ -13,12 +13,10 @@ using PMTComponents;
 
 namespace PMT.Admin
 {
-    public class EditMatrix : Page
+    public partial class EditMatrix : Page
     {
-        protected DataGrid compMatrixGrid;
-        protected Label ResultLabel;
   
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             //load the current competency matrix from the database
             if(!this.IsPostBack)
@@ -54,7 +52,6 @@ namespace PMT.Admin
             compMatrixGrid.CancelCommand += new DataGridCommandEventHandler(this.compMatrixGrid_CancelCommand);
             compMatrixGrid.EditCommand += new DataGridCommandEventHandler(this.compMatrixGrid_EditCommand);
             compMatrixGrid.UpdateCommand += new DataGridCommandEventHandler(this.compMatrixGrid_UpdateCommand);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
         #endregion

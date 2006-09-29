@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="ProfileControl.ascx.cs" Inherits="PMT.Controls.ProfileControl" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
+<%@ Control Language="c#" Inherits="PMT.Controls.ProfileControl" CodeFile="ProfileControl.ascx.cs" %>
 <TABLE id="Table1" cellSpacing="1" cellPadding="1" border="0">
     <TR>
         <TD></TD>
@@ -35,7 +35,7 @@
     </TR>
     <TR>
         <TD>
-            <asp:CheckBox id="ChangePasswordCheckBox" runat="server" Text="Change Password" AutoPostBack="True"></asp:CheckBox></TD>
+            <asp:CheckBox id="ChangePasswordCheckBox" runat="server" Text="Change Password" AutoPostBack="True" oncheckedchanged="ChangePasswordCheckBox_CheckedChanged"></asp:CheckBox></TD>
         <TD></TD>
         <TD></TD>
     </TR>

@@ -10,15 +10,8 @@ using PMTDataProvider;
 
 namespace PMT.Controls
 {
-    public class Report : UserControl
+    public partial class Report : UserControl
     {
-        protected Label lblType;
-        protected Label lblName;
-        protected Label lblDescription;
-        protected Label lblStartDate;
-        protected Label lblExpEndDate;
-        protected Label lblActEndDate;
-        protected Label lblItemStatus;
         private ProjectItem item;
 
         public void FillForm()

@@ -2,10 +2,10 @@
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %>
-<%@ Page language="c#" Codebehind="Projects.aspx.cs" AutoEventWireup="false" Inherits="PMT.Client.Projects" %>
+<%@ Page language="c#" Inherits="PMT.Client.Projects" CodeFile="Projects.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-    <HEAD>
+    <HEAD runat="server">
         <title>Project Management Tool</title>
         <pmt:StyleControl runat="server" id="StyleControl1" />
         <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">

@@ -16,21 +16,10 @@ namespace PMT.AllUsers.Msg
 	/// <summary>
 	/// Summary description for newMessage.
 	/// </summary>
-	public class NewMessage : Page
+	public partial class NewMessage : Page
 	{
-        protected HtmlTextArea MessageTextBox;
-        protected ListBox ToListBox;
-        protected ListBox ContactsListBox;
-        protected TextBox SubjectTextBox;
-        protected RequiredFieldValidator SubjectRequiredFieldValidator;
-        protected RequiredFieldValidator MessageRequiredFieldValidator;
-        protected CustomValidator ToCustomValidator;
-        protected Button SendButton;
-        protected CheckBox cbSaveCopy;
-        protected ValidationSummary ComposeValidationSummary;
-        protected Label lblResult;
 
-		private void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
 		{
             if (!this.IsPostBack)
             {
@@ -70,7 +59,7 @@ namespace PMT.AllUsers.Msg
         /// <summary>
         /// Remove item from contacts and put in toList
         /// </summary>
-        private void ContactsListBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        protected void ContactsListBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             ListItem li = ContactsListBox.SelectedItem;
             ToListBox.Items.Add(li);
@@ -81,7 +70,7 @@ namespace PMT.AllUsers.Msg
         /// <summary>
         /// Remove item from toList and put back in contacts
         /// </summary>
-        private void ToListBox_SelectedIndexChanged(object sender, System.EventArgs e)
+        protected void ToListBox_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             ListItem li = ToListBox.SelectedItem;
             ContactsListBox.Items.Add(li);
@@ -92,7 +81,7 @@ namespace PMT.AllUsers.Msg
         /// <summary>
         /// Send the message
         /// </summary>
-        private void SendButton_Click(object sender, System.EventArgs e)
+        protected void SendButton_Click(object sender, System.EventArgs e)
         {
             if (!Page.IsValid)
                 return;
@@ -189,11 +178,7 @@ namespace PMT.AllUsers.Msg
 		/// </summary>
 		private void InitializeComponent()
 		{    
-            this.ToListBox.SelectedIndexChanged += new System.EventHandler(this.ToListBox_SelectedIndexChanged);
-            this.ContactsListBox.SelectedIndexChanged += new System.EventHandler(this.ContactsListBox_SelectedIndexChanged);
             this.ToCustomValidator.ServerValidate += new System.Web.UI.WebControls.ServerValidateEventHandler(this.ToCustomValidate);
-            this.SendButton.Click += new System.EventHandler(this.SendButton_Click);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
 		#endregion

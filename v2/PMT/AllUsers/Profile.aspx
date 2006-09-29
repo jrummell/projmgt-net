@@ -1,11 +1,11 @@
-<%@ Page language="c#" Codebehind="Profile.aspx.cs" AutoEventWireup="false" Inherits="PMT.AllUsers.Profile" %>
+<%@ Page language="c#" Inherits="PMT.AllUsers.PMTProfile" CodeFile="Profile.aspx.cs" %>
 <%@ Register TagPrefix="pmt" TagName="ProfileControl" src="../Controls/ProfileControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %><%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-    <HEAD>
+    <HEAD runat="server">
         <title>Project Management Tool</title>
         <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
         <meta content="C#" name="CODE_LANGUAGE">
@@ -28,7 +28,7 @@
                             <br>
                             <pmt:profilecontrol id="ProfileControl1" runat="server"></pmt:profilecontrol></P>
                         <P>
-                            <asp:Button id="SubmitButton" runat="server" Text="Update"></asp:Button></P>
+                            <asp:Button id="SubmitButton" runat="server" Text="Update" onclick="SubmitButton_Click"></asp:Button></P>
                     </td>
                 </tr>
             </table>
