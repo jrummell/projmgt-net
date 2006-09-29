@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Data;
 using PMTComponents;
+using PMTDataProvider.Configuration;
 
 namespace PMTDataProvider
 {
@@ -25,7 +26,7 @@ namespace PMTDataProvider
         /// </summary>
         public static IDataProvider CreateInstance()
         {
-            Type t = Type.GetType(Configuration.DataProvider);
+            Type t = Type.GetType(Config.DataProvider);
             ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
             return (IDataProvider)constructor.Invoke(new Object[0]);
         }
