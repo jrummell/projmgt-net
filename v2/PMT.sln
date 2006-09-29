@@ -1,44 +1,78 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMT", "http://localhost/projmgtnet/PMT.csproj", "{BD5C31A0-A12C-4477-9901-27D330814ACD}"
-	ProjectSection(ProjectDependencies) = postProject
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "http://localhost/projmgtnet/", "http://localhost/projmgtnet", "{BD5C31A0-A12C-4477-9901-27D330814ACD}"
+	ProjectSection(WebsiteProperties) = preProject
+		ProjectReferences = "{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}|PMTDataProvider.dll;{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}|PMTComponents.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/projmgtnet"
+		Debug.AspNetCompiler.PhysicalPath = "PMT\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\projmgtnet\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/projmgtnet"
+		Release.AspNetCompiler.PhysicalPath = "PMT\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\projmgtnet\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "PMT\"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMTDataProvider", "PMTDataProvider\PMTDataProvider.csproj", "{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMTComponents", "PMTComponents\PMTComponents.csproj", "{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
-Global
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
-	EndGlobalSection
-	GlobalSection(ProjectDependencies) = postSolution
-	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Debug.ActiveCfg = Debug|.NET
-		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Debug.Build.0 = Debug|.NET
-		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Release.ActiveCfg = Release|.NET
-		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Release.Build.0 = Release|.NET
-		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Debug.ActiveCfg = Debug|.NET
-		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Debug.Build.0 = Debug|.NET
-		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Release.ActiveCfg = Release|.NET
-		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Release.Build.0 = Release|.NET
-		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Debug.ActiveCfg = Debug|.NET
-		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Debug.Build.0 = Debug|.NET
-		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Release.ActiveCfg = Release|.NET
-		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Release.Build.0 = Release|.NET
-	EndGlobalSection
-	GlobalSection(SolutionItems) = postSolution
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7F36BA1C-D381-4E04-80D5-CC6EA0A06356}"
+	ProjectSection(SolutionItems) = preProject
 		Doc\PMT.ndoc = Doc\PMT.ndoc
 		UML\PMT.vsd = UML\PMT.vsd
 		readme.txt = readme.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Debug|.NET.ActiveCfg = Debug|.NET
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Debug|.NET.Build.0 = Debug|.NET
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Release|.NET.ActiveCfg = Release|.NET
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Release|.NET.Build.0 = Release|.NET
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Release|Any CPU.ActiveCfg = Release|.NET
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Release|Mixed Platforms.ActiveCfg = Release|.NET
+		{BD5C31A0-A12C-4477-9901-27D330814ACD}.Release|Mixed Platforms.Build.0 = Release|.NET
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Release|.NET.ActiveCfg = Release|Any CPU
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{77DA7A80-70EA-4286-BA1F-C6D79BAF3513}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Release|.NET.ActiveCfg = Release|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5F5F01F2-AE0F-40DB-9214-97DDCA6E111C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

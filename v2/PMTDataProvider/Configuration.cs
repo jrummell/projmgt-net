@@ -1,27 +1,30 @@
 using System;
 using System.Configuration;
+using System.Web.Configuration;
 using System.Data;
 using System.Xml;
+using System.Collections.Specialized;
 
-namespace PMTDataProvider
+namespace PMTDataProvider.Configuration
 {
 	/// <summary>
 	/// Provides Configuration Information
 	/// </summary>
-	public class Configuration
+	public class Config
 	{
+        private static string section = "pmtSettings/data";
         /// <summary>
         /// Hiding the constructor ...
         /// </summary>
-		private Configuration()	{}
+		private Config() {}
 
         /// <summary>
-        /// Gets the Connection String
+        /// Gets or sets the Connection String
         /// </summary>
         public static string ConnectionString
         {
-            get {   return GetConfigSetting("ConnectionString");    }
-            set {   SetValue("ConnectionString", value);            }
+            get {   return WebConfigurationManager.ConnectionStrings["default"].ConnectionString; }
+            set {   WebConfigurationManager.ConnectionStrings["default"].ConnectionString = value; }
         }
 
         /// <summary>
@@ -29,28 +32,31 @@ namespace PMTDataProvider
         /// </summary>
         public static string DataProvider
         {
-            get {   return GetConfigSetting("DataProvider");   }
-        }
-
-        private static string GetConfigSetting(string setting)
-        {
-            return ConfigurationSettings.AppSettings[setting];
+            get { return Settings["DataProvider"]; }
         }
 
         /// <summary>
-        /// This throws an exception ... write access denied ...
+        /// Gets the cached configuration settings.  
         /// </summary>
-        /// <param name="key">setting key</param>
-        /// <param name="val">setting value</param>
-        private static void SetValue(string key, string val)
+        /// <remarks>
+        /// If the cached object is null it re-inserts it.
+        /// Cache expires 30 minutes after last access.
+        /// </remarks>
+        private static NameValueCollection Settings
         {
-            string path = System.Web.HttpRuntime.AppDomainAppPath + "web.config";
-            DataSet ds = new DataSet();
-
-            ds.ReadXml(path);
-            DataRow[] dr = ds.Tables["add"].Select(String.Format("key='{0}'", key));
-            dr[0]["value"] = val;
-            ds.WriteXml(path);
+            get
+            {
+                NameValueCollection settings = System.Web.HttpContext.Current.Cache[section] as NameValueCollection;
+                if (settings == null)
+                {
+                    settings = WebConfigurationManager.GetSection(section) as NameValueCollection;
+                    System.Web.HttpContext.Current.Cache.Insert(
+                        section, settings, null, 
+                        System.Web.Caching.Cache.NoAbsoluteExpiration, 
+                        new TimeSpan(0, 30, 0));
+                }
+                return settings;
+            }
         }
 	}
 }

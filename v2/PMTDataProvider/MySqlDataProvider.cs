@@ -6,6 +6,7 @@ using MySql;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using PMTComponents;
+using PMTDataProvider.Configuration;
 
 namespace PMTDataProvider
 {
@@ -21,7 +22,7 @@ namespace PMTDataProvider
         #region PMTUser
         public bool AuthenticateUser(string username, string password, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select count(*) from users where UserName=?user";
@@ -71,7 +72,7 @@ namespace PMTDataProvider
         #region PMTUser Management
         public bool EnablePMTUser(int id, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 PMTUser user = this.GetPMTUserById(id, conn);
 
@@ -102,7 +103,7 @@ namespace PMTDataProvider
 
         public bool DisablePMTUser(int id, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 PMTUser user = this.GetPMTUserById(id, conn);
 
@@ -133,7 +134,7 @@ namespace PMTDataProvider
 
         public bool DeletePMTUser(int id, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "delete from users where id=?id";
@@ -153,7 +154,7 @@ namespace PMTDataProvider
 
         public bool InsertPMTUser(PMTUser user, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 // add the user
                 StringBuilder sbCommand = new StringBuilder();
@@ -219,7 +220,7 @@ namespace PMTDataProvider
 
         public bool UpdatePMTUser(PMTUser user, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 // update the user
                 StringBuilder sbCommand = new StringBuilder();
@@ -281,7 +282,7 @@ namespace PMTDataProvider
         public DataTable GetPMTUsers()
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from users u left join userInfo i on u.id=i.id";
@@ -301,7 +302,7 @@ namespace PMTDataProvider
         public DataTable GetEnabledPMTUsers(bool enabled)
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from users u left join userInfo i on u.id=i.id where u.Enabled=?enabled";
@@ -323,7 +324,7 @@ namespace PMTDataProvider
         #region Get PMTUser
         public PMTUser GetPMTUserById(int id)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 return this.GetPMTUserById(id, conn);
             }
@@ -367,7 +368,7 @@ namespace PMTDataProvider
 
         public PMTUser GetPMTUserByUsername(string username)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
 
@@ -382,7 +383,7 @@ namespace PMTDataProvider
         
         public bool VerifyEmailExists(string email)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select count(*) from userInfo where email=?email";
@@ -431,7 +432,7 @@ namespace PMTDataProvider
         public DataTable GetCompMatrix()
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from compMatrix";
@@ -448,7 +449,7 @@ namespace PMTDataProvider
 
         public bool UpdateCompMatrix(CompLevel level, double low, double med, double high, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "update compMatrix set lowComplexity=?low, medComplexity=?med, highComplexity=?high where compLevel=?level";
@@ -475,7 +476,7 @@ namespace PMTDataProvider
         public DataTable GetProjects()
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from projects";
@@ -493,7 +494,7 @@ namespace PMTDataProvider
         public Project GetProject(int id)
         {
             Project project = null;
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from projects p left join userReference u on p.id=u.projectID where id=?id";
@@ -526,7 +527,7 @@ namespace PMTDataProvider
         public DataTable GetManagerProjects(int mgrID)
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("select * from projects p left join userReference u on p.ID=u.projectID \n");
@@ -549,7 +550,7 @@ namespace PMTDataProvider
         public DataTable GetProjectModules(int projID)
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from modules where projectID=?id";
@@ -569,7 +570,7 @@ namespace PMTDataProvider
         public int InsertProject(Project project, TransactionFailedHandler handler)
         {
             int id = -1;
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 // insert the project
                 StringBuilder sbCommand = new StringBuilder();
@@ -629,7 +630,7 @@ namespace PMTDataProvider
 
         public bool UpdateProject(Project project, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("update projects set name=?name, description=?desc, startDate=?start, expEndDate=?expEnd, actEndDate=?actEnd \n");
@@ -660,7 +661,7 @@ namespace PMTDataProvider
 
         public bool DeleteProject(int projID, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("delete from projects where id=?id");
@@ -695,7 +696,7 @@ namespace PMTDataProvider
         public DataTable GetModules()
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from modules";
@@ -713,7 +714,7 @@ namespace PMTDataProvider
         public PMTComponents.Module GetModule(int id)
         {
             PMTComponents.Module module = null;
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from modules where id=?id";
@@ -743,7 +744,7 @@ namespace PMTDataProvider
         public DataTable GetModuleTasks(int modID)
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from tasks where moduleID=?id";
@@ -763,7 +764,7 @@ namespace PMTDataProvider
         public int InsertModule(PMTComponents.Module module, TransactionFailedHandler handler)
         {
             int id = -1;
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("insert into modules (projectID, name, description, startDate, expEndDate) \n");
@@ -806,7 +807,7 @@ namespace PMTDataProvider
 
         public bool UpdateModule(PMTComponents.Module module, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("update modules set projectID=?projID, name=?name, description=?desc, startDate=?start, expEndDate=?expEnd, actEndDate=?actEnd \n");
@@ -838,7 +839,7 @@ namespace PMTDataProvider
 
         public bool DeleteModule(int modID, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("delete from modules where id=?id");
@@ -865,7 +866,7 @@ namespace PMTDataProvider
         public DataTable GetTasks()
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from tasks";
@@ -883,7 +884,7 @@ namespace PMTDataProvider
         public Task GetTask(int id)
         {
             Task task = null;
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from tasks where id=?id";
@@ -915,7 +916,7 @@ namespace PMTDataProvider
         public DataTable GetDeveloperTasks(int devID)
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("select * from tasks t left join taskAssignments a on t.ID=t.taskID \n");
@@ -938,7 +939,7 @@ namespace PMTDataProvider
         public int InsertTask(Task task, TransactionFailedHandler handler)
         {
             int id = -1;
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("insert into tasks (moduleID, projectID, name, description, startDate, expEndDate) \n");
@@ -982,7 +983,7 @@ namespace PMTDataProvider
 
         public bool UpdateTask(Task task, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("update tasks set moduleID=?modID, projectID=?projID, name=?name, description=?desc, startDate=?start, expEndDate=?expEnd, actEndDate=?actEnd \n");
@@ -1015,7 +1016,7 @@ namespace PMTDataProvider
 
         public bool DeleteTask(int taskID, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "delete from tasks where id=?id";
@@ -1036,7 +1037,7 @@ namespace PMTDataProvider
 
         public bool UpdateTaskStatus(int taskID, TaskStatus status, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
 
@@ -1068,7 +1069,7 @@ namespace PMTDataProvider
 
         public bool AssignDeveloper(int devID, int taskID, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 // assign the task
                 MySqlCommand command = conn.CreateCommand();
@@ -1108,7 +1109,7 @@ namespace PMTDataProvider
         public DataTable GetAvailableDevelopers(int numTasks)
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("select u.id as userID, u.userName as userName, count(t.id) as numTasks, c.competence as competence \n");
@@ -1134,7 +1135,7 @@ namespace PMTDataProvider
         public DataTable GetDeveloperAssignments()
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("select u.id as userID, u.userName as userName, t.id as taskID, t.name as taskName, t.status as taskStatus, \n");
@@ -1224,7 +1225,7 @@ namespace PMTDataProvider
         public DataTable GetSentMessages(int userID)
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from messages where senderID=?id";
@@ -1243,7 +1244,7 @@ namespace PMTDataProvider
         public DataTable GetReceivedMessages(int userID)
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("select m.id as messageID, u.username as senderName, r.dateReceived as date, m.subject as subject \n");
@@ -1267,7 +1268,7 @@ namespace PMTDataProvider
         public Message GetMessage(int id)
         {
             Message m = null;
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("select * from messages m left join recipients r on m.id=r.messageID \n");
@@ -1311,7 +1312,7 @@ namespace PMTDataProvider
         private DataTable GetMessageRecipients(int messageID)
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select * from recipients where messageID=?id";
@@ -1330,7 +1331,7 @@ namespace PMTDataProvider
         public int InsertMessage(Message m, TransactionFailedHandler handler)
         {
             int id = -1;
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 // insert the message
                 StringBuilder sbCommand = new StringBuilder();
@@ -1399,7 +1400,7 @@ namespace PMTDataProvider
 
         public bool DeleteMessage(int messageID, int recipientID, TransactionFailedHandler handler)
         {
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 // delete recipient's message
                 MySqlCommand command = conn.CreateCommand();
@@ -1455,7 +1456,7 @@ namespace PMTDataProvider
         public DataTable GetContacts()
         {
             DataTable dt = new DataTable();
-            using (MySqlConnection conn = new MySqlConnection(Configuration.ConnectionString))
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = "select u.id as id, u.username as username from users u "; /*left join userReference r on u.id=r.userID where r.projectID=?pID";*/
