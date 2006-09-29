@@ -1,1 +1,1 @@
-<%@ Application Codebehind="Global.asax.cs" Inherits="PMT.Global" %>
+<%@ Application Inherits="PMT.Global" Language="C#" %>

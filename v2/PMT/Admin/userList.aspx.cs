@@ -13,11 +13,10 @@ using PMTComponents;
 
 namespace PMT.Admin
 {
-    public class Users : Page
+    public partial class Users : Page
     {
-        protected DataGrid UserDataGrid;
   
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             // Put user code to initialize the page here
             if(!Page.IsPostBack)
@@ -45,7 +44,6 @@ namespace PMT.Admin
         private void InitializeComponent()
         {    
             UserDataGrid.ItemDataBound += new DataGridItemEventHandler(UserDataGrid_ItemDataBound);
-            this.Load += new System.EventHandler(this.Page_Load);
         }
         #endregion
 

@@ -16,13 +16,11 @@ namespace PMT.AllUsers.Msg
     /// <summary>
     /// Summary description for Messages.
     /// </summary>
-    public class Messages : Page
+    public partial class Messages : Page
     {
         protected ValidationSummary ComposeValidationSummary;
-        protected Panel MessagesPanel;
-        protected DataGrid MessagesDataGrid;
     
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!this.IsPostBack)
             {
@@ -47,7 +45,6 @@ namespace PMT.AllUsers.Msg
         private void InitializeComponent()
         {    
             this.MessagesDataGrid.DeleteCommand += new DataGridCommandEventHandler(this.MessagesDataGrid_DeleteCommand);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
         #endregion

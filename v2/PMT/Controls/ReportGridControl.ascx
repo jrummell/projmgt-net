@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="ReportGridControl.ascx.cs" Inherits="PMT.Controls.ReportGridControl" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
+<%@ Control Language="c#" Inherits="PMT.Controls.ReportGridControl" CodeFile="ReportGridControl.ascx.cs" %>
 <asp:datagrid id="DataGrid1" AutoGenerateColumns="False" runat="server">
     <AlternatingItemStyle BackColor="#3399FF"></AlternatingItemStyle>
     <ItemStyle BackColor="White"></ItemStyle>

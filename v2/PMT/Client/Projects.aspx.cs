@@ -14,12 +14,11 @@ namespace PMT.Client
 	/// <summary>
 	/// Summary description for _Default.
 	/// </summary>
-	public class Projects : System.Web.UI.Page
+	public partial class Projects : System.Web.UI.Page
 	{
-        protected System.Web.UI.WebControls.DataGrid DataGrid1;
         string clientID;
     
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
             clientID = Request.Cookies["user"]["id"];
 
@@ -60,7 +59,6 @@ namespace PMT.Client
 		/// </summary>
 		private void InitializeComponent()
 		{    
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
 		#endregion

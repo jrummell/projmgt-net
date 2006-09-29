@@ -1,4 +1,4 @@
-<%@ Page language="c#" AutoEventWireup="false" Codebehind="Settings.aspx.cs" Inherits="PMT.Admin.Settings" %>
+<%@ Page language="c#" Inherits="PMT.Admin.Settings" CodeFile="Settings.aspx.cs" %>
 <%@ Import Namespace="PMT" %>
 <%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-  <HEAD>
+  <HEAD runat="server">
 		<title>Project Management .Net</title>
 		<pmt:StyleControl runat="server" ID="Stylecontrol1" NAME="Stylecontrol1"/>
   </HEAD>

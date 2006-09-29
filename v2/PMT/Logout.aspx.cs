@@ -15,33 +15,12 @@ namespace PMT
 	/// <summary>
 	/// Logout the user and redirect to pmt root on page load
 	/// </summary>
-	public class Logout : System.Web.UI.Page
+	public partial class Logout : Page
 	{
-		private void Page_Load(object sender, System.EventArgs e)
+		override protected void OnInit(EventArgs e)
 		{
-			// Put user code to initialize the page here
             FormsAuthentication.SignOut();
             Response.Redirect(Request.ApplicationPath);
 		}
-
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.Load += new System.EventHandler(this.Page_Load);
-		}
-		#endregion
 	}
 }

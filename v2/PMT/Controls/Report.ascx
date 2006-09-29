@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="Report.ascx.cs" Inherits="PMT.Controls.Report" %>
+<%@ Control Language="c#" Inherits="PMT.Controls.Report" CodeFile="Report.ascx.cs" %>
 <div>
     Type: 
     <asp:Label id="lblType" runat="server" /><br/>

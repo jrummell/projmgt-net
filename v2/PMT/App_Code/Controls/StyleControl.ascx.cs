@@ -8,15 +8,14 @@ namespace PMT.Controls
 	using System.Web.UI.HtmlControls;
 
 	/// <summary>
-	///		Summary description for PageNameControl.
+	///		Summary description for StyleControl.
 	/// </summary>
-	public partial class PageNameControl : System.Web.UI.UserControl
+	public class StyleControl : System.Web.UI.UserControl
 	{
-		private string title;
 
-		protected void Page_Load(object sender, System.EventArgs e)
+		private void Page_Load(object sender, System.EventArgs e)
 		{
-			Label1.Text = title;
+			// Put user code to initialize the page here
 		}
 
 		#region Web Form Designer generated code
@@ -35,16 +34,8 @@ namespace PMT.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-
+			this.Load += new System.EventHandler(this.Page_Load);
 		}
 		#endregion
-
-		public string PageTitle
-		{
-			get
-			{	return title;	}
-			set
-			{	title = value;	}
-		}
 	}
 }

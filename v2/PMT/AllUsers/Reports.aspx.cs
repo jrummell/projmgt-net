@@ -15,19 +15,11 @@ using PMTDataProvider;
 
 namespace PMT.AllUsers
 {
-    public class Reports : Page
+    public partial class Reports : Page
     {
-        protected DropDownList ProjectDropDownList;
-        protected Button ViewProjectButton;
-        protected DropDownList ModuleDropDownList;
-        protected Button ViewModuleButton;
-        protected DropDownList TaskDropDownList;
-        protected Button ViewTaskButton;
-        protected Panel ReportPanel;
         protected string role;
-        protected Report report;
 
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             IDataProvider data = DataProviderFactory.CreateInstance();
 
@@ -89,13 +81,6 @@ namespace PMT.AllUsers
         /// </summary>
         private void InitializeComponent()
         {    
-            this.ProjectDropDownList.SelectedIndexChanged += new System.EventHandler(this.ProjectDropDownList_SelectedIndexChanged);
-            this.ViewProjectButton.Click += new System.EventHandler(this.ViewReportButton_Click);
-            this.ModuleDropDownList.SelectedIndexChanged += new System.EventHandler(this.ModuleDropDownList_SelectedIndexChanged);
-            this.ViewModuleButton.Click += new System.EventHandler(this.ViewReportButton_Click);
-            this.TaskDropDownList.SelectedIndexChanged += new System.EventHandler(this.TaskDropDownList_SelectedIndexChanged);
-            this.ViewTaskButton.Click += new System.EventHandler(this.ViewReportButton_Click);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
         #endregion
@@ -103,7 +88,7 @@ namespace PMT.AllUsers
         /// <summary>
         /// Handle View Report button clicks
         /// </summary>
-        private void ViewReportButton_Click(object sender, System.EventArgs e)
+        protected void ViewReportButton_Click(object sender, System.EventArgs e)
         {
             string buttonID = ((Button)sender).ID;
 
@@ -138,7 +123,7 @@ namespace PMT.AllUsers
         }
 
 
-        private void ProjectDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
+        protected void ProjectDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (ProjectDropDownList.SelectedValue.Equals(String.Empty))
             {
@@ -159,7 +144,7 @@ namespace PMT.AllUsers
             enableModuleControls(true);
         }
 
-        private void ModuleDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
+        protected void ModuleDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (ModuleDropDownList.SelectedValue.Equals(String.Empty))
             {
@@ -179,7 +164,7 @@ namespace PMT.AllUsers
             enableTaskControls(true);
         }
 
-        private void TaskDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
+        protected void TaskDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (TaskDropDownList.SelectedValue.Equals(String.Empty))
             {

@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="Tasks.aspx.cs" AutoEventWireup="false" Inherits="PMT.Dev.Tasks" %>
+<%@ Page language="c#" Inherits="PMT.Dev.Tasks" CodeFile="Tasks.aspx.cs" %>
 <%@ Register TagPrefix="pmt" TagName="DisplayGridControl" src="../Controls/DisplayGridControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %>
@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-    <HEAD>
+    <HEAD runat="server">
         <title>Project Management Tool</title>
         <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
         <meta content="C#" name="CODE_LANGUAGE">
@@ -43,8 +43,8 @@
                                 </asp:TemplateColumn>
                                 <asp:BoundColumn DataField="complete" ReadOnly="True" HeaderText="Status"></asp:BoundColumn>
                             </Columns>
-                        </asp:datagrid><asp:button id="UpdateButton" runat="server" Text="Update Status"></asp:button>&nbsp;<asp:button id="CommitButton" runat="server" Text="Commit Changes" Enabled="False"></asp:button>
-                        <asp:Button id="CancelButton" runat="server" Text="Cancel" Enabled="False"></asp:Button></td>
+                        </asp:datagrid><asp:button id="UpdateButton" runat="server" Text="Update Status" onclick="UpdateButton_Click"></asp:button>&nbsp;<asp:button id="CommitButton" runat="server" Text="Commit Changes" Enabled="False" onclick="CommitButton_Click"></asp:button>
+                        <asp:Button id="CancelButton" runat="server" Text="Cancel" Enabled="False" onclick="CancelButton_Click"></asp:Button></td>
                 </tr>
             </table>
         </form>

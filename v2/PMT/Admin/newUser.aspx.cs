@@ -16,12 +16,10 @@ namespace PMT.Admin
     /// <summary>
     /// Summary description for newUser.
     /// </summary>
-    public class NewUser : Page
+    public partial class NewUser : Page
     {
-        protected Label Label1;
-        protected DataGrid NewUserDataGrid;
 
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             // Put user code to initialize the page here
             if(!Page.IsPostBack)
@@ -51,7 +49,6 @@ namespace PMT.Admin
         {
             NewUserDataGrid.ItemDataBound += new DataGridItemEventHandler(NewUserDataGrid_ItemDataBound);
             this.NewUserDataGrid.DeleteCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.NewUserDataGrid_DeleteCommand);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
         #endregion

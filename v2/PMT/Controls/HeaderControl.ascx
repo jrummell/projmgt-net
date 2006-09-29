@@ -1,5 +1,5 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="HeaderControl.ascx.cs" Inherits="PMT.Controls.HeaderControl" TargetSchema="http://schemas.microsoft.com/intellisense/ie5"%>
-<h1>Project Management .Net</h1>
+<%@ Control Language="c#" Inherits="PMT.Controls.HeaderControl" CodeFile="HeaderControl.ascx.cs" %>
+<h2>Project Management .Net</h2>
 <div style="float: left">
     <asp:Label id="lblRole" Runat="server" />
 </div>

@@ -15,14 +15,10 @@ namespace PMT.Dev
 	/// <summary>
 	/// Summary description for DevTasks.
 	/// </summary>
-	public class Tasks : System.Web.UI.Page
+	public partial class Tasks : System.Web.UI.Page
 	{
-        protected System.Web.UI.WebControls.DataGrid DataGrid1;
-        protected System.Web.UI.WebControls.Button UpdateButton;
-        protected System.Web.UI.WebControls.Button CancelButton;
-        protected System.Web.UI.WebControls.Button CommitButton;
 	
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
 //            //initialize the DB object
 //            DBDriver myDB=new DBDriver();
@@ -63,15 +59,11 @@ namespace PMT.Dev
 		/// </summary>
 		private void InitializeComponent()
 		{    
-            this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
-            this.CommitButton.Click += new System.EventHandler(this.CommitButton_Click);
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
 		#endregion
 
-        private void UpdateButton_Click(object sender, System.EventArgs e)
+        protected void UpdateButton_Click(object sender, System.EventArgs e)
         {
             // show the complete column
             UpdateButton.Enabled = false;
@@ -95,7 +87,7 @@ namespace PMT.Dev
             }
         }
 
-        private void CancelButton_Click(object sender, System.EventArgs e)
+        protected void CancelButton_Click(object sender, System.EventArgs e)
         {
             DataGrid1.Columns[6].Visible = false;
             UpdateButton.Enabled = true;
@@ -103,7 +95,7 @@ namespace PMT.Dev
             CancelButton.Enabled = false;
         }
 
-        private void CommitButton_Click(object sender, System.EventArgs e)
+        protected void CommitButton_Click(object sender, System.EventArgs e)
         {
             /*
             DBDriver db = new DBDriver();

@@ -12,11 +12,10 @@ namespace PMT.Controls
 	/// <summary>
 	///		Summary description for DisplayGridControl.
 	/// </summary>
-	public class DisplayGridControl : UserControl
+	public partial class DisplayGridControl : UserControl
 	{
-        protected DataGrid DataGrid1;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
 		}
@@ -37,7 +36,6 @@ namespace PMT.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
 		#endregion

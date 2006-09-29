@@ -18,43 +18,15 @@ namespace PMT.PM
     /// <summary>
     /// Summary description for PMProjects.
     /// </summary>
-    public class NewItem : Page
+    public partial class NewItem : Page
     {
-        protected Button SubmitButton;
-        protected TextBox StartTextBox;
-        protected RegularExpressionValidator StartRegularExpressionValidator;
-        protected RequiredFieldValidator NameRequiredFieldValidator;
-        protected RequiredFieldValidator StartRequiredFieldValidator;
-        protected Label statusLabel;
-        protected System.Web.UI.HtmlControls.HtmlTextArea descriptionTextArea;
-        protected TextBox NameTextBox;
-        protected Panel ChooseItemPanel;
-        protected Panel CreateItemPanel;
-        protected PageNameControl pageNameControl;
-        protected HyperLink CreateProjectLink;
-        protected HyperLink CreateModuleLink;
-        protected HyperLink CreateTaskLink;
-        protected Panel creationSuccessPanel;
-        protected HyperLink addAnotherItemLink;
-        protected DropDownList ModuleDropDownList;
-        protected DropDownList ProjectDropDownList;
-        protected Label InProjectLabel;
-        protected Label InModuleLabel;
-        protected CustomValidator DescriptionCustomValidator;
         protected CustomValidator ProjectDropDownValidator;
-        protected RequiredFieldValidator ProjectDropDownListRequiredFieldValidator;
-        protected RequiredFieldValidator ModuleDropDownListRequiredFieldValidator;
         // the id of the parent item
         protected Project parentProject;
-        protected CustomValidator StartDateCustomValidator;
         protected Label ParentDateLabel;
-        protected DropDownList ComplexityDropDownList;
-        protected Label ComplexityLabel;
-        protected RequiredFieldValidator ComplexityDropDownListRequiredFieldValidator;
-        protected HyperLink AddItemToParentHyperLink;
         protected Module parentModule;
 	
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             // get parent item id, this will be useful when you would click
             //  a link like PMNewItem.aspx?item=task&parentID=5.  This will avoid
@@ -154,11 +126,8 @@ namespace PMT.PM
         /// </summary>
         private void InitializeComponent()
         {    
-            this.ProjectDropDownList.SelectedIndexChanged += new System.EventHandler(this.ProjectDropDownList_SelectedIndexChanged);
             this.StartDateCustomValidator.ServerValidate += new System.Web.UI.WebControls.ServerValidateEventHandler(this.ValidateStartDate);
             this.DescriptionCustomValidator.ServerValidate += new System.Web.UI.WebControls.ServerValidateEventHandler(this.ValidateDescription);
-            this.SubmitButton.Click += new System.EventHandler(this.SubmitButton_Click);
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
         #endregion
@@ -209,7 +178,7 @@ namespace PMT.PM
             }
         }
 
-        private void SubmitButton_Click(object sender, System.EventArgs e)
+        protected void SubmitButton_Click(object sender, System.EventArgs e)
         {
             // return if the form did not pass validation
             if (!Page.IsValid)
@@ -321,7 +290,7 @@ namespace PMT.PM
                 args.IsValid = false;
         }
 
-        private void ProjectDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
+        protected void ProjectDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (ItemType.Equals(ProjectItemType.Task))
             {

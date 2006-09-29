@@ -14,12 +14,10 @@ namespace PMT.Admin
 	/// <summary>
 	/// Summary description for maint.
 	/// </summary>
-	public class Maint : System.Web.UI.Page
+	public partial class Maint : System.Web.UI.Page
 	{
-    protected System.Web.UI.WebControls.Button cleanPeople;
-    protected System.Web.UI.WebControls.Button cleanMail;
   
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
 		}
@@ -40,21 +38,18 @@ namespace PMT.Admin
 		/// </summary>
 		private void InitializeComponent()
 		{    
-      this.cleanMail.Click += new System.EventHandler(this.cleanMail_Click);
-      this.cleanPeople.Click += new System.EventHandler(this.cleanPeople_Click);
-      this.Load += new System.EventHandler(this.Page_Load);
 
     }
 		#endregion
 
-    private void cleanMail_Click(object sender, System.EventArgs e)
+    protected void cleanMail_Click(object sender, System.EventArgs e)
     {
 //      DBDriver myDB=new DBDriver();
 //      myDB.Query="delete from messages where ID not in (select messageID from recipients);";
 //      myDB.nonQuery();
     }
 
-    private void cleanPeople_Click(object sender, System.EventArgs e)
+    protected void cleanPeople_Click(object sender, System.EventArgs e)
     {
 //      DBDriver myDB=new DBDriver();
 //      myDB.Query="create table temp(id int);";

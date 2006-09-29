@@ -1,11 +1,11 @@
-<%@ Page language="c#" Codebehind="changeUser.aspx.cs" AutoEventWireup="false" Inherits="PMT.Admin.ChangeUser" %>
+<%@ Page language="c#" Inherits="PMT.Admin.ChangeUser" CodeFile="changeUser.aspx.cs" %>
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %><%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="ProfileControl" src="../Controls/ProfileControl.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-  <HEAD>
+  <HEAD runat="server">
     <title>Project Management Tool</title>
     <meta content="Microsoft Visual Studio .NET 7.1" name="GENERATOR">
     <meta content="C#" name="CODE_LANGUAGE">
@@ -29,8 +29,8 @@
             <P>
               <pmt:ProfileControl id="ProfileControl1" runat="server"></pmt:ProfileControl></P>
             <P>
-              <asp:Button id="Submit" runat="server" Text="Submit"></asp:Button>
-              <asp:Button id="Cancel" runat="server" Text="Cancel"></asp:Button></P>
+              <asp:Button id="Submit" runat="server" Text="Submit" onclick="Submit_Click"></asp:Button>
+              <asp:Button id="Cancel" runat="server" Text="Cancel" onclick="Cancel_Click"></asp:Button></P>
           </td>
         </tr>
       </table>

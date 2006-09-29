@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<%@ Master Language="C#" EnableTheming="true" AutoEventWireup="true" CodeFile="Default.master.cs" Inherits="DefaultMaster" %>
+<%@ Register TagPrefix="pmt" TagName="HeaderControl" src="~/Controls/HeaderControl.ascx" %>
+<%@ Register TagPrefix="pmt" TagName="NavControl" src="~/Controls/XmlNavBar.ascx" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>Project Management .Net</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="Header">
+        <pmt:HeaderControl id="HeaderControl1" runat="server" />
+    </div>
+    <div id="Navigation">
+        <pmt:NavControl id="NavControl1" runat="server" />
+    </div>
+    <div id="Main">
+        <asp:contentplaceholder id="phMain" runat="server" />
+    </div>
+    </form>
+</body>
+</html>

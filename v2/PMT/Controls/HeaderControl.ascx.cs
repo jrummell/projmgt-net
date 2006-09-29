@@ -9,19 +9,10 @@ using System.Text;
 
 namespace PMT.Controls
 {
-	public class HeaderControl : UserControl
+	public partial class HeaderControl : UserControl
 	{
-        protected Label lblRole;
-        protected Label lblUsername;
-        protected HyperLink hlProfile;
-        protected HyperLink hlLogout;
-        protected HyperLink hlMessages;
-        protected HyperLink hlRegister;
-        protected HyperLink hlLogin;
-        protected Panel pnlLoggedIn;
-        protected Panel pnlLoggedOut;
 
-		private void Page_Load(object sender, System.EventArgs e)
+		protected void Page_Load(object sender, System.EventArgs e)
 		{
 			// Put user code to initialize the page here
             if(Context.User.Identity.IsAuthenticated)
@@ -62,7 +53,6 @@ namespace PMT.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.Load += new System.EventHandler(this.Page_Load);
 
         }
 		#endregion

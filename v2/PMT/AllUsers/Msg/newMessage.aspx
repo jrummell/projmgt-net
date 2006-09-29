@@ -3,10 +3,10 @@
 <%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../../Controls/PageNameControl.ascx" %>
 <%@ Register TagPrefix="pmt" TagName="StyleControl" src="../../Controls/StyleControl.ascx" %>
 <%@ Import Namespace="PMT" %>
-<%@ Page language="c#" Codebehind="NewMessage.aspx.cs" AutoEventWireup="false" Inherits="PMT.AllUsers.Msg.NewMessage" %>
+<%@ Page language="c#" Inherits="PMT.AllUsers.Msg.NewMessage" CodeFile="NewMessage.aspx.cs" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
 <HTML>
-  <HEAD>
+  <HEAD runat="server">
 		<title>Project Management Tool</title>
 		<pmt:StyleControl runat="server" ID="Stylecontrol1" NAME="Stylecontrol1"/>
   </HEAD>
@@ -35,9 +35,9 @@
                             <TR>
                                 <TD>To:</TD>
                                 <TD width="150"><BR>
-                                    <asp:ListBox id="ToListBox" runat="server" AutoPostBack="True"></asp:ListBox></TD>
+                                    <asp:ListBox id="ToListBox" runat="server" AutoPostBack="True" onselectedindexchanged="ToListBox_SelectedIndexChanged"></asp:ListBox></TD>
                                 <TD>Contacts:<BR>
-                                    <asp:ListBox id="ContactsListBox" runat="server" AutoPostBack="True"></asp:ListBox></TD>
+                                    <asp:ListBox id="ContactsListBox" runat="server" AutoPostBack="True" onselectedindexchanged="ContactsListBox_SelectedIndexChanged"></asp:ListBox></TD>
                                 <TD>
                                     <asp:CustomValidator id="ToCustomValidator" runat="server" ErrorMessage="Please select a recipient."
                                         Display="None"></asp:CustomValidator></TD>
@@ -61,7 +61,7 @@
                             <TR>
                                 <TD></TD>
                                 <TD colSpan="2">
-                                        <asp:Button id="SendButton" runat="server" Text="Send" />
+                                        <asp:Button id="SendButton" runat="server" Text="Send" onclick="SendButton_Click" />
                                 </TD>
                                 <TD></TD>
                             </TR>
