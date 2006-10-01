@@ -10,14 +10,16 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div id="Header">
-            <pmt:Header ID="header1"  runat="server" />
-        </div>
-        <div id="Navigation">
-            <pmt:Navigation ID="navigation1" runat="server" />
-        </div>
-        <div id="Main">
-            <asp:contentplaceholder id="phMain" runat="server" />
+        <div>
+            <div id="Header">
+                <pmt:Header ID="header1"  runat="server" />
+            </div>
+            <div id="Navigation">
+                <pmt:Navigation ID="navigation1" runat="server" />
+            </div>
+            <div id="Main">
+                <asp:contentplaceholder id="phMain" runat="server" />
+            </div>
         </div>
     </form>
 </body>

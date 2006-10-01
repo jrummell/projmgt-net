@@ -12,7 +12,7 @@ namespace PMTDataProvider.Configuration
 	/// </summary>
 	public class Config
 	{
-        private static string section = "pmtSettings/data";
+        private static string section = "pmtSettings/pmtDataProvider";
         /// <summary>
         /// Hiding the constructor ...
         /// </summary>
