@@ -10,7 +10,7 @@ namespace PMT.Controls
     using System.Collections;
     using PMTComponents;
 
-    public partial class ProfileControl : UserControl
+    public partial class PMTProfile : UserControl
     {
 
         protected void Page_Load(object sender, System.EventArgs e)

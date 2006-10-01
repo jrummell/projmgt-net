@@ -5,19 +5,25 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using PMTComponents;
+using System.Text;
 
 namespace PMT.Controls
 {
-	/// <summary>
-	///		Summary description for DisplayGridControl.
-	/// </summary>
-	public partial class DisplayGridControl : UserControl
+	public partial class Header : UserControl
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-			// Put user code to initialize the page here
+            bool isLoggedIn = Context.User.Identity.IsAuthenticated;
+
+            if (isLoggedIn)
+            {
+                lblRole.Text = Request.Cookies["user"]["role"];
+                lblUsername.Text = Request.Cookies["user"]["name"];
+            }
+
+            pnlLoggedIn.Visible = isLoggedIn;
+            pnlLoggedOut.Visible = !isLoggedIn;
 		}
 
 		#region Web Form Designer generated code
@@ -39,14 +45,5 @@ namespace PMT.Controls
 
         }
 		#endregion
-
-        public DataSet DataSource
-        {
-            set
-            {   
-                DataGrid1.DataSource = value;
-                DataGrid1.DataBind();
-            }
-        }
 	}
 }
