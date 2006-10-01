@@ -1,74 +1,55 @@
-<%@ Register TagPrefix="pmt" TagName="NavControl" src="../../Controls/XmlNavBar.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../../Controls/HeaderControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../../Controls/PageNameControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="StyleControl" src="../../Controls/StyleControl.ascx" %>
-<%@ Import Namespace="PMT" %>
-<%@ Page language="c#" Inherits="PMT.AllUsers.Msg.NewMessage" CodeFile="NewMessage.aspx.cs" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
-<HTML>
-  <HEAD runat="server">
-		<title>Project Management Tool</title>
-		<pmt:StyleControl runat="server" ID="Stylecontrol1" NAME="Stylecontrol1"/>
-  </HEAD>
-	<body>
-		<form id="Form1" method="post" runat="server">
-			<table width="100%" height="100%">
-				<tr>
-					<td id="Header" colspan="2">
-						<pmt:HeaderControl id="HeaderControl1" runat="server" />
-					</td>
-				</tr>
-				<tr>
-					<td id="Navigation" valign="top">
-						<pmt:NavControl runat="server" id="NavControl1" /></td>
-					<td id="Main" valign="top">
-					    <pmt:PageNameControl PageTitle="Messaging" runat="server" id="PageNameControl1" />
-					    <H4>Compose Message</H4>
-					    <asp:Label ID="lblResult" Runat="server" />
-                        <TABLE id="Table1" cellSpacing="1" cellPadding="1" border="0">
-                            <TR>
-                                <TD></TD>
-                                <TD colSpan="2">
-                                    <asp:ValidationSummary id="ComposeValidationSummary" runat="server"></asp:ValidationSummary></TD>
-                                <TD></TD>
-                            </TR>
-                            <TR>
-                                <TD>To:</TD>
-                                <TD width="150"><BR>
-                                    <asp:ListBox id="ToListBox" runat="server" AutoPostBack="True" onselectedindexchanged="ToListBox_SelectedIndexChanged"></asp:ListBox></TD>
-                                <TD>Contacts:<BR>
-                                    <asp:ListBox id="ContactsListBox" runat="server" AutoPostBack="True" onselectedindexchanged="ContactsListBox_SelectedIndexChanged"></asp:ListBox></TD>
-                                <TD>
-                                    <asp:CustomValidator id="ToCustomValidator" runat="server" ErrorMessage="Please select a recipient."
-                                        Display="None"></asp:CustomValidator></TD>
-                            </TR>
-                            <TR>
-                                <TD>Subject:</TD>
-                                <TD colSpan="2">
-                                    <asp:TextBox id="SubjectTextBox" runat="server" Width="100%" Columns="50"></asp:TextBox><br>
-                                    <asp:CheckBox id="cbSaveCopy" Text="Save a copy in sent folder" runat="server" /></TD>
-                                <TD>
-                                    <asp:RequiredFieldValidator id="SubjectRequiredFieldValidator" runat="server" ErrorMessage="Please enter a subject."
-                                        Display="None" ControlToValidate="SubjectTextBox"></asp:RequiredFieldValidator></TD>
-                            </TR>
-                            <TR>
-                                <TD vAlign="top">Message:</TD>
-                                <TD colSpan="2"><TEXTAREA id="MessageTextBox" class="Message" cols="80" rows="20" runat="server" NAME="MessageTextBox"></TEXTAREA></TD>
-                                <TD vAlign="top">
-                                    <asp:RequiredFieldValidator id="MessageRequiredFieldValidator" runat="server" ErrorMessage="Please enter a message."
-                                        Display="None" ControlToValidate="MessageTextBox"></asp:RequiredFieldValidator></TD>
-                            </TR>
-                            <TR>
-                                <TD></TD>
-                                <TD colSpan="2">
-                                        <asp:Button id="SendButton" runat="server" Text="Send" onclick="SendButton_Click" />
-                                </TD>
-                                <TD></TD>
-                            </TR>
-                        </TABLE>
-					</td>
-				</tr>
-			</table>
-		</form>
-	</body>
-</HTML>
+<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.AllUsers.Msg.NewMessage"
+    CodeFile="NewMessage.aspx.cs" %>
+
+<asp:Content ContentPlaceHolderID="phMain" runat="server">
+    <h3>Messaging</h3>
+    <h4>Compose Message</h4>
+    <asp:Label ID="lblResult" runat="server" />
+    <table id="Table1" cellspacing="1" cellpadding="1" border="0">
+        <tr>
+            <td>
+            </td>
+            <td colspan="2">
+                <asp:ValidationSummary ID="ComposeValidationSummary" runat="server"></asp:ValidationSummary>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                To:</td>
+            <td style="width:150px">
+                <br/>
+                <asp:ListBox ID="ToListBox" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ToListBox_SelectedIndexChanged">
+                </asp:ListBox></td>
+            <td>
+                Contacts:<br/>
+                <asp:ListBox ID="ContactsListBox" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ContactsListBox_SelectedIndexChanged">
+                </asp:ListBox>
+                <asp:CustomValidator ID="ToCustomValidator" runat="server" ErrorMessage="Please select a recipient."
+                    Display="None"></asp:CustomValidator></td>
+        </tr>
+        <tr>
+            <td>
+                Subject:</td>
+            <td colspan="2">
+                <asp:TextBox ID="SubjectTextBox" runat="server" Width="100%"></asp:TextBox><br/>
+                <asp:CheckBox ID="cbSaveCopy" Text="Save a copy in sent folder" runat="server" />
+                <asp:RequiredFieldValidator ID="SubjectRequiredFieldValidator" runat="server" ErrorMessage="Please enter a subject."
+                    Display="None" ControlToValidate="SubjectTextBox"></asp:RequiredFieldValidator></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Message:</td>
+            <td colspan="2">
+                <textarea id="MessageTextBox" class="Message" cols="50" rows="18" runat="server"
+                    name="MessageTextBox"></textarea><asp:RequiredFieldValidator ID="MessageRequiredFieldValidator" runat="server" ErrorMessage="Please enter a message."
+                    Display="None" ControlToValidate="MessageTextBox"></asp:RequiredFieldValidator></td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td colspan="2">
+                <asp:Button ID="SendButton" runat="server" Text="Send" OnClick="SendButton_Click" />
+            </td>
+        </tr>
+    </table>
+</asp:Content>

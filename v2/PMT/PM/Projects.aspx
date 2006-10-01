@@ -1,7 +1,9 @@
 <%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.PM.Projects"
     CodeFile="Projects.aspx.cs" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="phMain" runat="Server">
+<asp:Content ContentPlaceHolderID="phMain" runat="server">
+    <h3>
+        Projects</h3>
     <asp:Label ID="lblResult" EnableViewState="false" runat="server" />
     <asp:Panel ID="projectPanel" runat="server">
         <h4>
@@ -19,7 +21,6 @@
                 <asp:ButtonColumn Text="Delete" ButtonType="PushButton" CommandName="Delete" />
             </Columns>
         </asp:DataGrid>
-        <br>
         <asp:HyperLink ID="AddItemHyperLink" runat="server" NavigateUrl="NewItem.aspx?item=Module&amp;parentID=" />
     </asp:Panel>
 </asp:Content>

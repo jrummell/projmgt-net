@@ -14,7 +14,7 @@ using PMTDataProvider;
 
 namespace PMT.AllUsers
 {
-	public partial class PMTProfile : Page
+	public partial class UserProfile : Page
 	{
 
 		protected void Page_Load(object sender, System.EventArgs e)

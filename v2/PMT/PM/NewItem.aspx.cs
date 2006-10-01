@@ -50,7 +50,7 @@ namespace PMT.PM
             // set the page title
             //if (!ItemType.Equals(String.Empty))
             {
-                pageNameControl.PageTitle = "New " + ItemType.ToString();
+                lblItemType.Text = ItemType.ToString();
             }
             
 
