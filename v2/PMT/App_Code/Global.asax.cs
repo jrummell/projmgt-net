@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Security.Principal;
 using System.Configuration;
 using System.Collections.Specialized;
+using PMTComponents;
 
 namespace PMT 
 {
@@ -14,6 +15,7 @@ namespace PMT
 
 	public class Global : HttpApplication
 	{
+        private static string section = "pmtSettings/pmt";
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
@@ -38,6 +40,33 @@ namespace PMT
                 }
                 return path;
             }
+        }
+
+        /// <summary>
+        /// Gets the users default path base on their role.
+        /// </summary>
+        public static string GetUserDefaultPath(PMTUserRole role)
+        {
+            string path;
+            switch (role)
+            {
+                case PMTUserRole.Administrator:
+                    path = "Admin/";
+                    break;
+                case PMTUserRole.Manager:
+                    path = "PM/";
+                    break;
+                case PMTUserRole.Developer:
+                    path = "Dev/";
+                    break;
+                case PMTUserRole.Client:
+                    path = "Client/";
+                    break;
+                default:
+                    return null;
+            }
+
+            return Global.ApplicationPath + path;
         }
 		
         #region HttpApplication Events
@@ -102,37 +131,14 @@ namespace PMT
         #endregion
 
         #region Web.config Settings
-        #region CSS Classes
-        public static string DataGridStyle
-        {
-            get {   return GetConfigSetting("", "DataGridStyle");           }
-        }
-        public static string DataGridItemStyle
-        {
-            get {   return GetConfigSetting("", "DataGridItemStyle");       }
-        }
-        public static string DataGridAltItemStyle
-        {
-            get {   return GetConfigSetting("", "DataGridAltItemStyle");    }
-        }
-        public static string DataGridHeaderStyle
-        {
-            get {   return GetConfigSetting("", "DataGridHeaderStyle");     }
-        }
-        #endregion
-
         /// <summary>
-        /// Gets a Configuration Setting from web.config.  If no section is specified, defaults to appSettings.
+        /// Gets a Configuration Setting from web.config.
         /// </summary>
-        /// <param name="section">Configuration section</param>
         /// <param name="setting">Configuration setting key</param>
         /// <returns>Configuration setting value</returns>
-        private static string GetConfigSetting(string section, string setting)
+        private static string GetConfigSetting(string setting)
         {
-            if (section == String.Empty)
-                return ConfigurationSettings.AppSettings[setting];
-            else
-                return ((NameValueCollection)ConfigurationSettings.GetConfig(section))[setting];
+            return ((NameValueCollection)ConfigurationSettings.GetConfig(section))[setting];
         }
         #endregion
 
