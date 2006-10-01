@@ -14,8 +14,16 @@ Default skin template. The following skins are provided as examples only.
 <asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
 --%>
 
+<asp:Login runat="server" BorderColor="#E6E2D8" BorderPadding="4"
+    BorderStyle="Solid" BorderWidth="1px">
+    <TitleTextStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+    <InstructionTextStyle Font-Italic="True" />
+    <LoginButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px"
+         ForeColor="#284775" />
+</asp:Login>
+
 <asp:DataGrid runat="server" 
     CssClass="dg" 
     HeaderStyle-CssClass="dgHeader" 
-    ItemStyle-CssClass="dgItem"
-    AlternatingItemStyle-CssClass="dgAltItem" />
+    AlternatingItemStyle-CssClass="dgAltItem"
+    AutoGenerateColumns="False" />
