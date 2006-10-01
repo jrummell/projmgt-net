@@ -10,31 +10,37 @@ using PMTComponents;
 
 namespace PMT.Controls
 {
-    /// <summary>
-    /// Navigation Control.  Parses links from an xml in the user's role directory.
-    /// </summary>
-    public partial class XmlNavBar : UserControl
+    public partial class Navigation : UserControl
     {
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
-            // if the user is logged in, give them links
-            if(Context.User.Identity.IsAuthenticated)
+            // if the users is logged in, add a logged in links
+            // else add a login and register links
+            if (Context.User.Identity.IsAuthenticated)
             {
-                string appPath = Request.ApplicationPath;
-                string xmlFile = "NavLinks.xml";
-               
-                if (Request.Cookies["user"]["role"].Equals(PMTUserRole.Manager.ToString()))
-                    loadXmlLinks(appPath+"/PM/"+xmlFile);
-                else if (Request.Cookies["user"]["role"].Equals(PMTUserRole.Developer.ToString()))
-                    loadXmlLinks(appPath+"/Dev/"+xmlFile);
-                else if (Request.Cookies["user"]["role"].Equals(PMTUserRole.Administrator.ToString()))
+                // parse role from cookie
+                PMTUserRole role;
+                try
                 {
-                    loadXmlLinks(appPath+"/Admin/"+xmlFile);
-                    loadXmlLinks(appPath+"/PM/"+xmlFile);
+                    role = (PMTUserRole)Enum.Parse(typeof(PMTUserRole), Request.Cookies["user"]["role"]);
                 }
-                else if (Request.Cookies["user"]["role"].Equals(PMTUserRole.Client.ToString()))
-                    loadXmlLinks(appPath+"/Client/"+xmlFile);
+                catch
+                {
+                    role = 0;
+                }
+
+                string dir = Global.GetUserDefaultPath(role);
+
+                // unknown role
+                if (dir == null)
+                    return;
+
+                string xmlFile = "NavLinks.xml";
+                StringBuilder sbPath = new StringBuilder();
+                sbPath.Append(dir).Append(xmlFile);
+                
+                loadXmlLinks(sbPath.ToString());
 
                 addLink("Reports", "AllUsers/Reports.aspx");
             }
@@ -93,8 +99,7 @@ namespace PMT.Controls
             StringBuilder sb = new StringBuilder();
 
             sb.Append("<a href=\"");
-            sb.Append(Request.ApplicationPath);
-            sb.Append("/");
+            sb.Append(Global.ApplicationPath);
             sb.Append(linkSource);
             sb.Append("\" class=\"nav\">");
             sb.Append(linkTitle);
