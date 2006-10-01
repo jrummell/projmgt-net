@@ -1,52 +1,43 @@
-<%@ Register TagPrefix="pmt" TagName="StyleControl" src="../Controls/StyleControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="NavControl" src="../Controls/XmlNavBar.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="HeaderControl" src="../Controls/HeaderControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="PageNameControl" src="../Controls/PageNameControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="ReportGridControl" src="../Controls/ReportGridControl.ascx" %>
-<%@ Page language="c#" Inherits="PMT.AllUsers.Reports" CodeFile="Reports.aspx.cs" %>
-<%@ Register TagPrefix="pmt" TagName="Report" Src="../Controls/Report.ascx" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
-<HTML>
-  <HEAD runat="server">
-        <title>Project Management Tool</title>
-        <pmt:StyleControl runat="server" id=StyleControl1 />
-  </HEAD>
-    <body>
-        <form id="Form1" method="post" runat="server">
-            <table height="100%" width="100%">
-                <tr>
-                    <td id="Header" colSpan="2"><pmt:headercontrol id="HeaderControl1" runat="server" /></td>
-                </tr>
-                <tr>
-                    <td id="Navigation" vAlign="top"><pmt:navcontrol id="NavControl1" runat="server" /></td>
-                    <td id="Main" vAlign="top">
-                        <P><pmt:pagenamecontrol id="PageNameControl1" runat="server" PageTitle="Reports" /></P>
-                        <TABLE id="Table1" cellSpacing="1" cellPadding="1" border="0">
-                            <TR>
-                                <TD>Project:</TD>
-                                <TD><asp:dropdownlist id="ProjectDropDownList" runat="server" AutoPostBack="True" onselectedindexchanged="ProjectDropDownList_SelectedIndexChanged" /></TD>
-                                <TD><asp:button id="ViewProjectButton" runat="server" Text="View Report" Enabled="False" onclick="ViewReportButton_Click" /></TD>
-                            </TR>
-                            <TR>
-                                <TD>Module:</TD>
-                                <TD><asp:dropdownlist id="ModuleDropDownList" runat="server" AutoPostBack="True" onselectedindexchanged="ModuleDropDownList_SelectedIndexChanged" /></TD>
-                                <TD><asp:button id="ViewModuleButton" runat="server" Text="View Report" Enabled="False" onclick="ViewReportButton_Click" /></TD>
-                            </TR>
-                            <TR>
-                                <TD>Task:</TD>
-                                <TD><asp:dropdownlist id="TaskDropDownList" runat="server" AutoPostBack="True" onselectedindexchanged="TaskDropDownList_SelectedIndexChanged" /></TD>
-                                <TD><asp:button id="ViewTaskButton" runat="server" Text="View Report" Enabled="False" onclick="ViewReportButton_Click" /></TD>
-                            </TR>
-                        </TABLE>
-                        <br/>
-                        <asp:panel id="ReportPanel" runat="server" Visible="False">
-                            <blockquote>
-                                <pmt:Report id="report" runat="server" />
-                            </blockquote>
-                        </asp:panel>
-                    </td>
-                </tr>
-            </table>
-        </form>
-    </body>
-</HTML>
+<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.AllUsers.Reports"
+    CodeFile="Reports.aspx.cs" %>
+
+<%@ Register TagPrefix="pmt" TagName="Report" Src="~/Controls/Report.ascx" %>
+<asp:Content ContentPlaceHolderID="phMain" runat="server">
+    <h3>
+        Reports</h3>
+    <table id="Table1" cellspacing="1" cellpadding="1" border="0">
+        <tr>
+            <td>
+                Project:</td>
+            <td>
+                <asp:DropDownList ID="ProjectDropDownList" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ProjectDropDownList_SelectedIndexChanged" /></td>
+            <td>
+                <asp:Button ID="ViewProjectButton" runat="server" Text="View Report" Enabled="False"
+                    OnClick="ViewReportButton_Click" /></td>
+        </tr>
+        <tr>
+            <td>
+                Module:</td>
+            <td>
+                <asp:DropDownList ID="ModuleDropDownList" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ModuleDropDownList_SelectedIndexChanged" /></td>
+            <td>
+                <asp:Button ID="ViewModuleButton" runat="server" Text="View Report" Enabled="False"
+                    OnClick="ViewReportButton_Click" /></td>
+        </tr>
+        <tr>
+            <td>
+                Task:</td>
+            <td>
+                <asp:DropDownList ID="TaskDropDownList" runat="server" AutoPostBack="True" OnSelectedIndexChanged="TaskDropDownList_SelectedIndexChanged" /></td>
+            <td>
+                <asp:Button ID="ViewTaskButton" runat="server" Text="View Report" Enabled="False"
+                    OnClick="ViewReportButton_Click" /></td>
+        </tr>
+    </table>
+    <br />
+    <asp:Panel ID="ReportPanel" runat="server" Visible="False">
+        <blockquote>
+            <pmt:Report ID="report" runat="server" />
+        </blockquote>
+    </asp:Panel>
+</asp:Content>

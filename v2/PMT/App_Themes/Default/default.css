@@ -3,70 +3,55 @@
 	padding: 0px;
 	margin: 0px;
 	
-	background: #06f url(images/diagonals-gray.gif);
+	background: #06A url(images/diagonals-gray.gif);
 	color: white;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: smaller;
 }
 
 /* Layout Classes */
+
 #Header
 {
 	height: 75px;
-	width: 808px;
-	clear: both;
+	width: 800px;
 	margin: 2px;
 	padding: 5px;
-
-	color: Navy;
+	clear: both;
+	
 	background-color: White;
+	color: Navy;
 }
+
 #Navigation
 {
-    width: 200px;
+	width: 192px;
 	height: 600px;
-	float: left;
 	margin: 2px;
 	padding: 5px;
-
-	color: Navy;
+	float: left;
+	
 	background-color: White;
+	color: Navy;
 }
+
 #Main
 {
-    height: 600px;
-	float: left; 
 	width: 594px;
+	height: 600px;
 	margin: 2px;
 	padding: 5px;
+	float: left;
 	
+    background-color: White;
 	color: Black;
-	background-color: White;
 }
 
-/* Header links */
-#Header a.nav:link
-{
-	color: Navy;
-	text-decoration: underline;
-}
-#Header a.nav:visited
-{
-	color: Navy;
-}
-#Header a.nav:hover
-{
-    color: Black;
-}
-#Header a.nav:active
-{
-    color: Red;
-}
+/* Link Classes */
 
-/* Left Navigation links */
-#Navigation a.nav
+a.nav
 {
-    display: block;
+	display: block;
 	padding-top: 2px;
 	padding-bottom: 2px;
 	padding-left: 5px;
@@ -74,30 +59,29 @@
 	font-weight: bold;
 	border-bottom: 1px dashed #ccc;
 }
-#Navigation a.nav:link
+a.nav:link
 {
 	color: Navy;
 	text-decoration: none;
 }
-#Navigation a.nav:visited
+a.nav:visited
 {
 	color: Navy;
 	text-decoration: none;
 }
-#Navigation a.nav:hover
+a.nav:hover
 {
 	color: Black;
 	background-color: #ddd;
 }
-#Navigation a.nav:active
+a.nav:active
 {
 	text-decoration: underline;
 }
 
-
 .Message
 { 
-    border: 1px solid #ccc; 
+    border: 1px solid LightGrey; 
     padding: 1em;
 }
 
@@ -108,32 +92,24 @@ select
 
 hr
 {
-    border-color: #ccc;
+    border-color: White;
     border-bottom-style: solid;
 }
 
-h1, h2, h3, h4, h5, h6
-{
-    padding: 0px;
-    margin: .5em 0 .5em 0;
-}
 
 /* DataGrid Classes */
 .dg
 {
-    border: solid 1px #999;
+    color: Black;
 }
 .dg td
 {
     text-align: left;
-    padding: 2px;    
+    padding: 2px;
 }
 .dgHeader
 {
     font-weight: bold;
-}
-.dgItem
-{
 }
 .dgAltItem
 {

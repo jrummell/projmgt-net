@@ -1,5 +1,6 @@
-<%@ Page language="c#" AutoEventWireup="false" MasterPageFile="~/Master/Default.master" %>
+<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" AutoEventWireup="false" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="phMain" Runat="Server">
+<asp:Content ContentPlaceHolderID="phMain" runat="server">
+    <h3>Error</h3>
     <p>Oops ... An error was encountered. Please try again later.</p>
 </asp:Content>

@@ -20,7 +20,6 @@ namespace PMT
 {
     public partial class Login : Page
     {
-
         private PMTUser user;
     
         protected void Page_Load(object sender, System.EventArgs e)
@@ -52,39 +51,8 @@ namespace PMT
 		}
         #endregion
 
-        protected void SubmitButton_Click(object sender, System.EventArgs e)
-        {
-            if (!this.IsValid)
-                return;
-
-            string username = UserTextBox.Text;
-            string password = Encryption.MD5Encrypt(PasswordTextBox.Text);
-
-			if (CustomAuthenticate(username, password)) 
-			{
-				// WTF does the first param do ???
-				string url = FormsAuthentication.GetRedirectUrl(user.UserName, false);
-				FormsAuthentication.SetAuthCookie(user.Role.ToString(), false);
-
-				if (url.Equals(Request.ApplicationPath + "/default.aspx"))
-				{
-					if (user.Role.Equals(PMTUserRole.Manager))
-						url = Request.ApplicationPath + "/PM";
-					else if (user.Role.Equals(PMTUserRole.Developer))
-						url = Request.ApplicationPath + "/Dev";
-					else if (user.Role.Equals(PMTUserRole.Administrator))
-						url = Request.ApplicationPath + "/Admin";
-					else if (user.Role.Equals(PMTUserRole.Client))
-					   url = Request.ApplicationPath + "/Client";
-				}
-            
-				Response.Redirect (url);
-			}
-        }
-
         bool CustomAuthenticate(string username, string password)
-        {
-            
+        {            
             IDataProvider conn = DataProviderFactory.CreateInstance();
             if (conn.AuthenticateUser(username, password, new TransactionFailedHandler(this.TransactionFailed)))
                 user = conn.GetPMTUserByUsername(username);
@@ -109,7 +77,24 @@ namespace PMT
 
         private void TransactionFailed(Exception ex)
         {
-            ErrorLabel.Text = ex.Message;
+            lblResult.Text = ex.Message;
         }
-    }
+        protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
+        {
+            if (!IsValid)
+                return;
+
+            string username = Login1.UserName;
+            string password = Encryption.MD5Encrypt(Login1.Password);
+
+            e.Authenticated = CustomAuthenticate(username, password);
+			if (e.Authenticated) 
+			{
+				string url = FormsAuthentication.GetRedirectUrl(user.UserName, false);
+				FormsAuthentication.SetAuthCookie(user.Role.ToString(), false);
+
+				Response.Redirect(Global.GetUserDefaultPath(user.Role));
+			}
+        }
+}
 }

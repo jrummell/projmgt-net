@@ -14,7 +14,7 @@ using PMTDataProvider;
 namespace PMT.PM
 {
 	/// <summary>
-	/// View developer assignments or assign a task.
+	/// Summary description for Assign.
 	/// </summary>
     public partial class Assign : Page
     {
@@ -67,18 +67,23 @@ namespace PMT.PM
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 // show status description
-                TaskStatus status = (TaskStatus)Convert.ToInt32(e.Item.Cells[5].Text);
+                TaskStatus status = TaskStatus.Unassigned;
+                try
+                {
+                    status = (TaskStatus)Convert.ToInt32(e.Item.Cells[5].Text);
+                }
+                catch { }
                 e.Item.Cells[5].Text = status.ToString();
 
-                DateTime date = Convert.ToDateTime(e.Item.Cells[7].Text);
-                if (date == DateTime.MinValue)
+                DateTime end = DateTime.MinValue;
+                try
+                {
+                    Convert.ToDateTime(e.Item.Cells[7].Text);
+                }
+                catch { }
+                if (end == DateTime.MinValue)
                 {
                     e.Item.Cells[7].Text = String.Empty;
-                }
-                date = Convert.ToDateTime(e.Item.Cells[6].Text);
-                if (date == DateTime.MinValue)
-                {
-                    e.Item.Cells[6].Text = String.Empty;
                 }
 
                 // init approve column if visible
@@ -114,13 +119,35 @@ namespace PMT.PM
         #region Button Events
         private void Username_Click(object source, DataGridCommandEventArgs e)
         {
-            if (TaskID == -1)
-                return;
-
             int devID = Convert.ToInt32(e.Item.Cells[0].Text);
             IDataProvider data = DataProviderFactory.CreateInstance();
             data.AssignDeveloper(devID, TaskID, new TransactionFailedHandler(this.TransactionFailed));
             BindGrids();
+
+            /*
+            IDataProvider data = DataProviderFactory.CreateInstance();
+                // get the developer ID
+                //string devID = DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text;
+
+            // if the taskID is not defined, goto Dev Profile
+            if (TaskID == -1)
+            {
+                //Response.Redirect("ViewDevProfile.aspx?devID="+devID);
+                return;
+            }
+
+            // assign the developer to the selected task
+            Task task = data.GetTask(TaskID);
+            //if ( task.DeveloperID == null )
+            {
+                data.AssignDeveloper(devID, TaskID, new TransactionFailedHandler(this.TransactionFailed));
+            }
+//            else
+//            {
+//                ErrorLabel.Text = "'" + task.Name + "' has already been assigned.";
+//                //Response.Redirect(Request.Url.AbsolutePath+"?error="+error);
+//            }
+            */
         }
 
         private void UpdateButton_Click(object sender, System.EventArgs e)
@@ -168,22 +195,34 @@ namespace PMT.PM
         {
             get 
             {
-                if (Request["taskID"] == null)
-                    return -1;
-
-                int id = -1;
                 try
                 {
-                    id = Convert.ToInt32(Request["taskID"]);  
+                    return Convert.ToInt32(Request["taskID"]);  
                 }
-                catch{}
-                return id;
+                catch
+                {
+                    return -1;
+                }
             }
         }
         #endregion
 
+        #region Web Form Designer generated code
         override protected void OnInit(EventArgs e)
         {
+            //
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            //
+            InitializeComponent();
+            base.OnInit(e);
+        }
+		
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {    
             ddlTaskThreshold.SelectedIndexChanged += new EventHandler(ddlTaskThreshold_SelectedIndexChanged);
             dgAvailableDevs.ItemDataBound += new DataGridItemEventHandler(dgAvailableDevs_ItemDataBound);
             dgAssignments.ItemDataBound += new DataGridItemEventHandler(dgAssignments_ItemDataBound);
@@ -191,8 +230,8 @@ namespace PMT.PM
             UpdateButton.Click += new EventHandler(UpdateButton_Click);
             CommitButton.Click += new EventHandler(CommitButton_Click);
             CancelButton.Click += new EventHandler(CancelButton_Click);
-            Load += new System.EventHandler(Page_Load);
-            base.OnInit(e);
+
         }
+        #endregion
     }
 }

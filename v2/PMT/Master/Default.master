@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Master Language="C#" EnableTheming="true" AutoEventWireup="true" CodeFile="Default.master.cs" Inherits="Master_Default" %>
+<%@ Register TagPrefix="pmt" TagName="Navigation" Src="~/Controls/Navigation.ascx" %>
+<%@ Register TagPrefix="pmt" TagName="Header" Src="~/Controls/Header.ascx" %>
 
-<%@ Master Language="C#" EnableTheming="true" AutoEventWireup="true" CodeFile="Default.master.cs" Inherits="DefaultMaster" %>
-<%@ Register TagPrefix="pmt" TagName="HeaderControl" src="~/Controls/HeaderControl.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="NavControl" src="~/Controls/XmlNavBar.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
@@ -10,15 +10,15 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div id="Header">
-        <pmt:HeaderControl id="HeaderControl1" runat="server" />
-    </div>
-    <div id="Navigation">
-        <pmt:NavControl id="NavControl1" runat="server" />
-    </div>
-    <div id="Main">
-        <asp:contentplaceholder id="phMain" runat="server" />
-    </div>
+        <div id="Header">
+            <pmt:Header ID="header1"  runat="server" />
+        </div>
+        <div id="Navigation">
+            <pmt:Navigation ID="navigation1" runat="server" />
+        </div>
+        <div id="Main">
+            <asp:contentplaceholder id="phMain" runat="server" />
+        </div>
     </form>
 </body>
 </html>
