@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="pmt" TagName="Profile" Src="~/Controls/PMTProfile.ascx" %>
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Developer Profile</h3>
-    <asp:HyperLink id="BackHyperLink" runat="server" NavigateUrl="Assign.aspx">Back to Developer Assignments</asp:HyperLink>
+    Back to <a href="Assign.aspx">Developer Assignments</a>
     <pmt:Profile id="ProfileControl1" runat="server" />
+    Competency: <asp:DropDownList ID="ddlComp" runat="server" />
 </asp:Content>

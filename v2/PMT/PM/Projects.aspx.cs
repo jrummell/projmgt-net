@@ -16,8 +16,6 @@ namespace PMT.PM
 {
 	public partial class Projects : Page
 	{
-		protected HyperLink newProjectLink;
-	
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -37,6 +35,7 @@ namespace PMT.PM
             }
             catch
             {
+                // default to project
                 DataGrid1.DataSource = data.GetManagerProjects(UserID);
                 DataGrid1.DataBind();
 

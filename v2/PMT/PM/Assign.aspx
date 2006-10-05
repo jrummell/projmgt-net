@@ -2,27 +2,49 @@
     CodeFile="Assign.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
-    <h3>
-        Developer Assignments</h3>
+    <h3>Developer Assignments</h3>
     <asp:Panel ID="AvailableDevPanel" runat="server">
-        <h4>
-            <asp:Label ID="AvailDevLabel" runat="server">Available Developers</asp:Label></h4>
-        <p>
-            Assignment Threshold:
-            <asp:DropDownList ID="ddlTaskThreshold" AutoPostBack="True" runat="server" /></p>
+        <h4>Available Developers</h4>
+        <%--<asp:Label ID="AvailDevLabel" runat="server">Available Developers</asp:Label>--%>
+        Assignment Threshold: <asp:DropDownList ID="ddlTaskThreshold" AutoPostBack="True" runat="server" />
         <asp:Label ID="ErrorLabel" runat="server" ForeColor="Red" />
         <asp:DataGrid ID="dgAvailableDevs" runat="server" AutoGenerateColumns="False">
             <Columns>
-                <asp:BoundColumn DataField="userID" HeaderText="User ID" />
-                <asp:ButtonColumn DataTextField="userName" HeaderText="Username" CommandName="Select" />
-                <asp:BoundColumn DataField="numTasks" HeaderText="Tasks Assigned" />
-                <asp:BoundColumn DataField="competence" HeaderText="Competency" />
+                <asp:BoundColumn 
+                    HeaderText="User ID" 
+                    DataField="userID"
+                    ReadOnly="true" />
+                <asp:HyperLinkColumn 
+                    HeaderText="Username/Profile"
+                    DataTextField="userName"
+                    DataNavigateUrlField="userID"
+                    DataNavigateUrlFormatString="ViewDevProfile.aspx?devID={0}" />
+                <asp:BoundColumn
+                    HeaderText="Tasks Assigned" 
+                    DataField="numTasks"
+                    ReadOnly="true" />
+                <asp:BoundColumn 
+                    HeaderText="Competency" 
+                    DataField="competence"
+                    ReadOnly="true" />
+                <asp:TemplateColumn
+                    HeaderText="Tasks"
+                    Visible="false">
+                    <ItemTemplate></ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:DropDownList ID="ddlTasks" runat="server" />
+                    </EditItemTemplate>
+                </asp:TemplateColumn>
+                <asp:EditCommandColumn
+                    HeaderText="Assign"
+                    EditText="Assign Task ..."
+                    CancelText="Cancel"
+                    UpdateText="Assign" />
             </Columns>
         </asp:DataGrid>
     </asp:Panel>
     <asp:Panel ID="AssignmentsPanel" runat="server">
-        <h4>
-            Assignments</h4>
+        <h4>Assignments</h4>
         <asp:DataGrid ID="dgAssignments" runat="server" AutoGenerateColumns="false">
             <Columns>
                 <asp:BoundColumn DataField="username" HeaderText="Developer" />
