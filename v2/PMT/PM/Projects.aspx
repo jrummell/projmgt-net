@@ -16,7 +16,7 @@
                 <asp:BoundColumn DataField="startDate" HeaderText="Start Date" />
                 <asp:BoundColumn DataField="expEndDate" ReadOnly="True" HeaderText="Exp End Date" />
                 <asp:BoundColumn DataField="actEndDate" ReadOnly="True" HeaderText="Act End Date" />
-                <asp:EditCommandColumn ButtonType="LinkButton" UpdateText="Update" HeaderText="Change?"
+                <asp:EditCommandColumn ButtonType="LinkButton" UpdateText="Update" HeaderText=""
                     CancelText="Cancel" EditText="Edit" />
                 <asp:ButtonColumn Text="Delete" ButtonType="PushButton" CommandName="Delete" />
             </Columns>

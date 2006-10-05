@@ -868,15 +868,20 @@ namespace PMTDataProvider
             DataTable dt = new DataTable();
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
-                MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "select * from tasks";
-                
-                MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
+                StringBuilder sb = new StringBuilder();
+                sb.Append("select id, name, description, complexity, status, \n");
+                sb.Append("startDate, expEndDate, actEndDate, \n");
+                sb.Append("moduleID, projectID, devID, dateAssigned \n");
+                sb.Append("from tasks t left join taskassignments a on t.id=a.taskID");
+
+                using (MySqlDataAdapter da = new MySqlDataAdapter(sb.ToString(), conn))
                 {
-                    da.Fill(dt);
+                    try
+                    {
+                        da.Fill(dt);
+                    }
+                    catch { }
                 }
-                finally{}
             }
             return dt;
         }
@@ -1071,36 +1076,46 @@ namespace PMTDataProvider
         {
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
-                // assign the task
-                MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "insert into taskAssignments (devID, taskID) values (?devID, ?taskID)";
-                command.Parameters.Add("?devID", devID);
-                command.Parameters.Add("?taskID", taskID);
+                conn.Open();
+                using (MySqlTransaction trans = conn.BeginTransaction())
+                {
+                    using (MySqlCommand command = conn.CreateCommand())
+                    {
+                        // assign the task
+                        command.CommandText = "insert into taskAssignments (devID, taskID, dateAssigned) values (?devID, ?taskID, ?date)";
+                        command.Parameters.Add("?devID", devID);
+                        command.Parameters.Add("?taskID", taskID);
+                        command.Parameters.Add("?date", DateTime.Now);
 
-                try
-                {
-                    this.ExecuteNonQuery(command);
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return false;
-                }
+                        try
+                        {
+                            this.ExecuteNonQuery(command);
+                        }
+                        catch (MySqlException ex)
+                        {
+                            trans.Rollback();
+                            handler(ex);
+                            return false;
+                        }
 
-                // update the task status
-                command = new MySqlCommand();
-                command.CommandText = "update tasks set status=?status where id=?id";
-                command.Parameters.Add("?status", (int)TaskStatus.InProgress);
-                command.Parameters.Add("?id", taskID);
+                        // update the task status
+                        command.CommandText = "update tasks set status=?status where id=?id";
+                        command.Parameters.Clear();
+                        command.Parameters.Add("?status", (int)TaskStatus.InProgress);
+                        command.Parameters.Add("?id", taskID);
 
-                try
-                {
-                    this.ExecuteNonQuery(command);
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return false;
+                        try
+                        {
+                            this.ExecuteNonQuery(command);
+                        }
+                        catch (MySqlException ex)
+                        {
+                            trans.Rollback();
+                            handler(ex);
+                            return false;
+                        }
+                    }
+                    trans.Commit();
                 }
             }
             return false;

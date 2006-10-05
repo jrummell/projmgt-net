@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Web;
-using System.Web.SessionState;
+//using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
@@ -13,17 +13,12 @@ using PMTDataProvider;
 
 namespace PMT.PM
 {
-	/// <summary>
-	/// Summary description for Assign.
-	/// </summary>
     public partial class Assign : Page
     {
-
-	
-        protected void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            if (TaskID != -1)
-                AvailDevLabel.Text = "Choose Developer to be assigned to Task " + TaskID;
+            //if (TaskID != -1)
+            //    AvailDevLabel.Text = "Choose Developer to be assigned to Task " + TaskID;
 
             if (!IsPostBack)
             {
@@ -53,11 +48,32 @@ namespace PMT.PM
         private void dgAvailableDevs_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
             DataGrid dg = sender as DataGrid;
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem || e.Item.ItemType == ListItemType.EditItem)
             {
                 // display Comp Level description
                 CompLevel level = (CompLevel)Convert.ToInt32(e.Item.Cells[3].Text);
                 e.Item.Cells[3].Text = level.ToString();
+            }
+            
+            if (e.Item.ItemType == ListItemType.EditItem)
+            {
+                // bind unassigned tasks ddl
+                IDataProvider data = DataProviderFactory.CreateInstance();
+                DataTable dt = data.GetTasks();
+                DataView dv = dt.DefaultView;
+                dv.RowFilter = "status=0";
+
+                DropDownList ddl = e.Item.Cells[4].FindControl("ddlTasks") as DropDownList;
+                ddl.DataSource = dv;
+                ddl.DataTextField = "name";
+                ddl.DataValueField = "id";
+                ddl.DataBind();
+
+                if (ddl.Items.Count == 0)
+                {
+                    e.Item.Cells[4].Text = "[no unassigned tasks]";
+                    dg.UpdateCommand -= new DataGridCommandEventHandler(this.dgAvailableDevs_UpdateCommand);
+                }
             }
         }
 
@@ -111,6 +127,45 @@ namespace PMT.PM
         }
         #endregion
 
+        void dgAvailableDevs_CancelCommand(object source, DataGridCommandEventArgs e)
+        {
+            DataGrid dg = source as DataGrid;
+            dg.EditItemIndex = -1;
+            dg.Columns[dg.Columns.Count - 2].Visible = false;
+            BindGrids();
+        }
+
+        void dgAvailableDevs_UpdateCommand(object source, DataGridCommandEventArgs e)
+        {
+            DropDownList ddl = e.Item.Cells[4].FindControl("ddlTasks") as DropDownList;
+            
+            if (ddl.Items.Count > 0)
+            {
+                // assign the task
+                int devID = Convert.ToInt32(e.Item.Cells[0].Text);
+                int taskID = Convert.ToInt32(ddl.SelectedValue);
+                IDataProvider data = DataProviderFactory.CreateInstance();
+                data.AssignDeveloper(devID, taskID, new TransactionFailedHandler(this.TransactionFailed));
+            }
+            else
+            {
+                ddl.Visible = false;
+            }
+
+            DataGrid dg = source as DataGrid;
+            dg.EditItemIndex = -1;
+            dg.Columns[dg.Columns.Count - 2].Visible = false;
+            BindGrids();
+        }
+
+        private void dgAvailableDevs_EditCommand(object source, DataGridCommandEventArgs e)
+        {
+            DataGrid dg = source as DataGrid;
+            dg.EditItemIndex = e.Item.ItemIndex;
+            dg.Columns[dg.Columns.Count - 2].Visible = true;
+            BindGrids();
+        }
+
         private void ddlTaskThreshold_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindGrids();
@@ -119,35 +174,13 @@ namespace PMT.PM
         #region Button Events
         private void Username_Click(object source, DataGridCommandEventArgs e)
         {
-            int devID = Convert.ToInt32(e.Item.Cells[0].Text);
-            IDataProvider data = DataProviderFactory.CreateInstance();
-            data.AssignDeveloper(devID, TaskID, new TransactionFailedHandler(this.TransactionFailed));
-            BindGrids();
+            //if (TaskID == -1)
+            //    return;
 
-            /*
-            IDataProvider data = DataProviderFactory.CreateInstance();
-                // get the developer ID
-                //string devID = DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text;
-
-            // if the taskID is not defined, goto Dev Profile
-            if (TaskID == -1)
-            {
-                //Response.Redirect("ViewDevProfile.aspx?devID="+devID);
-                return;
-            }
-
-            // assign the developer to the selected task
-            Task task = data.GetTask(TaskID);
-            //if ( task.DeveloperID == null )
-            {
-                data.AssignDeveloper(devID, TaskID, new TransactionFailedHandler(this.TransactionFailed));
-            }
-//            else
-//            {
-//                ErrorLabel.Text = "'" + task.Name + "' has already been assigned.";
-//                //Response.Redirect(Request.Url.AbsolutePath+"?error="+error);
-//            }
-            */
+            //int devID = Convert.ToInt32(e.Item.Cells[0].Text);
+            //IDataProvider data = DataProviderFactory.CreateInstance();
+            //data.AssignDeveloper(devID, TaskID, new TransactionFailedHandler(this.TransactionFailed));
+            //BindGrids();
         }
 
         private void UpdateButton_Click(object sender, System.EventArgs e)
@@ -191,20 +224,19 @@ namespace PMT.PM
         }
 
         #region Properties
-        public int TaskID
-        {
-            get 
-            {
-                try
-                {
-                    return Convert.ToInt32(Request["taskID"]);  
-                }
-                catch
-                {
-                    return -1;
-                }
-            }
-        }
+        //public int TaskID
+        //{
+        //    get 
+        //    {
+        //        int id = -1;
+        //        try
+        //        {
+        //            id = Convert.ToInt32(Request["taskID"]);
+        //        }
+        //        catch { }
+        //        return id;
+        //    }
+        //}
         #endregion
 
         #region Web Form Designer generated code
@@ -224,13 +256,17 @@ namespace PMT.PM
         private void InitializeComponent()
         {    
             ddlTaskThreshold.SelectedIndexChanged += new EventHandler(ddlTaskThreshold_SelectedIndexChanged);
+
+            dgAvailableDevs.EditCommand += new DataGridCommandEventHandler(dgAvailableDevs_EditCommand);
+            dgAvailableDevs.UpdateCommand += new DataGridCommandEventHandler(dgAvailableDevs_UpdateCommand);
+            dgAvailableDevs.CancelCommand += new DataGridCommandEventHandler(dgAvailableDevs_CancelCommand);
             dgAvailableDevs.ItemDataBound += new DataGridItemEventHandler(dgAvailableDevs_ItemDataBound);
+            
             dgAssignments.ItemDataBound += new DataGridItemEventHandler(dgAssignments_ItemDataBound);
-            dgAvailableDevs.ItemCommand += new DataGridCommandEventHandler(Username_Click);
+
             UpdateButton.Click += new EventHandler(UpdateButton_Click);
             CommitButton.Click += new EventHandler(CommitButton_Click);
             CancelButton.Click += new EventHandler(CancelButton_Click);
-
         }
         #endregion
     }
