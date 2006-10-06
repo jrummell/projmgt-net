@@ -55,7 +55,7 @@ namespace PMT
         {            
             IDataProvider conn = DataProviderFactory.CreateInstance();
             if (conn.AuthenticateUser(username, password, new TransactionFailedHandler(this.TransactionFailed)))
-                user = conn.GetPMTUserByUsername(username);
+                user = conn.GetPMTUser(username);
             else
                  return false;
 
@@ -79,6 +79,7 @@ namespace PMT
         {
             lblResult.Text = ex.Message;
         }
+
         protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
         {
             if (!IsValid)
@@ -90,10 +91,18 @@ namespace PMT
             e.Authenticated = CustomAuthenticate(username, password);
 			if (e.Authenticated) 
 			{
-				string url = FormsAuthentication.GetRedirectUrl(user.UserName, false);
-				FormsAuthentication.SetAuthCookie(user.Role.ToString(), false);
+                bool persist = Login1.RememberMeSet;
+                // second param is ignored ...
+                string url = FormsAuthentication.GetRedirectUrl(user.UserName, false);
+                // this actually creates the cookie
+                FormsAuthentication.SetAuthCookie(user.UserName, persist);
 
-				Response.Redirect(Global.GetUserDefaultPath(user.Role));
+                if (url.ToLower().EndsWith("default.aspx"))
+                {
+                    url = Global.GetUserDefaultPath(user.Role);
+                }
+
+                Response.Redirect(url);
 			}
         }
 }

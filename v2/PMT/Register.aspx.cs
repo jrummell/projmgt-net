@@ -74,7 +74,7 @@ namespace PMT
             //username verification
             //this requires two parts, one to make sure said username does not already exist
             //second, make sure said username is not already requested
-            if(conn.GetPMTUserByUsername(ProfileControl1.Username) != null)
+            if(conn.GetPMTUser(ProfileControl1.Username) != null)
             {
                 //error out, username already exists
                 StatusLabel.Text = "Username Not Available.";

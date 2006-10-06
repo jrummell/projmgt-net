@@ -19,9 +19,9 @@ namespace PMTComponents
     public enum CompLevel { Low=0, Medium, High }
 
     /// <summary>
-    /// Represents a Project Management .Net User
+    /// Project Management .Net User Base Class
     /// </summary>
-    public class PMTUser // abstract ???
+    public class PMTUser : ICloneable
     {
         #region Attributes
         private string userName;
@@ -81,12 +81,12 @@ namespace PMTComponents
             : this (0, String.Empty, String.Empty, 0, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, false) {}
         #endregion
 
-        //public static PMTUser CreatePMTUser(PMTUserRole role)
-        //{
-        //    Type t = Type.GetType(role.ToString());
-        //    ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
-        //    return (PMTUser)constructor.Invoke(new Object[0]);
-        //}
+        public static PMTUser CreatePMTUser(PMTUserRole role)
+        {
+            Type t = Type.GetType(role.ToString());
+            ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
+            return (PMTUser)constructor.Invoke(new Object[0]);
+        }
 
         #region Properties
         /// <summary>
@@ -194,39 +194,127 @@ namespace PMTComponents
             set {   enabled = value;   }
         }
         #endregion
+
+        #region ICloneable Members
+        object ICloneable.Clone()
+        {
+            // delegate to type safe Clone()
+            return this.Clone();
+        }
+
+        public virtual PMTUser Clone()
+        {
+            PMTUser copy = (PMTUser)this.MemberwiseClone();
+            copy.UserName = UserName;
+            copy.Password = Password;
+            copy.ID = ID;
+            copy.Role = Role;
+            copy.FirstName = FirstName;
+            copy.LastName = LastName;
+            copy.Email = Email;
+            copy.PhoneNumber = PhoneNumber;
+            copy.Address = Address;
+            copy.City = City;
+            copy.State = State;
+            copy.ZipCode = ZipCode;
+            copy.Enabled = Enabled;
+
+            return copy;
+        }
+        #endregion
     }
 
+    /// <summary>
+    /// Administrator
+    /// </summary>
     public class Administrator : PMTUser
     {
-        public Administrator() : base() { }
+        public Administrator() : base() 
+        {
+            Init();
+        }
+
+        public Administrator(PMTUser user)
+            : base(user.ID, user.UserName, user.Password, user.Role, user.FirstName, user.LastName, user.Email,
+            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
+        {
+            Init();
+        }
+
+        private void Init()
+        {
+            this.Role = PMTUserRole.Administrator;
+        }
     }
 
+    /// <summary>
+    /// Manager
+    /// </summary>
     public class Manager : PMTUser
     {
-        public Manager() : base() { }
+        public Manager() : base() 
+        {
+            Init();
+        }
+
+        public Manager(PMTUser user)
+            : base(user.ID, user.UserName, user.Password, user.Role, user.FirstName, user.LastName, user.Email,
+            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
+        {
+            Init();
+        }
+
+        private void Init()
+        {
+            this.Role = PMTUserRole.Manager;
+        }
     }
 
+    /// <summary>
+    /// Developer
+    /// </summary>
     public class Developer : PMTUser
     {
         private CompLevel compentency;
         private int managerID;
 
-        public Developer() 
-            : this(0, String.Empty, String.Empty, String.Empty, 
-            String.Empty, String.Empty, String.Empty, String.Empty, 
-            String.Empty, String.Empty, String.Empty, false, 
-            CompLevel.Low, 0)
-        { }
+        /// <summary>
+        /// Creates a blank Developer.
+        /// </summary>
+        public Developer() : base()
+        {
+            Init();
+        }
 
+        /// <summary>
+        /// Creates a Developer from a PMTUser.
+        /// </summary>
+        public Developer(PMTUser user)
+            : base(user.ID, user.UserName, user.Password, user.Role, user.FirstName, user.LastName, user.Email,
+            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
+        {
+            Init();
+        }
+
+        private void Init()
+        {
+            this.Role = PMTUserRole.Developer;
+            this.ManagerID = 0;
+            this.Competency = CompLevel.Low;
+        }
+
+        /*
         public Developer(int id, string user, string pwd, string firstName, 
             string lastName, string email, string phone, string address, 
-            string city, string state, string zip, bool enabled, CompLevel competency, int managerID)
+            string city, string state, string zip, bool enabled, 
+            CompLevel competency, int managerID)
             : base(id, user, pwd, PMTUserRole.Developer, 
             firstName, lastName, email, phone, address, city, state, zip, enabled)
         {
             this.Competency = compentency;
             this.ManagerID = managerID;
         }
+        */
 
         public CompLevel Competency
         {
@@ -241,10 +329,35 @@ namespace PMTComponents
         }
     }
 
+    /// <summary>
+    /// Client
+    /// </summary>
     public class Client : PMTUser
     {
-        //private int managerID;
+        private int managerID;
 
-        public Client() : base() { }
+        public Client() : base() 
+        {
+            Init();
+        }
+
+        public Client(PMTUser user)
+            : base(user.ID, user.UserName, user.Password, user.Role, user.FirstName, user.LastName, user.Email,
+            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
+        {
+            Init();
+        }
+
+        private void Init()
+        {
+            this.Role = PMTUserRole.Client;
+            this.ManagerID = 0;
+        }
+
+        public int ManagerID
+        {
+            get { return managerID; }
+            set { managerID = value; }
+        }
     }
 }

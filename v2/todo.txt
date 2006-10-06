@@ -1,0 +1,2 @@
+in MySqlDataProvider
+- make sure all datareaders are closed, or are in a using block

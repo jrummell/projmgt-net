@@ -63,11 +63,24 @@ namespace PMTDataProvider
         /// Gets a user by id
         /// </summary>
         /// <param name="id">User ID</param>
-        PMTUser GetPMTUserById(int id);
+        PMTUser GetPMTUser(int id);
         /// <summary>
         /// Gets a PMTUser by username
         /// </summary>
-        PMTUser GetPMTUserByUsername(string username);
+        PMTUser GetPMTUser(string username);
+
+        /// <summary>
+        /// Gets all developers
+        /// </summary>
+        DataTable GetDevelopers();
+        /// <summary>
+        /// Gets a developer by id
+        /// </summary>
+        Developer GetDeveloper(int id);
+        /// <summary>
+        /// Updates a developer
+        /// </summary>
+        bool UpdateDeveloper(Developer dev, TransactionFailedHandler handler);
 
         /// <summary>
         /// Inserts a new user
@@ -233,7 +246,7 @@ namespace PMTDataProvider
         DataTable GetDeveloperAssignments();
         #endregion
 
-        #region Project Item 
+        #region Project Item
         /// <summary>
         /// Returns the percent complete of an item. 
         /// (number of approved tasks / number of tasks)

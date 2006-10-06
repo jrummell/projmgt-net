@@ -14,32 +14,29 @@ using PMTDataProvider;
 
 namespace PMT.PM
 {
-	public partial class ViewDevProfile : Page
-	{
-        protected System.Web.UI.WebControls.LinkButton BackLinkButton;
-
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
+    public partial class ViewDevProfile : Page
+    {
+        protected void Page_Load(object sender, System.EventArgs e)
+        {
             if (!IsPostBack)
             {
                 ProfileControl1.Editable = false;
+                // get the developer
                 IDataProvider data = DataProviderFactory.CreateInstance();
-                PMTUser dev = data.GetPMTUserById(DevID);
-                if (dev.Role == PMTUserRole.Developer)
-                {
-                    ProfileControl1.fillForm(dev);
+                Developer dev = data.GetDeveloper(DevID);
 
-                    ddlComp.DataSource = Enum.GetNames(typeof(CompLevel));
-                    ddlComp.DataBind();
-                    // select dev's comp level
-                    //ListItem item = ddlComp.Items.FindByValue(dev.com);
-                    //if (item != null)
-                    //    item.Selected = true;
-                }
-                else
-                {
-                    throw new Exception("ViewDevProfile requires the user id to be of a developer.");
-                }
+                // fill the form
+                ProfileControl1.fillForm(dev);
+
+                // bind complevels
+                ddlComp.DataSource = Enum.GetNames(typeof(CompLevel));
+                ddlComp.DataBind();
+                ddlComp.Items.Insert(0, String.Empty);
+
+                // select dev's comp level
+                ListItem item = ddlComp.Items.FindByValue(dev.Competency.ToString());
+                if (item != null)
+                    item.Selected = true;
             }
         }
 
@@ -64,22 +61,31 @@ namespace PMT.PM
 
         #region Web Form Designer generated code
         override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
+        {
+            //
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            //
+            InitializeComponent();
+            base.OnInit(e);
+        }
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
 
         }
-		#endregion
-	}
+        #endregion
+
+        protected void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (!IsValid)
+                return;
+
+            IDataProvider data = DataProviderFactory.CreateInstance();
+
+        }
+}
 }

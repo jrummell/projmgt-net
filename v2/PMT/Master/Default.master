@@ -3,14 +3,13 @@
 <%@ Register TagPrefix="pmt" TagName="Header" Src="~/Controls/Header.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title>Project Management .Net</title>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div>
+    <div>
+        <form id="form1" runat="server">
             <div id="Header">
                 <pmt:Header ID="header1"  runat="server" />
             </div>
@@ -20,7 +19,7 @@
             <div id="Main">
                 <asp:contentplaceholder id="phMain" runat="server" />
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </body>
 </html>

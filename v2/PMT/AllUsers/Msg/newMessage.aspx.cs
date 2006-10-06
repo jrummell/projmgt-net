@@ -34,7 +34,7 @@ namespace PMT.AllUsers.Msg
                 {
                     Message oldMessage = data.GetMessage(MessageID);
                     Message newMessage = new Message();
-                    newMessage.Sender = data.GetPMTUserById(UserID);
+                    newMessage.Sender = data.GetPMTUser(UserID);
 
                     if (Action.Equals("reply"))
                     {
@@ -94,7 +94,7 @@ namespace PMT.AllUsers.Msg
 
             IDataProvider data = DataProviderFactory.CreateInstance();
             Message msg = new Message();
-            msg.Sender = data.GetPMTUserById(UserID);
+            msg.Sender = data.GetPMTUser(UserID);
             msg.Subject = SubjectTextBox.Text;
             msg.Body = MessageTextBox.Value;
             msg.DateSent = DateTime.Now;
@@ -103,7 +103,7 @@ namespace PMT.AllUsers.Msg
             ArrayList recipients = new ArrayList();
             foreach(ListItem item in ToListBox.Items)
             {
-                recipients.Add(data.GetPMTUserById(Convert.ToInt32(item.Value)));
+                recipients.Add(data.GetPMTUser(Convert.ToInt32(item.Value)));
             }
 
             // add the user if Save a Copy is checked
