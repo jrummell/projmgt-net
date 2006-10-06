@@ -31,7 +31,7 @@ namespace PMT.Admin
             else if (this.UserType.Equals("current"))
             {
                 //current user handling here
-                user = conn.GetPMTUserById(this.UserID);
+                user = conn.GetPMTUser(this.UserID);
             }
 
             if(!Page.IsPostBack)
@@ -40,7 +40,7 @@ namespace PMT.Admin
                 //set the control to show admin field set
                 //then fill it with the appropriate user information
                 ProfileControl1.AdminView = true;
-                ProfileControl1.fillForm(conn.GetPMTUserById(this.UserID));
+                ProfileControl1.fillForm(conn.GetPMTUser(this.UserID));
             }
         }
 
@@ -69,7 +69,7 @@ namespace PMT.Admin
             IDataProvider conn = DataProviderFactory.CreateInstance();
 
             //store new user information to database
-            user = conn.GetPMTUserById(this.UserID);
+            user = conn.GetPMTUser(this.UserID);
             ProfileControl1.fillUser(user);
             conn.UpdatePMTUser(user, new TransactionFailedHandler(this.TransactionFailed));
         }

@@ -74,7 +74,7 @@ namespace PMTDataProvider
         {
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
-                PMTUser user = this.GetPMTUserById(id, conn);
+                PMTUser user = this.GetPMTUser(id, conn);
 
                 if (user == null)
                 {
@@ -105,7 +105,7 @@ namespace PMTDataProvider
         {
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
-                PMTUser user = this.GetPMTUserById(id, conn);
+                PMTUser user = this.GetPMTUser(id, conn);
 
                 if (user == null)
                 {
@@ -179,7 +179,7 @@ namespace PMTDataProvider
                 }
 
                 // get the user we just inserted so we can have its ID
-                PMTUser temp = this.GetPMTUserByUsername(user.UserName);
+                PMTUser temp = this.GetPMTUser(user.UserName);
                 if (temp == null)
                 {
                     handler(new NullReferenceException("User could not be added."));
@@ -222,57 +222,62 @@ namespace PMTDataProvider
         {
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
-                // update the user
-                StringBuilder sbCommand = new StringBuilder();
-                sbCommand.Append("update users  set Username=?user, Password=?password, Role=?role, Enabled=?enabled \n");
-                sbCommand.Append("where ID=?id");
+                return UpdatePMTUser(conn, user, handler);
+            }
+        }
 
-                MySqlCommand command = conn.CreateCommand();
-                command.CommandText = sbCommand.ToString();
-                command.Parameters.Add("?user", user.UserName);
-                command.Parameters.Add("?password", user.Password);
-                command.Parameters.Add("?role", (int)user.Role);
-                command.Parameters.Add("?enabled", user.Enabled ? 1 : 0);
-                command.Parameters.Add("?id", user.ID);
+        private bool UpdatePMTUser(MySqlConnection conn, PMTUser user, TransactionFailedHandler handler)
+        {
+            // update the user
+            StringBuilder sbCommand = new StringBuilder();
+            sbCommand.Append("update users  set Username=?user, Password=?password, Role=?role, Enabled=?enabled \n");
+            sbCommand.Append("where ID=?id");
 
-                try
-                {
-                    this.ExecuteNonQuery(command);
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return false;
-                }
+            MySqlCommand command = conn.CreateCommand();
+            command.CommandText = sbCommand.ToString();
+            command.Parameters.Add("?user", user.UserName);
+            command.Parameters.Add("?password", user.Password);
+            command.Parameters.Add("?role", (int)user.Role);
+            command.Parameters.Add("?enabled", user.Enabled ? 1 : 0);
+            command.Parameters.Add("?id", user.ID);
 
-                // update the user's info
-                sbCommand = new StringBuilder();
-                sbCommand.Append("update userInfo \n");
-                sbCommand.Append("set FirstName=?firstName, LastName=?lastName, Address=?address, City=?city, State=?state, Zip=?zip, PhoneNumber=?phone, Email=?email \n");
-                sbCommand.Append("where ID=?id");
+            try
+            {
+                this.ExecuteNonQuery(command);
+            }
+            catch (MySqlException ex)
+            {
+                handler(ex);
+                return false;
+            }
 
-                command = conn.CreateCommand();
-                command.CommandText = sbCommand.ToString();
-                command.Parameters.Add("?id", user.ID);
-                command.Parameters.Add("?firstName", user.FirstName);
-                command.Parameters.Add("?lastName", user.LastName);
-                command.Parameters.Add("?address", user.Address);
-                command.Parameters.Add("?city", user.City);
-                command.Parameters.Add("?state", user.State);
-                command.Parameters.Add("?zip", user.ZipCode);
-                command.Parameters.Add("?phone", user.PhoneNumber);
-                command.Parameters.Add("?email", user.Email);
-                command.Parameters.Add("?id", user.ID);
+            // update the user's info
+            sbCommand = new StringBuilder();
+            sbCommand.Append("update userInfo \n");
+            sbCommand.Append("set FirstName=?firstName, LastName=?lastName, Address=?address, City=?city, State=?state, Zip=?zip, PhoneNumber=?phone, Email=?email \n");
+            sbCommand.Append("where ID=?id");
 
-                try
-                {
-                    this.ExecuteNonQuery(command);
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return false;
-                }
+            command = conn.CreateCommand();
+            command.CommandText = sbCommand.ToString();
+            command.Parameters.Add("?id", user.ID);
+            command.Parameters.Add("?firstName", user.FirstName);
+            command.Parameters.Add("?lastName", user.LastName);
+            command.Parameters.Add("?address", user.Address);
+            command.Parameters.Add("?city", user.City);
+            command.Parameters.Add("?state", user.State);
+            command.Parameters.Add("?zip", user.ZipCode);
+            command.Parameters.Add("?phone", user.PhoneNumber);
+            command.Parameters.Add("?email", user.Email);
+            command.Parameters.Add("?id", user.ID);
+
+            try
+            {
+                this.ExecuteNonQuery(command);
+            }
+            catch (MySqlException ex)
+            {
+                handler(ex);
+                return false;
             }
             return true;
         }
@@ -288,13 +293,7 @@ namespace PMTDataProvider
                 command.CommandText = "select * from users u left join userInfo i on u.id=i.id";
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
                     da.Fill(dt);
-                }
-                finally
-                {
-                }
             }
             return dt;
         }
@@ -309,32 +308,22 @@ namespace PMTDataProvider
                 command.Parameters.Add("?enabled", enabled ? 1 : 0);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
                     da.Fill(dt);
-                }
-                finally
-                {
-                }
             }
             return dt;
         }
         #endregion Get Users
 
         #region Get PMTUser
-        public PMTUser GetPMTUserById(int id)
+        public PMTUser GetPMTUser(int id)
         {
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
-                return this.GetPMTUserById(id, conn);
+                return this.GetPMTUser(id, conn);
             }
         }                
 
-        /// <summary>
-        /// Gets a user by id.  Internal method that reuses a connection
-        /// </summary>
-        /// <param name="id">User ID</param>
-        private PMTUser GetPMTUserById(int id, MySqlConnection conn)
+        private PMTUser GetPMTUser(int id, MySqlConnection conn)
         {
             PMTUser user = null;
             MySqlCommand command = conn.CreateCommand();
@@ -366,7 +355,7 @@ namespace PMTDataProvider
             return user;
         }
 
-        public PMTUser GetPMTUserByUsername(string username)
+        public PMTUser GetPMTUser(string username)
         {
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
@@ -376,7 +365,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?user", username);
 
                 int id = Convert.ToInt32(this.ExecuteScalar(command));
-                return this.GetPMTUserById(id, conn);
+                return this.GetPMTUser(id, conn);
             }
         }
         #endregion Get PMTUser
@@ -398,34 +387,78 @@ namespace PMTDataProvider
             }
         }
 
-        /*
-         * This isn't needed, we can do a GetPMTUserByUsername(),
-         *  and if the return is null, it does not exist
-         * 
-        /// <summary>
-        /// Verify that a username exists in the database
-        /// </summary>
-        /// <param name="userName">the username to verify</param>
-        /// <returns>true if it exists, false if it doesn't</returns>
-        static public bool verifyUserNameExists(string userName, bool isNew)
+        public DataTable GetDevelopers()
         {
-            DBDriver myDB=new DBDriver();
-            myDB.Query="select count(*) from users where userName=@name;";
-            myDB.addParam("@name", userName);
-            int k=Convert.ToInt32(myDB.scalar());
-            if(k!=1)
-                if(isNew)
-                {
-                    myDB.Query="select count(*) from newUsers where userName=@name;";
-                    myDB.addParam("@name", userName);
-                    k=Convert.ToInt32(myDB.scalar());                                                                  
-                }
-            if(k==1)
-                return true;
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("select u.id as ID, UserName, FirstName, LastName, Competence, ManagerID \n");
+                sb.Append("from users u left join userinfo i on u.id=i.id left join userreference r on u.id=r.userID left join complevels c on u.id=c.userID \n");
+                sb.Append("where role=1 ");
 
-            return false;
+                using (MySqlDataAdapter da = new MySqlDataAdapter(sb.ToString(), conn))
+                {
+                    da.Fill(dt);
+                }
+            }
+            return dt;
         }
-        */
+
+        public Developer GetDeveloper(int id)
+        {
+            Developer dev = null;
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
+            {
+                // get the user
+                PMTUser user = GetPMTUser(id);
+                // if its not a developer, abort
+                if (user.Role != PMTUserRole.Developer)
+                    throw new Exception("User role must be Developer.");
+
+                // make a developer
+                dev = new Developer(user);
+
+                using (MySqlCommand comm = conn.CreateCommand())
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("select u.id as ID, Competence, ManagerID \n");
+                    sb.Append("from users u left join userreference r on u.id=r.userID left join complevels c on u.id=c.userID \n");
+                    sb.Append("where role=?role and u.id=?id");
+                    comm.CommandText = sb.ToString();
+                    comm.Parameters.Add("?role", (int)PMTUserRole.Developer);
+                    comm.Parameters.Add("?id", id);
+
+                    conn.Open();
+                    using (MySqlDataReader dr = comm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            dev.Competency = (CompLevel)Convert.ToInt32(dr["Competence"]);
+                            dev.ManagerID = Convert.ToInt32(dr["ManagerID"]);
+                        }
+                    }
+                }
+            }
+            return dev;
+        }
+
+        /// <summary>
+        /// Needs Implemented
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <param name="handler"></param>
+        /// <returns></returns>
+        public bool UpdateDeveloper(Developer dev, TransactionFailedHandler handler)
+        {
+            return false;
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
+            {
+                using (MySqlTransaction trans = conn.BeginTransaction())
+                {
+                }
+            }
+        }
         #endregion PMTUser
 
         #region C vs C Matrix
@@ -438,11 +471,7 @@ namespace PMTDataProvider
                 command.CommandText = "select * from compMatrix";
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
                     da.Fill(dt);
-                }
-                finally{}
             }
             return dt;
         }
@@ -482,11 +511,8 @@ namespace PMTDataProvider
                 command.CommandText = "select * from projects";
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
-                    da.Fill(dt);
-                }
-                finally{}
+                da.Fill(dt);
+
             }
             return dt;
         }
@@ -501,8 +527,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?id", id);
                 
                 conn.Open();
-                MySqlDataReader dr = command.ExecuteReader();
-                try
+                using (MySqlDataReader dr = command.ExecuteReader())
                 {
                     while (dr.Read())
                     {
@@ -516,10 +541,6 @@ namespace PMTDataProvider
                             Convert.ToDateTime(dr["actEndDate"]));
                     }
                 }
-                finally
-                {
-                    dr.Close();
-                }
             }
             return project;
         }
@@ -530,19 +551,17 @@ namespace PMTDataProvider
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
-                sbCommand.Append("select * from projects p left join userReference u on p.ID=u.projectID \n");
-                sbCommand.Append("where u.managerID=?id");
+                sbCommand.Append("select u.id as ID, Name, Description, StartDate, ExpEndDate, ActEndDate \n");
+                sbCommand.Append("from projects p left join userReference r on p.ID=r.projectID left join users u on u.id=r.userID \n");
+                sbCommand.Append("where r.managerID=?id and u.role=?role");
 
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = sbCommand.ToString();
                 command.Parameters.Add("?id", mgrID);
+                command.Parameters.Add("?role", (int)PMTUserRole.Manager);
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
-                    da.Fill(dt);
-                }
-                finally{}
+                da.Fill(dt);
             }
             return dt;
         }
@@ -558,11 +577,7 @@ namespace PMTDataProvider
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
 
-                try
-                {
-                    da.Fill(dt);
-                }
-                finally{}
+                da.Fill(dt);
             }
             return dt;
         }
@@ -702,11 +717,7 @@ namespace PMTDataProvider
                 command.CommandText = "select * from modules";
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
-                    da.Fill(dt);
-                }
-                finally{}
+                da.Fill(dt);
             }
             return dt;
         }
@@ -722,9 +733,7 @@ namespace PMTDataProvider
                 
                 conn.Open();
                 MySqlDataReader dr = command.ExecuteReader();
-                try
-                {
-                    while (dr.Read())
+                    if (dr.Read())
                     {
                         module = new PMTComponents.Module(
                             Convert.ToInt32(dr["id"]),
@@ -735,8 +744,6 @@ namespace PMTDataProvider
                             Convert.ToDateTime(dr["expEndDate"]),
                             Convert.ToDateTime(dr["actEndDate"]));
                     }
-                }
-                finally{}
             }
             return module;
         }
@@ -751,12 +758,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?id", modID);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-
-                try
-                {
-                    da.Fill(dt);
-                }
-                finally{}
+                da.Fill(dt);
             }
             return dt;
         }
@@ -876,11 +878,7 @@ namespace PMTDataProvider
 
                 using (MySqlDataAdapter da = new MySqlDataAdapter(sb.ToString(), conn))
                 {
-                    try
-                    {
-                        da.Fill(dt);
-                    }
-                    catch { }
+                    da.Fill(dt);
                 }
             }
             return dt;
@@ -897,9 +895,7 @@ namespace PMTDataProvider
                 
                 conn.Open();
                 MySqlDataReader dr = command.ExecuteReader();
-                try
-                {
-                    while (dr.Read())
+                    if (dr.Read())
                     {
                         task = new Task(
                             Convert.ToInt32(dr["id"]),
@@ -912,8 +908,6 @@ namespace PMTDataProvider
                             Convert.ToDateTime(dr["expEndDate"]),
                             Convert.ToDateTime(dr["actEndDate"]));
                     }
-                }
-                finally{}
             }
             return task;
         }
@@ -932,11 +926,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?id", devID);
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
-                    da.Fill(dt);
-                }
-                finally{}
+                da.Fill(dt);
             }
             return dt;
         }
@@ -1138,11 +1128,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?numTasks", numTasks);
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
 
-                //try
-                {
-                    da.Fill(dt);
-                }
-                //catch{}
+                da.Fill(dt);
             }
             return dt;
         }
@@ -1168,12 +1154,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?role", (int)PMTUserRole.Developer);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-
-                try
-                {
                     da.Fill(dt);
-                }
-                finally{}
             }
             return dt;
         }
@@ -1247,11 +1228,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?id", userID);
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
                     da.Fill(dt);
-                }
-                finally{}
             }
             return dt;
         }
@@ -1271,11 +1248,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?id", userID);
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
                     da.Fill(dt);
-                }
-                finally{}
             }
             return dt;
         }
@@ -1294,29 +1267,24 @@ namespace PMTDataProvider
                 command.Parameters.Add("?id", id);
                 
                 conn.Open();
-                MySqlDataReader dr = command.ExecuteReader();
-                try
+                using (MySqlDataReader dr = command.ExecuteReader())
                 {
-                    while(dr.Read())
+                    if(dr.Read())
                     {
                         m = new Message();
                         m.ID = id;
-                        m.Sender = GetPMTUserById(Convert.ToInt32(dr["senderID"]));
+                        m.Sender = GetPMTUser(Convert.ToInt32(dr["senderID"]));
                         m.DateSent = Convert.ToDateTime(dr["dateSent"]);
                         m.Subject = dr["subject"].ToString();
                         m.Body = dr["body"].ToString();
                     }
-                }
-                finally
-                {
-                    dr.Close();
                 }
 
                 DataTable recipients = this.GetMessageRecipients(id);
                 ArrayList users = new ArrayList();
                 foreach (DataRow row in recipients.Rows)
                 {
-                    users.Add(GetPMTUserById(Convert.ToInt32(row["recipientID"])));
+                    users.Add(GetPMTUser(Convert.ToInt32(row["recipientID"])));
                 }
 
                 m.Recipients = (PMTUser[]) users.ToArray(typeof(PMTUser));
@@ -1334,11 +1302,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?id", messageID);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
-                {
                     da.Fill(dt);
-                }
-                finally{}
             }
             return dt;
         }
@@ -1478,12 +1442,7 @@ namespace PMTDataProvider
                 //command.Parameters.Add("?pID", projectID);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-
-                try
-                {
                     da.Fill(dt);
-                }
-                finally{}
             }
             return dt;
         }

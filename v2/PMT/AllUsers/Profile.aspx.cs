@@ -27,7 +27,7 @@ namespace PMT.AllUsers
                 ProfileControl1.AllowChangeSecurity = false;
 
                 IDataProvider conn = DataProviderFactory.CreateInstance();
-                PMTUser user = conn.GetPMTUserById(Convert.ToInt32(Request.Cookies["user"]["id"]));
+                PMTUser user = conn.GetPMTUser(Convert.ToInt32(Request.Cookies["user"]["id"]));
 
                 // fill the form with the user's information
                 ProfileControl1.fillForm(user);
@@ -64,7 +64,7 @@ namespace PMT.AllUsers
             // create a user obj, fill it from the profile control, 
             //  and update the database
             IDataProvider conn = DataProviderFactory.CreateInstance();
-            PMTUser user = conn.GetPMTUserById(Convert.ToInt32(Request.Cookies["user"]["id"]));
+            PMTUser user = conn.GetPMTUser(Convert.ToInt32(Request.Cookies["user"]["id"]));
 
             ProfileControl1.fillUser(user);
             bool success = conn.UpdatePMTUser(user, new TransactionFailedHandler(this.TransactionFailed));

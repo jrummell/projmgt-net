@@ -99,9 +99,6 @@ namespace PMT
             {
                 FormsIdentity identity = (FormsIdentity) app.User.Identity;
 
-                // Find out what role (if any) the user belongs to
-                //string role = identity.Name;
-
                 if (Request.Cookies["user"] != null)
                 {
                     string role = Request.Cookies["user"]["role"];
