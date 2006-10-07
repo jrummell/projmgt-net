@@ -451,11 +451,11 @@ namespace PMTDataProvider
         /// <returns></returns>
         public bool UpdateDeveloper(Developer dev, TransactionFailedHandler handler)
         {
-            return false;
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 using (MySqlTransaction trans = conn.BeginTransaction())
                 {
+                    throw new Exception("UpdateDeveloper not implemented");
                 }
             }
         }
@@ -517,28 +517,35 @@ namespace PMTDataProvider
             return dt;
         }
 
-        public Project GetProject(int id)
+        public Project GetProject(int userID, int projectID)
         {
             Project project = null;
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
-                MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "select * from projects p left join userReference u on p.id=u.projectID where id=?id";
-                command.Parameters.Add("?id", id);
-                
-                conn.Open();
-                using (MySqlDataReader dr = command.ExecuteReader())
+                StringBuilder sb = new StringBuilder();
+                sb.Append("select ID, Name, Description, StartDate, ExpEndDate, ActEndDate, ManagerID \n");
+                sb.Append("from projects p left join userReference u on p.id=u.projectID \n");
+                sb.Append("where ID=?pid and UserID=?uid \n");
+                using (MySqlCommand command = conn.CreateCommand())
                 {
-                    while (dr.Read())
+                    command.CommandText = sb.ToString();
+                    command.Parameters.Add("?pid", projectID);
+                    command.Parameters.Add("?uid", userID);
+
+                    conn.Open();
+                    using (MySqlDataReader dr = command.ExecuteReader())
                     {
-                        project = new Project(
-                            Convert.ToInt32(dr["id"]),
-                            Convert.ToInt32(dr["managerID"]),
-                            dr["name"].ToString(),
-                            dr["description"].ToString(),
-                            Convert.ToDateTime(dr["startDate"]),
-                            Convert.ToDateTime(dr["expEndDate"]),
-                            Convert.ToDateTime(dr["actEndDate"]));
+                        while (dr.Read())
+                        {
+                            project = new Project(
+                                Convert.ToInt32(dr["ID"]),
+                                Convert.ToInt32(dr["managerID"]),
+                                dr["name"].ToString(),
+                                dr["description"].ToString(),
+                                Convert.ToDateTime(dr["startDate"]),
+                                Convert.ToDateTime(dr["expEndDate"]),
+                                Convert.ToDateTime(dr["actEndDate"]));
+                        }
                     }
                 }
             }
@@ -551,7 +558,7 @@ namespace PMTDataProvider
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
-                sbCommand.Append("select u.id as ID, Name, Description, StartDate, ExpEndDate, ActEndDate \n");
+                sbCommand.Append("select p.id as ID, Name, Description, StartDate, ExpEndDate, ActEndDate \n");
                 sbCommand.Append("from projects p left join userReference r on p.ID=r.projectID left join users u on u.id=r.userID \n");
                 sbCommand.Append("where r.managerID=?id and u.role=?role");
 

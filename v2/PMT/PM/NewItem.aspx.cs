@@ -38,12 +38,12 @@ namespace PMT.PM
             {
                 if (ItemType.Equals(ProjectItemType.Module))
                 {
-                    parentProject = data.GetProject(ParentID);
+                    parentProject = data.GetProject(UserID, ParentID);
                 }
                 else if (ItemType.Equals(ProjectItemType.Task))
                 {
                     parentModule = data.GetModule(ParentID);
-                    parentProject = data.GetProject(parentModule.ProjectID);
+                    parentProject = data.GetProject(UserID, parentModule.ProjectID);
                 }
             }
 

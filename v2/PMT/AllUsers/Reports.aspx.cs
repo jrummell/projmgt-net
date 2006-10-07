@@ -99,7 +99,7 @@ namespace PMT.AllUsers
 
             if ( buttonID.Equals( "ViewProjectButton" ) )
             {
-                Project project = data.GetProject(Convert.ToInt32(ProjectDropDownList.SelectedValue));
+                Project project = data.GetProject(UserID, Convert.ToInt32(ProjectDropDownList.SelectedValue));
 
                 report.Item = project;
                 report.FillForm();
