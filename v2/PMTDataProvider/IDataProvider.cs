@@ -130,7 +130,7 @@ namespace PMTDataProvider
         /// <summary>
         /// Gets a project by its id
         /// </summary>
-        Project GetProject(int id);
+        Project GetProject(int userID, int projectID);
         /// <summary>
         /// Gets a manager's projects
         /// </summary>

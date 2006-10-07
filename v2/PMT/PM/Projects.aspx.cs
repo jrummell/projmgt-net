@@ -51,7 +51,7 @@ namespace PMT.PM
 
             if (ItemType.Equals(ProjectItemType.Project))
             {
-                item = data.GetProject(ItemID);
+                item = data.GetProject(UserID, ItemID);
                 dt = data.GetProjectModules(ItemID);
                 childType = ProjectItemType.Module;
             }
@@ -155,7 +155,7 @@ namespace PMT.PM
 
             if(ItemType.Equals(ProjectItemType.Project))
             {
-                item = data.GetProject(id);
+                item = data.GetProject(UserID, id);
                 item.Name = name;
                 item.Description = desc;
                 item.StartDate = start;
@@ -264,8 +264,6 @@ namespace PMT.PM
                 int id = Convert.ToInt32(DataBinder.Eval(item.DataItem, "id"));
                 if (type != ProjectItemType.Task)
                     hl.NavigateUrl = String.Format("Projects.aspx?item={0}&id={1}", type, id);
-                else
-                    hl.NavigateUrl = String.Format("Assign.aspx?taskID={0}", id);
             }
         }
     }
