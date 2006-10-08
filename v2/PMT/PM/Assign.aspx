@@ -5,7 +5,6 @@
     <h3>Developer Assignments</h3>
     <asp:Panel ID="AvailableDevPanel" runat="server">
         <h4>Available Developers</h4>
-        <%--<asp:Label ID="AvailDevLabel" runat="server">Available Developers</asp:Label>--%>
         Assignment Threshold: <asp:DropDownList ID="ddlTaskThreshold" AutoPostBack="True" runat="server" />
         <asp:Label ID="ErrorLabel" runat="server" ForeColor="Red" />
         <asp:DataGrid ID="dgAvailableDevs" runat="server" AutoGenerateColumns="False">
@@ -47,15 +46,33 @@
         <h4>Assignments</h4>
         <asp:DataGrid ID="dgAssignments" runat="server" AutoGenerateColumns="false">
             <Columns>
-                <asp:BoundColumn DataField="username" HeaderText="Developer" />
-                <asp:BoundColumn DataField="taskID" HeaderText="Task ID" />
-                <asp:BoundColumn DataField="taskName" HeaderText="Task" />
-                <asp:BoundColumn DataField="moduleName" HeaderText="Module" />
-                <asp:BoundColumn DataField="projectName" HeaderText="Project" />
-                <asp:BoundColumn DataField="taskStatus" HeaderText="Status" />
-                <asp:BoundColumn DataField="assignDate" HeaderText="Assigned" />
-                <asp:BoundColumn DataField="finishDate" HeaderText="Approved" />
-                <asp:TemplateColumn Visible="False" HeaderText="Approve">
+                <asp:BoundColumn 
+                    DataField="username" 
+                    HeaderText="Developer" />
+                <asp:BoundColumn 
+                    DataField="taskID" 
+                    HeaderText="Task ID" />
+                <asp:BoundColumn 
+                    DataField="taskName" 
+                    HeaderText="Task" />
+                <asp:BoundColumn 
+                    DataField="moduleName" 
+                    HeaderText="Module" />
+                <asp:BoundColumn 
+                    DataField="projectName" 
+                    HeaderText="Project" />
+                <asp:BoundColumn 
+                    DataField="taskStatus" 
+                    HeaderText="Status" />
+                <asp:BoundColumn 
+                    DataField="assignDate" 
+                    HeaderText="Assigned" />
+                <asp:BoundColumn 
+                    DataField="finishDate" 
+                    HeaderText="Approved" />
+                <asp:TemplateColumn 
+                    Visible="False" 
+                    HeaderText="Approve">
                     <ItemTemplate>
                         <asp:CheckBox ID="ApproveCheckBox" runat="server" />
                     </ItemTemplate>
