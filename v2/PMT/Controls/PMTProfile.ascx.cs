@@ -1,15 +1,16 @@
+using System;
+using System.Data;
+using System.Drawing;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
+using System.Collections;
+using PMTComponents;
+using PMTDataProvider;
+
 namespace PMT.Controls
 {
-    using System;
-    using System.Data;
-    using System.Drawing;
-    using System.Web;
-    using System.Web.UI;
-    using System.Web.UI.WebControls;
-    using System.Web.UI.HtmlControls;
-    using System.Collections;
-    using PMTComponents;
-
     public partial class PMTProfile : UserControl
     {
 
@@ -20,6 +21,12 @@ namespace PMT.Controls
             {
                 SecurityDropDownList.DataSource = Enum.GetNames(typeof(PMTUserRole));
                 SecurityDropDownList.DataBind();
+
+                IDataProvider data = DataProviderFactory.CreateInstance();
+                DataTable dt = data.GetPMTUsers();
+                dt.DefaultView.RowFilter = String.Format("role={0}", (int)PMTUserRole.Manager);
+                ddlManagers.DataSource = dt;
+                ddlManagers.DataBind();
             }
         }
 
@@ -252,6 +259,16 @@ namespace PMT.Controls
             // select the correct Security in the dropdown
             SecurityDropDownList.SelectedIndex = (int)user.Role;
             this.SecurityLabel.Text = user.Role.ToString();
+
+            // get manager
+            IDataProvider data = DataProviderFactory.CreateInstance();
+            PMTUser manager = data.GetPMTUser(user.ManagerID);
+            if (manager != null)
+                this.lblManager.Text = manager.UserName;
+            // select user's manager
+            ListItem item = ddlManagers.Items.FindByValue(user.ManagerID.ToString());
+            if (item != null)
+                item.Selected = true;
         }
 
         /// <summary>
@@ -273,6 +290,7 @@ namespace PMT.Controls
             user.ZipCode = this.ZipTextBox.Text;
             if (NewPassword1TextBox.Text.Length > 0)
                 user.Password = Encryption.MD5Encrypt(this.NewPassword1TextBox.Text);
+            user.ManagerID = Convert.ToInt32(ddlManagers.SelectedValue);
         }
 
         #region User Properties
@@ -366,6 +384,13 @@ namespace PMT.Controls
         public string Security
         {
             get {   return SecurityDropDownList.SelectedItem.Text;    }
+        }
+        /// <summary>
+        /// Gets manager's ID
+        /// </summary>
+        public string ManagerID
+        {
+            get { return ddlManagers.SelectedValue; }
         }
         #endregion
     }

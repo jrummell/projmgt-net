@@ -352,7 +352,7 @@ namespace PMTDataProvider
         {
             PMTUser user = null;
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "select * from users u left join userInfo i on u.id=i.id where u.id=?id";
+            command.CommandText = "select * from users u left join userInfo i on u.id=i.id left join userreference r on u.id=r.userID where u.id=?id";
             command.Parameters.Add("?id", id);
 
             if (conn.State != ConnectionState.Open)
@@ -374,7 +374,8 @@ namespace PMTDataProvider
                     dr["city"].ToString(),
                     dr["state"].ToString(),
                     dr["zip"].ToString(),
-                    Convert.ToInt32(dr["enabled"]) == 1);
+                    Convert.ToInt32(dr["enabled"]) == 1,
+                    Convert.ToInt32(dr["managerID"]));
             }
             dr.Close();
             return user;
@@ -412,6 +413,7 @@ namespace PMTDataProvider
             }
         }
 
+        #region Developers
         public DataTable GetDevelopers()
         {
             DataTable dt = new DataTable();
@@ -485,6 +487,9 @@ namespace PMTDataProvider
                 }
             }
         }
+        #endregion
+        #region Managers
+        #endregion
         #endregion PMTUser
 
         #region C vs C Matrix
@@ -1261,7 +1266,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?id", userID);
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                    da.Fill(dt);
+                da.Fill(dt);
             }
             return dt;
         }
