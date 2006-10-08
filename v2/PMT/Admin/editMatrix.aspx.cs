@@ -88,7 +88,7 @@ namespace PMT.Admin
 
             //store new values to DB
             IDataProvider data = DataProviderFactory.CreateInstance();
-            if (data.UpdateCompMatrix(level, high, med, low, new TransactionFailedHandler(this.TransactionFailed)))
+            if (data.UpdateCompMatrix(level, low, med, high, new TransactionFailedHandler(this.TransactionFailed)))
             {
                 //make sure nothing is being edited, and reload the page
                 compMatrixGrid.EditItemIndex = -1;
@@ -103,7 +103,8 @@ namespace PMT.Admin
 
         private void compMatrixGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem 
+                || e.Item.ItemType == ListItemType.EditItem)
             {
                 e.Item.Cells[0].Text = Enum.GetName(typeof(CompLevel), Convert.ToInt32(e.Item.Cells[0].Text));
             }

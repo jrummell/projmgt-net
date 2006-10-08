@@ -3,7 +3,7 @@
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Competency/Complexity Matrix</h3>
-    <asp:DataGrid ID="compMatrixGrid" runat="server" AutoGenerateColumns="False">
+    <asp:DataGrid ID="dgCompMatrix" runat="server" AutoGenerateColumns="False" OnItemDataBound="dgCompMatrix_ItemDataBound">
         <Columns>
             <asp:BoundColumn DataField="compLevel" ItemStyle-CssClass="dgHeader"></asp:BoundColumn>
             <asp:BoundColumn DataField="lowComplexity" HeaderText="Low Difficulty"></asp:BoundColumn>

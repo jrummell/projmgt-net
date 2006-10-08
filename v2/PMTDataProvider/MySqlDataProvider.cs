@@ -82,20 +82,45 @@ namespace PMTDataProvider
                     return false;
                 }
 
-                MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "update users set enabled=1 where id=?id";
-                command.Parameters.Add("?id", id);
+                using (MySqlTransaction trans = conn.BeginTransaction())
+                {
+                    MySqlCommand command = conn.CreateCommand();
 
-                try
-                {
-                    int rows = this.ExecuteNonQuery(command);
-                    if (rows == 0)
+                    if (user.Role == PMTUserRole.Developer)
+                    {
+                        command.CommandText = "insert into compLevels (UserID, Competence) values (?id, ?comp)";
+                        command.Parameters.Add("?id", user.ID);
+                        command.Parameters.Add("?comp", (int)CompLevel.Low);
+
+                        try
+                        {
+                            this.ExecuteNonQuery(command);
+                        }
+                        catch (MySqlException ex)
+                        {
+                            trans.Rollback();
+                            handler(ex);
+                            return false;
+                        }
+                        command.Parameters.Clear();
+                    }
+
+                    command.CommandText = "update users set enabled=1 where id=?id";
+                    command.Parameters.Add("?id", id);
+
+                    try
+                    {
+                        int rows = this.ExecuteNonQuery(command);
+                        if (rows == 0)
+                            return false;
+                    }
+                    catch (MySqlException ex)
+                    {
+                        trans.Rollback();
+                        handler(ex);
                         return false;
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return false;
+                    }
+                    trans.Commit();
                 }
             }
             return true;
@@ -395,10 +420,11 @@ namespace PMTDataProvider
                 StringBuilder sb = new StringBuilder();
                 sb.Append("select u.id as ID, UserName, FirstName, LastName, Competence, ManagerID \n");
                 sb.Append("from users u left join userinfo i on u.id=i.id left join userreference r on u.id=r.userID left join complevels c on u.id=c.userID \n");
-                sb.Append("where role=1 ");
+                sb.Append("where role=?role ");
 
                 using (MySqlDataAdapter da = new MySqlDataAdapter(sb.ToString(), conn))
                 {
+                    da.SelectCommand.Parameters.Add("?role", (int)PMTUserRole.Developer);
                     da.Fill(dt);
                 }
             }
