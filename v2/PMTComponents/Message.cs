@@ -13,6 +13,7 @@ namespace PMTComponents
         private PMTUser sender;
         private PMTUser[] recipients;
         private DateTime dateSent;
+        #warning Does a Message need DateSent and DateReceived??? I'm thinking not ...
         private DateTime dateReceived;
         private string subject;
         private StringBuilder body;
@@ -167,14 +168,13 @@ namespace PMTComponents
         private string GetReplyForwardBlock(Message m)
         {
             StringBuilder block = new StringBuilder();
-            block.Append("\n\n");
-            block = new StringBuilder();
-            block.Append(" --- Original Message --- \n");
-            block.AppendFormat("From: {1}, {0} \n", m.Sender.FirstName, m.Sender.LastName);
-            block.AppendFormat("Sent: {0} \n", m.DateSent.ToString());
-            block.AppendFormat("To: {1}, {0} \n", Sender.FirstName, Sender.LastName);
+            block.Append("\r\n\r\n\r\n");
+            block.Append(" --- Original Message --- \r\n");
+            block.AppendFormat("From: {1}, {0} \r\n", m.Sender.FirstName, m.Sender.LastName);
+            block.AppendFormat("Sent: {0} \r\n", m.DateSent.ToString());
+            block.AppendFormat("To: {1}, {0} \r\n", Sender.FirstName, Sender.LastName);
             block.AppendFormat("Subject: {0}", m.Subject);
-            block.Append("\n\n");
+            block.Append("\r\n\r\n");
             block.Append(m.Body);
             return block.ToString();
         }

@@ -25,6 +25,7 @@ namespace PMT.PM
             dsDevelopers.TypeName = PMTDataProvider.Configuration.Config.DataProvider;
             base.OnInit(e);
         }
+
         protected void dvDevs_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)

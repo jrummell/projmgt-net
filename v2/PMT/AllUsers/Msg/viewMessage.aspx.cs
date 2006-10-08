@@ -14,9 +14,6 @@ using PMTComponents;
 
 namespace PMT.AllUsers.Msg
 {
-    /// <summary>
-    /// Summary description for viewMessage.
-    /// </summary>
     public partial class viewMessage : Page
     {
   
@@ -32,11 +29,14 @@ namespace PMT.AllUsers.Msg
 
         private void fillForm(Message message)
         {
-            senderLabel.Text = String.Format("{0} {1} ({2})", 
-                message.Sender.FirstName,
+            senderLabel.Text = String.Format("{0}, {1} ({2})",
                 message.Sender.LastName,
+                message.Sender.FirstName,
                 message.Sender.UserName);
-            dateLabel.Text = message.DateReceived.ToString("d, t");
+            dateLabel.Text = message.DateSent.ToLongDateString()
+                + " " + message.DateSent.ToShortTimeString();
+            dlRecipients.DataSource = message.Recipients;
+            dlRecipients.DataBind();
             lblMessage.Text = message.Body;
             subjectLabel.Text = message.Subject;
         }
