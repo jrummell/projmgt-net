@@ -8,13 +8,13 @@
 		<Text>Projects</Text>
 		<Link>pm/Projects.aspx</Link>
 	</Item>
+  <Item>
+    <Text>Developers</Text>
+    <Link>pm/Developers.aspx</Link>
+  </Item>
 	<Item>
-		<Text>Developer Assignments</Text>
+		<Text>Task Assignments</Text>
 		<Link>pm/Assign.aspx</Link>
-	</Item>
-	<Item>
-		<Text>Developer Competency</Text>
-		<Link>pm/EditCompetency.aspx</Link>
 	</Item>
 	<Item>
 		<Text>C/C Matrix</Text>

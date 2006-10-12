@@ -10,7 +10,7 @@
             <asp:Label ID="ItemLabel" runat="server"></asp:Label></h4>
         <asp:DataGrid ID="DataGrid1" runat="server" AutoGenerateColumns="False">
             <Columns>
-                <asp:BoundColumn Visible="False" DataField="ID" ReadOnly="True" HeaderText="ID" />
+                <asp:BoundColumn DataField="ID" ReadOnly="True" HeaderText="ID" />
                 <asp:HyperLinkColumn HeaderText="Name" DataTextField="name" />
                 <asp:BoundColumn DataField="description" HeaderText="Description" />
                 <asp:BoundColumn DataField="startDate" HeaderText="Start Date" />

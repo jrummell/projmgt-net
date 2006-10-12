@@ -37,7 +37,7 @@ namespace PMT.PM
         {
             IDataProvider data = DataProviderFactory.CreateInstance();
             
-            dgAssignments.DataSource = data.GetDeveloperAssignments();
+            dgAssignments.DataSource = data.GetTaskAssignments();
             dgAssignments.DataBind();
 
             dgAvailableDevs.DataSource = data.GetAvailableDevelopers(Convert.ToInt32(ddlTaskThreshold.SelectedValue));
@@ -145,7 +145,7 @@ namespace PMT.PM
                 int devID = Convert.ToInt32(e.Item.Cells[0].Text);
                 int taskID = Convert.ToInt32(ddl.SelectedValue);
                 IDataProvider data = DataProviderFactory.CreateInstance();
-                data.AssignDeveloper(devID, taskID, new TransactionFailedHandler(this.TransactionFailed));
+                data.AssignTask(taskID, devID, new TransactionFailedHandler(this.TransactionFailed));
             }
             else
             {

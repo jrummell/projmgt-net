@@ -69,10 +69,20 @@ namespace PMTDataProvider
         /// </summary>
         PMTUser GetPMTUser(string username);
 
+        /*
         /// <summary>
         /// Gets all developers
         /// </summary>
         DataTable GetDevelopers();
+        */
+        /// <summary>
+        /// Gets all developers
+        /// </summary>
+        /// <remarks>
+        /// To get developers assigned to the given manager, use the filter expression "Selected=1"
+        /// </remarks>
+        /// <param name="mgrID">manager id</param>
+        DataTable GetDevelopers(int mgrID);
         /// <summary>
         /// Gets a developer by id
         /// </summary>
@@ -105,6 +115,18 @@ namespace PMTDataProvider
         /// </summary>
         /// <param name="id">User ID</param>
         bool DisablePMTUser(int id, TransactionFailedHandler handler);
+        /// <summary>
+        /// Assigns a user to a manager
+        /// </summary>
+        /// <param name="userID">user id</param>
+        /// <param name="mgrID">manager id</param>
+        bool AssignPMTUser(int userID, int mgrID, TransactionFailedHandler handler);
+        /// <summary>
+        /// Unassigns a user from a manager
+        /// </summary>
+        /// <param name="userID">user id</param>
+        /// <param name="mgrID">manager id</param>
+        bool UnassignPMTUser(int userID, int mgrID, TransactionFailedHandler handler);
 
         /// <summary>
         /// Is the email address in the userInfo table?
@@ -232,7 +254,7 @@ namespace PMTDataProvider
         /// </summary>
         /// <param name="devID">developer id</param>
         /// <param name="taskID">task id</param>
-        bool AssignDeveloper(int devID, int taskID, TransactionFailedHandler handler);
+        bool AssignTask(int taskID, int devID, TransactionFailedHandler handler);
         /// <summary>
         /// Approves a completed task
         /// </summary>
@@ -243,7 +265,7 @@ namespace PMTDataProvider
         /// <summary>
         /// Gets all assignments
         /// </summary>
-        DataTable GetDeveloperAssignments();
+        DataTable GetTaskAssignments();
         #endregion
 
         #region Project Item

@@ -8,6 +8,7 @@ using System.Security.Principal;
 using System.Configuration;
 using System.Collections.Specialized;
 using PMTComponents;
+using PMTDataProvider;
 
 namespace PMT 
 {
@@ -68,7 +69,48 @@ namespace PMT
 
             return Global.ApplicationPath + path;
         }
-		
+
+        #region User Cookie
+        /// <summary>
+        /// Gets the logged in user's id from their cookie
+        /// </summary>
+        public static int LoggedInUserID
+        {
+            get 
+            { 
+                return Convert.ToInt32(HttpContext.Current.Request.Cookies["user"]["id"]); 
+            }
+        }
+
+        /// <summary>
+        /// Gets the logged in user's role from their cookie
+        /// </summary>
+        public static PMTUserRole LoggedInUserRole
+        {
+            get
+            {
+                return (PMTUserRole)Enum.Parse(typeof(PMTUserRole), HttpContext.Current.Request.Cookies["user"]["role"]);
+            }
+        }
+
+        /// <summary>
+        /// Gets the logged in user's username from their cookie
+        /// </summary>
+        public static string LoggedInUserName
+        {
+            get
+            {
+                return HttpContext.Current.Request.Cookies["user"]["name"];
+            }
+        }
+        #endregion
+
+        public static PMTUser GetLoggedInUser()
+        {
+            IDataProvider data = DataProviderFactory.CreateInstance();
+            return data.GetPMTUser(LoggedInUserID);
+        }
+
         #region HttpApplication Events
 		protected void Application_Start(Object sender, EventArgs e)
 		{

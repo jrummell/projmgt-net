@@ -352,14 +352,15 @@ namespace PMTDataProvider
         {
             PMTUser user = null;
             MySqlCommand command = conn.CreateCommand();
-            command.CommandText = "select * from users u left join userInfo i on u.id=i.id left join userreference r on u.id=r.userID where u.id=?id";
+            command.CommandText = "select Username, u.ID as ID, Password, Role, Enabled, FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email \n";
+            command.CommandText += "from users u left join userInfo i on u.id=i.id where u.id=?id";
             command.Parameters.Add("?id", id);
 
             if (conn.State != ConnectionState.Open)
                 conn.Open();
             MySqlDataReader dr = command.ExecuteReader();
 
-            while (dr.Read())
+            if (dr.Read())
             {
                 user = new PMTUser(
                     Convert.ToInt32(dr["id"]),
@@ -374,8 +375,7 @@ namespace PMTDataProvider
                     dr["city"].ToString(),
                     dr["state"].ToString(),
                     dr["zip"].ToString(),
-                    Convert.ToInt32(dr["enabled"]) == 1,
-                    Convert.ToInt32(dr["managerID"]));
+                    Convert.ToInt32(dr["enabled"]) == 1);
             }
             dr.Close();
             return user;
@@ -393,6 +393,54 @@ namespace PMTDataProvider
                 int id = Convert.ToInt32(this.ExecuteScalar(command));
                 return this.GetPMTUser(id, conn);
             }
+        }
+
+        public bool AssignPMTUser(int userID, int mgrID, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
+            {
+                using (MySqlCommand comm = conn.CreateCommand())
+                {
+                    comm.CommandText = "insert into UserManagers (UserID, ManagerID) values (?user, ?mgr)";
+                    comm.Parameters.Add("?user", userID);
+                    comm.Parameters.Add("?mgr", mgrID);
+
+                    try
+                    {
+                        this.ExecuteNonQuery(comm);
+                    }
+                    catch (MySqlException ex)
+                    {
+                        handler(ex);
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public bool UnassignPMTUser(int userID, int mgrID, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
+            {
+                using (MySqlCommand comm = conn.CreateCommand())
+                {
+                    comm.CommandText = "delete from UserManagers where UserID=?user and ManagerID=?mgr";
+                    comm.Parameters.Add("?user", userID);
+                    comm.Parameters.Add("?mgr", mgrID);
+
+                    try
+                    {
+                        this.ExecuteNonQuery(comm);
+                    }
+                    catch (MySqlException ex)
+                    {
+                        handler(ex);
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
         #endregion Get PMTUser
         
@@ -414,19 +462,42 @@ namespace PMTDataProvider
         }
 
         #region Developers
+        /*
         public DataTable GetDevelopers()
         {
             DataTable dt = new DataTable();
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append("select u.id as ID, UserName, FirstName, LastName, Competence, ManagerID \n");
-                sb.Append("from users u left join userinfo i on u.id=i.id left join userreference r on u.id=r.userID left join complevels c on u.id=c.userID \n");
+                sb.Append("select u.id as ID, UserName, FirstName, LastName, Competence \n");
+                sb.Append("from users u left join userinfo i on u.id=i.id left join complevels c on u.id=c.userID \n");
                 sb.Append("where role=?role ");
 
                 using (MySqlDataAdapter da = new MySqlDataAdapter(sb.ToString(), conn))
                 {
                     da.SelectCommand.Parameters.Add("?role", (int)PMTUserRole.Developer);
+                    da.Fill(dt);
+                }
+            }
+            return dt;
+        }
+        */
+
+        public DataTable GetDevelopers(int mgrID)
+        {
+            DataTable dt = new DataTable();
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("select Username, u.ID as ID, FirstName, LastName, Competence, sum(ManagerID=?mgrID) as Selected \n");
+                sb.Append("from users u left join userinfo i on u.id=i.id left join usermanagers m on u.id=m.UserID left join complevels c on u.id=c.userID \n");
+                sb.Append("where role=?role \n");
+                sb.Append("group by ID, FirstName, LastName, Competence");
+
+                using (MySqlDataAdapter da = new MySqlDataAdapter(sb.ToString(), conn))
+                {
+                    da.SelectCommand.Parameters.Add("?role", (int)PMTUserRole.Developer);
+                    da.SelectCommand.Parameters.Add("?mgrID", mgrID);
                     da.Fill(dt);
                 }
             }
@@ -450,8 +521,8 @@ namespace PMTDataProvider
                 using (MySqlCommand comm = conn.CreateCommand())
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.Append("select u.id as ID, Competence, ManagerID \n");
-                    sb.Append("from users u left join userreference r on u.id=r.userID left join complevels c on u.id=c.userID \n");
+                    sb.Append("select u.id as ID, Competence \n");
+                    sb.Append("from users u left join complevels c on u.id=c.userID \n");
                     sb.Append("where role=?role and u.id=?id");
                     comm.CommandText = sb.ToString();
                     comm.Parameters.Add("?role", (int)PMTUserRole.Developer);
@@ -463,7 +534,6 @@ namespace PMTDataProvider
                         if (dr.Read())
                         {
                             dev.Competency = (CompLevel)Convert.ToInt32(dr["Competence"]);
-                            dev.ManagerID = Convert.ToInt32(dr["ManagerID"]);
                         }
                     }
                 }
@@ -487,8 +557,6 @@ namespace PMTDataProvider
                 }
             }
         }
-        #endregion
-        #region Managers
         #endregion
         #endregion PMTUser
 
@@ -554,9 +622,9 @@ namespace PMTDataProvider
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sb = new StringBuilder();
-                sb.Append("select ID, Name, Description, StartDate, ExpEndDate, ActEndDate, ManagerID \n");
-                sb.Append("from projects p left join userReference u on p.id=u.projectID \n");
-                sb.Append("where ID=?pid and UserID=?uid \n");
+                sb.Append("select ID, Name, Description, StartDate, ExpEndDate, ActEndDate, u.UserID as ManagerID \n");
+                sb.Append("from projects p left join userProjects u on p.id=u.projectID \n");
+                sb.Append("where ID=?pid \n");
                 using (MySqlCommand command = conn.CreateCommand())
                 {
                     command.CommandText = sb.ToString();
@@ -566,16 +634,16 @@ namespace PMTDataProvider
                     conn.Open();
                     using (MySqlDataReader dr = command.ExecuteReader())
                     {
-                        while (dr.Read())
+                        if (dr.Read())
                         {
                             project = new Project(
                                 Convert.ToInt32(dr["ID"]),
-                                Convert.ToInt32(dr["managerID"]),
-                                dr["name"].ToString(),
-                                dr["description"].ToString(),
-                                Convert.ToDateTime(dr["startDate"]),
-                                Convert.ToDateTime(dr["expEndDate"]),
-                                Convert.ToDateTime(dr["actEndDate"]));
+                                Convert.ToInt32(dr["ManagerID"]),
+                                dr["Name"].ToString(),
+                                dr["Description"].ToString(),
+                                Convert.ToDateTime(dr["StartDate"]),
+                                Convert.ToDateTime(dr["ExpEndDate"]),
+                                Convert.ToDateTime(dr["ActEndDate"]));
                         }
                     }
                 }
@@ -590,8 +658,8 @@ namespace PMTDataProvider
             {
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("select p.id as ID, Name, Description, StartDate, ExpEndDate, ActEndDate \n");
-                sbCommand.Append("from projects p left join userReference r on p.ID=r.projectID left join users u on u.id=r.userID \n");
-                sbCommand.Append("where r.managerID=?id and u.role=?role");
+                sbCommand.Append("from projects p left join userProjects r on p.ID=r.projectID left join users u on u.id=r.userID \n");
+                sbCommand.Append("where r.userID=?id and u.role=?role");
 
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = sbCommand.ToString();
@@ -663,10 +731,9 @@ namespace PMTDataProvider
 
                 // tie the project to its manager
                 command = conn.CreateCommand();
-                command.CommandText = "insert into userReference (userID, projectID, managerID) values (?uID, ?pID, ?mID)";
+                command.CommandText = "insert into userProjects (userID, projectID) values (?uID, ?pID)";
                 command.Parameters.Add("?uID", project.ManagerID);
                 command.Parameters.Add("?pID", id);
-                command.Parameters.Add("?mID", project.ManagerID);
 
                 try
                 {
@@ -1100,7 +1167,7 @@ namespace PMTDataProvider
             return true;
         }
 
-        public bool AssignDeveloper(int devID, int taskID, TransactionFailedHandler handler)
+        public bool AssignTask(int taskID, int devID, TransactionFailedHandler handler)
         {
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
@@ -1171,7 +1238,7 @@ namespace PMTDataProvider
             return dt;
         }
 
-        public DataTable GetDeveloperAssignments()
+        public DataTable GetTaskAssignments()
         {
             DataTable dt = new DataTable();
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
@@ -1476,7 +1543,7 @@ namespace PMTDataProvider
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "select u.id as id, u.username as username from users u "; /*left join userReference r on u.id=r.userID where r.projectID=?pID";*/
+                command.CommandText = "select u.id as id, u.username as username from users u "; /*left join userProjects p on u.id=p.userID where p.projectID=?pID";*/
                 //command.Parameters.Add("?pID", projectID);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);

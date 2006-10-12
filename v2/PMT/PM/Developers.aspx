@@ -1,10 +1,11 @@
 <%@ Page Language="C#" MasterPageFile="~/Master/Default.master" AutoEventWireup="true" CodeFile="Developers.aspx.cs" Inherits="PMT.PM.Developers" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phMain" Runat="Server">
+    <h3>Your Developers</h3>
+    <p><a href="ChooseDevelopers.aspx">Choose Developers</a></p>
     <asp:GridView ID="dvDevs" runat="server" AutoGenerateColumns="False" 
         AllowPaging="True" AllowSorting="True" DataSourceID="dsDevelopers" 
         OnRowDataBound="dvDevs_RowDataBound">
         <Columns>
-            <asp:CommandField ShowSelectButton="True" />
             <asp:BoundField
                 HeaderText="ID"
                 DataField="ID"
@@ -29,6 +30,6 @@
                 SortExpression="Competence" />
         </Columns>
     </asp:GridView>
-    <asp:ObjectDataSource ID="dsDevelopers" runat="server" SelectMethod="GetDevelopers" />
+    <asp:ObjectDataSource ID="dsDevelopers" runat="server" />
 </asp:Content>
 
