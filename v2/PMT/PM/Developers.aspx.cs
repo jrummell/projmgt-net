@@ -23,6 +23,9 @@ namespace PMT.PM
         {
             // set the object data source type name
             dsDevelopers.TypeName = PMTDataProvider.Configuration.Config.DataProvider;
+            dsDevelopers.SelectMethod = "GetDevelopers";
+            dsDevelopers.SelectParameters.Add("mgrID", Global.LoggedInUserID.ToString());
+            dsDevelopers.FilterExpression = String.Format("Selected=1");
             base.OnInit(e);
         }
 

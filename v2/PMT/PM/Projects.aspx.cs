@@ -141,14 +141,13 @@ namespace PMT.PM
         private void UpdateCommand_Pushed(object source, DataGridCommandEventArgs e)
         {
             TextBox tb;
-            string name = ((HyperLink)e.Item.Cells[1].Controls[0]).Text;
+            int id = Convert.ToInt32(e.Item.Cells[0].Text);
+            //string name = e.Item.Cells[1].Text;
             tb = (TextBox)e.Item.Cells[2].Controls[0];
             string desc = tb.Text;
             tb = (TextBox)e.Item.Cells[3].Controls[0];
             DateTime start = Convert.ToDateTime(tb.Text);
-
-            int id = Convert.ToInt32(DataGrid1.Items[e.Item.ItemIndex].Cells[0].Text);
-
+            
             IDataProvider data = DataProviderFactory.CreateInstance();
             
             ProjectItem item;
@@ -156,7 +155,7 @@ namespace PMT.PM
             if(ItemType.Equals(ProjectItemType.Project))
             {
                 item = data.GetProject(UserID, id);
-                item.Name = name;
+                //item.Name = name;
                 item.Description = desc;
                 item.StartDate = start;
                 data.UpdateProject(item as Project, new TransactionFailedHandler(this.TransactionFailed));
@@ -164,7 +163,7 @@ namespace PMT.PM
             else if (ItemType.Equals(ProjectItemType.Module))
             {
                 item = data.GetModule(id);
-                item.Name = name;
+                //item.Name = name;
                 item.Description = desc;
                 item.StartDate = start;
                 data.UpdateModule(item as Module, new TransactionFailedHandler(this.TransactionFailed));
@@ -172,7 +171,7 @@ namespace PMT.PM
             else if (ItemType.Equals(ProjectItemType.Task))
             {
                 item = data.GetTask(id);
-                item.Name = name;
+                //item.Name = name;
                 item.Description = desc;
                 item.StartDate = start;
                 data.UpdateTask(item as Task, new TransactionFailedHandler(this.TransactionFailed));

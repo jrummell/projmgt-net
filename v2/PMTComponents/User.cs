@@ -37,7 +37,6 @@ namespace PMTComponents
         private string state;
         private string zip;
         private bool enabled;
-        private int managerID;
         #endregion
 
         #region Constructors
@@ -57,9 +56,8 @@ namespace PMTComponents
         /// <param name="state">State</param>
         /// <param name="zip">Zip Code</param>
         /// <param name="enabled">Is the user enabled?</param>
-        /// <param name="managerID">Manager's ID</param>
         public PMTUser(int id, string user, string pwd, PMTUserRole role, string firstName, string lastName, 
-            string email, string phone, string address, string city, string state, string zip, bool enabled, int managerID)
+            string email, string phone, string address, string city, string state, string zip, bool enabled)
         {
             this.userName = user;
             this.password = pwd;
@@ -80,7 +78,7 @@ namespace PMTComponents
         /// Default Constructor. Creates a blank PMTUser
         /// </summary>
         public PMTUser()
-            : this (0, String.Empty, String.Empty, 0, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, false, 0) {}
+            : this (0, String.Empty, String.Empty, 0, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, false) {}
         #endregion
 
         public static PMTUser CreatePMTUser(PMTUserRole role)
@@ -195,12 +193,6 @@ namespace PMTComponents
             get {   return enabled;    }
             set {   enabled = value;   }
         }
-
-        public int ManagerID
-        {
-            get { return managerID; }
-            set { managerID = value; }
-        }
         #endregion
 
         #region ICloneable Members
@@ -244,7 +236,7 @@ namespace PMTComponents
 
         public Administrator(PMTUser user)
             : base(user.ID, user.UserName, user.Password, user.Role, user.FirstName, user.LastName, user.Email,
-            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled, user.ManagerID)
+            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
         {
             Init();
         }
@@ -267,7 +259,7 @@ namespace PMTComponents
 
         public Manager(PMTUser user)
             : base(user.ID, user.UserName, user.Password, user.Role, user.FirstName, user.LastName, user.Email,
-            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled, user.ManagerID)
+            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
         {
             Init();
         }
@@ -298,7 +290,7 @@ namespace PMTComponents
         /// </summary>
         public Developer(PMTUser user)
             : base(user.ID, user.UserName, user.Password, user.Role, user.FirstName, user.LastName, user.Email,
-            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled, user.ManagerID)
+            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
         {
             Init();
         }
@@ -341,7 +333,7 @@ namespace PMTComponents
 
         public Client(PMTUser user)
             : base(user.ID, user.UserName, user.Password, user.Role, user.FirstName, user.LastName, user.Email,
-            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled, user.ManagerID)
+            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
         {
             Init();
         }

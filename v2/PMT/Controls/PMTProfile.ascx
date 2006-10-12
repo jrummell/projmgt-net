@@ -154,11 +154,4 @@
             <asp:RequiredFieldValidator ID="SecurityRequiredFieldValidator" runat="server" ControlToValidate="SecurityDropDownList"
                 Display="None" ErrorMessage="Please select a security level from the list."></asp:RequiredFieldValidator></td>
     </tr>
-    <tr>
-        <td>Manager:</td>
-        <td>
-            <asp:DropDownList ID="ddlManagers" runat="server" />
-            <asp:Label id="lblManager" runat="server" Visible="false" />
-        </td>
-    </tr>
 </table>
