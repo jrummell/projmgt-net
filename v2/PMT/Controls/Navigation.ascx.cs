@@ -12,7 +12,6 @@ namespace PMT.Controls
 {
     public partial class Navigation : UserControl
     {
-
         protected void Page_Load(object sender, System.EventArgs e)
         {
             // if the users is logged in, add a logged in links
@@ -42,7 +41,12 @@ namespace PMT.Controls
                 
                 loadXmlLinks(sbPath.ToString());
 
-                addLink("Reports", "AllUsers/Reports.aspx");
+                // managers and client get reports
+                if (role == PMTUserRole.Manager ||
+                    role == PMTUserRole.Client)
+                {
+                    addLink("Reports", "AllUsers/Reports.aspx");
+                }
             }
         }
 

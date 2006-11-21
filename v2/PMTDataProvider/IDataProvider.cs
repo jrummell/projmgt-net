@@ -265,7 +265,7 @@ namespace PMTDataProvider
         /// <summary>
         /// Gets all assignments
         /// </summary>
-        DataTable GetTaskAssignments();
+        DataTable GetTaskAssignments(int mgrID);
         #endregion
 
         #region Project Item

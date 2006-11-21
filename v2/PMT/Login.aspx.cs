@@ -77,7 +77,7 @@ namespace PMT
 
         private void TransactionFailed(Exception ex)
         {
-            lblResult.Text = ex.Message;
+            Login1.FailureText = ex.Message;
         }
 
         protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)

@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Web;
-//using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
@@ -17,9 +16,6 @@ namespace PMT.PM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (TaskID != -1)
-            //    AvailDevLabel.Text = "Choose Developer to be assigned to Task " + TaskID;
-
             if (!IsPostBack)
             {
                 // bind task threshold drop down list
@@ -37,7 +33,7 @@ namespace PMT.PM
         {
             IDataProvider data = DataProviderFactory.CreateInstance();
             
-            dgAssignments.DataSource = data.GetTaskAssignments();
+            dgAssignments.DataSource = data.GetTaskAssignments(Global.LoggedInUserID);
             dgAssignments.DataBind();
 
             dgAvailableDevs.DataSource = data.GetAvailableDevelopers(Convert.ToInt32(ddlTaskThreshold.SelectedValue));
