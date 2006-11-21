@@ -25,9 +25,12 @@ namespace PMT.AllUsers
 
             if (!this.IsPostBack)
             {
-                if (UserRole.Equals(PMTUserRole.Manager))
+                int id = Global.LoggedInUserID;
+                PMTUserRole role = Global.LoggedInUserRole;
+
+                if (role.Equals(PMTUserRole.Manager))
                 {
-                    ProjectDropDownList.DataSource = data.GetProjects();
+                    ProjectDropDownList.DataSource = data.GetManagerProjects(id);
                     ProjectDropDownList.DataTextField="name";
                     ProjectDropDownList.DataValueField="ID";
                     ProjectDropDownList.DataBind();
@@ -36,10 +39,10 @@ namespace PMT.AllUsers
                     enableModuleControls(false);
                     enableTaskControls(false);
                 }
-                else if (UserRole.Equals(PMTUserRole.Developer))
+                else if (role.Equals(PMTUserRole.Developer))
                 {
                     // get all tasks assigned to a developer
-                    TaskDropDownList.DataSource = data.GetDeveloperTasks(UserID);
+                    TaskDropDownList.DataSource = data.GetDeveloperTasks(id);
                     TaskDropDownList.DataTextField="Name";
                     TaskDropDownList.DataValueField="ID";
                     TaskDropDownList.DataBind();
@@ -48,10 +51,10 @@ namespace PMT.AllUsers
                     enableModuleControls(false);
                     enableProjectControls(false);
                 }
-                else if (UserRole.Equals(PMTUserRole.Client))
+                else if (role.Equals(PMTUserRole.Client))
                 {
                     // get all projectes assigned to a client
-                    ProjectDropDownList.DataSource = data.GetClientProjects(UserID);
+                    ProjectDropDownList.DataSource = data.GetClientProjects(id);
                     ProjectDropDownList.DataTextField = "Name";
                     ProjectDropDownList.DataValueField = "ID";
                     ProjectDropDownList.DataBind();
@@ -96,22 +99,21 @@ namespace PMT.AllUsers
                 return;
 
             IDataProvider data = DataProviderFactory.CreateInstance();
-
-            if ( buttonID.Equals( "ViewProjectButton" ) )
+            if (buttonID.Equals("ViewProjectButton"))
             {
-                Project project = data.GetProject(UserID, Convert.ToInt32(ProjectDropDownList.SelectedValue));
+                Project project = data.GetProject(Global.LoggedInUserID, Convert.ToInt32(ProjectDropDownList.SelectedValue));
 
                 report.Item = project;
                 report.FillForm();
             }
-            else if ( buttonID.Equals( "ViewModuleButton" ) )
+            else if (buttonID.Equals("ViewModuleButton"))
             {
                 Module module = data.GetModule(Convert.ToInt32(ModuleDropDownList.SelectedValue));
 
                 report.Item = module;
                 report.FillForm();
             }
-            else //( buttonID.Equals( "ViewTaskButton" ) )
+            else //(buttonID.Equals("ViewTaskButton"))
             {
                 Task task = data.GetTask(Convert.ToInt32(TaskDropDownList.SelectedValue));
 
@@ -175,6 +177,7 @@ namespace PMT.AllUsers
             enableTaskControls(true);
         }
 
+        #region Enable Controls
         private void enableTaskControls(bool val)
         {
             TaskDropDownList.Enabled = val;
@@ -215,16 +218,6 @@ namespace PMT.AllUsers
             {
                 ViewProjectButton.Enabled = false;
             }
-        }
-
-        #region Properties
-        public int UserID
-        {
-            get {   return Convert.ToInt32(Request.Cookies["user"]["id"]);   }
-        }
-        public PMTUserRole UserRole
-        {
-            get {   return (PMTUserRole)Enum.Parse(typeof(PMTUserRole), Request.Cookies["user"]["role"]);   }
         }
         #endregion
     }

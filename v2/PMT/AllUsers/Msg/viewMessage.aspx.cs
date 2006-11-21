@@ -33,8 +33,7 @@ namespace PMT.AllUsers.Msg
                 message.Sender.LastName,
                 message.Sender.FirstName,
                 message.Sender.UserName);
-            dateLabel.Text = message.DateSent.ToLongDateString()
-                + " " + message.DateSent.ToShortTimeString();
+            dateLabel.Text = message.DateSent.ToString();
             dlRecipients.DataSource = message.Recipients;
             dlRecipients.DataBind();
             lblMessage.Text = message.Body;

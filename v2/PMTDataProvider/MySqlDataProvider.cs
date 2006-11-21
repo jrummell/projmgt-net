@@ -1238,7 +1238,7 @@ namespace PMTDataProvider
             return dt;
         }
 
-        public DataTable GetTaskAssignments()
+        public DataTable GetTaskAssignments(int mgrID)
         {
             DataTable dt = new DataTable();
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
@@ -1246,17 +1246,19 @@ namespace PMTDataProvider
                 StringBuilder sbCommand = new StringBuilder();
                 sbCommand.Append("select u.id as userID, u.userName as userName, t.id as taskID, t.name as taskName, t.status as taskStatus, \n");
                 sbCommand.Append("m.id as moduleID, m.name as moduleName, p.id as projectID, p.name as projectName, \n");
-                sbCommand.Append("a.dateAssigned as assignDate, t.actEndDate finishDate \n");
+                sbCommand.Append("a.dateAssigned as assignDate, t.actEndDate as finishDate \n");
                 sbCommand.Append("from users u inner join taskAssignments a on u.id=a.devID \n");
                 sbCommand.Append("left join tasks t on a.taskID=t.ID \n");
                 sbCommand.Append("left join modules m on t.moduleID=m.id \n");
                 sbCommand.Append("left join projects p on t.projectID=p.id \n");
-                sbCommand.Append("where u.Role=?role \n");
+                sbCommand.Append("left join usermanagers g on u.id=g.userid \n");
+                sbCommand.Append("where u.Role=?role and g.managerID=?mgrID \n");
                 sbCommand.Append("order by u.UserName");
 
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = sbCommand.ToString();
                 command.Parameters.Add("?role", (int)PMTUserRole.Developer);
+                command.Parameters.Add("?mgrID", mgrID);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
                     da.Fill(dt);
