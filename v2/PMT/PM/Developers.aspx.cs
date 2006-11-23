@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using PMT.Configuration;
 using PMTDataProvider;
 using PMTComponents;
 
@@ -22,9 +23,9 @@ namespace PMT.PM
         protected override void OnInit(EventArgs e)
         {
             // set the object data source type name
-            dsDevelopers.TypeName = PMTDataProvider.Configuration.Config.DataProvider;
+            dsDevelopers.TypeName = PMTDataProvider.DataProviderFactory.CreateInstance().GetType().ToString();
             dsDevelopers.SelectMethod = "GetDevelopers";
-            dsDevelopers.SelectParameters.Add("mgrID", Global.LoggedInUserID.ToString());
+            dsDevelopers.SelectParameters.Add("mgrID", Config.LoggedInUserID.ToString());
             dsDevelopers.FilterExpression = String.Format("Selected=1");
             base.OnInit(e);
         }

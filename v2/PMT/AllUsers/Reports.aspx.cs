@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using PMT.Controls;
+using PMT.Configuration;
 using PMTComponents;
 using PMTDataProvider;
 
@@ -25,8 +26,8 @@ namespace PMT.AllUsers
 
             if (!this.IsPostBack)
             {
-                int id = Global.LoggedInUserID;
-                PMTUserRole role = Global.LoggedInUserRole;
+                int id = Config.LoggedInUserID;
+                PMTUserRole role = Config.LoggedInUserRole;
 
                 if (role.Equals(PMTUserRole.Manager))
                 {
@@ -101,7 +102,7 @@ namespace PMT.AllUsers
             IDataProvider data = DataProviderFactory.CreateInstance();
             if (buttonID.Equals("ViewProjectButton"))
             {
-                Project project = data.GetProject(Global.LoggedInUserID, Convert.ToInt32(ProjectDropDownList.SelectedValue));
+                Project project = data.GetProject(Config.LoggedInUserID, Convert.ToInt32(ProjectDropDownList.SelectedValue));
 
                 report.Item = project;
                 report.FillForm();

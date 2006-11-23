@@ -13,7 +13,7 @@ namespace PMTDataProvider
 	/// <summary>
 	/// MySql implementation of the PMT IDataProvider
 	/// </summary>
-    public class MySqlDataProvider : IDataProvider
+    internal class MySqlDataProvider : IDataProvider
     {
         public MySqlDataProvider() {}
 
@@ -1346,7 +1346,7 @@ namespace PMTDataProvider
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
-                sbCommand.Append("select m.id as messageID, u.username as senderName, r.dateReceived as date, m.subject as subject \n");
+                sbCommand.Append("select m.id as messageID, u.username as senderName, m.dateSent as date, m.subject as subject \n");
                 sbCommand.Append("from recipients r left join messages m on r.messageID=m.id left join users u on u.id=r.recipientID \n");
                 sbCommand.Append("where r.recipientID=?id");
                 
@@ -1355,7 +1355,7 @@ namespace PMTDataProvider
                 command.Parameters.Add("?id", userID);
                 
                 MySqlDataAdapter da = new MySqlDataAdapter(command);
-                    da.Fill(dt);
+                da.Fill(dt);
             }
             return dt;
         }
@@ -1419,66 +1419,75 @@ namespace PMTDataProvider
             int id = -1;
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
-                // insert the message
-                StringBuilder sbCommand = new StringBuilder();
-                sbCommand.Append("insert into messages (senderID, dateSent, subject, body) \n");
-                sbCommand.Append("values (?sender, ?sent, ?subject, ?body)");
-
-                MySqlCommand command = conn.CreateCommand();
-                command.CommandText = sbCommand.ToString();
-                command.Parameters.Add("?sender", m.Sender.ID);
-                command.Parameters.Add("?sent", m.DateSent);
-                command.Parameters.Add("?subject", m.Subject);
-                command.Parameters.Add("?body", m.Body);
-                
-                MySqlDataAdapter da = new MySqlDataAdapter(command);
-                try
+                conn.Open();
+                using (MySqlTransaction trans = conn.BeginTransaction())
                 {
-                    this.ExecuteNonQuery(command);
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return id;
-                }
+                    // insert the message
+                    StringBuilder sbCommand = new StringBuilder();
+                    sbCommand.Append("insert into messages (senderID, dateSent, subject, body) \n");
+                    sbCommand.Append("values (?sender, ?sent, ?subject, ?body)");
 
-                // get message id
-                command = conn.CreateCommand();
-                command.CommandText = "select LAST_INSERT_ID()";
+                    MySqlCommand command = conn.CreateCommand();
+                    command.CommandText = sbCommand.ToString();
+                    command.Parameters.Add("?sender", m.Sender.ID);
+                    command.Parameters.Add("?sent", m.DateSent);
+                    command.Parameters.Add("?subject", m.Subject);
+                    command.Parameters.Add("?body", m.Body);
 
-                try
-                {
-                    id = Convert.ToInt32(this.ExecuteScalar(command));
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return id;
-                }
-
-                // add recipients
-                sbCommand = new StringBuilder();
-                sbCommand.Append("insert into recipients (messageID, recipientID) \n");
-                sbCommand.Append("values (?messageID, ?recipientID)");
-
-                command = conn.CreateCommand();
-                command.CommandText = sbCommand.ToString();
-                
-                foreach(PMTUser user in m.Recipients)
-                {
-                    command.Parameters.Clear();
-                    command.Parameters.Add("?messageID", id);
-                    command.Parameters.Add("?recipientID", user.ID);
-
+                    MySqlDataAdapter da = new MySqlDataAdapter(command);
                     try
                     {
                         this.ExecuteNonQuery(command);
                     }
                     catch (MySqlException ex)
                     {
+                        trans.Rollback();
                         handler(ex);
                         return id;
                     }
+
+                    // get message id
+                    command = conn.CreateCommand();
+                    command.CommandText = "select LAST_INSERT_ID()";
+
+                    try
+                    {
+                        id = Convert.ToInt32(this.ExecuteScalar(command));
+                    }
+                    catch (MySqlException ex)
+                    {
+                        trans.Rollback();
+                        handler(ex);
+                        return id;
+                    }
+
+                    // add recipients
+                    sbCommand = new StringBuilder();
+                    sbCommand.Append("insert into recipients (messageID, recipientID) \n");
+                    sbCommand.Append("values (?messageID, ?recipientID)");
+
+                    command = conn.CreateCommand();
+                    command.CommandText = sbCommand.ToString();
+
+                    foreach (PMTUser user in m.Recipients)
+                    {
+                        command.Parameters.Clear();
+                        command.Parameters.Add("?messageID", id);
+                        command.Parameters.Add("?recipientID", user.ID);
+
+                        try
+                        {
+                            this.ExecuteNonQuery(command);
+                        }
+                        catch (MySqlException ex)
+                        {
+                            trans.Rollback();
+                            handler(ex);
+                            return id;
+                        }
+                    }
+
+                    trans.Commit();
                 }
             }
             return id;
@@ -1488,52 +1497,60 @@ namespace PMTDataProvider
         {
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
-                // delete recipient's message
-                MySqlCommand command = conn.CreateCommand();
-                command.CommandText = "delete from recipients where messageID=?mID and recipientID=?rID";
-                command.Parameters.Add("?mID", messageID);
-                command.Parameters.Add("?rID", recipientID);
+                conn.Open();
+                using (MySqlTransaction trans = conn.BeginTransaction())
+                {
+                    // delete recipient's message
+                    MySqlCommand command = conn.CreateCommand();
+                    command.CommandText = "delete from recipients where messageID=?mID and recipientID=?rID";
+                    command.Parameters.Add("?mID", messageID);
+                    command.Parameters.Add("?rID", recipientID);
 
-                try
-                {
-                    this.ExecuteNonQuery(command);
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return false;
-                }
-
-                // get the number of recipients for this message
-                command = conn.CreateCommand();
-                command.CommandText = "select count(*) from recipients where messageID=?mID";
-                command.Parameters.Add("?mID", messageID);
-
-                int count = 0;
-                try
-                {
-                    count = Convert.ToInt32(this.ExecuteScalar(command));
-                }
-                catch (MySqlException ex)
-                {
-                    handler(ex);
-                    return false;
-                }
-
-                // if there are no recipients, delete the message
-                if (count == 0)
-                {
-                    command.CommandText = "delete from messages where id=?mID";
-                    
                     try
                     {
                         this.ExecuteNonQuery(command);
                     }
                     catch (MySqlException ex)
                     {
+                        trans.Rollback();
                         handler(ex);
                         return false;
                     }
+
+                    // get the number of recipients for this message
+                    command = conn.CreateCommand();
+                    command.CommandText = "select count(*) from recipients where messageID=?mID";
+                    command.Parameters.Add("?mID", messageID);
+
+                    int count = 0;
+                    try
+                    {
+                        count = Convert.ToInt32(this.ExecuteScalar(command));
+                    }
+                    catch (MySqlException ex)
+                    {
+                        trans.Rollback();
+                        handler(ex);
+                        return false;
+                    }
+
+                    // if there are no recipients, delete the message
+                    if (count == 0)
+                    {
+                        command.CommandText = "delete from messages where id=?mID";
+
+                        try
+                        {
+                            this.ExecuteNonQuery(command);
+                        }
+                        catch (MySqlException ex)
+                        {
+                            trans.Rollback();
+                            handler(ex);
+                            return false;
+                        }
+                    }
+                    trans.Commit();
                 }
             }
             return true;

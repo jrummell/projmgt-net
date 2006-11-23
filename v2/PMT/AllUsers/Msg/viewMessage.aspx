@@ -4,9 +4,11 @@
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Messaging</h3>
     <p>
-        <a href="default.aspx">Return to Inbox</a> | <a href="newMessage.aspx?action=reply&id=<%= MessageID %>">
-            Reply</a> | <a href="newMessage.aspx?action=forward&id=<%= MessageID %>">Forward</a></p>
-    <h4>View Message</h4>
+        <b>View Message</b> | 
+        <a href="newMessage.aspx?action=reply&id=<%= MessageID %>">Reply</a> | 
+        <a href="newMessage.aspx?action=forward&id=<%= MessageID %>">Forward</a> |
+        <a href="default.aspx">Return to Inbox</a>
+    </p>
     <table>
         <tr>
             <td>Subject:</td>

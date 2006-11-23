@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Text;
+using PMT.Configuration;
 
 namespace PMT.Controls
 {
@@ -18,8 +19,8 @@ namespace PMT.Controls
 
             if (isLoggedIn)
             {
-                lblRole.Text = Request.Cookies["user"]["role"];
-                lblUsername.Text = Request.Cookies["user"]["name"];
+                lblRole.Text = Config.LoggedInUserRole.ToString();
+                lblUsername.Text = Config.LoggedInUserName;
             }
 
             pnlLoggedIn.Visible = isLoggedIn;

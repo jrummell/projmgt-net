@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Text;
 using System.Web.Security;
+using PMT.Configuration;
 using PMTComponents;
 
 namespace PMT.Controls
@@ -19,17 +20,9 @@ namespace PMT.Controls
             if (Context.User.Identity.IsAuthenticated)
             {
                 // parse role from cookie
-                PMTUserRole role;
-                try
-                {
-                    role = (PMTUserRole)Enum.Parse(typeof(PMTUserRole), Request.Cookies["user"]["role"]);
-                }
-                catch
-                {
-                    role = 0;
-                }
+                PMTUserRole role = Config.LoggedInUserRole;
 
-                string dir = Global.GetUserDefaultPath(role);
+                string dir = Config.GetUserDefaultPath(role);
 
                 // unknown role
                 if (dir == null)
@@ -103,7 +96,7 @@ namespace PMT.Controls
             StringBuilder sb = new StringBuilder();
 
             sb.Append("<a href=\"");
-            sb.Append(Global.ApplicationPath);
+            sb.Append(Config.ApplicationPath);
             sb.Append(linkSource);
             sb.Append("\" class=\"nav\">");
             sb.Append(linkTitle);

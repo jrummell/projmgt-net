@@ -44,8 +44,8 @@
                     Text="*" ErrorMessage="Username is required." Display="Dynamic" runat="server" />
             </td>
         </tr>
-        <tr>
-            <td>Password</td>
+        <tr valign="top">
+            <td>Password<br />Confirm Password</td>
             <td>
                 <asp:TextBox ID="txtPassword1" TextMode="Password" runat="server" />
                 <asp:RequiredFieldValidator Enabled="False" ID="rfvPassword1" ControlToValidate="txtPassword1"

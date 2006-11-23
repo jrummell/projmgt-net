@@ -26,7 +26,7 @@ namespace PMTDataProvider
         /// </summary>
         public static IDataProvider CreateInstance()
         {
-            Type t = Type.GetType(Config.DataProvider);
+            Type t = Config.DataProvider;//Type.GetType(Config.DataProvider);
             ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
             return (IDataProvider)constructor.Invoke(new Object[0]);
         }

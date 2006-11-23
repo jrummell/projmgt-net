@@ -1,22 +1,20 @@
 using System;
-using System.Configuration;
 using System.Web.Configuration;
-using System.Data;
-using System.Xml;
 using System.Collections.Specialized;
 
 namespace PMTDataProvider.Configuration
 {
+    /// <summary>
+    /// Databases that are (will) be supported.
+    /// </summary>
+    public enum DatabaseType { MySql, SqlServer }
+
 	/// <summary>
 	/// Provides Configuration Information
 	/// </summary>
-	public class Config
+    internal class Config : PMTComponents.ConfigBase
 	{
-        private static string section = "pmtSettings/pmtDataProvider";
-        /// <summary>
-        /// Hiding the constructor ...
-        /// </summary>
-		private Config() {}
+        protected static string section = "pmtSettings/pmtDataProvider";
 
         /// <summary>
         /// Gets or sets the Connection String
@@ -30,33 +28,35 @@ namespace PMTDataProvider.Configuration
         /// <summary>
         /// Gets the DataProvider name
         /// </summary>
-        public static string DataProvider
+        public static Type DataProvider
         {
-            get { return Settings["DataProvider"]; }
+            //get { return Settings["DataProvider"]; }
+            get
+            {
+                switch (DatabaseType)
+                {
+                    case DatabaseType.MySql:
+                        return typeof(MySqlDataProvider);
+                    //case DatabaseType.SqlServer:
+                    //    return typeof(SqlDataProvider);
+                    //    break;
+                    default:
+                        throw new Exception("DatabaseType has an incorrect value.");
+                }
+            }
         }
 
         /// <summary>
-        /// Gets the cached configuration settings.  
+        /// Gets the DatabaseType
         /// </summary>
-        /// <remarks>
-        /// If the cached object is null it re-inserts it.
-        /// Cache expires 30 minutes after last access.
-        /// </remarks>
+        public static DatabaseType DatabaseType
+        {
+            get { return (DatabaseType)Enum.Parse(typeof(DatabaseType), Settings["DatabaseType"], true); }
+        }
+
         private static NameValueCollection Settings
         {
-            get
-            {
-                NameValueCollection settings = System.Web.HttpContext.Current.Cache[section] as NameValueCollection;
-                if (settings == null)
-                {
-                    settings = WebConfigurationManager.GetSection(section) as NameValueCollection;
-                    System.Web.HttpContext.Current.Cache.Insert(
-                        section, settings, null, 
-                        System.Web.Caching.Cache.NoAbsoluteExpiration, 
-                        new TimeSpan(0, 30, 0));
-                }
-                return settings;
-            }
+            get { return GetSettings(section); }
         }
 	}
 }
