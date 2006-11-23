@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using PMT.Configuration;
 using PMTComponents;
 using PMTDataProvider;
 
@@ -32,8 +33,8 @@ namespace PMT.PM
         private void BindGrids()
         {
             IDataProvider data = DataProviderFactory.CreateInstance();
-            
-            dgAssignments.DataSource = data.GetTaskAssignments(Global.LoggedInUserID);
+
+            dgAssignments.DataSource = data.GetTaskAssignments(Config.LoggedInUserID);
             dgAssignments.DataBind();
 
             dgAvailableDevs.DataSource = data.GetAvailableDevelopers(Convert.ToInt32(ddlTaskThreshold.SelectedValue));

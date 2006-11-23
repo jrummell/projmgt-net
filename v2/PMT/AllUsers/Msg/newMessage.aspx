@@ -3,7 +3,10 @@
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Messaging</h3>
-    <h4>Compose Message</h4>
+    <p>
+        <b>Compose Message</b> | 
+        <a href="Default.aspx">Return to Inbox</a>
+    </p>
     <asp:Label ID="lblResult" runat="server" />
     <table id="Table1" cellspacing="1" cellpadding="1" border="0">
         <tr>

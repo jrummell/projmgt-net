@@ -10,9 +10,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
-using MySql;
-using MySql.Data;
-using MySql.Data.MySqlClient;
+using PMT.Configuration;
 using PMTComponents;
 using PMTDataProvider;
 
@@ -99,7 +97,7 @@ namespace PMT
 
                 if (url.ToLower().EndsWith("default.aspx"))
                 {
-                    url = Global.GetUserDefaultPath(user.Role);
+                    url = Config.GetUserDefaultPath(user.Role);
                 }
 
                 Response.Redirect(url);

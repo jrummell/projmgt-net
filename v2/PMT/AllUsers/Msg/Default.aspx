@@ -4,19 +4,33 @@
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Messaging</h3>
     <p>
-        <a href="newMessage.aspx">Compose message</a> | <a href="default.aspx">Check for new messages</a>
+        <b>Inbox</b> | 
+        <a href="default.aspx">Refresh</a> |
+        <a href="newMessage.aspx">Compose message</a>
     </p>
-    <asp:Panel ID="MessagesPanel" runat="server">
-        <h4>Inbox</h4>
-        <asp:DataGrid ID="MessagesDataGrid" runat="server" AutoGenerateColumns="false"
-            PagerStyle-Mode="NumericPages" AllowPaging="True">
-            <Columns>
-                <asp:BoundColumn HeaderText="From" DataField="senderName" />
-                <asp:HyperLinkColumn HeaderText="Subject" DataNavigateUrlField="messageID" DataNavigateUrlFormatString="viewMessage.aspx?id={0}"
-                    DataTextField="subject" />
-                <asp:BoundColumn HeaderText="Date" DataField="date" />
-                <asp:ButtonColumn HeaderText="Delete" Text="Delete" ButtonType="LinkButton" CommandName="Delete" />
-            </Columns>
-        </asp:DataGrid>
-    </asp:Panel>
+    <asp:DataGrid ID="MessagesDataGrid" runat="server" AutoGenerateColumns="false"
+        PagerStyle-Mode="NumericPages" AllowPaging="True">
+        <Columns>
+            <asp:BoundColumn
+                HeaderText="ID"
+                DataField="messageID"
+                Visible="false" />
+            <asp:BoundColumn 
+                HeaderText="From" 
+                DataField="senderName" />
+            <asp:HyperLinkColumn 
+                HeaderText="Subject" 
+                DataNavigateUrlField="messageID" 
+                DataNavigateUrlFormatString="viewMessage.aspx?id={0}"
+                DataTextField="subject" />
+            <asp:BoundColumn 
+                HeaderText="Date" 
+                DataField="date" />
+            <asp:ButtonColumn 
+                HeaderText="Delete" 
+                Text="Delete" 
+                ButtonType="LinkButton" 
+                CommandName="Delete" />
+        </Columns>
+    </asp:DataGrid>
 </asp:Content>

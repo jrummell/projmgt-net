@@ -16,8 +16,8 @@
       <Text>Competency Matrix Editor</Text>
       <Link>admin/editMatrix.aspx</Link>
     </Item>
-    <Item>
-      <Text>Maintenance Functions</Text>
-      <Link>admin/maint.aspx</Link>
-    </Item>
+  <Item>
+    <Text>Application Settings</Text>
+    <Link>admin/settings.aspx</Link>
+  </Item>
 </Items>

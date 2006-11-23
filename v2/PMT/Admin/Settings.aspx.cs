@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Text;
-using System.Configuration;
+using PMTDataProvider.Configuration;
 
 namespace PMT.Admin
 {
