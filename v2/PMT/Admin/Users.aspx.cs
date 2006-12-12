@@ -37,15 +37,15 @@ namespace PMT.Admin
                 string filter;
                 if (Enum.IsDefined(typeof(PMTUserRole), role))
                 {
-                    filter = String.Format("role={0}", (int)role);
+                    filter = String.Format("role={0} and enabled=1", (int)role);
                     ddlRoles.Items.FindByValue(role.ToString("d")).Selected = true; ;
                 }
                 else
                 {
-                    filter = String.Empty;
+                    filter = "enabled=1";
                 }
 
-                dt.DefaultView.RowFilter = filter + " and enabled=1";
+                dt.DefaultView.RowFilter = filter;
 
                 UserDataGrid.DataSource = dt;
                 UserDataGrid.DataBind();
