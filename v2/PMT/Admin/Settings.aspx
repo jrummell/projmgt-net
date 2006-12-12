@@ -3,9 +3,13 @@
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Configuration Settings</h3>
-    <p>Warning: Any changes made on this page will restart the ASP .Net Application.</p>
     <asp:ValidationSummary ID="vs" runat="server" />
     <h3>Database</h3>
+    <p>
+        You can use this form to generate a database connection string to be placed in the 
+        "connectionStrings" section of the application's web.config file, which can be found at:
+        <i><%= Request.MapPath(PMT.Configuration.Config.ApplicationPath + "web.config") %></i>.
+    </p>
     <table>
         <tr>
             <td>Database Provider</td>
@@ -59,5 +63,6 @@
             </td>
         </tr>
     </table>
-    <asp:Button ID="btnUpdate" Text="Update" runat="server" />
+    <asp:Button ID="btnUpdate" Text="Display Connection String" runat="server" />
+    <p><asp:Label ID="lblConnString" EnableViewState="false" runat="server" /></p>
 </asp:Content>
