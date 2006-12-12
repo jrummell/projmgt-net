@@ -95,7 +95,7 @@ namespace PMT
                 // this actually creates the cookie
                 FormsAuthentication.SetAuthCookie(user.UserName, persist);
 
-                if (url.ToLower().EndsWith("default.aspx"))
+                if (url.ToLower().EndsWith(Config.ApplicationPath+"default.aspx"))
                 {
                     url = Config.GetUserDefaultPath(user.Role);
                 }
