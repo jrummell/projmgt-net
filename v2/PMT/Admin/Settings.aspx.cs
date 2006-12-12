@@ -82,14 +82,14 @@ namespace PMT.Admin
                         txtUsername.Text, txtPassword1.Text);
                 } 
             }
-            else
-            {}
-
-            Response.Write(cs.ToString());
 
             // write the settings to web.config
-            // throws an Access to the path ... is denied. 
-            //PMTDataProvider.Configuration.ConnectionString = cs.ToString();
+            // the following line throws the exception on the next line:
+            // PMTDataProvider.Configuration.Config.ConnectionString = cs.ToString();
+            //   System.Configuration.ConfigurationErrorsException: The configuration is read only. 
+            // To make this work I would have to implement a custom Configuration Handler, and I'd rather
+            //   not right now, so I'm just displaying it instead.
+            lblConnString.Text = "Your connection string: <br/>"+cs.ToString();
         }
 
 		#region Web Form Designer generated code
