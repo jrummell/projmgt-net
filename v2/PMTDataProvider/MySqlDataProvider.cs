@@ -1346,9 +1346,10 @@ namespace PMTDataProvider
             using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
             {
                 StringBuilder sbCommand = new StringBuilder();
-                sbCommand.Append("select m.id as messageID, u.username as senderName, m.dateSent as date, m.subject as subject \n");
-                sbCommand.Append("from recipients r left join messages m on r.messageID=m.id left join users u on u.id=r.recipientID \n");
-                sbCommand.Append("where r.recipientID=?id");
+                sbCommand.Append("select m.id as messageID, u.username as senderName, m.dateSent as date, m.subject as subject, r.opened as opened \n");
+                sbCommand.Append("from recipients r left join messages m on r.messageID=m.id left join users u on u.id=m.senderID \n");
+                sbCommand.Append("where r.recipientID=?id \n");
+                sbCommand.Append("order by date desc");
                 
                 MySqlCommand command = conn.CreateCommand();
                 command.CommandText = sbCommand.ToString();
@@ -1554,6 +1555,42 @@ namespace PMTDataProvider
                 }
             }
             return true;
+        }
+
+        public bool UpdateOpenedMessage(int messageID, int recipientID, bool opened, TransactionFailedHandler handler)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
+            using (MySqlCommand command = conn.CreateCommand())
+            {
+                command.CommandText = "update Recipients set Opened=?open where MessageID=?mID and RecipientID=?rID";
+                command.Parameters.Add("?mID", messageID);
+                command.Parameters.Add("?rID", recipientID);
+                command.Parameters.Add("?open", opened ? 1 : 0);
+
+                try
+                {
+                    this.ExecuteNonQuery(command);
+                }
+                catch (MySqlException ex)
+                {
+                    handler(ex);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool IsMessageOpened(int messageID, int recipientID)
+        {
+            using (MySqlConnection conn = new MySqlConnection(Config.ConnectionString))
+            using (MySqlCommand command = conn.CreateCommand())
+            {
+                command.CommandText = "select opened from Recipients where MessageID=?mID and RecipientID=?rID";
+                command.Parameters.Add("?mID", messageID);
+                command.Parameters.Add("?rID", recipientID);
+
+                return (ushort)this.ExecuteScalar(command) == 1;
+            }
         }
 
         public DataTable GetContacts()
