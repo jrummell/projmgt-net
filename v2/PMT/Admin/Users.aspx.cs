@@ -45,7 +45,7 @@ namespace PMT.Admin
                     filter = String.Empty;
                 }
 
-                dt.DefaultView.RowFilter = filter;
+                dt.DefaultView.RowFilter = filter + " and enabled=1";
 
                 UserDataGrid.DataSource = dt;
                 UserDataGrid.DataBind();
