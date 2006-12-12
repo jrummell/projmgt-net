@@ -14,6 +14,7 @@ Default skin template. The following skins are provided as examples only.
 <asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
 --%>
 
+<%--  ***************** Login ***************** --%>
 <asp:Login runat="server" BorderColor="#E6E2D8" BorderPadding="4"
     BorderStyle="Solid" BorderWidth="1px">
     <TitleTextStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -22,12 +23,18 @@ Default skin template. The following skins are provided as examples only.
          ForeColor="#284775" />
 </asp:Login>
 
+<%--  ***************** DataGrid *****************  --%>
 <asp:DataGrid runat="server" 
-    CssClass="dg" 
-    HeaderStyle-CssClass="dgHeader" 
-    AlternatingItemStyle-CssClass="dgAltItem"
-    AutoGenerateColumns="False" />
+    CellPadding="4" ForeColor="#333333" GridLines="None">
+    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+    <ItemStyle BackColor="#EFF3FB" />
+    <EditItemStyle BackColor="#2461BF" />
+    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+    <AlternatingItemStyle BackColor="White" />
+</asp:DataGrid>
     
+<%--  ***************** GridView *****************  --%>
 <asp:GridView runat="server"
     CellPadding="4" ForeColor="#333333" GridLines="None">
     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
