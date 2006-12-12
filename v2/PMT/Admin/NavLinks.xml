@@ -6,11 +6,11 @@
     </Item>
     <Item>
       <Text>New User Requests</Text>
-      <Link>admin/newUser.aspx</Link>
+      <Link>admin/newUsers.aspx</Link>
     </Item>
     <Item>
       <Text>User Administration</Text>
-      <Link>admin/userList.aspx</Link>
+      <Link>admin/users.aspx</Link>
     </Item>
     <Item>
       <Text>Competency Matrix Editor</Text>
