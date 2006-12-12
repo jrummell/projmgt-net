@@ -12,7 +12,7 @@ namespace PMTDataProvider.Configuration
 	/// <summary>
 	/// Provides Configuration Information
 	/// </summary>
-    internal class Config : PMTComponents.ConfigBase
+    public class Config : PMTComponents.ConfigBase
 	{
         protected static string section = "pmtSettings/pmtDataProvider";
 

@@ -301,9 +301,25 @@ namespace PMTDataProvider
         /// <summary>
         /// Deletes a message
         /// </summary>
-        /// <param name="messageID"></param>
-        /// <param name="recipientID"></param>
+        /// <param name="messageID">message ID</param>
+        /// <param name="recipientID">recipient ID</param>
         bool DeleteMessage(int messageID, int recipientID, TransactionFailedHandler handler);
+        
+        /// <summary>
+        /// Sets the message opened flag for the given recipient
+        /// </summary>
+        /// <param name="messageID">message ID</param>
+        /// <param name="recipientID">recipient ID</param>
+        /// <param name="opened">is the message opened?</param>
+        bool UpdateOpenedMessage(int messageID, int recipientID, bool opened, TransactionFailedHandler handler);
+        /// <summary>
+        /// Returns true if the message has been opened by the given recipient 
+        /// </summary>
+        /// <param name="messageID">message ID</param>
+        /// <param name="recipientID">recipient ID</param>
+        /// <returns></returns>
+        bool IsMessageOpened(int messageID, int recipientID);
+
 
         /// <summary>
         /// Gets all contacts ... this will need to change
