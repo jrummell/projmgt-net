@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using PMTDataProvider;
 using PMTComponents;
+using PMT.Configuration;
 
 namespace PMT.AllUsers.Msg
 {
@@ -21,7 +22,13 @@ namespace PMT.AllUsers.Msg
         {
             if (!IsPostBack)
             {
+                int messageID = MessageID;
+                int userID = Config.LoggedInUserID;
                 IDataProvider data = DataProviderFactory.CreateInstance();
+
+                if (!data.IsMessageOpened(messageID, userID))
+                    data.UpdateOpenedMessage(messageID, userID, true, null);
+
                 Message message = data.GetMessage(MessageID);
                 fillForm(message);
             }

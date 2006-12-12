@@ -46,7 +46,23 @@ namespace PMT.AllUsers.Msg
         private void InitializeComponent()
         {    
             this.MessagesDataGrid.DeleteCommand += new DataGridCommandEventHandler(this.MessagesDataGrid_DeleteCommand);
+            this.MessagesDataGrid.ItemDataBound += new DataGridItemEventHandler(MessagesDataGrid_ItemDataBound);
 
+        }
+
+        void MessagesDataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            DataGridItem item = e.Item;
+            if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+            {
+                // set unread messages to bold
+                DataRowView drv = (DataRowView)item.DataItem;
+                if ((ushort)drv["opened"] != 1)
+                {
+                    for (int i = 0; i < item.Cells.Count - 1; i++)
+                        item.Cells[i].Font.Bold = true;
+                }
+            }
         }
         #endregion
 
