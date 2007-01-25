@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMT.DAL", "PMT.DAL\PMT.DAL.csproj", "{7C4D657E-AE15-44E1-9B96-993A1FAED76E}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMT.BLL", "PMT.BLL\PMT.BLL.csproj", "{23E5EC33-32C3-422F-AB40-3E261F072F9B}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMT.Web", "PMT.Web\PMT.Web.csproj", "{DF136278-1A0A-4482-BBE6-4DDDEC016D31}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C4D657E-AE15-44E1-9B96-993A1FAED76E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C4D657E-AE15-44E1-9B96-993A1FAED76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C4D657E-AE15-44E1-9B96-993A1FAED76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C4D657E-AE15-44E1-9B96-993A1FAED76E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E5EC33-32C3-422F-AB40-3E261F072F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E5EC33-32C3-422F-AB40-3E261F072F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E5EC33-32C3-422F-AB40-3E261F072F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E5EC33-32C3-422F-AB40-3E261F072F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF136278-1A0A-4482-BBE6-4DDDEC016D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF136278-1A0A-4482-BBE6-4DDDEC016D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF136278-1A0A-4482-BBE6-4DDDEC016D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF136278-1A0A-4482-BBE6-4DDDEC016D31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,123 @@
+﻿body
+{
+	padding: 0px;
+	margin: 0px;
+	
+	background: #06A url(images/diagonals-gray.gif);
+	color: white;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: smaller;
+}
+
+/* Layout Classes */
+#Header
+{
+	width: 97%; /*800px;*/
+	height: 70px;
+	margin: 5px 5px 2px 5px;
+	padding: .5em;
+	clear: both;
+	
+	background-color: White;
+	color: Navy;
+}
+* html #Header { margin-left: 10px; } /* wierd IE 6 fix */
+
+#Navigation
+{
+	width: 20%;/*192px;*/
+	height: 600px;
+	margin: 3px 2px 5px 5px;
+	padding: .5em;
+	float: left;
+	
+	background-color: White;
+	color: Navy;
+}
+
+#Main
+{
+	width: 75%; /*590px;*/
+	height: 600px;
+	overflow: visible;
+	margin: 3px 5px 5px 3px;
+	padding: .5em;
+	float: left;
+	
+    background-color: White;
+	color: Black;
+}
+
+/* Link Classes */
+a.nav
+{
+	display: block;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-weight: bold;
+	border-bottom: 1px dashed #ccc;
+}
+a.nav:link
+{
+	color: Navy;
+	text-decoration: none;
+}
+a.nav:visited
+{
+	color: Navy;
+	text-decoration: none;
+}
+a.nav:hover
+{
+	color: Black;
+	background-color: #ddd;
+}
+a.nav:active
+{
+	text-decoration: underline;
+}
+
+.Message
+{ 
+    border: 1px solid LightGrey; 
+    padding: 1em;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+select
+{
+    width: 10em;
+}
+
+hr
+{
+    border-color: White;
+    border-bottom-style: solid;
+}
+
+
+/* DataGrid Classes */
+.dg
+{
+    color: Black;
+}
+.dg td
+{
+    text-align: left;
+    padding: 2px;
+}
+.dgHeader
+{
+    font-weight: bold;
+}
+.dgAltItem
+{
+    background-color: #ddd;
+}
