@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using PMT.DAL;
 using PMT.DAL.UsersDataSetTableAdapters;
+using PMT.DAL.AssignmentsDataSetTableAdapters;
+using System.Data;
 
 namespace PMT.BLL
 {
     public class UserData
     {
         private UsersTableAdapter taUsers;
-        private UserInfoTableAdapter taUserInfo;
-        private UserManagersTableAdapter taUserManagers;
-        private UserProjectsTableAdapter taUserProjects;
-        private CompleteUserInfoTableAdapter taCompleteUserInfo;
+        private UserProfileTableAdapter taUserProfile;
+        private ManagerAssignmentsTableAdapter taUserManagers;
+        private ProjectAssignmentsTableAdapter taUserProjects;
 
         public UserData()
         {
             taUsers = new UsersTableAdapter();
-            taUserInfo = new UserInfoTableAdapter();
-            taUserManagers = new UserManagersTableAdapter();
-            taUserProjects = new UserProjectsTableAdapter();
-            taCompleteUserInfo = new CompleteUserInfoTableAdapter();
+            taUserProfile = new UserProfileTableAdapter();
+            taUserManagers = new ManagerAssignmentsTableAdapter();
+            taUserProjects = new ProjectAssignmentsTableAdapter();
         }
     
         /// <summary>
@@ -48,9 +48,9 @@ namespace PMT.BLL
         public int InsertUser(User user)
         {
             // add to users and get new id
-            int id = (int)taUsers.InsertUser(user.UserName, (short)user.GetRole(), (short)(user.Enabled ? 1 : 0), user.Password);
+            int id = (int)taUsers.Insert(user.UserName, (short)user.GetRole(), user.Password, user.Enabled);
             // add user info
-            taUserInfo.Insert(id, user.FirstName, user.LastName, user.Address, user.City,
+            taUserProfile.Insert(id, user.FirstName, user.LastName, user.Address, user.City,
                 user.State, user.ZipCode, user.PhoneNumber, user.Email);
 
             return id;
@@ -67,7 +67,7 @@ namespace PMT.BLL
 
             if (rows == 1)
             {
-                rows = taUserInfo.Delete(id);
+                rows = taUserProfile.Delete(id);
 
                 if (rows == 1)
                 {
@@ -86,12 +86,11 @@ namespace PMT.BLL
         /// <returns>true if sucessfull</returns>
         public bool UpdateUser(User user)
         {
-            int rows = taUsers.Update(user.UserName, (short)user.GetRole(), (short)(user.Enabled ? 1:0),
-                user.Password, user.ID, user.ID);
+            int rows = taUsers.Update(user.UserName, (short)user.GetRole(), user.Password, user.Enabled, user.ID, user.ID);
 
             if (rows == 1)
             {
-                rows = taUserInfo.Update(user.ID, user.FirstName, user.LastName, user.Address,
+                rows = taUserProfile.Update(user.ID, user.FirstName, user.LastName, user.Address,
                     user.City, user.State, user.ZipCode, user.PhoneNumber, user.Email, user.ID);
             }
 
@@ -102,32 +101,52 @@ namespace PMT.BLL
         {
             User user = null;
 
-            UsersDataSet.CompleteUserInfoDataTable dt;
+            UsersDataSet.UserProfileDataTable dtProfile;
+            UsersDataSet.UsersDataTable dtUser;
 
             if (userName == null)
-                dt = taCompleteUserInfo.GetCompleteUserInfoByID(id);
+            {
+                dtProfile = taUserProfile.GetUserProfileByID(id);
+                dtUser = taUsers.GetUserByID(id);
+            }
             else
-                dt = taCompleteUserInfo.GetCompleteUserInfoByUserName(userName);
+            {
+                dtProfile = taUserProfile.GetUserProfileByUsername(userName);
+                dtUser = taUsers.GetUserByUserName(userName);
+            }
 
-            if (dt.Rows.Count == 0)
+            if (dtProfile.Rows.Count == 0)
                 return null;
 
-            UsersDataSet.CompleteUserInfoRow row = dt[0];
+            UsersDataSet.UserProfileRow rProfile = dtProfile[0];
+            UsersDataSet.UsersRow rUser = dtUser[0];
 
-            user = User.CreateUser((UserRole)row.Role);
-            user.ID = row.ID;
-            user.UserName = row.UserName;
-            user.Enabled = row.Enabled == 1 ? true : false;
-            user.FirstName = row.FirstName;
-            user.LastName = row.LastName;
-            user.Email = row.Email;
-            user.Address = row.Address;
-            user.City = row.City;
-            user.State = row.State;
-            user.ZipCode = row.Zip;
-            user.PhoneNumber = row.PhoneNumber;
+            user = User.CreateUser((UserRole)rUser.Role);
+            user.ID = rProfile.ID;
+            user.UserName = rUser.UserName;
+            user.Enabled = rUser.Enabled;
+            user.FirstName = rProfile.FirstName;
+            user.LastName = rProfile.LastName;
+            user.Email = rProfile.Email;
+            user.Address = rProfile.Address;
+            user.City = rProfile.City;
+            user.State = rProfile.State;
+            user.ZipCode = rProfile.Zip;
+            user.PhoneNumber = rProfile.PhoneNumber;
 
             return user;
+        }
+
+        public DataTable GetUserProfiles()
+        {
+            UsersDataSet.UsersDataTable dtUsers = taUsers.GetUsers();
+            UsersDataSet.UserProfileDataTable dtProfiles = taUserProfile.GetUserProfiles();
+
+            DataTable dt = new DataTable();
+            dt.Merge(dtUsers);
+            dt.Merge(dtProfiles);
+
+            return dt;
         }
 
         public bool AuthenticateUser(string username, string password)

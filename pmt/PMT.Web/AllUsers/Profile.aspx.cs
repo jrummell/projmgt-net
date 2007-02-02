@@ -72,17 +72,7 @@ namespace PMT.AllUsers
 
             ProfileControl1.FillUser(user);
 
-            UsersTableAdapter taUsers = new UsersTableAdapter();
-            UserInfoTableAdapter taUserInfo = new UserInfoTableAdapter();
-
-            //bool success = conn.UpdatePMTUser(user, new TransactionFailedHandler(this.TransactionFailed));
-
-            taUsers.Update(user.UserName, (short)user.GetRole(), (short)(user.Enabled ? 1 : 0),
-                    user.Password, user.ID, user.ID);
-            taUserInfo.Update(user.ID, user.FirstName, user.LastName, user.Address, user.City,
-                user.State, user.ZipCode, user.PhoneNumber, user.Email, user.ID);
-
-            //if (success)
+            if (userData.UpdateUser(user))
             {
                 StatusLabel.Text = "Your profile has been updated.";
                 StatusLabel.Visible = true;

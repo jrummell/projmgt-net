@@ -16,7 +16,7 @@ namespace PMT.Admin
 {
     public partial class Users : Page
     {
-        private CompleteUserInfoTableAdapter taUsers;
+        private UserData users;
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
@@ -32,8 +32,8 @@ namespace PMT.Admin
                 ddlRoles.Items.Insert(0, new ListItem("All", String.Empty));
 
                 // bind users datagrid
-                taUsers = new CompleteUserInfoTableAdapter();
-                UsersDataSet.CompleteUserInfoDataTable dt = taUsers.GetCompleteUserInfo();
+                users = new UserData();
+                DataTable dt = users.GetUserProfiles();
 
                 // filter by selted role
                 UserRole role = Role;

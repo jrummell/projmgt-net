@@ -33,3 +33,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+// let PMT.BLL see internal members
+[assembly: InternalsVisibleTo("PMT.BLL, publicKey=00240000048000009400000006020000002400005253413100040000010001004fafd3bbdf7d7dbe4e30b5197c5955ad8dd5b5bd32cbf782ae7d584b78fae3cd28f7efb6e1776806fb2c24e447defafafc28bad0f3bcbd0619d592c633047ab2a68bbecbfaf89ffdc29f0fb1d0e275decc92202f5467448312cad583b1b54d81fb28fc08606a1fe7fa87f39f5c6a815b0fa0d6dd1a8ae2f616b80ec533e3e6c2")]
