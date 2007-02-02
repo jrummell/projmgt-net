@@ -26,10 +26,11 @@ namespace PMT.DAL.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=pmt;Integrated Security=True")]
-        public string pmtConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\pmt.mdf;Integrated Secu" +
+            "rity=True;User Instance=True")]
+        public string PmtConnectionString {
             get {
-                return ((string)(this["pmtConnectionString"]));
+                return ((string)(this["PmtConnectionString"]));
             }
         }
     }
