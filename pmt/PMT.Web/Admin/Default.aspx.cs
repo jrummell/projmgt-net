@@ -17,8 +17,8 @@ namespace PMT.Admin
     {
         private void Page_Load(object sender, EventArgs e)
         {
-            UsersTableAdapter taUsers = new UsersTableAdapter();
-            UsersDataSet.UsersDataTable dtUsers = taUsers.GetUsers();
+            UserData taUsers = new UserData();
+            DataTable dtUsers = taUsers.GetUserProfiles();
 
             string count = "count(ID)";
             string filter = "Enabled=0";
