@@ -25,23 +25,9 @@ namespace PMT.DAL {
         
         private UsersDataTable tableUsers;
         
-        private UserInfoDataTable tableUserInfo;
-        
-        private UserProjectsDataTable tableUserProjects;
-        
-        private UserManagersDataTable tableUserManagers;
-        
-        private CompleteUserInfoDataTable tableCompleteUserInfo;
+        private UserProfileDataTable tableUserProfile;
         
         private System.Data.DataRelation relationFK_UserInfo_Users;
-        
-        private System.Data.DataRelation relationFK_UserProjects_Users;
-        
-        private System.Data.DataRelation relationFK_UserManagers_Users_ManagerID;
-        
-        private System.Data.DataRelation relationFK_UserManagers_Users_UserID;
-        
-        private System.Data.DataRelation relationFK_UserInfo_Users1;
         
         private System.Data.SchemaSerializationMode _schemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -72,17 +58,8 @@ namespace PMT.DAL {
                 if ((ds.Tables["Users"] != null)) {
                     base.Tables.Add(new UsersDataTable(ds.Tables["Users"]));
                 }
-                if ((ds.Tables["UserInfo"] != null)) {
-                    base.Tables.Add(new UserInfoDataTable(ds.Tables["UserInfo"]));
-                }
-                if ((ds.Tables["UserProjects"] != null)) {
-                    base.Tables.Add(new UserProjectsDataTable(ds.Tables["UserProjects"]));
-                }
-                if ((ds.Tables["UserManagers"] != null)) {
-                    base.Tables.Add(new UserManagersDataTable(ds.Tables["UserManagers"]));
-                }
-                if ((ds.Tables["CompleteUserInfo"] != null)) {
-                    base.Tables.Add(new CompleteUserInfoDataTable(ds.Tables["CompleteUserInfo"]));
+                if ((ds.Tables["UserProfile"] != null)) {
+                    base.Tables.Add(new UserProfileDataTable(ds.Tables["UserProfile"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -114,36 +91,9 @@ namespace PMT.DAL {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Browsable(false)]
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public UserInfoDataTable UserInfo {
+        public UserProfileDataTable UserProfile {
             get {
-                return this.tableUserInfo;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Browsable(false)]
-        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public UserProjectsDataTable UserProjects {
-            get {
-                return this.tableUserProjects;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Browsable(false)]
-        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public UserManagersDataTable UserManagers {
-            get {
-                return this.tableUserManagers;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Browsable(false)]
-        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public CompleteUserInfoDataTable CompleteUserInfo {
-            get {
-                return this.tableCompleteUserInfo;
+                return this.tableUserProfile;
             }
         }
         
@@ -209,17 +159,8 @@ namespace PMT.DAL {
                 if ((ds.Tables["Users"] != null)) {
                     base.Tables.Add(new UsersDataTable(ds.Tables["Users"]));
                 }
-                if ((ds.Tables["UserInfo"] != null)) {
-                    base.Tables.Add(new UserInfoDataTable(ds.Tables["UserInfo"]));
-                }
-                if ((ds.Tables["UserProjects"] != null)) {
-                    base.Tables.Add(new UserProjectsDataTable(ds.Tables["UserProjects"]));
-                }
-                if ((ds.Tables["UserManagers"] != null)) {
-                    base.Tables.Add(new UserManagersDataTable(ds.Tables["UserManagers"]));
-                }
-                if ((ds.Tables["CompleteUserInfo"] != null)) {
-                    base.Tables.Add(new CompleteUserInfoDataTable(ds.Tables["CompleteUserInfo"]));
+                if ((ds.Tables["UserProfile"] != null)) {
+                    base.Tables.Add(new UserProfileDataTable(ds.Tables["UserProfile"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -257,35 +198,13 @@ namespace PMT.DAL {
                     this.tableUsers.InitVars();
                 }
             }
-            this.tableUserInfo = ((UserInfoDataTable)(base.Tables["UserInfo"]));
+            this.tableUserProfile = ((UserProfileDataTable)(base.Tables["UserProfile"]));
             if ((initTable == true)) {
-                if ((this.tableUserInfo != null)) {
-                    this.tableUserInfo.InitVars();
-                }
-            }
-            this.tableUserProjects = ((UserProjectsDataTable)(base.Tables["UserProjects"]));
-            if ((initTable == true)) {
-                if ((this.tableUserProjects != null)) {
-                    this.tableUserProjects.InitVars();
-                }
-            }
-            this.tableUserManagers = ((UserManagersDataTable)(base.Tables["UserManagers"]));
-            if ((initTable == true)) {
-                if ((this.tableUserManagers != null)) {
-                    this.tableUserManagers.InitVars();
-                }
-            }
-            this.tableCompleteUserInfo = ((CompleteUserInfoDataTable)(base.Tables["CompleteUserInfo"]));
-            if ((initTable == true)) {
-                if ((this.tableCompleteUserInfo != null)) {
-                    this.tableCompleteUserInfo.InitVars();
+                if ((this.tableUserProfile != null)) {
+                    this.tableUserProfile.InitVars();
                 }
             }
             this.relationFK_UserInfo_Users = this.Relations["FK_UserInfo_Users"];
-            this.relationFK_UserProjects_Users = this.Relations["FK_UserProjects_Users"];
-            this.relationFK_UserManagers_Users_ManagerID = this.Relations["FK_UserManagers_Users_ManagerID"];
-            this.relationFK_UserManagers_Users_UserID = this.Relations["FK_UserManagers_Users_UserID"];
-            this.relationFK_UserInfo_Users1 = this.Relations["FK_UserInfo_Users1"];
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -297,34 +216,12 @@ namespace PMT.DAL {
             this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableUsers = new UsersDataTable();
             base.Tables.Add(this.tableUsers);
-            this.tableUserInfo = new UserInfoDataTable();
-            base.Tables.Add(this.tableUserInfo);
-            this.tableUserProjects = new UserProjectsDataTable();
-            base.Tables.Add(this.tableUserProjects);
-            this.tableUserManagers = new UserManagersDataTable();
-            base.Tables.Add(this.tableUserManagers);
-            this.tableCompleteUserInfo = new CompleteUserInfoDataTable();
-            base.Tables.Add(this.tableCompleteUserInfo);
+            this.tableUserProfile = new UserProfileDataTable();
+            base.Tables.Add(this.tableUserProfile);
             this.relationFK_UserInfo_Users = new System.Data.DataRelation("FK_UserInfo_Users", new System.Data.DataColumn[] {
                         this.tableUsers.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableUserInfo.IDColumn}, false);
+                        this.tableUserProfile.IDColumn}, false);
             this.Relations.Add(this.relationFK_UserInfo_Users);
-            this.relationFK_UserProjects_Users = new System.Data.DataRelation("FK_UserProjects_Users", new System.Data.DataColumn[] {
-                        this.tableUsers.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableUserProjects.UserIDColumn}, false);
-            this.Relations.Add(this.relationFK_UserProjects_Users);
-            this.relationFK_UserManagers_Users_ManagerID = new System.Data.DataRelation("FK_UserManagers_Users_ManagerID", new System.Data.DataColumn[] {
-                        this.tableUsers.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableUserManagers.ManagerIDColumn}, false);
-            this.Relations.Add(this.relationFK_UserManagers_Users_ManagerID);
-            this.relationFK_UserManagers_Users_UserID = new System.Data.DataRelation("FK_UserManagers_Users_UserID", new System.Data.DataColumn[] {
-                        this.tableUsers.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableUserManagers.UserIDColumn}, false);
-            this.Relations.Add(this.relationFK_UserManagers_Users_UserID);
-            this.relationFK_UserInfo_Users1 = new System.Data.DataRelation("FK_UserInfo_Users1", new System.Data.DataColumn[] {
-                        this.tableUsers.IDColumn}, new System.Data.DataColumn[] {
-                        this.tableCompleteUserInfo.IDColumn}, false);
-            this.Relations.Add(this.relationFK_UserInfo_Users1);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -333,22 +230,7 @@ namespace PMT.DAL {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeUserInfo() {
-            return false;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeUserProjects() {
-            return false;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeUserManagers() {
-            return false;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeCompleteUserInfo() {
+        private bool ShouldSerializeUserProfile() {
             return false;
         }
         
@@ -374,13 +256,7 @@ namespace PMT.DAL {
         
         public delegate void UsersRowChangeEventHandler(object sender, UsersRowChangeEvent e);
         
-        public delegate void UserInfoRowChangeEventHandler(object sender, UserInfoRowChangeEvent e);
-        
-        public delegate void UserProjectsRowChangeEventHandler(object sender, UserProjectsRowChangeEvent e);
-        
-        public delegate void UserManagersRowChangeEventHandler(object sender, UserManagersRowChangeEvent e);
-        
-        public delegate void CompleteUserInfoRowChangeEventHandler(object sender, CompleteUserInfoRowChangeEvent e);
+        public delegate void UserProfileRowChangeEventHandler(object sender, UserProfileRowChangeEvent e);
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
@@ -396,6 +272,8 @@ namespace PMT.DAL {
             private System.Data.DataColumn columnEnabled;
             
             private System.Data.DataColumn columnPassword;
+            
+            private System.Data.DataColumn columnEnabled1;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public UsersDataTable() {
@@ -463,6 +341,13 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn Enabled1Column {
+                get {
+                    return this.columnEnabled1;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -491,14 +376,15 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UsersRow AddUsersRow(string UserName, short Role, short Enabled, string Password) {
+            public UsersRow AddUsersRow(string UserName, short Role, short Enabled, string Password, bool Enabled1) {
                 UsersRow rowUsersRow = ((UsersRow)(this.NewRow()));
                 rowUsersRow.ItemArray = new object[] {
                         null,
                         UserName,
                         Role,
                         Enabled,
-                        Password};
+                        Password,
+                        Enabled1};
                 this.Rows.Add(rowUsersRow);
                 return rowUsersRow;
             }
@@ -533,6 +419,7 @@ namespace PMT.DAL {
                 this.columnRole = base.Columns["Role"];
                 this.columnEnabled = base.Columns["Enabled"];
                 this.columnPassword = base.Columns["Password"];
+                this.columnEnabled1 = base.Columns["Enabled1"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -547,6 +434,8 @@ namespace PMT.DAL {
                 base.Columns.Add(this.columnEnabled);
                 this.columnPassword = new System.Data.DataColumn("Password", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPassword);
+                this.columnEnabled1 = new System.Data.DataColumn("Enabled1", typeof(bool), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEnabled1);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
@@ -559,6 +448,8 @@ namespace PMT.DAL {
                 this.columnEnabled.AllowDBNull = false;
                 this.columnPassword.AllowDBNull = false;
                 this.columnPassword.MaxLength = 32;
+                this.columnEnabled1.AllowDBNull = false;
+                this.columnEnabled1.Caption = "Enabled";
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -646,17 +537,13 @@ namespace PMT.DAL {
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
         [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class UserInfoDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+        public partial class UserProfileDataTable : System.Data.DataTable, System.Collections.IEnumerable {
             
             private System.Data.DataColumn columnID;
             
             private System.Data.DataColumn columnFirstName;
             
             private System.Data.DataColumn columnLastName;
-            
-            private System.Data.DataColumn columnAddress;
-            
-            private System.Data.DataColumn columnCity;
             
             private System.Data.DataColumn columnState;
             
@@ -666,18 +553,22 @@ namespace PMT.DAL {
             
             private System.Data.DataColumn columnEmail;
             
-            private System.Data.DataColumn columnUserName;
+            private System.Data.DataColumn columnAddress;
+            
+            private System.Data.DataColumn columnCity;
+            
+            private System.Data.DataColumn columnUsername;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserInfoDataTable() {
-                this.TableName = "UserInfo";
+            public UserProfileDataTable() {
+                this.TableName = "UserProfile";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal UserInfoDataTable(System.Data.DataTable table) {
+            internal UserProfileDataTable(System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -693,7 +584,7 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected UserInfoDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+            protected UserProfileDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -716,20 +607,6 @@ namespace PMT.DAL {
             public System.Data.DataColumn LastNameColumn {
                 get {
                     return this.columnLastName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn AddressColumn {
-                get {
-                    return this.columnAddress;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn CityColumn {
-                get {
-                    return this.columnCity;
                 }
             }
             
@@ -762,9 +639,23 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn UserNameColumn {
+            public System.Data.DataColumn AddressColumn {
                 get {
-                    return this.columnUserName;
+                    return this.columnAddress;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn CityColumn {
+                get {
+                    return this.columnCity;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn UsernameColumn {
+                get {
+                    return this.columnUsername;
                 }
             }
             
@@ -777,895 +668,41 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserInfoRow this[int index] {
+            public UserProfileRow this[int index] {
                 get {
-                    return ((UserInfoRow)(this.Rows[index]));
+                    return ((UserProfileRow)(this.Rows[index]));
                 }
             }
             
-            public event UserInfoRowChangeEventHandler UserInfoRowChanging;
+            public event UserProfileRowChangeEventHandler UserProfileRowChanging;
             
-            public event UserInfoRowChangeEventHandler UserInfoRowChanged;
+            public event UserProfileRowChangeEventHandler UserProfileRowChanged;
             
-            public event UserInfoRowChangeEventHandler UserInfoRowDeleting;
+            public event UserProfileRowChangeEventHandler UserProfileRowDeleting;
             
-            public event UserInfoRowChangeEventHandler UserInfoRowDeleted;
+            public event UserProfileRowChangeEventHandler UserProfileRowDeleted;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddUserInfoRow(UserInfoRow row) {
+            public void AddUserProfileRow(UserProfileRow row) {
                 this.Rows.Add(row);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserInfoRow AddUserInfoRow(UsersRow parentUsersRowByFK_UserInfo_Users, string FirstName, string LastName, string Address, string City, string State, string Zip, string PhoneNumber, string Email, string UserName) {
-                UserInfoRow rowUserInfoRow = ((UserInfoRow)(this.NewRow()));
-                rowUserInfoRow.ItemArray = new object[] {
+            public UserProfileRow AddUserProfileRow(UsersRow parentUsersRowByFK_UserInfo_Users, string FirstName, string LastName, string State, string Zip, string PhoneNumber, string Email, byte[] Address, byte[] City, string Username) {
+                UserProfileRow rowUserProfileRow = ((UserProfileRow)(this.NewRow()));
+                rowUserProfileRow.ItemArray = new object[] {
                         parentUsersRowByFK_UserInfo_Users[0],
                         FirstName,
                         LastName,
-                        Address,
-                        City,
                         State,
                         Zip,
                         PhoneNumber,
                         Email,
-                        UserName};
-                this.Rows.Add(rowUserInfoRow);
-                return rowUserInfoRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserInfoRow FindByID(int ID) {
-                return ((UserInfoRow)(this.Rows.Find(new object[] {
-                            ID})));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                UserInfoDataTable cln = ((UserInfoDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new UserInfoDataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnFirstName = base.Columns["FirstName"];
-                this.columnLastName = base.Columns["LastName"];
-                this.columnAddress = base.Columns["Address"];
-                this.columnCity = base.Columns["City"];
-                this.columnState = base.Columns["State"];
-                this.columnZip = base.Columns["Zip"];
-                this.columnPhoneNumber = base.Columns["PhoneNumber"];
-                this.columnEmail = base.Columns["Email"];
-                this.columnUserName = base.Columns["UserName"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnFirstName = new System.Data.DataColumn("FirstName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnFirstName);
-                this.columnLastName = new System.Data.DataColumn("LastName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnLastName);
-                this.columnAddress = new System.Data.DataColumn("Address", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAddress);
-                this.columnCity = new System.Data.DataColumn("City", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCity);
-                this.columnState = new System.Data.DataColumn("State", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnState);
-                this.columnZip = new System.Data.DataColumn("Zip", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnZip);
-                this.columnPhoneNumber = new System.Data.DataColumn("PhoneNumber", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPhoneNumber);
-                this.columnEmail = new System.Data.DataColumn("Email", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEmail);
-                this.columnUserName = new System.Data.DataColumn("UserName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserName);
-                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
-                                this.columnID}, true));
-                this.columnID.AllowDBNull = false;
-                this.columnID.Unique = true;
-                this.columnFirstName.AllowDBNull = false;
-                this.columnFirstName.MaxLength = 30;
-                this.columnLastName.AllowDBNull = false;
-                this.columnLastName.MaxLength = 30;
-                this.columnAddress.AllowDBNull = false;
-                this.columnAddress.MaxLength = 50;
-                this.columnCity.AllowDBNull = false;
-                this.columnCity.MaxLength = 30;
-                this.columnState.AllowDBNull = false;
-                this.columnState.MaxLength = 30;
-                this.columnZip.AllowDBNull = false;
-                this.columnZip.MaxLength = 10;
-                this.columnPhoneNumber.AllowDBNull = false;
-                this.columnPhoneNumber.MaxLength = 13;
-                this.columnEmail.AllowDBNull = false;
-                this.columnEmail.MaxLength = 50;
-                this.columnUserName.ReadOnly = true;
-                this.columnUserName.MaxLength = 30;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserInfoRow NewUserInfoRow() {
-                return ((UserInfoRow)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new UserInfoRow(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(UserInfoRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.UserInfoRowChanged != null)) {
-                    this.UserInfoRowChanged(this, new UserInfoRowChangeEvent(((UserInfoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.UserInfoRowChanging != null)) {
-                    this.UserInfoRowChanging(this, new UserInfoRowChangeEvent(((UserInfoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.UserInfoRowDeleted != null)) {
-                    this.UserInfoRowDeleted(this, new UserInfoRowChangeEvent(((UserInfoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.UserInfoRowDeleting != null)) {
-                    this.UserInfoRowDeleting(this, new UserInfoRowChangeEvent(((UserInfoRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveUserInfoRow(UserInfoRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                UsersDataSet ds = new UsersDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "UserInfoDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class UserProjectsDataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnUserID;
-            
-            private System.Data.DataColumn columnProjectID;
-            
-            private System.Data.DataColumn columnUserName;
-            
-            private System.Data.DataColumn columnProjectName;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserProjectsDataTable() {
-                this.TableName = "UserProjects";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal UserProjectsDataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected UserProjectsDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn UserIDColumn {
-                get {
-                    return this.columnUserID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ProjectIDColumn {
-                get {
-                    return this.columnProjectID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn UserNameColumn {
-                get {
-                    return this.columnUserName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ProjectNameColumn {
-                get {
-                    return this.columnProjectName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserProjectsRow this[int index] {
-                get {
-                    return ((UserProjectsRow)(this.Rows[index]));
-                }
-            }
-            
-            public event UserProjectsRowChangeEventHandler UserProjectsRowChanging;
-            
-            public event UserProjectsRowChangeEventHandler UserProjectsRowChanged;
-            
-            public event UserProjectsRowChangeEventHandler UserProjectsRowDeleting;
-            
-            public event UserProjectsRowChangeEventHandler UserProjectsRowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddUserProjectsRow(UserProjectsRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserProjectsRow AddUserProjectsRow(UsersRow parentUsersRowByFK_UserProjects_Users, int ProjectID, string UserName, string ProjectName) {
-                UserProjectsRow rowUserProjectsRow = ((UserProjectsRow)(this.NewRow()));
-                rowUserProjectsRow.ItemArray = new object[] {
-                        parentUsersRowByFK_UserProjects_Users[0],
-                        ProjectID,
-                        UserName,
-                        ProjectName};
-                this.Rows.Add(rowUserProjectsRow);
-                return rowUserProjectsRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserProjectsRow FindByUserIDProjectID(int UserID, int ProjectID) {
-                return ((UserProjectsRow)(this.Rows.Find(new object[] {
-                            UserID,
-                            ProjectID})));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                UserProjectsDataTable cln = ((UserProjectsDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new UserProjectsDataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnUserID = base.Columns["UserID"];
-                this.columnProjectID = base.Columns["ProjectID"];
-                this.columnUserName = base.Columns["UserName"];
-                this.columnProjectName = base.Columns["ProjectName"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnUserID = new System.Data.DataColumn("UserID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserID);
-                this.columnProjectID = new System.Data.DataColumn("ProjectID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProjectID);
-                this.columnUserName = new System.Data.DataColumn("UserName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserName);
-                this.columnProjectName = new System.Data.DataColumn("ProjectName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProjectName);
-                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
-                                this.columnUserID,
-                                this.columnProjectID}, true));
-                this.columnUserID.AllowDBNull = false;
-                this.columnProjectID.AllowDBNull = false;
-                this.columnUserName.ReadOnly = true;
-                this.columnUserName.MaxLength = 30;
-                this.columnProjectName.ReadOnly = true;
-                this.columnProjectName.MaxLength = 50;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserProjectsRow NewUserProjectsRow() {
-                return ((UserProjectsRow)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new UserProjectsRow(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(UserProjectsRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.UserProjectsRowChanged != null)) {
-                    this.UserProjectsRowChanged(this, new UserProjectsRowChangeEvent(((UserProjectsRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.UserProjectsRowChanging != null)) {
-                    this.UserProjectsRowChanging(this, new UserProjectsRowChangeEvent(((UserProjectsRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.UserProjectsRowDeleted != null)) {
-                    this.UserProjectsRowDeleted(this, new UserProjectsRowChangeEvent(((UserProjectsRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.UserProjectsRowDeleting != null)) {
-                    this.UserProjectsRowDeleting(this, new UserProjectsRowChangeEvent(((UserProjectsRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveUserProjectsRow(UserProjectsRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                UsersDataSet ds = new UsersDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "UserProjectsDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class UserManagersDataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnUserID;
-            
-            private System.Data.DataColumn columnManagerID;
-            
-            private System.Data.DataColumn columnUserName;
-            
-            private System.Data.DataColumn columnManagerName;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserManagersDataTable() {
-                this.TableName = "UserManagers";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal UserManagersDataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected UserManagersDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn UserIDColumn {
-                get {
-                    return this.columnUserID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ManagerIDColumn {
-                get {
-                    return this.columnManagerID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn UserNameColumn {
-                get {
-                    return this.columnUserName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ManagerNameColumn {
-                get {
-                    return this.columnManagerName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserManagersRow this[int index] {
-                get {
-                    return ((UserManagersRow)(this.Rows[index]));
-                }
-            }
-            
-            public event UserManagersRowChangeEventHandler UserManagersRowChanging;
-            
-            public event UserManagersRowChangeEventHandler UserManagersRowChanged;
-            
-            public event UserManagersRowChangeEventHandler UserManagersRowDeleting;
-            
-            public event UserManagersRowChangeEventHandler UserManagersRowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddUserManagersRow(UserManagersRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserManagersRow AddUserManagersRow(UsersRow parentUsersRowByFK_UserManagers_Users_UserID, UsersRow parentUsersRowByFK_UserManagers_Users_ManagerID, string UserName, string ManagerName) {
-                UserManagersRow rowUserManagersRow = ((UserManagersRow)(this.NewRow()));
-                rowUserManagersRow.ItemArray = new object[] {
-                        parentUsersRowByFK_UserManagers_Users_UserID[0],
-                        parentUsersRowByFK_UserManagers_Users_ManagerID[0],
-                        UserName,
-                        ManagerName};
-                this.Rows.Add(rowUserManagersRow);
-                return rowUserManagersRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserManagersRow FindByUserIDManagerID(int UserID, int ManagerID) {
-                return ((UserManagersRow)(this.Rows.Find(new object[] {
-                            UserID,
-                            ManagerID})));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                UserManagersDataTable cln = ((UserManagersDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new UserManagersDataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnUserID = base.Columns["UserID"];
-                this.columnManagerID = base.Columns["ManagerID"];
-                this.columnUserName = base.Columns["UserName"];
-                this.columnManagerName = base.Columns["ManagerName"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnUserID = new System.Data.DataColumn("UserID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserID);
-                this.columnManagerID = new System.Data.DataColumn("ManagerID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnManagerID);
-                this.columnUserName = new System.Data.DataColumn("UserName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserName);
-                this.columnManagerName = new System.Data.DataColumn("ManagerName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnManagerName);
-                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
-                                this.columnUserID,
-                                this.columnManagerID}, true));
-                this.columnUserID.AllowDBNull = false;
-                this.columnManagerID.AllowDBNull = false;
-                this.columnUserName.ReadOnly = true;
-                this.columnUserName.MaxLength = 30;
-                this.columnManagerName.ReadOnly = true;
-                this.columnManagerName.MaxLength = 30;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserManagersRow NewUserManagersRow() {
-                return ((UserManagersRow)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new UserManagersRow(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(UserManagersRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.UserManagersRowChanged != null)) {
-                    this.UserManagersRowChanged(this, new UserManagersRowChangeEvent(((UserManagersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.UserManagersRowChanging != null)) {
-                    this.UserManagersRowChanging(this, new UserManagersRowChangeEvent(((UserManagersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.UserManagersRowDeleted != null)) {
-                    this.UserManagersRowDeleted(this, new UserManagersRowChangeEvent(((UserManagersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.UserManagersRowDeleting != null)) {
-                    this.UserManagersRowDeleting(this, new UserManagersRowChangeEvent(((UserManagersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveUserManagersRow(UserManagersRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                UsersDataSet ds = new UsersDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "UserManagersDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class CompleteUserInfoDataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnID;
-            
-            private System.Data.DataColumn columnUserName;
-            
-            private System.Data.DataColumn columnRole;
-            
-            private System.Data.DataColumn columnEnabled;
-            
-            private System.Data.DataColumn columnFirstName;
-            
-            private System.Data.DataColumn columnLastName;
-            
-            private System.Data.DataColumn columnAddress;
-            
-            private System.Data.DataColumn columnCity;
-            
-            private System.Data.DataColumn columnState;
-            
-            private System.Data.DataColumn columnZip;
-            
-            private System.Data.DataColumn columnPhoneNumber;
-            
-            private System.Data.DataColumn columnEmail;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CompleteUserInfoDataTable() {
-                this.TableName = "CompleteUserInfo";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal CompleteUserInfoDataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected CompleteUserInfoDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn UserNameColumn {
-                get {
-                    return this.columnUserName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn RoleColumn {
-                get {
-                    return this.columnRole;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn EnabledColumn {
-                get {
-                    return this.columnEnabled;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn FirstNameColumn {
-                get {
-                    return this.columnFirstName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn LastNameColumn {
-                get {
-                    return this.columnLastName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn AddressColumn {
-                get {
-                    return this.columnAddress;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn CityColumn {
-                get {
-                    return this.columnCity;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn StateColumn {
-                get {
-                    return this.columnState;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ZipColumn {
-                get {
-                    return this.columnZip;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PhoneNumberColumn {
-                get {
-                    return this.columnPhoneNumber;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn EmailColumn {
-                get {
-                    return this.columnEmail;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CompleteUserInfoRow this[int index] {
-                get {
-                    return ((CompleteUserInfoRow)(this.Rows[index]));
-                }
-            }
-            
-            public event CompleteUserInfoRowChangeEventHandler CompleteUserInfoRowChanging;
-            
-            public event CompleteUserInfoRowChangeEventHandler CompleteUserInfoRowChanged;
-            
-            public event CompleteUserInfoRowChangeEventHandler CompleteUserInfoRowDeleting;
-            
-            public event CompleteUserInfoRowChangeEventHandler CompleteUserInfoRowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddCompleteUserInfoRow(CompleteUserInfoRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CompleteUserInfoRow AddCompleteUserInfoRow(string UserName, short Role, short Enabled, string FirstName, string LastName, string Address, string City, string State, string Zip, string PhoneNumber, string Email) {
-                CompleteUserInfoRow rowCompleteUserInfoRow = ((CompleteUserInfoRow)(this.NewRow()));
-                rowCompleteUserInfoRow.ItemArray = new object[] {
-                        null,
-                        UserName,
-                        Role,
-                        Enabled,
-                        FirstName,
-                        LastName,
                         Address,
                         City,
-                        State,
-                        Zip,
-                        PhoneNumber,
-                        Email};
-                this.Rows.Add(rowCompleteUserInfoRow);
-                return rowCompleteUserInfoRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CompleteUserInfoRow FindByID(int ID) {
-                return ((CompleteUserInfoRow)(this.Rows.Find(new object[] {
-                            ID})));
+                        Username};
+                this.Rows.Add(rowUserProfileRow);
+                return rowUserProfileRow;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1675,50 +712,38 @@ namespace PMT.DAL {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override System.Data.DataTable Clone() {
-                CompleteUserInfoDataTable cln = ((CompleteUserInfoDataTable)(base.Clone()));
+                UserProfileDataTable cln = ((UserProfileDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataTable CreateInstance() {
-                return new CompleteUserInfoDataTable();
+                return new UserProfileDataTable();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
-                this.columnUserName = base.Columns["UserName"];
-                this.columnRole = base.Columns["Role"];
-                this.columnEnabled = base.Columns["Enabled"];
                 this.columnFirstName = base.Columns["FirstName"];
                 this.columnLastName = base.Columns["LastName"];
-                this.columnAddress = base.Columns["Address"];
-                this.columnCity = base.Columns["City"];
                 this.columnState = base.Columns["State"];
                 this.columnZip = base.Columns["Zip"];
                 this.columnPhoneNumber = base.Columns["PhoneNumber"];
                 this.columnEmail = base.Columns["Email"];
+                this.columnAddress = base.Columns["Address"];
+                this.columnCity = base.Columns["City"];
+                this.columnUsername = base.Columns["Username"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
                 this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
-                this.columnUserName = new System.Data.DataColumn("UserName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserName);
-                this.columnRole = new System.Data.DataColumn("Role", typeof(short), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRole);
-                this.columnEnabled = new System.Data.DataColumn("Enabled", typeof(short), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEnabled);
                 this.columnFirstName = new System.Data.DataColumn("FirstName", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFirstName);
                 this.columnLastName = new System.Data.DataColumn("LastName", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLastName);
-                this.columnAddress = new System.Data.DataColumn("Address", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAddress);
-                this.columnCity = new System.Data.DataColumn("City", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCity);
                 this.columnState = new System.Data.DataColumn("State", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnState);
                 this.columnZip = new System.Data.DataColumn("Zip", typeof(string), null, System.Data.MappingType.Element);
@@ -1727,75 +752,72 @@ namespace PMT.DAL {
                 base.Columns.Add(this.columnPhoneNumber);
                 this.columnEmail = new System.Data.DataColumn("Email", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnEmail);
-                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
-                                this.columnID}, true));
-                this.columnID.AutoIncrement = true;
+                this.columnAddress = new System.Data.DataColumn("Address", typeof(byte[]), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAddress);
+                this.columnCity = new System.Data.DataColumn("City", typeof(byte[]), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCity);
+                this.columnUsername = new System.Data.DataColumn("Username", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUsername);
                 this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnID.Unique = true;
-                this.columnUserName.AllowDBNull = false;
-                this.columnUserName.MaxLength = 30;
-                this.columnRole.AllowDBNull = false;
-                this.columnEnabled.AllowDBNull = false;
                 this.columnFirstName.MaxLength = 30;
                 this.columnLastName.MaxLength = 30;
-                this.columnAddress.MaxLength = 50;
-                this.columnCity.MaxLength = 30;
                 this.columnState.MaxLength = 30;
                 this.columnZip.MaxLength = 10;
                 this.columnPhoneNumber.MaxLength = 13;
                 this.columnEmail.MaxLength = 50;
+                this.columnUsername.ReadOnly = true;
+                this.columnUsername.MaxLength = 15;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CompleteUserInfoRow NewCompleteUserInfoRow() {
-                return ((CompleteUserInfoRow)(this.NewRow()));
+            public UserProfileRow NewUserProfileRow() {
+                return ((UserProfileRow)(this.NewRow()));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new CompleteUserInfoRow(builder);
+                return new UserProfileRow(builder);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
-                return typeof(CompleteUserInfoRow);
+                return typeof(UserProfileRow);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.CompleteUserInfoRowChanged != null)) {
-                    this.CompleteUserInfoRowChanged(this, new CompleteUserInfoRowChangeEvent(((CompleteUserInfoRow)(e.Row)), e.Action));
+                if ((this.UserProfileRowChanged != null)) {
+                    this.UserProfileRowChanged(this, new UserProfileRowChangeEvent(((UserProfileRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.CompleteUserInfoRowChanging != null)) {
-                    this.CompleteUserInfoRowChanging(this, new CompleteUserInfoRowChangeEvent(((CompleteUserInfoRow)(e.Row)), e.Action));
+                if ((this.UserProfileRowChanging != null)) {
+                    this.UserProfileRowChanging(this, new UserProfileRowChangeEvent(((UserProfileRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.CompleteUserInfoRowDeleted != null)) {
-                    this.CompleteUserInfoRowDeleted(this, new CompleteUserInfoRowChangeEvent(((CompleteUserInfoRow)(e.Row)), e.Action));
+                if ((this.UserProfileRowDeleted != null)) {
+                    this.UserProfileRowDeleted(this, new UserProfileRowChangeEvent(((UserProfileRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.CompleteUserInfoRowDeleting != null)) {
-                    this.CompleteUserInfoRowDeleting(this, new CompleteUserInfoRowChangeEvent(((CompleteUserInfoRow)(e.Row)), e.Action));
+                if ((this.UserProfileRowDeleting != null)) {
+                    this.UserProfileRowDeleting(this, new UserProfileRowChangeEvent(((UserProfileRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveCompleteUserInfoRow(CompleteUserInfoRow row) {
+            public void RemoveUserProfileRow(UserProfileRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1822,7 +844,7 @@ namespace PMT.DAL {
                 type.Attributes.Add(attribute1);
                 System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "CompleteUserInfoDataTable";
+                attribute2.FixedValue = "UserProfileDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 return type;
@@ -1891,144 +913,174 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserInfoRow[] GetUserInfoRows() {
-                return ((UserInfoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_UserInfo_Users"])));
+            public bool Enabled1 {
+                get {
+                    return ((bool)(this[this.tableUsers.Enabled1Column]));
+                }
+                set {
+                    this[this.tableUsers.Enabled1Column] = value;
+                }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserProjectsRow[] GetUserProjectsRows() {
-                return ((UserProjectsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_UserProjects_Users"])));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserManagersRow[] GetUserManagersRowsByFK_UserManagers_Users_ManagerID() {
-                return ((UserManagersRow[])(base.GetChildRows(this.Table.ChildRelations["FK_UserManagers_Users_ManagerID"])));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserManagersRow[] GetUserManagersRowsByFK_UserManagers_Users_UserID() {
-                return ((UserManagersRow[])(base.GetChildRows(this.Table.ChildRelations["FK_UserManagers_Users_UserID"])));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CompleteUserInfoRow[] GetCompleteUserInfoRows() {
-                return ((CompleteUserInfoRow[])(base.GetChildRows(this.Table.ChildRelations["FK_UserInfo_Users1"])));
+            public UserProfileRow[] GetUserProfileRows() {
+                return ((UserProfileRow[])(base.GetChildRows(this.Table.ChildRelations["FK_UserInfo_Users"])));
             }
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class UserInfoRow : System.Data.DataRow {
+        public partial class UserProfileRow : System.Data.DataRow {
             
-            private UserInfoDataTable tableUserInfo;
+            private UserProfileDataTable tableUserProfile;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal UserInfoRow(System.Data.DataRowBuilder rb) : 
+            internal UserProfileRow(System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableUserInfo = ((UserInfoDataTable)(this.Table));
+                this.tableUserProfile = ((UserProfileDataTable)(this.Table));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int ID {
                 get {
-                    return ((int)(this[this.tableUserInfo.IDColumn]));
+                    return ((int)(this[this.tableUserProfile.IDColumn]));
                 }
                 set {
-                    this[this.tableUserInfo.IDColumn] = value;
+                    this[this.tableUserProfile.IDColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string FirstName {
                 get {
-                    return ((string)(this[this.tableUserInfo.FirstNameColumn]));
+                    try {
+                        return ((string)(this[this.tableUserProfile.FirstNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'FirstName\' in table \'UserProfile\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableUserInfo.FirstNameColumn] = value;
+                    this[this.tableUserProfile.FirstNameColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string LastName {
                 get {
-                    return ((string)(this[this.tableUserInfo.LastNameColumn]));
+                    try {
+                        return ((string)(this[this.tableUserProfile.LastNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'LastName\' in table \'UserProfile\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableUserInfo.LastNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Address {
-                get {
-                    return ((string)(this[this.tableUserInfo.AddressColumn]));
-                }
-                set {
-                    this[this.tableUserInfo.AddressColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string City {
-                get {
-                    return ((string)(this[this.tableUserInfo.CityColumn]));
-                }
-                set {
-                    this[this.tableUserInfo.CityColumn] = value;
+                    this[this.tableUserProfile.LastNameColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string State {
                 get {
-                    return ((string)(this[this.tableUserInfo.StateColumn]));
+                    try {
+                        return ((string)(this[this.tableUserProfile.StateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'State\' in table \'UserProfile\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableUserInfo.StateColumn] = value;
+                    this[this.tableUserProfile.StateColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Zip {
                 get {
-                    return ((string)(this[this.tableUserInfo.ZipColumn]));
+                    try {
+                        return ((string)(this[this.tableUserProfile.ZipColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Zip\' in table \'UserProfile\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableUserInfo.ZipColumn] = value;
+                    this[this.tableUserProfile.ZipColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string PhoneNumber {
                 get {
-                    return ((string)(this[this.tableUserInfo.PhoneNumberColumn]));
+                    try {
+                        return ((string)(this[this.tableUserProfile.PhoneNumberColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'PhoneNumber\' in table \'UserProfile\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableUserInfo.PhoneNumberColumn] = value;
+                    this[this.tableUserProfile.PhoneNumberColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Email {
                 get {
-                    return ((string)(this[this.tableUserInfo.EmailColumn]));
+                    try {
+                        return ((string)(this[this.tableUserProfile.EmailColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Email\' in table \'UserProfile\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableUserInfo.EmailColumn] = value;
+                    this[this.tableUserProfile.EmailColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string UserName {
+            public byte[] Address {
                 get {
                     try {
-                        return ((string)(this[this.tableUserInfo.UserNameColumn]));
+                        return ((byte[])(this[this.tableUserProfile.AddressColumn]));
                     }
                     catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'UserName\' in table \'UserInfo\' is DBNull.", e);
+                        throw new System.Data.StrongTypingException("The value for column \'Address\' in table \'UserProfile\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableUserInfo.UserNameColumn] = value;
+                    this[this.tableUserProfile.AddressColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public byte[] City {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableUserProfile.CityColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'City\' in table \'UserProfile\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableUserProfile.CityColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Username {
+                get {
+                    try {
+                        return ((string)(this[this.tableUserProfile.UsernameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Username\' in table \'UserProfile\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableUserProfile.UsernameColumn] = value;
                 }
             }
             
@@ -2043,469 +1095,93 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsUserNameNull() {
-                return this.IsNull(this.tableUserInfo.UserNameColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetUserNameNull() {
-                this[this.tableUserInfo.UserNameColumn] = System.Convert.DBNull;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class UserProjectsRow : System.Data.DataRow {
-            
-            private UserProjectsDataTable tableUserProjects;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal UserProjectsRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableUserProjects = ((UserProjectsDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int UserID {
-                get {
-                    return ((int)(this[this.tableUserProjects.UserIDColumn]));
-                }
-                set {
-                    this[this.tableUserProjects.UserIDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ProjectID {
-                get {
-                    return ((int)(this[this.tableUserProjects.ProjectIDColumn]));
-                }
-                set {
-                    this[this.tableUserProjects.ProjectIDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string UserName {
-                get {
-                    try {
-                        return ((string)(this[this.tableUserProjects.UserNameColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'UserName\' in table \'UserProjects\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableUserProjects.UserNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string ProjectName {
-                get {
-                    try {
-                        return ((string)(this[this.tableUserProjects.ProjectNameColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'ProjectName\' in table \'UserProjects\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableUserProjects.ProjectNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UsersRow UsersRow {
-                get {
-                    return ((UsersRow)(this.GetParentRow(this.Table.ParentRelations["FK_UserProjects_Users"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_UserProjects_Users"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsUserNameNull() {
-                return this.IsNull(this.tableUserProjects.UserNameColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetUserNameNull() {
-                this[this.tableUserProjects.UserNameColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsProjectNameNull() {
-                return this.IsNull(this.tableUserProjects.ProjectNameColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetProjectNameNull() {
-                this[this.tableUserProjects.ProjectNameColumn] = System.Convert.DBNull;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class UserManagersRow : System.Data.DataRow {
-            
-            private UserManagersDataTable tableUserManagers;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal UserManagersRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableUserManagers = ((UserManagersDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int UserID {
-                get {
-                    return ((int)(this[this.tableUserManagers.UserIDColumn]));
-                }
-                set {
-                    this[this.tableUserManagers.UserIDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ManagerID {
-                get {
-                    return ((int)(this[this.tableUserManagers.ManagerIDColumn]));
-                }
-                set {
-                    this[this.tableUserManagers.ManagerIDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string UserName {
-                get {
-                    try {
-                        return ((string)(this[this.tableUserManagers.UserNameColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'UserName\' in table \'UserManagers\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableUserManagers.UserNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string ManagerName {
-                get {
-                    try {
-                        return ((string)(this[this.tableUserManagers.ManagerNameColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'ManagerName\' in table \'UserManagers\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableUserManagers.ManagerNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UsersRow UsersRowByFK_UserManagers_Users_ManagerID {
-                get {
-                    return ((UsersRow)(this.GetParentRow(this.Table.ParentRelations["FK_UserManagers_Users_ManagerID"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_UserManagers_Users_ManagerID"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UsersRow UsersRowByFK_UserManagers_Users_UserID {
-                get {
-                    return ((UsersRow)(this.GetParentRow(this.Table.ParentRelations["FK_UserManagers_Users_UserID"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_UserManagers_Users_UserID"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsUserNameNull() {
-                return this.IsNull(this.tableUserManagers.UserNameColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetUserNameNull() {
-                this[this.tableUserManagers.UserNameColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsManagerNameNull() {
-                return this.IsNull(this.tableUserManagers.ManagerNameColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetManagerNameNull() {
-                this[this.tableUserManagers.ManagerNameColumn] = System.Convert.DBNull;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class CompleteUserInfoRow : System.Data.DataRow {
-            
-            private CompleteUserInfoDataTable tableCompleteUserInfo;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal CompleteUserInfoRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableCompleteUserInfo = ((CompleteUserInfoDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableCompleteUserInfo.IDColumn]));
-                }
-                set {
-                    this[this.tableCompleteUserInfo.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string UserName {
-                get {
-                    return ((string)(this[this.tableCompleteUserInfo.UserNameColumn]));
-                }
-                set {
-                    this[this.tableCompleteUserInfo.UserNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public short Role {
-                get {
-                    return ((short)(this[this.tableCompleteUserInfo.RoleColumn]));
-                }
-                set {
-                    this[this.tableCompleteUserInfo.RoleColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public short Enabled {
-                get {
-                    return ((short)(this[this.tableCompleteUserInfo.EnabledColumn]));
-                }
-                set {
-                    this[this.tableCompleteUserInfo.EnabledColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string FirstName {
-                get {
-                    try {
-                        return ((string)(this[this.tableCompleteUserInfo.FirstNameColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'FirstName\' in table \'CompleteUserInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCompleteUserInfo.FirstNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string LastName {
-                get {
-                    try {
-                        return ((string)(this[this.tableCompleteUserInfo.LastNameColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'LastName\' in table \'CompleteUserInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCompleteUserInfo.LastNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Address {
-                get {
-                    try {
-                        return ((string)(this[this.tableCompleteUserInfo.AddressColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Address\' in table \'CompleteUserInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCompleteUserInfo.AddressColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string City {
-                get {
-                    try {
-                        return ((string)(this[this.tableCompleteUserInfo.CityColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'City\' in table \'CompleteUserInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCompleteUserInfo.CityColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string State {
-                get {
-                    try {
-                        return ((string)(this[this.tableCompleteUserInfo.StateColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'State\' in table \'CompleteUserInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCompleteUserInfo.StateColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Zip {
-                get {
-                    try {
-                        return ((string)(this[this.tableCompleteUserInfo.ZipColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Zip\' in table \'CompleteUserInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCompleteUserInfo.ZipColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string PhoneNumber {
-                get {
-                    try {
-                        return ((string)(this[this.tableCompleteUserInfo.PhoneNumberColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'PhoneNumber\' in table \'CompleteUserInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCompleteUserInfo.PhoneNumberColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Email {
-                get {
-                    try {
-                        return ((string)(this[this.tableCompleteUserInfo.EmailColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Email\' in table \'CompleteUserInfo\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableCompleteUserInfo.EmailColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UsersRow UsersRow {
-                get {
-                    return ((UsersRow)(this.GetParentRow(this.Table.ParentRelations["FK_UserInfo_Users1"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_UserInfo_Users1"]);
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsFirstNameNull() {
-                return this.IsNull(this.tableCompleteUserInfo.FirstNameColumn);
+                return this.IsNull(this.tableUserProfile.FirstNameColumn);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetFirstNameNull() {
-                this[this.tableCompleteUserInfo.FirstNameColumn] = System.Convert.DBNull;
+                this[this.tableUserProfile.FirstNameColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsLastNameNull() {
-                return this.IsNull(this.tableCompleteUserInfo.LastNameColumn);
+                return this.IsNull(this.tableUserProfile.LastNameColumn);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetLastNameNull() {
-                this[this.tableCompleteUserInfo.LastNameColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsAddressNull() {
-                return this.IsNull(this.tableCompleteUserInfo.AddressColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetAddressNull() {
-                this[this.tableCompleteUserInfo.AddressColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCityNull() {
-                return this.IsNull(this.tableCompleteUserInfo.CityColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCityNull() {
-                this[this.tableCompleteUserInfo.CityColumn] = System.Convert.DBNull;
+                this[this.tableUserProfile.LastNameColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsStateNull() {
-                return this.IsNull(this.tableCompleteUserInfo.StateColumn);
+                return this.IsNull(this.tableUserProfile.StateColumn);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetStateNull() {
-                this[this.tableCompleteUserInfo.StateColumn] = System.Convert.DBNull;
+                this[this.tableUserProfile.StateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsZipNull() {
-                return this.IsNull(this.tableCompleteUserInfo.ZipColumn);
+                return this.IsNull(this.tableUserProfile.ZipColumn);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetZipNull() {
-                this[this.tableCompleteUserInfo.ZipColumn] = System.Convert.DBNull;
+                this[this.tableUserProfile.ZipColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsPhoneNumberNull() {
-                return this.IsNull(this.tableCompleteUserInfo.PhoneNumberColumn);
+                return this.IsNull(this.tableUserProfile.PhoneNumberColumn);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetPhoneNumberNull() {
-                this[this.tableCompleteUserInfo.PhoneNumberColumn] = System.Convert.DBNull;
+                this[this.tableUserProfile.PhoneNumberColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsEmailNull() {
-                return this.IsNull(this.tableCompleteUserInfo.EmailColumn);
+                return this.IsNull(this.tableUserProfile.EmailColumn);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetEmailNull() {
-                this[this.tableCompleteUserInfo.EmailColumn] = System.Convert.DBNull;
+                this[this.tableUserProfile.EmailColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsAddressNull() {
+                return this.IsNull(this.tableUserProfile.AddressColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetAddressNull() {
+                this[this.tableUserProfile.AddressColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsCityNull() {
+                return this.IsNull(this.tableUserProfile.CityColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetCityNull() {
+                this[this.tableUserProfile.CityColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsUsernameNull() {
+                return this.IsNull(this.tableUserProfile.UsernameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetUsernameNull() {
+                this[this.tableUserProfile.UsernameColumn] = System.Convert.DBNull;
             }
         }
         
@@ -2538,104 +1214,20 @@ namespace PMT.DAL {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class UserInfoRowChangeEvent : System.EventArgs {
+        public class UserProfileRowChangeEvent : System.EventArgs {
             
-            private UserInfoRow eventRow;
+            private UserProfileRow eventRow;
             
             private System.Data.DataRowAction eventAction;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserInfoRowChangeEvent(UserInfoRow row, System.Data.DataRowAction action) {
+            public UserProfileRowChangeEvent(UserProfileRow row, System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserInfoRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class UserProjectsRowChangeEvent : System.EventArgs {
-            
-            private UserProjectsRow eventRow;
-            
-            private System.Data.DataRowAction eventAction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserProjectsRowChangeEvent(UserProjectsRow row, System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserProjectsRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class UserManagersRowChangeEvent : System.EventArgs {
-            
-            private UserManagersRow eventRow;
-            
-            private System.Data.DataRowAction eventAction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserManagersRowChangeEvent(UserManagersRow row, System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UserManagersRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class CompleteUserInfoRowChangeEvent : System.EventArgs {
-            
-            private CompleteUserInfoRow eventRow;
-            
-            private System.Data.DataRowAction eventAction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CompleteUserInfoRowChangeEvent(CompleteUserInfoRow row, System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public CompleteUserInfoRow Row {
+            public UserProfileRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -2660,7 +1252,7 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
     [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class UsersTableAdapter : System.ComponentModel.Component {
+    internal partial class UsersTableAdapter : System.ComponentModel.Component {
         
         private System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -2741,8 +1333,8 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("ID", "ID");
             tableMapping.ColumnMappings.Add("UserName", "UserName");
             tableMapping.ColumnMappings.Add("Role", "Role");
-            tableMapping.ColumnMappings.Add("Enabled", "Enabled");
             tableMapping.ColumnMappings.Add("Password", "Password");
+            tableMapping.ColumnMappings.Add("Enabled", "Enabled1");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -2752,22 +1344,22 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
             this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [Users] ([UserName], [Role], [Enabled], [Password]) VALUES (@UserName" +
-                ", @Role, @Enabled, @Password);\r\nSELECT ID, UserName, Role, Enabled, Password FRO" +
+                ", @Role, @Enabled, @Password);\r\nSELECT ID, Username, Role, Enabled, Password FRO" +
                 "M Users WHERE (ID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserName", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "UserName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Role", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Role", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Enabled", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Enabled", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Enabled", System.Data.SqlDbType.Bit, 0, System.Data.ParameterDirection.Input, 0, 0, "Enabled", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Password", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Password", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [Users] SET [UserName] = @UserName, [Role] = @Role, [Enabled] = @Enabled, " +
-                "[Password] = @Password WHERE (([ID] = @Original_ID));\r\nSELECT ID, UserName, Role" +
+                "[Password] = @Password WHERE (([ID] = @Original_ID));\r\nSELECT ID, Username, Role" +
                 ", Enabled, Password FROM Users WHERE (ID = @ID)";
             this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserName", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "UserName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Role", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Role", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Enabled", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Enabled", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Enabled", System.Data.SqlDbType.Bit, 0, System.Data.ParameterDirection.Input, 0, 0, "Enabled", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Password", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Password", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -2776,7 +1368,7 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitConnection() {
             this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.pmtConnectionString;
+            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.PmtConnectionString;
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2795,36 +1387,32 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Password", System.Data.SqlDbType.VarChar, 32, System.Data.ParameterDirection.Input, 0, 0, "Password", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT Enabled, ID, Password, Role, UserName FROM Users WHERE (Enabled = @Enabled" +
+            this._commandCollection[2].CommandText = "SELECT Enabled, ID, Password, Role, Username FROM Users WHERE (Enabled = @Enabled" +
                 ")";
             this._commandCollection[2].CommandType = System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Enabled", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 0, 0, "Enabled", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "SELECT Enabled, ID, Password, Role, UserName FROM Users WHERE (Role = @Role)";
+            this._commandCollection[3].CommandText = "SELECT Enabled, ID, Password, Role, Username FROM Users WHERE (Role = @Role)";
             this._commandCollection[3].CommandType = System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Role", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 0, 0, "Role", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT Enabled, ID, Password, Role, UserName FROM Users WHERE (ID = @ID)";
+            this._commandCollection[4].CommandText = "SELECT Enabled, ID, Password, Role, Username FROM Users WHERE (ID = @ID)";
             this._commandCollection[4].CommandType = System.Data.CommandType.Text;
             this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
-            this._commandCollection[5].CommandText = "SELECT Enabled, ID, Password, Role, UserName FROM Users WHERE (UserName = @UserNa" +
+            this._commandCollection[5].CommandText = "SELECT Enabled, ID, Password, Role, Username FROM Users WHERE (Username = @UserNa" +
                 "me)";
             this._commandCollection[5].CommandType = System.Data.CommandType.Text;
             this._commandCollection[5].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserName", System.Data.SqlDbType.VarChar, 30, System.Data.ParameterDirection.Input, 0, 0, "UserName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[6] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[6].Connection = this.Connection;
-            this._commandCollection[6].CommandText = "INSERT INTO [Users] ([UserName], [Role], [Enabled], [Password]) VALUES (@UserName" +
-                ", @Role, @Enabled, @Password);\r\nSELECT ID, UserName, Role, Enabled, Password FRO" +
-                "M Users WHERE (ID = SCOPE_IDENTITY())";
+            this._commandCollection[6].CommandText = "UPDATE    Users\r\nSET              Enabled = @Enabled\r\nWHERE     (ID = @ID)";
             this._commandCollection[6].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[6].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserName", System.Data.SqlDbType.VarChar, 30, System.Data.ParameterDirection.Input, 0, 0, "UserName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[6].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Role", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 0, 0, "Role", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[6].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Enabled", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 0, 0, "Enabled", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[6].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Password", System.Data.SqlDbType.VarChar, 32, System.Data.ParameterDirection.Input, 0, 0, "Password", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[6].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Enabled", System.Data.SqlDbType.Bit, 1, System.Data.ParameterDirection.Input, 0, 0, "Enabled", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[6].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2973,7 +1561,7 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string UserName, short Role, short Enabled, string Password) {
+        public virtual int Insert(string UserName, short Role, bool Enabled, string Password) {
             if ((UserName == null)) {
                 throw new System.ArgumentNullException("UserName");
             }
@@ -2981,7 +1569,7 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(UserName));
             }
             this.Adapter.InsertCommand.Parameters[1].Value = ((short)(Role));
-            this.Adapter.InsertCommand.Parameters[2].Value = ((short)(Enabled));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(Enabled));
             if ((Password == null)) {
                 throw new System.ArgumentNullException("Password");
             }
@@ -3007,7 +1595,7 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string UserName, short Role, short Enabled, string Password, int Original_ID, int ID) {
+        public virtual int Update(string UserName, short Role, bool Enabled, string Password, int Original_ID, int ID) {
             if ((UserName == null)) {
                 throw new System.ArgumentNullException("UserName");
             }
@@ -3015,7 +1603,7 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(UserName));
             }
             this.Adapter.UpdateCommand.Parameters[1].Value = ((short)(Role));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((short)(Enabled));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(Enabled));
             if ((Password == null)) {
                 throw new System.ArgumentNullException("Password");
             }
@@ -3081,44 +1669,26 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, false)]
-        public virtual object InsertUser(string UserName, short Role, short Enabled, string Password) {
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdateEnabled(bool Enabled, int ID) {
             System.Data.SqlClient.SqlCommand command = this.CommandCollection[6];
-            if ((UserName == null)) {
-                throw new System.ArgumentNullException("UserName");
-            }
-            else {
-                command.Parameters[0].Value = ((string)(UserName));
-            }
-            command.Parameters[1].Value = ((short)(Role));
-            command.Parameters[2].Value = ((short)(Enabled));
-            if ((Password == null)) {
-                throw new System.ArgumentNullException("Password");
-            }
-            else {
-                command.Parameters[3].Value = ((string)(Password));
-            }
+            command.Parameters[0].Value = ((bool)(Enabled));
+            command.Parameters[1].Value = ((int)(ID));
             System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & System.Data.ConnectionState.Open) 
                         != System.Data.ConnectionState.Open)) {
                 command.Connection.Open();
             }
-            object returnValue;
+            int returnValue;
             try {
-                returnValue = command.ExecuteScalar();
+                returnValue = command.ExecuteNonQuery();
             }
             finally {
                 if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
                     command.Connection.Close();
                 }
             }
-            if (((returnValue == null) 
-                        || (returnValue.GetType() == typeof(System.DBNull)))) {
-                return null;
-            }
-            else {
-                return ((object)(returnValue));
-            }
+            return returnValue;
         }
     }
     
@@ -3129,7 +1699,7 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
     [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class UserInfoTableAdapter : System.ComponentModel.Component {
+    internal partial class UserProfileTableAdapter : System.ComponentModel.Component {
         
         private System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -3140,7 +1710,7 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
         private bool _clearBeforeFill;
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public UserInfoTableAdapter() {
+        public UserProfileTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -3206,58 +1776,39 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
             this._adapter = new System.Data.SqlClient.SqlDataAdapter();
             System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "UserInfo";
+            tableMapping.DataSetTable = "UserProfile";
             tableMapping.ColumnMappings.Add("ID", "ID");
             tableMapping.ColumnMappings.Add("FirstName", "FirstName");
             tableMapping.ColumnMappings.Add("LastName", "LastName");
-            tableMapping.ColumnMappings.Add("Address", "Address");
-            tableMapping.ColumnMappings.Add("City", "City");
             tableMapping.ColumnMappings.Add("State", "State");
             tableMapping.ColumnMappings.Add("Zip", "Zip");
             tableMapping.ColumnMappings.Add("PhoneNumber", "PhoneNumber");
             tableMapping.ColumnMappings.Add("Email", "Email");
-            tableMapping.ColumnMappings.Add("UserName", "UserName");
+            tableMapping.ColumnMappings.Add("Address", "Address");
+            tableMapping.ColumnMappings.Add("City", "City");
+            tableMapping.ColumnMappings.Add("Username", "Username");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [UserInfo] WHERE (([ID] = @Original_ID))";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [UserInfo] ([ID], [FirstName], [LastName], [Address], [City], [State], [Zip], [PhoneNumber], [Email]) VALUES (@ID, @FirstName, @LastName, @Address, @City, @State, @Zip, @PhoneNumber, @Email);
-SELECT ID, FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email, (SELECT UserName FROM Users WHERE (UserInfo.ID = ID)) AS UserName FROM UserInfo WHERE (ID = @ID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [UserProfile] ([ID], [FirstName], [LastName], [Address], [City], [Sta" +
+                "te], [Zip], [PhoneNumber], [Email]) VALUES (@ID, @FirstName, @LastName, @Address" +
+                ", @City, @State, @Zip, @PhoneNumber, @Email)";
             this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "FirstName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "LastName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Address", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Address", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@City", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "City", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Address", System.Data.SqlDbType.VarBinary, 0, System.Data.ParameterDirection.Input, 0, 0, "Address", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@City", System.Data.SqlDbType.VarBinary, 0, System.Data.ParameterDirection.Input, 0, 0, "City", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@State", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "State", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Zip", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Zip", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PhoneNumber", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "PhoneNumber", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Email", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Email", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [UserInfo] SET [ID] = @ID, [FirstName] = @FirstName, [LastName] = @LastName, [Address] = @Address, [City] = @City, [State] = @State, [Zip] = @Zip, [PhoneNumber] = @PhoneNumber, [Email] = @Email WHERE (([ID] = @Original_ID));
-SELECT ID, FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email, (SELECT UserName FROM Users WHERE (UserInfo.ID = ID)) AS UserName FROM UserInfo WHERE (ID = @ID)";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "FirstName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@LastName", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "LastName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Address", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Address", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@City", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "City", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@State", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "State", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Zip", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Zip", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PhoneNumber", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "PhoneNumber", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Email", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Email", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitConnection() {
             this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.pmtConnectionString;
+            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.PmtConnectionString;
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3266,27 +1817,27 @@ SELECT ID, FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email, (
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT     ID, FirstName, LastName, Address, City, State, Zip, PhoneNumber, Email,
-                          (SELECT     UserName
+                          (SELECT     Username
                             FROM          Users
-                            WHERE      (UserInfo.ID = ID)) as UserName
-FROM         UserInfo";
+                            WHERE      (UserProfile.ID = ID)) AS Username
+FROM         UserProfile";
             this._commandCollection[0].CommandType = System.Data.CommandType.Text;
             this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT     UserInfo.ID, UserInfo.FirstName, UserInfo.LastName, UserInfo.Address, UserInfo.City, UserInfo.State, UserInfo.Zip, UserInfo.PhoneNumber, 
-                      UserInfo.Email, Users.UserName
-FROM         UserInfo LEFT JOIN
-                      Users ON UserInfo.ID = Users.ID
-WHERE     (Users.UserName = @UserName)";
+            this._commandCollection[1].CommandText = @"SELECT     UserProfile.FirstName, UserProfile.LastName, UserProfile.Address, UserProfile.City, UserProfile.State, UserProfile.Zip, UserProfile.PhoneNumber, 
+                      UserProfile.Email, Users.ID, Users.Username, Users.Role, Users.Enabled
+FROM         Users LEFT OUTER JOIN
+                      UserProfile ON Users.ID = UserProfile.ID
+WHERE     (Users.Username = @Username)";
             this._commandCollection[1].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserName", System.Data.SqlDbType.VarChar, 30, System.Data.ParameterDirection.Input, 0, 0, "UserName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Username", System.Data.SqlDbType.VarChar, 15, System.Data.ParameterDirection.Input, 0, 0, "Username", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = @"SELECT     UserInfo.ID, UserInfo.FirstName, UserInfo.LastName, UserInfo.Address, UserInfo.City, UserInfo.State, UserInfo.Zip, UserInfo.PhoneNumber, 
-                      UserInfo.Email, Users.UserName
-FROM         UserInfo LEFT JOIN
-                      Users ON UserInfo.ID = Users.ID
-where UserInfo.ID =@ID";
+            this._commandCollection[2].CommandText = @"SELECT     UserProfile.FirstName, UserProfile.LastName, UserProfile.Address, UserProfile.City, UserProfile.ID, UserProfile.State, UserProfile.Zip, 
+                      UserProfile.PhoneNumber, UserProfile.Email, Users.Username, Users.Role, Users.Enabled
+FROM         Users INNER JOIN
+                      UserProfile ON Users.ID = UserProfile.ID
+WHERE     (Users.ID = @ID)";
             this._commandCollection[2].CommandType = System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -3294,7 +1845,7 @@ where UserInfo.ID =@ID";
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(UsersDataSet.UserInfoDataTable dataTable) {
+        public virtual int Fill(UsersDataSet.UserProfileDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -3306,9 +1857,9 @@ where UserInfo.ID =@ID";
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual UsersDataSet.UserInfoDataTable GetUserInfo() {
+        public virtual UsersDataSet.UserProfileDataTable GetUserProfiles() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            UsersDataSet.UserInfoDataTable dataTable = new UsersDataSet.UserInfoDataTable();
+            UsersDataSet.UserProfileDataTable dataTable = new UsersDataSet.UserProfileDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -3316,15 +1867,15 @@ where UserInfo.ID =@ID";
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual UsersDataSet.UserInfoDataTable GetUserByUserName(string UserName) {
+        public virtual UsersDataSet.UserProfileDataTable GetUserProfileByUsername(string Username) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((UserName == null)) {
-                this.Adapter.SelectCommand.Parameters[0].Value = System.DBNull.Value;
+            if ((Username == null)) {
+                throw new System.ArgumentNullException("Username");
             }
             else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(UserName));
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Username));
             }
-            UsersDataSet.UserInfoDataTable dataTable = new UsersDataSet.UserInfoDataTable();
+            UsersDataSet.UserProfileDataTable dataTable = new UsersDataSet.UserProfileDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -3332,24 +1883,24 @@ where UserInfo.ID =@ID";
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual UsersDataSet.UserInfoDataTable GetUserInfoByID(int ID) {
+        public virtual UsersDataSet.UserProfileDataTable GetUserProfileByID(int ID) {
             this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
-            UsersDataSet.UserInfoDataTable dataTable = new UsersDataSet.UserInfoDataTable();
+            UsersDataSet.UserProfileDataTable dataTable = new UsersDataSet.UserProfileDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(UsersDataSet.UserInfoDataTable dataTable) {
+        public virtual int Update(UsersDataSet.UserProfileDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(UsersDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "UserInfo");
+            return this.Adapter.Update(dataSet, "UserProfile");
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3363,1118 +1914,6 @@ where UserInfo.ID =@ID";
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int Update(System.Data.DataRow[] dataRows) {
             return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ID, string FirstName, string LastName, string Address, string City, string State, string Zip, string PhoneNumber, string Email) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
-            if ((FirstName == null)) {
-                throw new System.ArgumentNullException("FirstName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(FirstName));
-            }
-            if ((LastName == null)) {
-                throw new System.ArgumentNullException("LastName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(LastName));
-            }
-            if ((Address == null)) {
-                throw new System.ArgumentNullException("Address");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Address));
-            }
-            if ((City == null)) {
-                throw new System.ArgumentNullException("City");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(City));
-            }
-            if ((State == null)) {
-                throw new System.ArgumentNullException("State");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(State));
-            }
-            if ((Zip == null)) {
-                throw new System.ArgumentNullException("Zip");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(Zip));
-            }
-            if ((PhoneNumber == null)) {
-                throw new System.ArgumentNullException("PhoneNumber");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(PhoneNumber));
-            }
-            if ((Email == null)) {
-                throw new System.ArgumentNullException("Email");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(Email));
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int ID, string FirstName, string LastName, string Address, string City, string State, string Zip, string PhoneNumber, string Email, int Original_ID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
-            if ((FirstName == null)) {
-                throw new System.ArgumentNullException("FirstName");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(FirstName));
-            }
-            if ((LastName == null)) {
-                throw new System.ArgumentNullException("LastName");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(LastName));
-            }
-            if ((Address == null)) {
-                throw new System.ArgumentNullException("Address");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Address));
-            }
-            if ((City == null)) {
-                throw new System.ArgumentNullException("City");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(City));
-            }
-            if ((State == null)) {
-                throw new System.ArgumentNullException("State");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(State));
-            }
-            if ((Zip == null)) {
-                throw new System.ArgumentNullException("Zip");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Zip));
-            }
-            if ((PhoneNumber == null)) {
-                throw new System.ArgumentNullException("PhoneNumber");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(PhoneNumber));
-            }
-            if ((Email == null)) {
-                throw new System.ArgumentNullException("Email");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Email));
-            }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class UserProjectsTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public UserProjectsTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "UserProjects";
-            tableMapping.ColumnMappings.Add("UserID", "UserID");
-            tableMapping.ColumnMappings.Add("ProjectID", "ProjectID");
-            tableMapping.ColumnMappings.Add("UserName", "UserName");
-            tableMapping.ColumnMappings.Add("ProjectName", "ProjectName");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [UserProjects] WHERE (([UserID] = @Original_UserID) AND ([ProjectID] " +
-                "= @Original_ProjectID))";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UserID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ProjectID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [UserProjects] ([UserID], [ProjectID]) VALUES (@UserID, @ProjectID);
-SELECT UserID, ProjectID, (SELECT UserName FROM Users WHERE (UserProjects.UserID = ID)) AS UserName, (SELECT Name FROM Projects WHERE (UserProjects.ProjectID = ID)) AS ProjectName FROM UserProjects WHERE (ProjectID = @ProjectID) AND (UserID = @UserID)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProjectID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [UserProjects] SET [UserID] = @UserID, [ProjectID] = @ProjectID WHERE (([UserID] = @Original_UserID) AND ([ProjectID] = @Original_ProjectID));
-SELECT UserID, ProjectID, (SELECT UserName FROM Users WHERE (UserProjects.UserID = ID)) AS UserName, (SELECT Name FROM Projects WHERE (UserProjects.ProjectID = ID)) AS ProjectName FROM UserProjects WHERE (ProjectID = @ProjectID) AND (UserID = @UserID)";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProjectID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UserID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ProjectID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.pmtConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[5];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT     UserID, ProjectID,
-                          (SELECT     UserName
-                            FROM          Users
-                            WHERE      (UserProjects.UserID = ID)) AS UserName,
-                          (SELECT     Name
-                            FROM          Projects
-                            WHERE      (UserProjects.ProjectID = ID)) AS ProjectName
-FROM         UserProjects";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "DELETE FROM [UserProjects] \r\nWHERE ([ProjectID] = @Original_ProjectID)";
-            this._commandCollection[1].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ProjectID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "DELETE FROM [UserProjects] \r\nWHERE ([UserID] = @Original_UserID)";
-            this._commandCollection[2].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[3] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = @"SELECT     UserID, ProjectID,
-                          (SELECT     UserName
-                            FROM          Users
-                            WHERE      (UserProjects.UserID = ID)) AS UserName,
-                          (SELECT     Name
-                            FROM          Projects
-                            WHERE      (UserProjects.ProjectID = ID)) AS ProjectName
-FROM         UserProjects
-WHERE ProjectID=@ProjectID";
-            this._commandCollection[3].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProjectID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[4] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = @"SELECT     UserID, ProjectID,
-                          (SELECT     UserName
-                            FROM          Users
-                            WHERE      (UserProjects.UserID = ID)) AS UserName,
-                          (SELECT     Name
-                            FROM          Projects
-                            WHERE      (UserProjects.ProjectID = ID)) AS ProjectName
-FROM         UserProjects
-where UserID=@UserID";
-            this._commandCollection[4].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(UsersDataSet.UserProjectsDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual UsersDataSet.UserProjectsDataTable GetUserProjects() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            UsersDataSet.UserProjectsDataTable dataTable = new UsersDataSet.UserProjectsDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByProjectID(UsersDataSet.UserProjectsDataTable dataTable, int ProjectID) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ProjectID));
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual UsersDataSet.UserProjectsDataTable GetUserProjectsByProjectID(int ProjectID) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ProjectID));
-            UsersDataSet.UserProjectsDataTable dataTable = new UsersDataSet.UserProjectsDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByUserID(UsersDataSet.UserProjectsDataTable dataTable, int UserID) {
-            this.Adapter.SelectCommand = this.CommandCollection[4];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(UserID));
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual UsersDataSet.UserProjectsDataTable GetUserProjectsByUserID(int UserID) {
-            this.Adapter.SelectCommand = this.CommandCollection[4];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(UserID));
-            UsersDataSet.UserProjectsDataTable dataTable = new UsersDataSet.UserProjectsDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(UsersDataSet.UserProjectsDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(UsersDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "UserProjects");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_UserID, int Original_ProjectID) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_UserID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_ProjectID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int UserID, int ProjectID) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(UserID));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ProjectID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int UserID, int ProjectID, int Original_UserID, int Original_ProjectID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(UserID));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ProjectID));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_UserID));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_ProjectID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, false)]
-        public virtual int DeleteByProjectID(int Original_ProjectID) {
-            System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            command.Parameters[0].Value = ((int)(Original_ProjectID));
-            System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            int returnValue;
-            try {
-                returnValue = command.ExecuteNonQuery();
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, false)]
-        public virtual int DeleteByUserID(int Original_UserID) {
-            System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
-            command.Parameters[0].Value = ((int)(Original_UserID));
-            System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            int returnValue;
-            try {
-                returnValue = command.ExecuteNonQuery();
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            return returnValue;
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class UserManagersTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public UserManagersTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "UserManagers";
-            tableMapping.ColumnMappings.Add("UserID", "UserID");
-            tableMapping.ColumnMappings.Add("ManagerID", "ManagerID");
-            tableMapping.ColumnMappings.Add("UserName", "UserName");
-            tableMapping.ColumnMappings.Add("ManagerName", "ManagerName");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [UserManagers] WHERE (([UserID] = @Original_UserID) AND ([ManagerID] " +
-                "= @Original_ManagerID))";
-            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UserID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ManagerID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ManagerID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [UserManagers] ([UserID], [ManagerID]) VALUES (@UserID, @ManagerID);
-SELECT UserID, ManagerID, (SELECT UserName FROM Users WHERE (ID = UserManagers.UserID)) AS UserName, (SELECT UserName FROM Users AS Users_1 WHERE (ID = UserManagers.ManagerID)) AS ManagerName FROM UserManagers WHERE (ManagerID = @ManagerID) AND (UserID = @UserID)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ManagerID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ManagerID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [UserManagers] SET [UserID] = @UserID, [ManagerID] = @ManagerID WHERE (([UserID] = @Original_UserID) AND ([ManagerID] = @Original_ManagerID));
-SELECT UserID, ManagerID, (SELECT UserName FROM Users WHERE (ID = UserManagers.UserID)) AS UserName, (SELECT UserName FROM Users AS Users_1 WHERE (ID = UserManagers.ManagerID)) AS ManagerName FROM UserManagers WHERE (ManagerID = @ManagerID) AND (UserID = @UserID)";
-            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ManagerID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ManagerID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UserID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ManagerID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ManagerID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.pmtConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[5];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT     UserID, ManagerID,
-                          (SELECT     UserName
-                            FROM          Users
-                            WHERE      (ID = UserManagers.UserID)) AS UserName,
-                          (SELECT     UserName
-                            FROM          Users
-                            WHERE      (ID = UserManagers.ManagerID)) AS ManagerName
-FROM         UserManagers";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "DELETE FROM [UserManagers] \r\nWHERE ([ManagerID] = @Original_ManagerID)";
-            this._commandCollection[1].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ManagerID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ManagerID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "DELETE FROM [UserManagers] \r\nWHERE ([UserID] = @Original_UserID)";
-            this._commandCollection[2].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[3] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = @"SELECT     UserID, ManagerID,
-                          (SELECT     UserName
-                            FROM          Users
-                            WHERE      (ID = UserManagers.UserID)) AS UserName,
-                          (SELECT     UserName
-                            FROM          Users
-                            WHERE      (ID = UserManagers.ManagerID)) AS ManagerName
-FROM         UserManagers
-WHERE     (ManagerID = @ManagerID)";
-            this._commandCollection[3].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ManagerID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ManagerID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[4] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = @"SELECT     UserID, ManagerID,
-                          (SELECT     UserName
-                            FROM          Users
-                            WHERE      (ID = UserManagers.UserID)) AS UserName,
-                          (SELECT     UserName
-                            FROM          Users
-                            WHERE      (ID = UserManagers.ManagerID)) AS ManagerName
-FROM         UserManagers
-WHERE     (UserID = @UserID)";
-            this._commandCollection[4].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(UsersDataSet.UserManagersDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual UsersDataSet.UserManagersDataTable GetUserManagers() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            UsersDataSet.UserManagersDataTable dataTable = new UsersDataSet.UserManagersDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByManagerID(UsersDataSet.UserManagersDataTable dataTable, int ManagerID) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ManagerID));
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual UsersDataSet.UserManagersDataTable GetUserManagersByManagerID(int ManagerID) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ManagerID));
-            UsersDataSet.UserManagersDataTable dataTable = new UsersDataSet.UserManagersDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillByUserID(UsersDataSet.UserManagersDataTable dataTable, int UserID) {
-            this.Adapter.SelectCommand = this.CommandCollection[4];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(UserID));
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual UsersDataSet.UserManagersDataTable GetUserManagersByUserID(int UserID) {
-            this.Adapter.SelectCommand = this.CommandCollection[4];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(UserID));
-            UsersDataSet.UserManagersDataTable dataTable = new UsersDataSet.UserManagersDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(UsersDataSet.UserManagersDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(UsersDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "UserManagers");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_UserID, int Original_ManagerID) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_UserID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_ManagerID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int UserID, int ManagerID) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(UserID));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ManagerID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int UserID, int ManagerID, int Original_UserID, int Original_ManagerID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(UserID));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ManagerID));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_UserID));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_ManagerID));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, false)]
-        public virtual int DeleteByManagerID(int Original_ManagerID) {
-            System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            command.Parameters[0].Value = ((int)(Original_ManagerID));
-            System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            int returnValue;
-            try {
-                returnValue = command.ExecuteNonQuery();
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, false)]
-        public virtual int DeleteByUserID(int Original_UserID) {
-            System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
-            command.Parameters[0].Value = ((int)(Original_UserID));
-            System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            int returnValue;
-            try {
-                returnValue = command.ExecuteNonQuery();
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            return returnValue;
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class CompleteUserInfoTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public CompleteUserInfoTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "CompleteUserInfo";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("UserName", "UserName");
-            tableMapping.ColumnMappings.Add("Role", "Role");
-            tableMapping.ColumnMappings.Add("Enabled", "Enabled");
-            tableMapping.ColumnMappings.Add("FirstName", "FirstName");
-            tableMapping.ColumnMappings.Add("LastName", "LastName");
-            tableMapping.ColumnMappings.Add("Address", "Address");
-            tableMapping.ColumnMappings.Add("City", "City");
-            tableMapping.ColumnMappings.Add("State", "State");
-            tableMapping.ColumnMappings.Add("Zip", "Zip");
-            tableMapping.ColumnMappings.Add("PhoneNumber", "PhoneNumber");
-            tableMapping.ColumnMappings.Add("Email", "Email");
-            this._adapter.TableMappings.Add(tableMapping);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.pmtConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[3];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT     Users.ID, Users.UserName, Users.Role, Users.Enabled, UserInfo.FirstName, UserInfo.LastName, UserInfo.Address, UserInfo.City, UserInfo.State, 
-                      UserInfo.Zip, UserInfo.PhoneNumber, UserInfo.Email
-FROM         Users LEFT OUTER JOIN
-                      UserInfo ON Users.ID = UserInfo.ID";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT     Users.ID, Users.UserName, Users.Role, Users.Enabled, UserInfo.FirstName, UserInfo.LastName, UserInfo.Address, UserInfo.City, UserInfo.State, 
-                      UserInfo.Zip, UserInfo.PhoneNumber, UserInfo.Email
-FROM         Users LEFT OUTER JOIN
-                      UserInfo ON Users.ID = UserInfo.ID
-WHERE     (Users.ID = @ID)";
-            this._commandCollection[1].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = @"SELECT     Users.ID, Users.UserName, Users.Role, Users.Enabled, UserInfo.FirstName, UserInfo.LastName, UserInfo.Address, UserInfo.City, UserInfo.State, 
-                      UserInfo.Zip, UserInfo.PhoneNumber, UserInfo.Email
-FROM         Users LEFT OUTER JOIN
-                      UserInfo ON Users.ID = UserInfo.ID
-where UserName=@UserName";
-            this._commandCollection[2].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserName", System.Data.SqlDbType.VarChar, 30, System.Data.ParameterDirection.Input, 0, 0, "UserName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(UsersDataSet.CompleteUserInfoDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual UsersDataSet.CompleteUserInfoDataTable GetCompleteUserInfo() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            UsersDataSet.CompleteUserInfoDataTable dataTable = new UsersDataSet.CompleteUserInfoDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual UsersDataSet.CompleteUserInfoDataTable GetCompleteUserInfoByID(int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
-            UsersDataSet.CompleteUserInfoDataTable dataTable = new UsersDataSet.CompleteUserInfoDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual UsersDataSet.CompleteUserInfoDataTable GetCompleteUserInfoByUserName(string UserName) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
-            if ((UserName == null)) {
-                throw new System.ArgumentNullException("UserName");
-            }
-            else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(UserName));
-            }
-            UsersDataSet.CompleteUserInfoDataTable dataTable = new UsersDataSet.CompleteUserInfoDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
         }
     }
 }

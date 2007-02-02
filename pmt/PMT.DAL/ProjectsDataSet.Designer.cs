@@ -25,6 +25,14 @@ namespace PMT.DAL {
         
         private ProjectsDataTable tableProjects;
         
+        private ModulesDataTable tableModules;
+        
+        private TasksDataTable tableTasks;
+        
+        private System.Data.DataRelation relationFK_Modules_Projects;
+        
+        private System.Data.DataRelation relationFK_Tasks_Modules;
+        
         private System.Data.SchemaSerializationMode _schemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -54,6 +62,12 @@ namespace PMT.DAL {
                 if ((ds.Tables["Projects"] != null)) {
                     base.Tables.Add(new ProjectsDataTable(ds.Tables["Projects"]));
                 }
+                if ((ds.Tables["Modules"] != null)) {
+                    base.Tables.Add(new ModulesDataTable(ds.Tables["Modules"]));
+                }
+                if ((ds.Tables["Tasks"] != null)) {
+                    base.Tables.Add(new TasksDataTable(ds.Tables["Tasks"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -78,6 +92,24 @@ namespace PMT.DAL {
         public ProjectsDataTable Projects {
             get {
                 return this.tableProjects;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ModulesDataTable Modules {
+            get {
+                return this.tableModules;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public TasksDataTable Tasks {
+            get {
+                return this.tableTasks;
             }
         }
         
@@ -143,6 +175,12 @@ namespace PMT.DAL {
                 if ((ds.Tables["Projects"] != null)) {
                     base.Tables.Add(new ProjectsDataTable(ds.Tables["Projects"]));
                 }
+                if ((ds.Tables["Modules"] != null)) {
+                    base.Tables.Add(new ModulesDataTable(ds.Tables["Modules"]));
+                }
+                if ((ds.Tables["Tasks"] != null)) {
+                    base.Tables.Add(new TasksDataTable(ds.Tables["Tasks"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -179,6 +217,20 @@ namespace PMT.DAL {
                     this.tableProjects.InitVars();
                 }
             }
+            this.tableModules = ((ModulesDataTable)(base.Tables["Modules"]));
+            if ((initTable == true)) {
+                if ((this.tableModules != null)) {
+                    this.tableModules.InitVars();
+                }
+            }
+            this.tableTasks = ((TasksDataTable)(base.Tables["Tasks"]));
+            if ((initTable == true)) {
+                if ((this.tableTasks != null)) {
+                    this.tableTasks.InitVars();
+                }
+            }
+            this.relationFK_Modules_Projects = this.Relations["FK_Modules_Projects"];
+            this.relationFK_Tasks_Modules = this.Relations["FK_Tasks_Modules"];
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -190,10 +242,32 @@ namespace PMT.DAL {
             this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableProjects = new ProjectsDataTable();
             base.Tables.Add(this.tableProjects);
+            this.tableModules = new ModulesDataTable();
+            base.Tables.Add(this.tableModules);
+            this.tableTasks = new TasksDataTable();
+            base.Tables.Add(this.tableTasks);
+            this.relationFK_Modules_Projects = new System.Data.DataRelation("FK_Modules_Projects", new System.Data.DataColumn[] {
+                        this.tableProjects.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableModules.ProjectIDColumn}, false);
+            this.Relations.Add(this.relationFK_Modules_Projects);
+            this.relationFK_Tasks_Modules = new System.Data.DataRelation("FK_Tasks_Modules", new System.Data.DataColumn[] {
+                        this.tableModules.IDColumn}, new System.Data.DataColumn[] {
+                        this.tableTasks.ModuleIDColumn}, false);
+            this.Relations.Add(this.relationFK_Tasks_Modules);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private bool ShouldSerializeProjects() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeModules() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeTasks() {
             return false;
         }
         
@@ -218,6 +292,10 @@ namespace PMT.DAL {
         }
         
         public delegate void ProjectsRowChangeEventHandler(object sender, ProjectsRowChangeEvent e);
+        
+        public delegate void ModulesRowChangeEventHandler(object sender, ModulesRowChangeEvent e);
+        
+        public delegate void TasksRowChangeEventHandler(object sender, TasksRowChangeEvent e);
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
@@ -403,13 +481,8 @@ namespace PMT.DAL {
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
-                this.columnName.AllowDBNull = false;
                 this.columnName.MaxLength = 50;
-                this.columnDescription.AllowDBNull = false;
                 this.columnDescription.MaxLength = 200;
-                this.columnStartDate.AllowDBNull = false;
-                this.columnExpEndDate.AllowDBNull = false;
-                this.columnActEndDate.AllowDBNull = false;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -495,6 +568,599 @@ namespace PMT.DAL {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ModulesDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnID;
+            
+            private System.Data.DataColumn columnProjectID;
+            
+            private System.Data.DataColumn columnName;
+            
+            private System.Data.DataColumn columnDescription;
+            
+            private System.Data.DataColumn columnStartDate;
+            
+            private System.Data.DataColumn columnExpEndDate;
+            
+            private System.Data.DataColumn columnActEndDate;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ModulesDataTable() {
+                this.TableName = "Modules";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal ModulesDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected ModulesDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ProjectIDColumn {
+                get {
+                    return this.columnProjectID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NameColumn {
+                get {
+                    return this.columnName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DescriptionColumn {
+                get {
+                    return this.columnDescription;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn StartDateColumn {
+                get {
+                    return this.columnStartDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ExpEndDateColumn {
+                get {
+                    return this.columnExpEndDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ActEndDateColumn {
+                get {
+                    return this.columnActEndDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ModulesRow this[int index] {
+                get {
+                    return ((ModulesRow)(this.Rows[index]));
+                }
+            }
+            
+            public event ModulesRowChangeEventHandler ModulesRowChanging;
+            
+            public event ModulesRowChangeEventHandler ModulesRowChanged;
+            
+            public event ModulesRowChangeEventHandler ModulesRowDeleting;
+            
+            public event ModulesRowChangeEventHandler ModulesRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddModulesRow(ModulesRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ModulesRow AddModulesRow(ProjectsRow parentProjectsRowByFK_Modules_Projects, string Name, string Description, System.DateTime StartDate, System.DateTime ExpEndDate, System.DateTime ActEndDate) {
+                ModulesRow rowModulesRow = ((ModulesRow)(this.NewRow()));
+                rowModulesRow.ItemArray = new object[] {
+                        null,
+                        parentProjectsRowByFK_Modules_Projects[0],
+                        Name,
+                        Description,
+                        StartDate,
+                        ExpEndDate,
+                        ActEndDate};
+                this.Rows.Add(rowModulesRow);
+                return rowModulesRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ModulesRow FindByID(int ID) {
+                return ((ModulesRow)(this.Rows.Find(new object[] {
+                            ID})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                ModulesDataTable cln = ((ModulesDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new ModulesDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnProjectID = base.Columns["ProjectID"];
+                this.columnName = base.Columns["Name"];
+                this.columnDescription = base.Columns["Description"];
+                this.columnStartDate = base.Columns["StartDate"];
+                this.columnExpEndDate = base.Columns["ExpEndDate"];
+                this.columnActEndDate = base.Columns["ActEndDate"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnProjectID = new System.Data.DataColumn("ProjectID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProjectID);
+                this.columnName = new System.Data.DataColumn("Name", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnDescription = new System.Data.DataColumn("Description", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescription);
+                this.columnStartDate = new System.Data.DataColumn("StartDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStartDate);
+                this.columnExpEndDate = new System.Data.DataColumn("ExpEndDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExpEndDate);
+                this.columnActEndDate = new System.Data.DataColumn("ActEndDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnActEndDate);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnID}, true));
+                this.columnID.AutoIncrement = true;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
+                this.columnID.Unique = true;
+                this.columnProjectID.AllowDBNull = false;
+                this.columnName.MaxLength = 25;
+                this.columnDescription.MaxLength = 250;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ModulesRow NewModulesRow() {
+                return ((ModulesRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new ModulesRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(ModulesRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ModulesRowChanged != null)) {
+                    this.ModulesRowChanged(this, new ModulesRowChangeEvent(((ModulesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ModulesRowChanging != null)) {
+                    this.ModulesRowChanging(this, new ModulesRowChangeEvent(((ModulesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ModulesRowDeleted != null)) {
+                    this.ModulesRowDeleted(this, new ModulesRowChangeEvent(((ModulesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ModulesRowDeleting != null)) {
+                    this.ModulesRowDeleting(this, new ModulesRowChangeEvent(((ModulesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveModulesRow(ModulesRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                ProjectsDataSet ds = new ProjectsDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ModulesDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class TasksDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnID;
+            
+            private System.Data.DataColumn columnModuleID;
+            
+            private System.Data.DataColumn columnName;
+            
+            private System.Data.DataColumn columnDescription;
+            
+            private System.Data.DataColumn columnStatDate;
+            
+            private System.Data.DataColumn columnExpEndDate;
+            
+            private System.Data.DataColumn columnActEndDate;
+            
+            private System.Data.DataColumn columnStatus;
+            
+            private System.Data.DataColumn columnComplexity;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public TasksDataTable() {
+                this.TableName = "Tasks";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal TasksDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected TasksDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ModuleIDColumn {
+                get {
+                    return this.columnModuleID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NameColumn {
+                get {
+                    return this.columnName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn DescriptionColumn {
+                get {
+                    return this.columnDescription;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn StatDateColumn {
+                get {
+                    return this.columnStatDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ExpEndDateColumn {
+                get {
+                    return this.columnExpEndDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ActEndDateColumn {
+                get {
+                    return this.columnActEndDate;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn StatusColumn {
+                get {
+                    return this.columnStatus;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn ComplexityColumn {
+                get {
+                    return this.columnComplexity;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public TasksRow this[int index] {
+                get {
+                    return ((TasksRow)(this.Rows[index]));
+                }
+            }
+            
+            public event TasksRowChangeEventHandler TasksRowChanging;
+            
+            public event TasksRowChangeEventHandler TasksRowChanged;
+            
+            public event TasksRowChangeEventHandler TasksRowDeleting;
+            
+            public event TasksRowChangeEventHandler TasksRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddTasksRow(TasksRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public TasksRow AddTasksRow(int ID, ModulesRow parentModulesRowByFK_Tasks_Modules, string Name, string Description, System.DateTime StatDate, System.DateTime ExpEndDate, System.DateTime ActEndDate, short Status, short Complexity) {
+                TasksRow rowTasksRow = ((TasksRow)(this.NewRow()));
+                rowTasksRow.ItemArray = new object[] {
+                        ID,
+                        parentModulesRowByFK_Tasks_Modules[0],
+                        Name,
+                        Description,
+                        StatDate,
+                        ExpEndDate,
+                        ActEndDate,
+                        Status,
+                        Complexity};
+                this.Rows.Add(rowTasksRow);
+                return rowTasksRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public TasksRow FindByID(int ID) {
+                return ((TasksRow)(this.Rows.Find(new object[] {
+                            ID})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                TasksDataTable cln = ((TasksDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new TasksDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnModuleID = base.Columns["ModuleID"];
+                this.columnName = base.Columns["Name"];
+                this.columnDescription = base.Columns["Description"];
+                this.columnStatDate = base.Columns["StatDate"];
+                this.columnExpEndDate = base.Columns["ExpEndDate"];
+                this.columnActEndDate = base.Columns["ActEndDate"];
+                this.columnStatus = base.Columns["Status"];
+                this.columnComplexity = base.Columns["Complexity"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnModuleID = new System.Data.DataColumn("ModuleID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnModuleID);
+                this.columnName = new System.Data.DataColumn("Name", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnName);
+                this.columnDescription = new System.Data.DataColumn("Description", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescription);
+                this.columnStatDate = new System.Data.DataColumn("StatDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatDate);
+                this.columnExpEndDate = new System.Data.DataColumn("ExpEndDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnExpEndDate);
+                this.columnActEndDate = new System.Data.DataColumn("ActEndDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnActEndDate);
+                this.columnStatus = new System.Data.DataColumn("Status", typeof(short), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStatus);
+                this.columnComplexity = new System.Data.DataColumn("Complexity", typeof(short), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnComplexity);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnID}, true));
+                this.columnID.AllowDBNull = false;
+                this.columnID.Unique = true;
+                this.columnModuleID.AllowDBNull = false;
+                this.columnName.MaxLength = 25;
+                this.columnDescription.MaxLength = 250;
+                this.columnStatus.AllowDBNull = false;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public TasksRow NewTasksRow() {
+                return ((TasksRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new TasksRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(TasksRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.TasksRowChanged != null)) {
+                    this.TasksRowChanged(this, new TasksRowChangeEvent(((TasksRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.TasksRowChanging != null)) {
+                    this.TasksRowChanging(this, new TasksRowChangeEvent(((TasksRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.TasksRowDeleted != null)) {
+                    this.TasksRowDeleted(this, new TasksRowChangeEvent(((TasksRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.TasksRowDeleting != null)) {
+                    this.TasksRowDeleting(this, new TasksRowChangeEvent(((TasksRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveTasksRow(TasksRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                ProjectsDataSet ds = new ProjectsDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "TasksDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public partial class ProjectsRow : System.Data.DataRow {
             
             private ProjectsDataTable tableProjects;
@@ -518,7 +1184,12 @@ namespace PMT.DAL {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Name {
                 get {
-                    return ((string)(this[this.tableProjects.NameColumn]));
+                    try {
+                        return ((string)(this[this.tableProjects.NameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Name\' in table \'Projects\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProjects.NameColumn] = value;
@@ -528,7 +1199,12 @@ namespace PMT.DAL {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string Description {
                 get {
-                    return ((string)(this[this.tableProjects.DescriptionColumn]));
+                    try {
+                        return ((string)(this[this.tableProjects.DescriptionColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Description\' in table \'Projects\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProjects.DescriptionColumn] = value;
@@ -538,7 +1214,12 @@ namespace PMT.DAL {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime StartDate {
                 get {
-                    return ((System.DateTime)(this[this.tableProjects.StartDateColumn]));
+                    try {
+                        return ((System.DateTime)(this[this.tableProjects.StartDateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'StartDate\' in table \'Projects\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProjects.StartDateColumn] = value;
@@ -548,7 +1229,12 @@ namespace PMT.DAL {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime ExpEndDate {
                 get {
-                    return ((System.DateTime)(this[this.tableProjects.ExpEndDateColumn]));
+                    try {
+                        return ((System.DateTime)(this[this.tableProjects.ExpEndDateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ExpEndDate\' in table \'Projects\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProjects.ExpEndDateColumn] = value;
@@ -558,11 +1244,445 @@ namespace PMT.DAL {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.DateTime ActEndDate {
                 get {
-                    return ((System.DateTime)(this[this.tableProjects.ActEndDateColumn]));
+                    try {
+                        return ((System.DateTime)(this[this.tableProjects.ActEndDateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ActEndDate\' in table \'Projects\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableProjects.ActEndDateColumn] = value;
                 }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableProjects.NameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNameNull() {
+                this[this.tableProjects.NameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDescriptionNull() {
+                return this.IsNull(this.tableProjects.DescriptionColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDescriptionNull() {
+                this[this.tableProjects.DescriptionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsStartDateNull() {
+                return this.IsNull(this.tableProjects.StartDateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetStartDateNull() {
+                this[this.tableProjects.StartDateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsExpEndDateNull() {
+                return this.IsNull(this.tableProjects.ExpEndDateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetExpEndDateNull() {
+                this[this.tableProjects.ExpEndDateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsActEndDateNull() {
+                return this.IsNull(this.tableProjects.ActEndDateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetActEndDateNull() {
+                this[this.tableProjects.ActEndDateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ModulesRow[] GetModulesRows() {
+                return ((ModulesRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Modules_Projects"])));
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class ModulesRow : System.Data.DataRow {
+            
+            private ModulesDataTable tableModules;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal ModulesRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableModules = ((ModulesDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableModules.IDColumn]));
+                }
+                set {
+                    this[this.tableModules.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ProjectID {
+                get {
+                    return ((int)(this[this.tableModules.ProjectIDColumn]));
+                }
+                set {
+                    this[this.tableModules.ProjectIDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Name {
+                get {
+                    try {
+                        return ((string)(this[this.tableModules.NameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Name\' in table \'Modules\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableModules.NameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Description {
+                get {
+                    try {
+                        return ((string)(this[this.tableModules.DescriptionColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Description\' in table \'Modules\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableModules.DescriptionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime StartDate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableModules.StartDateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'StartDate\' in table \'Modules\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableModules.StartDateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime ExpEndDate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableModules.ExpEndDateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ExpEndDate\' in table \'Modules\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableModules.ExpEndDateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime ActEndDate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableModules.ActEndDateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ActEndDate\' in table \'Modules\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableModules.ActEndDateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ProjectsRow ProjectsRow {
+                get {
+                    return ((ProjectsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Modules_Projects"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Modules_Projects"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableModules.NameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNameNull() {
+                this[this.tableModules.NameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDescriptionNull() {
+                return this.IsNull(this.tableModules.DescriptionColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDescriptionNull() {
+                this[this.tableModules.DescriptionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsStartDateNull() {
+                return this.IsNull(this.tableModules.StartDateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetStartDateNull() {
+                this[this.tableModules.StartDateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsExpEndDateNull() {
+                return this.IsNull(this.tableModules.ExpEndDateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetExpEndDateNull() {
+                this[this.tableModules.ExpEndDateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsActEndDateNull() {
+                return this.IsNull(this.tableModules.ActEndDateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetActEndDateNull() {
+                this[this.tableModules.ActEndDateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public TasksRow[] GetTasksRows() {
+                return ((TasksRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Tasks_Modules"])));
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class TasksRow : System.Data.DataRow {
+            
+            private TasksDataTable tableTasks;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal TasksRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableTasks = ((TasksDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableTasks.IDColumn]));
+                }
+                set {
+                    this[this.tableTasks.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ModuleID {
+                get {
+                    return ((int)(this[this.tableTasks.ModuleIDColumn]));
+                }
+                set {
+                    this[this.tableTasks.ModuleIDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Name {
+                get {
+                    try {
+                        return ((string)(this[this.tableTasks.NameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Name\' in table \'Tasks\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTasks.NameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Description {
+                get {
+                    try {
+                        return ((string)(this[this.tableTasks.DescriptionColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Description\' in table \'Tasks\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTasks.DescriptionColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime StatDate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableTasks.StatDateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'StatDate\' in table \'Tasks\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTasks.StatDateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime ExpEndDate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableTasks.ExpEndDateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ExpEndDate\' in table \'Tasks\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTasks.ExpEndDateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime ActEndDate {
+                get {
+                    try {
+                        return ((System.DateTime)(this[this.tableTasks.ActEndDateColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'ActEndDate\' in table \'Tasks\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTasks.ActEndDateColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public short Status {
+                get {
+                    return ((short)(this[this.tableTasks.StatusColumn]));
+                }
+                set {
+                    this[this.tableTasks.StatusColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public short Complexity {
+                get {
+                    try {
+                        return ((short)(this[this.tableTasks.ComplexityColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Complexity\' in table \'Tasks\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableTasks.ComplexityColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ModulesRow ModulesRow {
+                get {
+                    return ((ModulesRow)(this.GetParentRow(this.Table.ParentRelations["FK_Tasks_Modules"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Tasks_Modules"]);
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsNameNull() {
+                return this.IsNull(this.tableTasks.NameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetNameNull() {
+                this[this.tableTasks.NameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsDescriptionNull() {
+                return this.IsNull(this.tableTasks.DescriptionColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetDescriptionNull() {
+                this[this.tableTasks.DescriptionColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsStatDateNull() {
+                return this.IsNull(this.tableTasks.StatDateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetStatDateNull() {
+                this[this.tableTasks.StatDateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsExpEndDateNull() {
+                return this.IsNull(this.tableTasks.ExpEndDateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetExpEndDateNull() {
+                this[this.tableTasks.ExpEndDateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsActEndDateNull() {
+                return this.IsNull(this.tableTasks.ActEndDateColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetActEndDateNull() {
+                this[this.tableTasks.ActEndDateColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsComplexityNull() {
+                return this.IsNull(this.tableTasks.ComplexityColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetComplexityNull() {
+                this[this.tableTasks.ComplexityColumn] = System.Convert.DBNull;
             }
         }
         
@@ -593,6 +1713,62 @@ namespace PMT.DAL {
                 }
             }
         }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class ModulesRowChangeEvent : System.EventArgs {
+            
+            private ModulesRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ModulesRowChangeEvent(ModulesRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public ModulesRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class TasksRowChangeEvent : System.EventArgs {
+            
+            private TasksRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public TasksRowChangeEvent(TasksRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public TasksRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
     }
 }
 namespace PMT.DAL.ProjectsDataSetTableAdapters {
@@ -605,7 +1781,7 @@ namespace PMT.DAL.ProjectsDataSetTableAdapters {
     [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ProjectsTableAdapter : System.ComponentModel.Component {
+    internal partial class ProjectsTableAdapter : System.ComponentModel.Component {
         
         private System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -722,24 +1898,31 @@ SELECT ID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM Projects WH
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitConnection() {
             this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.pmtConnectionString;
+            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.PmtConnectionString;
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[3];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM Projects";
+            this._commandCollection[0].CommandText = "SELECT     ID, Name, Description, StartDate, ExpEndDate, ActEndDate\r\nFROM        " +
+                " Projects";
             this._commandCollection[0].CommandType = System.Data.CommandType.Text;
             this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT     Projects.ID, Projects.Name, Projects.Description, Projects.StartDate, Projects.ExpEndDate, Projects.ActEndDate
-FROM         Projects INNER JOIN
-                      UserProjects ON Projects.ID = UserProjects.ProjectID
-WHERE     (UserProjects.UserID = @UserID)";
+            this._commandCollection[1].CommandText = "SELECT ActEndDate, Description, ExpEndDate, ID, Name, StartDate FROM Projects WHE" +
+                "RE (ID = @ID)";
             this._commandCollection[1].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = @"SELECT     Projects.ActEndDate, Projects.Description, Projects.ExpEndDate, Projects.ID, Projects.Name, Projects.StartDate
+FROM         Projects LEFT OUTER JOIN
+                      ProjectAssignments ON Projects.ID = ProjectAssignments.ProjectID
+WHERE     (ProjectAssignments.UserID = @UserID)";
+            this._commandCollection[2].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -766,9 +1949,20 @@ WHERE     (UserProjects.UserID = @UserID)";
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.ProjectsDataTable GetProjectByID(int ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
+            ProjectsDataSet.ProjectsDataTable dataTable = new ProjectsDataSet.ProjectsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillByUserProjects(ProjectsDataSet.ProjectsDataTable dataTable, int UserID) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(UserID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -781,7 +1975,7 @@ WHERE     (UserProjects.UserID = @UserID)";
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual ProjectsDataSet.ProjectsDataTable GetProjectsByUserProjects(int UserID) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(UserID));
             ProjectsDataSet.ProjectsDataTable dataTable = new ProjectsDataSet.ProjectsDataTable();
             this.Adapter.Fill(dataTable);
@@ -837,22 +2031,37 @@ WHERE     (UserProjects.UserID = @UserID)";
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Name, string Description, System.DateTime StartDate, System.DateTime ExpEndDate, System.DateTime ActEndDate) {
+        public virtual int Insert(string Name, string Description, System.Nullable<System.DateTime> StartDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate) {
             if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
+                this.Adapter.InsertCommand.Parameters[0].Value = System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Name));
             }
             if ((Description == null)) {
-                throw new System.ArgumentNullException("Description");
+                this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Description));
             }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(StartDate));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(ExpEndDate));
-            this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(ActEndDate));
+            if ((StartDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(StartDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
+            }
+            if ((ExpEndDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(ExpEndDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
+            }
+            if ((ActEndDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(ActEndDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = System.DBNull.Value;
+            }
             System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
                         != System.Data.ConnectionState.Open)) {
@@ -872,24 +2081,845 @@ WHERE     (UserProjects.UserID = @UserID)";
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Name, string Description, System.DateTime StartDate, System.DateTime ExpEndDate, System.DateTime ActEndDate, int Original_ID, int ID) {
+        public virtual int Update(string Name, string Description, System.Nullable<System.DateTime> StartDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate, int Original_ID, int ID) {
             if ((Name == null)) {
-                throw new System.ArgumentNullException("Name");
+                this.Adapter.UpdateCommand.Parameters[0].Value = System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Name));
             }
             if ((Description == null)) {
-                throw new System.ArgumentNullException("Description");
+                this.Adapter.UpdateCommand.Parameters[1].Value = System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Description));
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(StartDate));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(ExpEndDate));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(ActEndDate));
+            if ((StartDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(StartDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = System.DBNull.Value;
+            }
+            if ((ExpEndDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(ExpEndDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = System.DBNull.Value;
+            }
+            if ((ActEndDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(ActEndDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID));
             this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(ID));
+            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    internal partial class ModulesTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public ModulesTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "Modules";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("ProjectID", "ProjectID");
+            tableMapping.ColumnMappings.Add("Name", "Name");
+            tableMapping.ColumnMappings.Add("Description", "Description");
+            tableMapping.ColumnMappings.Add("StartDate", "StartDate");
+            tableMapping.ColumnMappings.Add("ExpEndDate", "ExpEndDate");
+            tableMapping.ColumnMappings.Add("ActEndDate", "ActEndDate");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Modules] WHERE (([ID] = @Original_ID))";
+            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Modules] ([ProjectID], [Name], [Description], [StartDate], [ExpEndDate], [ActEndDate]) VALUES (@ProjectID, @Name, @Description, @StartDate, @ExpEndDate, @ActEndDate);
+SELECT ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM Modules WHERE (ID = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProjectID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Description", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StartDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StartDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ExpEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ExpEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ActEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ActEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Modules] SET [ProjectID] = @ProjectID, [Name] = @Name, [Description] = @Description, [StartDate] = @StartDate, [ExpEndDate] = @ExpEndDate, [ActEndDate] = @ActEndDate WHERE (([ID] = @Original_ID));
+SELECT ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM Modules WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProjectID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Description", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StartDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StartDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ExpEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ExpEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ActEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ActEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.PmtConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[3];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT     ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate\r\nF" +
+                "ROM         Modules";
+            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT     ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate\r\nF" +
+                "ROM         Modules\r\nWHERE     (ID = @ID)";
+            this._commandCollection[1].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT     ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate\r\nF" +
+                "ROM         Modules\r\nWHERE     (ProjectID = @ProjectID)";
+            this._commandCollection[2].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProjectID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(ProjectsDataSet.ModulesDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual ProjectsDataSet.ModulesDataTable GetModules() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            ProjectsDataSet.ModulesDataTable dataTable = new ProjectsDataSet.ModulesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.ModulesDataTable GetModuleByID(int ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
+            ProjectsDataSet.ModulesDataTable dataTable = new ProjectsDataSet.ModulesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByProjectID(ProjectsDataSet.ModulesDataTable dataTable, int ProjectID) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ProjectID));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.ModulesDataTable GetModulesByProjectID(int ProjectID) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ProjectID));
+            ProjectsDataSet.ModulesDataTable dataTable = new ProjectsDataSet.ModulesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(ProjectsDataSet.ModulesDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(ProjectsDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "Modules");
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_ID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
+            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(int ProjectID, string Name, string Description, System.Nullable<System.DateTime> StartDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ProjectID));
+            if ((Name == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Name));
+            }
+            if ((Description == null)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Description));
+            }
+            if ((StartDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(StartDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
+            }
+            if ((ExpEndDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(ExpEndDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = System.DBNull.Value;
+            }
+            if ((ActEndDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(ActEndDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = System.DBNull.Value;
+            }
+            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int ProjectID, string Name, string Description, System.Nullable<System.DateTime> StartDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate, int Original_ID, int ID) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ProjectID));
+            if ((Name == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Name));
+            }
+            if ((Description == null)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Description));
+            }
+            if ((StartDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(StartDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = System.DBNull.Value;
+            }
+            if ((ExpEndDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(ExpEndDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = System.DBNull.Value;
+            }
+            if ((ActEndDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(ActEndDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(ID));
+            System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    internal partial class TasksTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public TasksTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "Tasks";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("ModuleID", "ModuleID");
+            tableMapping.ColumnMappings.Add("Name", "Name");
+            tableMapping.ColumnMappings.Add("Description", "Description");
+            tableMapping.ColumnMappings.Add("StatDate", "StatDate");
+            tableMapping.ColumnMappings.Add("ExpEndDate", "ExpEndDate");
+            tableMapping.ColumnMappings.Add("ActEndDate", "ActEndDate");
+            tableMapping.ColumnMappings.Add("Status", "Status");
+            tableMapping.ColumnMappings.Add("Complexity", "Complexity");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [Tasks] WHERE (([ID] = @Original_ID))";
+            this._adapter.DeleteCommand.CommandType = System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Tasks] ([ID], [ModuleID], [Name], [Description], [StatDate], [ExpEndDate], [ActEndDate], [Status], [Complexity]) VALUES (@ID, @ModuleID, @Name, @Description, @StatDate, @ExpEndDate, @ActEndDate, @Status, @Complexity);
+SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status, Complexity FROM Tasks WHERE (ID = @ID)";
+            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Description", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StatDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StatDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ExpEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ExpEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ActEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ActEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Status", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Complexity", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Complexity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [Tasks] SET [ID] = @ID, [ModuleID] = @ModuleID, [Name] = @Name, [Description] = @Description, [StatDate] = @StatDate, [ExpEndDate] = @ExpEndDate, [ActEndDate] = @ActEndDate, [Status] = @Status, [Complexity] = @Complexity WHERE (([ID] = @Original_ID));
+SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status, Complexity FROM Tasks WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Description", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StatDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StatDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ExpEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ExpEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ActEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ActEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Status", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Complexity", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Complexity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::PMT.DAL.Properties.Settings.Default.PmtConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[5];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
+                "tus, Complexity\r\nFROM         Tasks";
+            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
+                "tus, Complexity\r\nFROM         Tasks\r\nWHERE     (ID = @ID)";
+            this._commandCollection[1].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
+                "tus, Complexity\r\nFROM         Tasks\r\nWHERE     (ModuleID = @ModuleID)";
+            this._commandCollection[2].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
+                "tus, Complexity\r\nFROM         Tasks\r\nWHERE     (Status = @Status)";
+            this._commandCollection[3].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 0, 0, "Status", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
+                "tus, Complexity\r\nFROM         Tasks\r\nWHERE     (ModuleID = @ModuleID) AND (Statu" +
+                "s = @Status)";
+            this._commandCollection[4].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 0, 0, "Status", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(ProjectsDataSet.TasksDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual ProjectsDataSet.TasksDataTable GetTasks() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.TasksDataTable GetTaskByID(int ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
+            ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByModuleID(ProjectsDataSet.TasksDataTable dataTable, int ModuleID) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ModuleID));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.TasksDataTable GetTasksByModuleID(int ModuleID) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ModuleID));
+            ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByStatus(ProjectsDataSet.TasksDataTable dataTable, short Status) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((short)(Status));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.TasksDataTable GetTasksByStatus(short Status) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((short)(Status));
+            ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByStatusModuleID(ProjectsDataSet.TasksDataTable dataTable, int ModuleID, short Status) {
+            this.Adapter.SelectCommand = this.CommandCollection[4];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ModuleID));
+            this.Adapter.SelectCommand.Parameters[1].Value = ((short)(Status));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.TasksDataTable GetTasksByStatusModuleID(int ModuleID, short Status) {
+            this.Adapter.SelectCommand = this.CommandCollection[4];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ModuleID));
+            this.Adapter.SelectCommand.Parameters[1].Value = ((short)(Status));
+            ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(ProjectsDataSet.TasksDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(ProjectsDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "Tasks");
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_ID) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
+            System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(int ID, int ModuleID, string Name, string Description, System.Nullable<System.DateTime> StatDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate, short Status, System.Nullable<short> Complexity) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ModuleID));
+            if ((Name == null)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Name));
+            }
+            if ((Description == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Description));
+            }
+            if ((StatDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(StatDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = System.DBNull.Value;
+            }
+            if ((ExpEndDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(ExpEndDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = System.DBNull.Value;
+            }
+            if ((ActEndDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(ActEndDate.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = System.DBNull.Value;
+            }
+            this.Adapter.InsertCommand.Parameters[7].Value = ((short)(Status));
+            if ((Complexity.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((short)(Complexity.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = System.DBNull.Value;
+            }
+            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(int ID, int ModuleID, string Name, string Description, System.Nullable<System.DateTime> StatDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate, short Status, System.Nullable<short> Complexity, int Original_ID) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ModuleID));
+            if ((Name == null)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Name));
+            }
+            if ((Description == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Description));
+            }
+            if ((StatDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(StatDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = System.DBNull.Value;
+            }
+            if ((ExpEndDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(ExpEndDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = System.DBNull.Value;
+            }
+            if ((ActEndDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(ActEndDate.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((short)(Status));
+            if ((Complexity.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((short)(Complexity.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ID));
             System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
                         != System.Data.ConnectionState.Open)) {
