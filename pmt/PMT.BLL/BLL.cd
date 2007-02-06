@@ -5,43 +5,105 @@
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>UserData.cs</FileName>
-      <HashCode>AAAAAAEAAAAABAAEAAAgACEAAQAAAAAAEAAAAAAAAiA=</HashCode>
+      <HashCode>ACAACAEAAAAABAAEAAAABCEAAQAAAAAAEAAABAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="PMT.BLL.User" Collapsed="true">
     <Position X="4.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>User.cs</FileName>
-      <HashCode>AAAAAEAAASBAgIApEACASBEAAAIAAAAnEQAADgEAAhg=</HashCode>
+      <HashCode>AAAAAEAAASBAgIApEACASAAAAAIAAAAnAQAADgEAAgg=</HashCode>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="PMT.BLL.Administrator">
     <Position X="2.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>User.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="PMT.BLL.Client">
     <Position X="7" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>User.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="PMT.BLL.Developer">
     <Position X="5.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>User.cs</FileName>
-      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAEAAAAAAAAAEAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="PMT.BLL.Manager">
     <Position X="4" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>User.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.Project">
+    <Position X="5.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Project.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.Module">
+    <Position X="7" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Project.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAACAAAAQAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.Task">
+    <Position X="8.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Project.cs</FileName>
+      <HashCode>AAQAQAAEAACAAAAAAAAAAAAAAAAAAAAAAQAAQAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.ProjectData">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ProjectData.cs</FileName>
+      <HashCode>AAAAAAAAAAAIACgAAAAAAgAAAAAAAAAAQgCIgAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.ModuleData">
+    <Position X="2" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>ModuleData.cs</FileName>
+      <HashCode>AAAAAAAAgACAAAAAAAACAAAAAAAAAAgAAAAAAAAACAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.TaskData">
+    <Position X="3.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>TaskData.cs</FileName>
+      <HashCode>AAAAQABAAAAAEABAAAAAAAAAABAAAAAAQAAAQABAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.ProjectItem" Collapsed="true">
+    <Position X="7" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Project.cs</FileName>
+      <HashCode>RAAAAAAAAAAggAAAICAAAAQAAAAEAAAAASAAAEAAAgA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.Message">
+    <Position X="4" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Message.cs</FileName>
+      <HashCode>AAgAAgAAAAIAgQAAAIABIACAAUAAAABAAAAABAAIAgI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.MessageData">
+    <Position X="2" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>MessageData.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
 </ClassDiagram>

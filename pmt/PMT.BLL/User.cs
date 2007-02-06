@@ -4,6 +4,7 @@ using System.Text;
 using System.Reflection;
 using PMT.DAL;
 using PMT.DAL.UsersDataSetTableAdapters;
+using System.Web;
 
 namespace PMT.BLL
 {
@@ -20,13 +21,12 @@ namespace PMT.BLL
     /// <summary>
     /// Project Management .Net User Base Class
     /// </summary>
-    public abstract class User : ICloneable
+    public abstract class User //: ICloneable
     {
         #region Attributes
         private string userName;
         private string password;
         private int id;
-        private UserRole role;
         private string firstName;
         private string lastName;
         private string email;
@@ -80,30 +80,43 @@ namespace PMT.BLL
             : this(0, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, false) { }
         #endregion
 
+        /// <summary>
+        /// Creates the user.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <returns></returns>
         public static User CreateUser(UserRole role)
         {
-            Type t = Type.GetType(typeof(User).Namespace+"."+role.ToString());
+            Type t = Type.GetType(typeof(User).Namespace + "." + role.ToString());
             ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
             return (User)constructor.Invoke(new Object[0]);
         }
 
-        public UserRole GetRole()
-        {
-            if (this is Administrator)
-                return UserRole.Administrator;
-            else if (this is Manager)
-                return UserRole.Manager;
-            else if (this is Developer)
-                return UserRole.Developer;
-            else if (this is Client)
-                return UserRole.Client;
-            else
-                throw new System.Exception("Could not determine User type.");
-        }
+        /// <summary>
+        /// Gets the role.
+        /// </summary>
+        /// <returns></returns>
+        //public UserRole GetRole()
+        //{
+        //    if (this is Administrator)
+        //        return UserRole.Administrator;
+        //    else if (this is Manager)
+        //        return UserRole.Manager;
+        //    else if (this is Developer)
+        //        return UserRole.Developer;
+        //    else if (this is Client)
+        //        return UserRole.Client;
+        //    else
+        //        throw new System.Exception("Could not determine User type.");
+        //}
 
-        public System.Web.HttpCookie GetCookie()
+        /// <summary>
+        /// Gets the cookie.
+        /// </summary>
+        /// <returns></returns>
+        public HttpCookie GetCookie()
         {
-            System.Web.HttpCookie cookie = new System.Web.HttpCookie("user");
+            HttpCookie cookie = new HttpCookie("user");
             cookie.Values.Add("role", Role.ToString());
             cookie.Values.Add("id", ID.ToString());
             cookie.Values.Add("name", UserName);
@@ -205,10 +218,9 @@ namespace PMT.BLL
         /// <summary>
         /// Gets or sets the role (security level)
         /// </summary>
-        protected UserRole Role
+        public abstract UserRole Role
         {
-            get { return role; }
-            set { role = value; }
+            get;
         }
         /// <summary>
         /// Gets or sets if the user is approved
@@ -221,31 +233,31 @@ namespace PMT.BLL
         #endregion
 
         #region ICloneable Members
-        object ICloneable.Clone()
-        {
-            // delegate to type safe Clone()
-            return this.Clone();
-        }
+        //object ICloneable.Clone()
+        //{
+        //    // delegate to type safe Clone()
+        //    return this.Clone();
+        //}
 
-        public virtual User Clone()
-        {
-            User copy = (User)this.MemberwiseClone();
-            copy.UserName = UserName;
-            copy.Password = Password;
-            copy.ID = ID;
-            copy.Role = Role;
-            copy.FirstName = FirstName;
-            copy.LastName = LastName;
-            copy.Email = Email;
-            copy.PhoneNumber = PhoneNumber;
-            copy.Address = Address;
-            copy.City = City;
-            copy.State = State;
-            copy.ZipCode = ZipCode;
-            copy.Enabled = Enabled;
+        //public virtual User Clone()
+        //{
+        //    User copy = (User)this.MemberwiseClone();
+        //    copy.UserName = UserName;
+        //    copy.Password = Password;
+        //    copy.ID = ID;
+        //    copy.Role = Role;
+        //    copy.FirstName = FirstName;
+        //    copy.LastName = LastName;
+        //    copy.Email = Email;
+        //    copy.PhoneNumber = PhoneNumber;
+        //    copy.Address = Address;
+        //    copy.City = City;
+        //    copy.State = State;
+        //    copy.ZipCode = ZipCode;
+        //    copy.Enabled = Enabled;
 
-            return copy;
-        }
+        //    return copy;
+        //}
         #endregion
     }
 
@@ -254,22 +266,27 @@ namespace PMT.BLL
     /// </summary>
     public class Administrator : User
     {
-        public Administrator()
-            : base()
-        {
-            Init();
-        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Administrator"/> class.
+        /// </summary>
+        public Administrator() {}
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Administrator"/> class.
+        /// </summary>
+        /// <param name="user">The user.</param>
         public Administrator(User user)
             : base(user.ID, user.UserName, user.Password, user.FirstName, user.LastName, user.Email,
             user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
-        {
-            Init();
-        }
+        {}
 
-        private void Init()
+        /// <summary>
+        /// Gets the role (security level)
+        /// </summary>
+        /// <value></value>
+        public override UserRole Role
         {
-            this.Role = UserRole.Administrator;
+            get { return UserRole.Administrator; }
         }
     }
 
@@ -278,22 +295,26 @@ namespace PMT.BLL
     /// </summary>
     public class Manager : User
     {
-        public Manager()
-            : base()
-        {
-            Init();
-        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Manager"/> class.
+        /// </summary>
+        public Manager() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Manager"/> class.
+        /// </summary>
+        /// <param name="user">The user.</param>
         public Manager(User user)
             : base(user.ID, user.UserName, user.Password, user.FirstName, user.LastName, user.Email,
             user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
+        {}
+        /// <summary>
+        /// Gets the role (security level)
+        /// </summary>
+        /// <value></value>
+        public override UserRole Role
         {
-            Init();
-        }
-
-        private void Init()
-        {
-            this.Role = UserRole.Manager;
+            get { return UserRole.Manager; }
         }
     }
 
@@ -307,11 +328,7 @@ namespace PMT.BLL
         /// <summary>
         /// Creates a blank Developer.
         /// </summary>
-        public Developer()
-            : base()
-        {
-            Init();
-        }
+        public Developer() { }
 
         /// <summary>
         /// Creates a Developer from a PMTUser.
@@ -320,32 +337,26 @@ namespace PMT.BLL
             : base(user.ID, user.UserName, user.Password, user.FirstName, user.LastName, user.Email,
             user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
         {
-            Init();
-        }
-
-        private void Init()
-        {
-            this.Role = UserRole.Developer;
             this.Competency = CompLevel.Low;
         }
 
-        /*
-        public Developer(int id, string user, string pwd, string firstName, 
-            string lastName, string email, string phone, string address, 
-            string city, string state, string zip, bool enabled, 
-            CompLevel competency, int managerID)
-            : base(id, user, pwd, PMTUserRole.Developer, 
-            firstName, lastName, email, phone, address, city, state, zip, enabled)
-        {
-            this.Competency = compentency;
-            this.ManagerID = managerID;
-        }
-        */
-
+        /// <summary>
+        /// Gets or sets the competency.
+        /// </summary>
+        /// <value>The competency.</value>
         public CompLevel Competency
         {
             get { return compentency; }
             set { compentency = value; }
+        }
+
+        /// <summary>
+        /// Gets the role (security level)
+        /// </summary>
+        /// <value></value>
+        public override UserRole Role
+        {
+            get { return UserRole.Developer; }
         }
     }
 
@@ -354,22 +365,27 @@ namespace PMT.BLL
     /// </summary>
     public class Client : User
     {
-        public Client()
-            : base()
-        {
-            Init();
-        }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Client"/> class.
+        /// </summary>
+        public Client() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Client"/> class.
+        /// </summary>
+        /// <param name="user">The user.</param>
         public Client(User user)
             : base(user.ID, user.UserName, user.Password, user.FirstName, user.LastName, user.Email,
             user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
-        {
-            Init();
-        }
+        { }
 
-        private void Init()
+        /// <summary>
+        /// Gets the role (security level)
+        /// </summary>
+        /// <value></value>
+        public override UserRole Role
         {
-            this.Role = UserRole.Client;
+            get { return UserRole.Client; }
         }
     }
 }

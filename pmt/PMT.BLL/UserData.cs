@@ -8,6 +8,9 @@ using System.Data;
 
 namespace PMT.BLL
 {
+    /// <summary>
+    /// Manages User data
+    /// </summary>
     public class UserData
     {
         private UsersTableAdapter taUsers;
@@ -15,6 +18,9 @@ namespace PMT.BLL
         private ManagerAssignmentsTableAdapter taUserManagers;
         private ProjectAssignmentsTableAdapter taUserProjects;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserData"/> class.
+        /// </summary>
         public UserData()
         {
             taUsers = new UsersTableAdapter();
@@ -48,7 +54,7 @@ namespace PMT.BLL
         public int InsertUser(User user)
         {
             // add to users and get new id
-            int id = (int)taUsers.Insert(user.UserName, (short)user.GetRole(), user.Password, user.Enabled);
+            int id = (int)taUsers.Insert(user.UserName, (short)user.Role, user.Password, user.Enabled);
             // add user info
             taUserProfile.Insert(id, user.FirstName, user.LastName, user.Address, user.City,
                 user.State, user.ZipCode, user.PhoneNumber, user.Email);
@@ -86,7 +92,7 @@ namespace PMT.BLL
         /// <returns>true if sucessfull</returns>
         public bool UpdateUser(User user)
         {
-            int rows = taUsers.Update(user.UserName, (short)user.GetRole(), user.Password, user.Enabled, user.ID, user.ID);
+            int rows = taUsers.Update(user.UserName, (short)user.Role, user.Password, user.Enabled, user.ID, user.ID);
 
             if (rows == 1)
             {
@@ -97,6 +103,12 @@ namespace PMT.BLL
             return rows == 1;
         }
 
+        /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns></returns>
         private User GetUser(int id, string userName)
         {
             User user = null;
@@ -137,6 +149,10 @@ namespace PMT.BLL
             return user;
         }
 
+        /// <summary>
+        /// Gets the user profiles.
+        /// </summary>
+        /// <returns></returns>
         public DataTable GetUserProfiles()
         {
             UsersDataSet.UsersDataTable dtUsers = taUsers.GetUsers();
@@ -149,11 +165,22 @@ namespace PMT.BLL
             return dt;
         }
 
+        /// <summary>
+        /// Authenticates the user.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <returns></returns>
         public bool AuthenticateUser(string username, string password)
         {
             return 1 == (int)taUsers.AuthenticateUser(username, password);
         }
 
+        /// <summary>
+        /// Users the name exists.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
         public bool UserNameExists(string username)
         {
             return taUsers.GetUserByUserName(username).Rows.Count != 0;

@@ -27,13 +27,13 @@ namespace PMT.BLL
         /// <summary>
         /// Main Constructor
         /// </summary>
-        internal ProjectItem(int id, string name, string description, 
+        protected ProjectItem(int id, string name, string description,
             DateTime startDate, DateTime expEndDate, DateTime actEndDate)
         {
             this.id = id;
             this.name = name;
             this.description = description;
-            this.startDate  = startDate;
+            this.startDate = startDate;
             this.expEndDate = expEndDate;
             this.actEndDate = actEndDate;
         }
@@ -41,18 +41,14 @@ namespace PMT.BLL
         /// <summary>
         /// Creates a blank ProjectItem
         /// </summary>
-        internal ProjectItem()
-            : this(0, "", "", DateTime.MinValue, DateTime.MinValue, DateTime.MinValue) {}
+        protected ProjectItem()
+            : this(0, "", "", DateTime.MinValue, DateTime.MinValue, DateTime.MinValue) { }
         #endregion
  
         #region Properties
-        public ProjectItemType Type
+        public abstract ProjectItemType Type
         {
-            get 
-            {
-                string className = this.ToString().Substring(this.ToString().IndexOf('.')+1);
-                return (ProjectItemType) Enum.Parse(typeof(ProjectItemType), className);
-            }
+            get;
         }
         /// <summary>
         /// Gets or sets the id
@@ -112,23 +108,23 @@ namespace PMT.BLL
 	/// </summary>
     public class Project : ProjectItem
     {
-        private int mgrID;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Project"/> class.
+        /// </summary>
+        public Project()
+            : this(0, "", "", DateTime.MinValue, DateTime.MinValue, DateTime.MinValue) { }
 
         /// <summary>
         /// Main Constructor
         /// </summary>
         /// <param name="id">project id</param>
-        /// <param name="mgrID">manager id</param>
         /// <param name="name">name</param>
         /// <param name="description">description</param>
         /// <param name="startDate">start date</param>
         /// <param name="expEndDate">expected end date</param>
         /// <param name="actEndDate">actual end date</param>
-        public Project(int id, int mgrID, string name, string description, DateTime startDate, DateTime expEndDate, DateTime actEndDate)
-            : base(id, name, description, startDate, expEndDate, actEndDate)
-        {
-            this.mgrID = mgrID;
-        }
+        public Project(int id, string name, string description, DateTime startDate, DateTime expEndDate, DateTime actEndDate)
+            : base(id, name, description, startDate, expEndDate, actEndDate) { }
 
         /// <summary>
         /// Constructor used for a new Project
@@ -137,18 +133,18 @@ namespace PMT.BLL
         /// <param name="name">name</param>
         /// <param name="description">description</param>
         /// <param name="startDate">start date</param>
-        public Project(int mgrID, string name, string description, DateTime startDate)
-            : this(0, mgrID, name, description, startDate, DateTime.MinValue, DateTime.MinValue) {}
+        public Project(string name, string description, DateTime startDate)
+            : this(0, name, description, startDate, DateTime.MinValue, DateTime.MinValue) { }
 
         /// <summary>
-        /// Gets or sets the manager id assigned to this project
+        /// Gets the type.
         /// </summary>
-        public int ManagerID
+        /// <value>The type.</value>
+        public override ProjectItemType Type
         {
-            get {   return mgrID;   }
-            set {   mgrID = value;  }
+            get { return ProjectItemType.Project; }
         }
-	}
+    }
     #endregion
 
     #region Module
@@ -195,7 +191,16 @@ namespace PMT.BLL
             get {   return projID;  }
             set {   projID = value; }
         }
-	}
+
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        /// <value>The type.</value>
+        public override ProjectItemType Type
+        {
+            get { return ProjectItemType.Module; }
+        }
+    }
     #endregion
 
     #region Task
@@ -212,10 +217,8 @@ namespace PMT.BLL
     /// A task report item
     /// </summary>
 	public class Task : ProjectItem
-	{
-        private int devID;
+    {
         private int modID;
-        private int projID;
         private TaskStatus status;
         private TaskComplexity complexity;
 
@@ -224,19 +227,17 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="id">Task id</param>
         /// <param name="modID">Module id</param>
-        /// <param name="projID">Project id</param>
         /// <param name="name">name</param>
         /// <param name="description">description</param>
         /// <param name="complexity">complexity</param>
         /// <param name="startDate">start date</param>
         /// <param name="expEndDate">expected end date</param>
         /// <param name="actEndDate">actual end date</param>
-       public Task(int id, int modID, int projID, string name, string description, TaskComplexity complexity, 
+       public Task(int id, int modID, string name, string description, TaskComplexity complexity, 
             DateTime startDate, DateTime expEndDate, DateTime actEndDate)
             : base(id, name, description, startDate, expEndDate, actEndDate)
         {
             this.modID = modID;
-            this.projID = projID;
             this.complexity = complexity;
         }
 
@@ -244,38 +245,45 @@ namespace PMT.BLL
         /// Constructor used for a new task
         /// </summary>
         /// <param name="modID">Module id</param>
-        /// <param name="projID">Project id</param>
         /// <param name="name">name</param>
         /// <param name="description">description</param>
         /// <param name="complexity">complexity</param>
         /// <param name="startDate">start date</param>
-        public Task(int modID, int projID, string name, string description, 
+        public Task(int modID, string name, string description, 
             TaskComplexity complexity, DateTime startDate)
-            : this(0, modID, projID, name, description, complexity, 
+            : this(0, modID, name, description, complexity, 
                 startDate, DateTime.MinValue, DateTime.MinValue) {}
 
         #region Properties
-        public int DeveloperID
-        {
-            get {   return devID;   }
-            set {   devID = value;  }
-        }
+
+        /// <summary>
+        /// Gets or sets the module ID.
+        /// </summary>
+        /// <value>The module ID.</value>
         public int ModuleID
         {
             get {   return modID;   }
             set {   modID = value;  }
         }
-        public int ProjectID
-        {
-            get {   return projID;   }
-            set {   projID = value;  }
-        }
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>The status.</value>
         public TaskStatus Status
         {
             get {   return status;  }
             set {   status = value; }
         }
         #endregion
+
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        /// <value>The type.</value>
+        public override ProjectItemType Type
+        {
+            get { return ProjectItemType.Task; }
+        }
     }
     #endregion
 }

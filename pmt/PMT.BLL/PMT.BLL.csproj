@@ -36,6 +36,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MessageData.cs" />
+    <Compile Include="ModuleData.cs" />
+    <Compile Include="ProjectData.cs" />
+    <Compile Include="TaskData.cs" />
     <Compile Include="UserData.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Encryption.cs" />
