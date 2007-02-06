@@ -152,7 +152,8 @@
     <Compile Include="Client\Projects.aspx.designer.cs">
       <DependentUpon>Projects.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Configuration.cs" />
+    <Compile Include="CookiesHelper.cs" />
+    <Compile Include="PathHelper.cs" />
     <Compile Include="Controls\Header.ascx.cs">
       <DependentUpon>Header.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

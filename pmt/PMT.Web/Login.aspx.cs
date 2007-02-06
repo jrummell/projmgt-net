@@ -11,8 +11,6 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Web.Security;
 using PMT.Configuration;
-//using PMTComponents;
-//using PMTDataProvider;
 using PMT.DAL;
 using PMT.DAL.UsersDataSetTableAdapters;
 using PMT.BLL;
@@ -23,7 +21,7 @@ namespace PMT
     {
         private User user;
         private UserData userData;
-    
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             // if the user is currently logged in, log them out
@@ -42,15 +40,15 @@ namespace PMT
             InitializeComponent();
             base.OnInit(e);
         }
-		
+
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
-        {    
+        {
 
-		}
+        }
         #endregion
 
         bool CustomAuthenticate(string username, string password)
@@ -58,7 +56,6 @@ namespace PMT
             userData = new UserData();
 
             if (userData.AuthenticateUser(username, password))
-            //if (conn.AuthenticateUser(username, password, new TransactionFailedHandler(this.TransactionFailed)))
             {
                 user = userData.GetUser(username);
             }
@@ -88,21 +85,21 @@ namespace PMT
             string password = Encryption.MD5Encrypt(Login1.Password);
 
             e.Authenticated = CustomAuthenticate(username, password);
-			if (e.Authenticated) 
-			{
+            if (e.Authenticated)
+            {
                 bool persist = Login1.RememberMeSet;
                 // second param is ignored ...
                 string url = FormsAuthentication.GetRedirectUrl(user.UserName, false);
                 // this actually creates the cookie
                 FormsAuthentication.SetAuthCookie(user.UserName, persist);
 
-                if (url.ToLower().EndsWith(Config.ApplicationPath+"default.aspx"))
+                if (url.ToLower().EndsWith(PathHelper.ApplicationPath + "default.aspx"))
                 {
-                    url = Config.GetUserDefaultPath(user.GetRole());
+                    url = PathHelper.GetUserDefaultPath(user.Role);
                 }
 
                 Response.Redirect(url);
-			}
+            }
         }
-}
+    }
 }

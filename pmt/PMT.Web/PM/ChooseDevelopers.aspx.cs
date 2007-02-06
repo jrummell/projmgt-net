@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using PMT.Configuration;
 using PMTDataProvider;
 using PMTComponents;
+using PMT.Web;
 
 namespace PMT.PM
 {
@@ -25,7 +26,7 @@ namespace PMT.PM
         {
             // set the object data source type name
             dsDevelopers.TypeName = PMTDataProvider.DataProviderFactory.CreateInstance().GetType().ToString();
-            dsDevelopers.SelectParameters.Add("mgrID", Config.LoggedInUserID.ToString());
+            dsDevelopers.SelectParameters.Add("mgrID", CookiesHelper.LoggedInUserID.ToString());
             base.OnInit(e);
         }
 
@@ -52,7 +53,7 @@ namespace PMT.PM
             GridViewRow row = cb.Parent.Parent as GridViewRow;
 
             int devID = Convert.ToInt32(row.Cells[0].Text);
-            int mgrID = Config.LoggedInUserID;
+            int mgrID = CookiesHelper.LoggedInUserID;
 
             if (cb.Checked)
             {

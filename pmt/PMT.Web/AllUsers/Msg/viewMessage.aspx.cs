@@ -12,19 +12,18 @@ using System.Web.UI.HtmlControls;
 using PMTDataProvider;
 using PMTComponents;
 using PMT.Configuration;
-//using PMT.BLL;
+using PMT.Web;
 
 namespace PMT.AllUsers.Msg
 {
     public partial class viewMessage : Page
     {
-  
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!IsPostBack)
             {
                 int messageID = MessageID;
-                int userID = Config.LoggedInUserID;
+                int userID = CookiesHelper.LoggedInUserID;
                 IDataProvider data = DataProviderFactory.CreateInstance();
 
                 if (!data.IsMessageOpened(messageID, userID))
