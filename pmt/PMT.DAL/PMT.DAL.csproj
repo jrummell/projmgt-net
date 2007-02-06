@@ -53,6 +53,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AssignmentsDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="MatrixDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MatrixDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MessagingDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,6 +95,17 @@
     </None>
     <None Include="AssignmentsDataSet.xss">
       <DependentUpon>AssignmentsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MatrixDataSet.xsc">
+      <DependentUpon>MatrixDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MatrixDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MatrixDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="MatrixDataSet.xss">
+      <DependentUpon>MatrixDataSet.xsd</DependentUpon>
     </None>
     <None Include="MessagingDataSet.xsc">
       <DependentUpon>MessagingDataSet.xsd</DependentUpon>
