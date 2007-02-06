@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using PMT.Configuration;
 using PMTDataProvider;
 using PMTComponents;
+using PMT.Web;
 
 namespace PMT.PM
 {
@@ -25,7 +26,7 @@ namespace PMT.PM
             // set the object data source type name
             dsDevelopers.TypeName = PMTDataProvider.DataProviderFactory.CreateInstance().GetType().ToString();
             dsDevelopers.SelectMethod = "GetDevelopers";
-            dsDevelopers.SelectParameters.Add("mgrID", Config.LoggedInUserID.ToString());
+            dsDevelopers.SelectParameters.Add("mgrID", CookiesHelper.LoggedInUserID.ToString());
             dsDevelopers.FilterExpression = String.Format("Selected=1");
             base.OnInit(e);
         }

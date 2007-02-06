@@ -14,6 +14,7 @@ using PMT.Configuration;
 using PMTComponents;
 using PMTDataProvider;
 using PMT.BLL;
+using PMT.Web;
 
 namespace PMT.AllUsers
 {
@@ -27,8 +28,8 @@ namespace PMT.AllUsers
 
             if (!this.IsPostBack)
             {
-                int id = Config.LoggedInUserID;
-                UserRole role = Config.LoggedInUserRole;
+                int id = CookiesHelper.LoggedInUserID;
+                UserRole role = CookiesHelper.LoggedInUserRole;
 
                 if (role.Equals(UserRole.Manager))
                 {
@@ -103,7 +104,7 @@ namespace PMT.AllUsers
             IDataProvider data = DataProviderFactory.CreateInstance();
             if (buttonID.Equals("ViewProjectButton"))
             {
-                PMTComponents.Project project = data.GetProject(Config.LoggedInUserID, Convert.ToInt32(ProjectDropDownList.SelectedValue));
+                PMTComponents.Project project = data.GetProject(CookiesHelper.LoggedInUserID, Convert.ToInt32(ProjectDropDownList.SelectedValue));
 
                 report.Item = project;
                 report.FillForm();

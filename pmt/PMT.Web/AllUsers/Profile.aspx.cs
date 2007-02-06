@@ -9,11 +9,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using PMT.Controls;
-//using PMTComponents;
-//using PMTDataProvider;
 using PMT.BLL;
 using PMT.DAL.UsersDataSetTableAdapters;
 using PMT.Configuration;
+using PMT.Web;
 
 namespace PMT.AllUsers
 {
@@ -32,7 +31,7 @@ namespace PMT.AllUsers
                 ProfileControl1.AllowChangeSecurity = false;
 
                 userData = new UserData();
-                user = userData.GetUser(Config.LoggedInUserID);
+                user = userData.GetUser(CookiesHelper.LoggedInUserID);
 
                 // fill the form with the user's information
                 ProfileControl1.FillForm(user);
@@ -68,7 +67,7 @@ namespace PMT.AllUsers
 
             // create a user obj, fill it from the profile control, 
             //  and update the database
-            user = userData.GetUser(Config.LoggedInUserID);
+            user = userData.GetUser(CookiesHelper.LoggedInUserID);
 
             ProfileControl1.FillUser(user);
 

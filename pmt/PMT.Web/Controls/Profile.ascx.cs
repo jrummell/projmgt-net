@@ -252,8 +252,8 @@ namespace PMT.Controls
             this.UsernameLabel.Text    = user.UserName;
 
             // select the correct Security in the dropdown
-            SecurityDropDownList.SelectedIndex = (int)user.GetRole();
-            this.SecurityLabel.Text = user.GetRole().ToString();
+            SecurityDropDownList.SelectedIndex = (int)user.Role;
+            this.SecurityLabel.Text = user.Role.ToString();
         }
 
         /// <summary>

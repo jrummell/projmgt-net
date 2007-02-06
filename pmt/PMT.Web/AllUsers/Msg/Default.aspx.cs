@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using PMT.Configuration;
 using PMTComponents;
 using PMTDataProvider;
+using PMT.Web;
 
 namespace PMT.AllUsers.Msg
 {
@@ -69,7 +70,7 @@ namespace PMT.AllUsers.Msg
         private void BindGrid()
         {
             IDataProvider data = DataProviderFactory.CreateInstance();
-            MessagesDataGrid.DataSource = data.GetReceivedMessages(Config.LoggedInUserID);
+            MessagesDataGrid.DataSource = data.GetReceivedMessages(CookiesHelper.LoggedInUserID);
             MessagesDataGrid.DataBind();
         }
 
@@ -77,7 +78,7 @@ namespace PMT.AllUsers.Msg
         {
             int delID = Convert.ToInt32(e.Item.Cells[0].Text);
             IDataProvider data = DataProviderFactory.CreateInstance();
-            data.DeleteMessage(delID, Config.LoggedInUserID, null); 
+            data.DeleteMessage(delID, CookiesHelper.LoggedInUserID, null); 
             BindGrid();
         }
     }

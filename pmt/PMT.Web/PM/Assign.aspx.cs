@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using PMT.Configuration;
 using PMTComponents;
 using PMTDataProvider;
+using PMT.Web;
 
 namespace PMT.PM
 {
@@ -34,7 +35,7 @@ namespace PMT.PM
         {
             IDataProvider data = DataProviderFactory.CreateInstance();
 
-            dgAssignments.DataSource = data.GetTaskAssignments(Config.LoggedInUserID);
+            dgAssignments.DataSource = data.GetTaskAssignments(CookiesHelper.LoggedInUserID);
             dgAssignments.DataBind();
 
             dgAvailableDevs.DataSource = data.GetAvailableDevelopers(Convert.ToInt32(ddlTaskThreshold.SelectedValue));
