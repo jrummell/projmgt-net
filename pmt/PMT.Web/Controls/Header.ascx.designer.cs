@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PMT.Controls {
+namespace PMT.Web.Controls {
     
     
     /// <summary>
@@ -20,39 +20,75 @@ namespace PMT.Controls {
     public partial class Header {
         
         /// <summary>
-        /// lblRole control.
+        /// litRole control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRole;
+        protected global::System.Web.UI.WebControls.Literal litRole;
         
         /// <summary>
-        /// pnlLoggedIn control.
+        /// spanLoggedIn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlLoggedIn;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spanLoggedIn;
         
         /// <summary>
-        /// lblUsername control.
+        /// hlProfile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsername;
+        protected global::System.Web.UI.WebControls.HyperLink hlProfile;
         
         /// <summary>
-        /// pnlLoggedOut control.
+        /// hlMessages control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlLoggedOut;
+        protected global::System.Web.UI.WebControls.HyperLink hlMessages;
+        
+        /// <summary>
+        /// hlLogout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlLogout;
+        
+        /// <summary>
+        /// spanLoggedOut control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spanLoggedOut;
+        
+        /// <summary>
+        /// hlRegister control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlRegister;
+        
+        /// <summary>
+        /// hlLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlLogin;
     }
 }

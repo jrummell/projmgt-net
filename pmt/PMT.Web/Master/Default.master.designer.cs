@@ -8,58 +8,60 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
-
-/// <summary>
-/// Master_Default class.
-/// </summary>
-/// <remarks>
-/// Auto-generated class.
-/// </remarks>
-public partial class Master_Default {
+namespace PMT.Web.Master {
+    
     
     /// <summary>
-    /// phHead control.
+    /// Default class.
     /// </summary>
     /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
+    /// Auto-generated class.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.ContentPlaceHolder phHead;
-    
-    /// <summary>
-    /// form1 control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-    
-    /// <summary>
-    /// header control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::PMT.Controls.Header header;
-    
-    /// <summary>
-    /// navigation control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::PMT.Controls.Navigation navigation;
-    
-    /// <summary>
-    /// phMain control.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated field.
-    /// To modify move field declaration from designer file to code-behind file.
-    /// </remarks>
-    protected global::System.Web.UI.WebControls.ContentPlaceHolder phMain;
+    public partial class Default {
+        
+        /// <summary>
+        /// phHead control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder phHead;
+        
+        /// <summary>
+        /// form1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        
+        /// <summary>
+        /// header control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::PMT.Web.Controls.Header header;
+        
+        /// <summary>
+        /// navigation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::PMT.Web.Controls.Navigation navigation;
+        
+        /// <summary>
+        /// phMain control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder phMain;
+    }
 }

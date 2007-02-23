@@ -1,0 +1,1384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="1.35" Name="My FxCop Project">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">http://www.gotdotnet.com/team/fxcop//xsl/1.35/FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-us" />
+  <VersionAware>False</VersionAware>
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>False</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+ </ProjectOptions>
+ <Targets>
+  <Target Name="$(ProjectDir)/PMT.BLL/bin/Debug/PMT.BLL.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/PMT.DAL/bin/Debug/PMT.DAL.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/PMT.Web/bin/PMT.Web.dll" Analyze="True" AnalyzeAllChildren="True" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="False">
+    <Rule Name="AvoidDuplicateAccelerators" Enabled="True" />
+    <Rule Name="DoNotHardcodeLocaleSpecificStrings" Enabled="True" />
+    <Rule Name="SpecifyMessageBoxOptions" Enabled="True" />
+   </RuleFile>
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="False">
+    <Rule Name="AvoidLanguageSpecificTypeNamesInParameters" Enabled="True" />
+    <Rule Name="AvoidTypeNamesInParameters" Enabled="True" />
+    <Rule Name="CompoundWordsShouldBeCasedCorrectly" Enabled="True" />
+    <Rule Name="DoNotNameEnumValuesReserved" Enabled="True" />
+    <Rule Name="DoNotPrefixEnumValuesWithTypeName" Enabled="True" />
+    <Rule Name="EventsShouldNotHaveBeforeOrAfterPrefix" Enabled="True" />
+    <Rule Name="FlagsEnumsShouldHavePluralNames" Enabled="True" />
+    <Rule Name="IdentifiersShouldBeCasedCorrectly" Enabled="True" />
+    <Rule Name="IdentifiersShouldDifferByMoreThanCase" Enabled="True" />
+    <Rule Name="IdentifiersShouldHaveCorrectPrefix" Enabled="True" />
+    <Rule Name="IdentifiersShouldHaveCorrectSuffix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotContainUnderscores" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotHaveIncorrectPrefix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotHaveIncorrectSuffix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotMatchKeywords" Enabled="True" />
+    <Rule Name="OnlyFlagsEnumsShouldHavePluralNames" Enabled="True" />
+    <Rule Name="ParameterNamesShouldMatchBaseDeclaration" Enabled="True" />
+    <Rule Name="ParameterNamesShouldNotMatchMemberNames" Enabled="True" />
+    <Rule Name="PropertyNamesShouldNotMatchGetMethods" Enabled="True" />
+    <Rule Name="ResourceStringCompoundWordsShouldBeCasedCorrectly" Enabled="True" />
+    <Rule Name="ResourceStringsShouldBeSpelledCorrectly" Enabled="True" />
+    <Rule Name="TypeNamesShouldNotMatchNamespaces" Enabled="True" />
+    <Rule Name="UsePreferredTerms" Enabled="True" />
+   </RuleFile>
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="True" />
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="1.35">
+  <Namespaces>
+   <Namespace Name="PMT">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Status="Excluded" Created="2007-02-23 02:26:59Z">
+      <Issue>
+       <Item>PMT</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="PMT.AllUsers">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2007-02-23 02:26:59Z">
+      <Issue>
+       <Item>PMT.AllUsers</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="PMT.AllUsers.Msg">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2007-02-23 02:26:59Z">
+      <Issue>
+       <Item>PMT.AllUsers.Msg</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="PMT.Dev">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Created="2007-02-23 02:26:59Z">
+      <Issue>
+       <Item>PMT.Dev</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="PMT.Web">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Status="Excluded" Created="2007-02-23 02:26:59Z">
+      <Issue>
+       <Item>PMT.Web</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="PMT.Web.Client">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Status="Excluded" Created="2007-02-23 03:12:08Z">
+      <Issue>
+       <Item>PMT.Web.Client</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="PMT.Web.Controls">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Status="Excluded" Created="2007-02-23 03:15:28Z">
+      <Issue>
+       <Item>PMT.Web.Controls</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+   <Namespace Name="PMT.Web.Master">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Status="Excluded" Created="2007-02-23 02:32:19Z">
+      <Issue>
+       <Item>PMT.Web.Master</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
+  </Namespaces>
+  <Targets>
+   <Target Name="$(ProjectDir)/PMT.BLL/bin/Debug/PMT.BLL.dll">
+    <Modules>
+     <Module Name="pmt.bll.dll">
+      <Namespaces>
+       <Namespace Name="PMT.BLL">
+        <Types>
+         <Type Name="Administrator">
+          <Members>
+           <Member Name=".ctor(PMT.BLL.User)">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>'user'</Item>
+               <Item>Administrator.Administrator(User)</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Client">
+          <Messages>
+           <Message TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724" Status="Excluded" Created="2007-02-23 02:26:59Z">
+            <Issue>
+             <Item>Client</Item>
+             <Item>PMT.Web.Client</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(PMT.BLL.User)">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>'user'</Item>
+               <Item>Client.Client(User)</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Developer">
+          <Members>
+           <Member Name=".ctor(PMT.BLL.User)">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>'user'</Item>
+               <Item>Developer.Developer(User)</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Manager">
+          <Members>
+           <Member Name=".ctor(PMT.BLL.User)">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>'user'</Item>
+               <Item>Manager.Manager(User)</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Message">
+          <Members>
+           <Member Name="ID">
+            <Accessors>
+             <Accessor Name="set_ID(System.Int32):System.Void">
+              <Messages>
+               <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-02-23 02:26:59Z">
+                <Issue Name="TooGeneric">
+                 <Item>Message.set_ID(Int32):Void</Item>
+                 <Item>System.Exception</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="Recipients">
+            <Messages>
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>Message.Recipients:User[]</Item>
+              </Issue>
+             </Message>
+            </Messages>
+            <Accessors>
+             <Accessor Name="set_Recipients(PMT.BLL.User[]):System.Void">
+              <Messages>
+               <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+                <Issue>
+                 <Item>'value'</Item>
+                 <Item>Message.set_Recipients(User[]):Void</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Module">
+          <Messages>
+           <Message TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716" Created="2007-02-23 02:26:59Z">
+            <Issue Name="Type">
+             <Item>Module</Item>
+             <Item>Module</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name=".ctor(System.Int32,System.Int32,System.String,System.String,System.DateTime,System.DateTime,System.DateTime)">
+            <Messages>
+             <Message Id="expEnd" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>expEnd</Item>
+               <Item>parameter</Item>
+               <Item>expEndDate</Item>
+               <Item>expend</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ModuleData">
+          <Members>
+           <Member Name="DeleteModule(System.Int32):System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>ModuleData.DeleteModule(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="id" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>id</Item>
+               <Item>ModuleData.DeleteModule(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModule(System.Int32):PMT.BLL.Module">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>ModuleData.GetModule(Int32):Module</Item>
+              </Issue>
+             </Message>
+             <Message Id="id" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>id</Item>
+               <Item>ModuleData.GetModule(Int32):Module</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetProjectModules(System.Int32):PMT.DAL.ProjectsDataSet+ModulesDataTable">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>ModuleData.GetProjectModules(Int32):ModulesDataTable</Item>
+              </Issue>
+             </Message>
+             <Message Id="projectID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>projectID</Item>
+               <Item>ModuleData.GetProjectModules(Int32):ModulesDataTable</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="InsertModule(PMT.BLL.Module):System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>ModuleData.InsertModule(Module):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="module" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>module</Item>
+               <Item>ModuleData.InsertModule(Module):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UpdateModule(PMT.BLL.Module):System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>ModuleData.UpdateModule(Module):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="module" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>module</Item>
+               <Item>ModuleData.UpdateModule(Module):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Project">
+          <Members>
+           <Member Name=".ctor(System.Int32,System.String,System.String,System.DateTime,System.DateTime,System.DateTime)">
+            <Messages>
+             <Message Id="expEnd" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>expEnd</Item>
+               <Item>parameter</Item>
+               <Item>expEndDate</Item>
+               <Item>expend</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ProjectData">
+          <Members>
+           <Member Name="InsertProject(PMT.BLL.Project):System.Int32">
+            <Messages>
+             <Message TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>project</Item>
+               <Item>ProjectData.InsertProject(Project):Int32</Item>
+               <Item>PMT.BLL.Project</Item>
+               <Item>PMT.BLL.ProjectItem</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UpdateProject(PMT.BLL.Project):System.Boolean">
+            <Messages>
+             <Message TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>project</Item>
+               <Item>ProjectData.UpdateProject(Project):Boolean</Item>
+               <Item>PMT.BLL.Project</Item>
+               <Item>PMT.BLL.ProjectItem</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ProjectItem">
+          <Members>
+           <Member Name=".ctor(System.Int32,System.String,System.String,System.DateTime,System.DateTime,System.DateTime)">
+            <Messages>
+             <Message Id="expEnd" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>expEnd</Item>
+               <Item>parameter</Item>
+               <Item>expEndDate</Item>
+               <Item>expend</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="ExpEndDate">
+            <Messages>
+             <Message Id="ExpEnd" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>ExpEnd</Item>
+               <Item>property</Item>
+               <Item>ExpEndDate</Item>
+               <Item>Expend</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Task">
+          <Members>
+           <Member Name=".ctor(System.Int32,System.Int32,System.String,System.String,PMT.BLL.TaskComplexity,System.DateTime,System.DateTime,System.DateTime)">
+            <Messages>
+             <Message Id="expEnd" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>expEnd</Item>
+               <Item>parameter</Item>
+               <Item>expEndDate</Item>
+               <Item>expend</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="TaskData">
+          <Members>
+           <Member Name="AssignTask(System.Int32,System.Int32):System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>TaskData.AssignTask(Int32, Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="devID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>devID</Item>
+               <Item>TaskData.AssignTask(Int32, Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="taskID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>taskID</Item>
+               <Item>TaskData.AssignTask(Int32, Int32):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="DeleteTask(System.Int32):System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>TaskData.DeleteTask(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="id" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>id</Item>
+               <Item>TaskData.DeleteTask(Int32):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetAssignedTasks():PMT.DAL.ProjectsDataSet+TasksDataTable">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>TaskData.GetAssignedTasks():TasksDataTable</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2007-02-23 02:26:59Z">
+              <Issue Certainty="50">
+               <Item>GetAssignedTasks</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetModuleTasks(System.Int32):PMT.DAL.ProjectsDataSet+TasksDataTable">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>TaskData.GetModuleTasks(Int32):TasksDataTable</Item>
+              </Issue>
+             </Message>
+             <Message Id="moduleID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>moduleID</Item>
+               <Item>TaskData.GetModuleTasks(Int32):TasksDataTable</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetTask(System.Int32):PMT.BLL.Task">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>TaskData.GetTask(Int32):Task</Item>
+              </Issue>
+             </Message>
+             <Message Id="id" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>id</Item>
+               <Item>TaskData.GetTask(Int32):Task</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="InsertTask(PMT.BLL.Task):System.Int32">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>TaskData.InsertTask(Task):Int32</Item>
+              </Issue>
+             </Message>
+             <Message Id="task" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>task</Item>
+               <Item>TaskData.InsertTask(Task):Int32</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UnassignTask(System.Int32,System.Int32):System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>TaskData.UnassignTask(Int32, Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="devID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>devID</Item>
+               <Item>TaskData.UnassignTask(Int32, Int32):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="taskID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>taskID</Item>
+               <Item>TaskData.UnassignTask(Int32, Int32):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UpdateTask(PMT.BLL.Task):System.Boolean">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>TaskData.UpdateTask(Task):Boolean</Item>
+              </Issue>
+             </Message>
+             <Message Id="task" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
+              <Issue>
+               <Item>task</Item>
+               <Item>TaskData.UpdateTask(Task):Boolean</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="User">
+          <Members>
+           <Member Name="GetCookie():System.Web.HttpCookie">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2007-02-23 02:26:59Z">
+              <Issue Certainty="50">
+               <Item>GetCookie</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="UserData">
+          <Members>
+           <Member Name="AuthenticateUser(System.String,System.String):System.Boolean">
+            <Messages>
+             <Message Id="username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>username</Item>
+               <Item>parameter</Item>
+               <Item>username</Item>
+               <Item>userName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GetUserProfiles():System.Data.DataTable">
+            <Messages>
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2007-02-23 02:26:59Z">
+              <Issue Certainty="50">
+               <Item>GetUserProfiles</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="InsertUser(PMT.BLL.User):System.Int32">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-02-23 02:26:59Z">
+              <Issue Name="TooGeneric">
+               <Item>UserData.InsertUser(User):Int32</Item>
+               <Item>System.Exception</Item>
+              </Issue>
+              <Issue Name="TooGeneric">
+               <Item>UserData.InsertUser(User):Int32</Item>
+               <Item>System.Exception</Item>
+              </Issue>
+              <Issue Name="TooGeneric">
+               <Item>UserData.InsertUser(User):Int32</Item>
+               <Item>System.Exception</Item>
+              </Issue>
+              <Issue Name="TooGeneric">
+               <Item>UserData.InsertUser(User):Int32</Item>
+               <Item>System.Exception</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UsernameExists(System.String):System.Boolean">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 03:05:52Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>method</Item>
+               <Item>UsernameExists</Item>
+               <Item>UserName</Item>
+              </Issue>
+             </Message>
+             <Message Id="username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 03:05:52Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>username</Item>
+               <Item>parameter</Item>
+               <Item>username</Item>
+               <Item>userName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+   <Target Name="$(ProjectDir)/PMT.Web/bin/PMT.Web.dll">
+    <Modules>
+     <Module Name="pmt.web.dll">
+      <Messages>
+       <Message TypeName="AssembliesShouldDeclareMinimumSecurity" Category="Microsoft.Usage" CheckId="CA2209" Created="2007-02-23 02:26:59Z">
+        <Issue>
+         <Item>PMT.Web</Item>
+        </Issue>
+       </Message>
+       <Message TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210" Created="2007-02-23 02:26:59Z">
+        <Issue Name="NoStrongName">
+         <Item>PMT.Web</Item>
+        </Issue>
+       </Message>
+      </Messages>
+      <Namespaces>
+       <Namespace Name="PMT">
+        <Types>
+         <Type Name="Login">
+          <Messages>
+           <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Status="Excluded" Created="2007-02-23 02:26:59Z">
+            <Issue Name="Type">
+             <Item>Login</Item>
+             <Item>Login</Item>
+             <Item>LogOn</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="CustomAuthenticate(System.String,System.String):System.Boolean">
+            <Messages>
+             <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-02-23 02:26:59Z">
+              <Issue Name="Reserved">
+               <Item>Login.CustomAuthenticate(String, String):Boolean</Item>
+               <Item>System.NullReferenceException</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="InitializeComponent():System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>Login.InitializeComponent():Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Login1_Authenticate(System.Object,System.Web.UI.WebControls.AuthenticateEventArgs):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>'e'</Item>
+               <Item>Login.Login1_Authenticate(Object, AuthenticateEventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Logout">
+          <Messages>
+           <Message Id="Logout" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Status="Excluded" Created="2007-02-23 02:26:59Z">
+            <Issue Name="Type">
+             <Item>Logout</Item>
+             <Item>Logout</Item>
+             <Item>LogOff</Item>
+            </Issue>
+           </Message>
+          </Messages>
+          <Members>
+           <Member Name="InitializeComponent():System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>Logout.InitializeComponent():Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Register">
+          <Members>
+           <Member Name="TransactionFailed(System.Exception):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>Register.TransactionFailed(Exception):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="PMT.Admin">
+        <Types>
+         <Type Name="NewUser">
+          <Members>
+           <Member Name="cbEnabled_CheckedChanged(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="Member">
+               <Item>cbEnabled_CheckedChanged</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Settings">
+          <Members>
+           <Member Name="rfvUsername">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>field</Item>
+               <Item>rfvUsername</Item>
+               <Item>UserName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="txtUsername">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>field</Item>
+               <Item>txtUsername</Item>
+               <Item>UserName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Users">
+          <Members>
+           <Member Name="ddlRoles_SelectedIndexChanged(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="Member">
+               <Item>ddlRoles_SelectedIndexChanged</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="PMT.AllUsers">
+        <Types>
+         <Type Name="Reports">
+          <Members>
+           <Member Name="ViewReportButton_Click(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>'sender'</Item>
+               <Item>Reports.ViewReportButton_Click(Object, EventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="PMT.AllUsers.Msg">
+        <Types>
+         <Type Name="NewMessage">
+          <Members>
+           <Member Name="MessageID">
+            <Accessors>
+             <Accessor Name="get_MessageID():System.Int32">
+              <Messages>
+               <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2007-02-23 02:26:59Z">
+                <Issue>
+                 <Item>NewMessage.get_MessageID():Int32</Item>
+                 <Item>System.Object</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="UserID">
+            <Accessors>
+             <Accessor Name="get_UserID():System.Int32">
+              <Messages>
+               <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2007-02-23 02:26:59Z">
+                <Issue>
+                 <Item>NewMessage.get_UserID():Int32</Item>
+                 <Item>System.Object</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ViewMessage">
+          <Members>
+           <Member Name="MessageID">
+            <Accessors>
+             <Accessor Name="get_MessageID():System.Int32">
+              <Messages>
+               <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2007-02-23 02:36:46Z">
+                <Issue>
+                 <Item>ViewMessage.get_MessageID():Int32</Item>
+                 <Item>System.Object</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="PMT.Dev">
+        <Types>
+         <Type Name="Tasks">
+          <Members>
+           <Member Name="InitializeComponent():System.Void">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>Tasks.InitializeComponent():Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="PMT.PM">
+        <Types>
+         <Type Name="Assign">
+          <Members>
+           <Member Name="dgAssignments_ItemDataBound(System.Object,System.Web.UI.WebControls.DataGridItemEventArgs):System.Void">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>Assign.dgAssignments_ItemDataBound(Object, DataGridItemEventArgs):Void</Item>
+               <Item>System.Object</Item>
+              </Issue>
+              <Issue>
+               <Item>Assign.dgAssignments_ItemDataBound(Object, DataGridItemEventArgs):Void</Item>
+               <Item>System.Object</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Username_Click(System.Object,System.Web.UI.WebControls.DataGridCommandEventArgs):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>Assign.Username_Click(Object, DataGridCommandEventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ChooseDevelopers">
+          <Members>
+           <Member Name="cbSelected_CheckedChanged(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2007-02-23 02:26:59Z">
+              <Issue Name="Member">
+               <Item>cbSelected_CheckedChanged</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="GridView1_RowDataBound(System.Object,System.Web.UI.WebControls.GridViewRowEventArgs):System.Void">
+            <Messages>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>'e'</Item>
+               <Item>ChooseDevelopers.GridView1_RowDataBound(Object, GridViewRowEventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Developers">
+          <Members>
+           <Member Name="dvDevs_RowDataBound(System.Object,System.Web.UI.WebControls.GridViewRowEventArgs):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2007-02-23 02:26:59Z">
+              <Issue Name="Member">
+               <Item>dvDevs_RowDataBound</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>'e'</Item>
+               <Item>Developers.dvDevs_RowDataBound(Object, GridViewRowEventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Matrix">
+          <Members>
+           <Member Name="dgCompMatrix_ItemDataBound(System.Object,System.Web.UI.WebControls.DataGridItemEventArgs):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Created="2007-02-23 02:26:59Z">
+              <Issue Name="Member">
+               <Item>dgCompMatrix_ItemDataBound</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>'e'</Item>
+               <Item>Matrix.dgCompMatrix_ItemDataBound(Object, DataGridItemEventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="NewItem">
+          <Members>
+           <Member Name="AddItemToParentHyperLink">
+            <Messages>
+             <Message Id="HyperLink" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>HyperLink</Item>
+               <Item>field</Item>
+               <Item>AddItemToParentHyperLink</Item>
+               <Item>Hyperlink</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="ItemType">
+            <Accessors>
+             <Accessor Name="get_ItemType():PMTComponents.ProjectItemType">
+              <Messages>
+               <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-02-23 02:26:59Z">
+                <Issue Name="TooGeneric">
+                 <Item>NewItem.get_ItemType():ProjectItemType</Item>
+                 <Item>System.Exception</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="ParentID">
+            <Accessors>
+             <Accessor Name="get_ParentID():System.Int32">
+              <Messages>
+               <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2007-02-23 02:26:59Z">
+                <Issue>
+                 <Item>NewItem.get_ParentID():Int32</Item>
+                 <Item>System.Object</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="UserID">
+            <Accessors>
+             <Accessor Name="get_UserID():System.Int32">
+              <Messages>
+               <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2007-02-23 02:26:59Z">
+                <Issue>
+                 <Item>NewItem.get_UserID():Int32</Item>
+                 <Item>System.Object</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Projects">
+          <Members>
+           <Member Name="AddItemHyperLink">
+            <Messages>
+             <Message Id="HyperLink" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>HyperLink</Item>
+               <Item>field</Item>
+               <Item>AddItemHyperLink</Item>
+               <Item>Hyperlink</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="BindData():System.Void">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>Projects.BindData():Void</Item>
+               <Item>System.Object</Item>
+              </Issue>
+             </Message>
+             <Message Id="type" TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>Projects.BindData():Void</Item>
+               <Item>type</Item>
+               <Item>PMTComponents.ProjectItemType</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="DataGrid1_ItemDataBound(System.Object,System.Web.UI.WebControls.DataGridItemEventArgs):System.Void">
+            <Messages>
+             <Message TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>Projects.DataGrid1_ItemDataBound(Object, DataGridItemEventArgs):Void</Item>
+               <Item>System.Object</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="ItemID">
+            <Accessors>
+             <Accessor Name="get_ItemID():System.Int32">
+              <Messages>
+               <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-02-23 02:26:59Z">
+                <Issue Name="TooGeneric">
+                 <Item>Projects.get_ItemID():Int32</Item>
+                 <Item>System.Exception</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="ItemType">
+            <Accessors>
+             <Accessor Name="get_ItemType():PMTComponents.ProjectItemType">
+              <Messages>
+               <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-02-23 02:26:59Z">
+                <Issue Name="TooGeneric">
+                 <Item>Projects.get_ItemType():ProjectItemType</Item>
+                 <Item>System.Exception</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+           <Member Name="UserID">
+            <Accessors>
+             <Accessor Name="get_UserID():System.Int32">
+              <Messages>
+               <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-02-23 02:26:59Z">
+                <Issue Name="TooGeneric">
+                 <Item>Projects.get_UserID():Int32</Item>
+                 <Item>System.Exception</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="ViewDevProfile">
+          <Members>
+           <Member Name="btnUpdate_Click(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message Id="Member" TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue Name="Member">
+               <Item>btnUpdate_Click</Item>
+              </Issue>
+             </Message>
+             <Message Id="btn" TypeName="LiteralsShouldBeSpelledCorrectly" Category="Microsoft.Usage" CheckId="CA2204" Status="Excluded" Created="2007-02-23 02:26:59Z">
+              <Issue>
+               <Item>btn</Item>
+               <Item>btnUpdate_Click</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="DevID">
+            <Accessors>
+             <Accessor Name="get_DevID():System.Int32">
+              <Messages>
+               <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-02-23 02:26:59Z">
+                <Issue Name="TooGeneric">
+                 <Item>ViewDevProfile.get_DevID():Int32</Item>
+                 <Item>System.Exception</Item>
+                </Issue>
+               </Message>
+              </Messages>
+             </Accessor>
+            </Accessors>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+       <Namespace Name="PMT.Web.Controls">
+        <Types>
+         <Type Name="Header">
+          <Members>
+           <Member Name="hlLogin">
+            <Messages>
+             <Message Id="Login" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Status="Excluded" Created="2007-02-23 03:15:28Z">
+              <Issue Name="Member">
+               <Item>Login</Item>
+               <Item>hlLogin</Item>
+               <Item>LogOn</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="hlLogout">
+            <Messages>
+             <Message Id="Logout" TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726" Status="Excluded" Created="2007-02-23 03:15:28Z">
+              <Issue Name="Member">
+               <Item>Logout</Item>
+               <Item>hlLogout</Item>
+               <Item>LogOff</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Navigation">
+          <Members>
+           <Member Name="AddBreak():System.Void">
+            <Messages>
+             <Message Id="nbsp" TypeName="LiteralsShouldBeSpelledCorrectly" Category="Microsoft.Usage" CheckId="CA2204" Status="Excluded" Created="2007-02-23 03:34:11Z">
+              <Issue>
+               <Item>nbsp</Item>
+               <Item>&amp;nbsp;</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Profile">
+          <Members>
+           <Member Name="AllowChangeUsername">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 03:15:28Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>property</Item>
+               <Item>AllowChangeUsername</Item>
+               <Item>UserName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Username">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 03:15:28Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>property</Item>
+               <Item>Username</Item>
+               <Item>UserName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UsernameLabel">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 03:15:28Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>field</Item>
+               <Item>UsernameLabel</Item>
+               <Item>UserName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UsernamePromptLabel">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 03:15:28Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>field</Item>
+               <Item>UsernamePromptLabel</Item>
+               <Item>UserName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UsernameRequiredFieldValidator">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 03:15:28Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>field</Item>
+               <Item>UsernameRequiredFieldValidator</Item>
+               <Item>UserName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="UsernameTextBox">
+            <Messages>
+             <Message Id="Username" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 03:15:28Z">
+              <Issue Name="ShouldBeCompoundWord">
+               <Item>Username</Item>
+               <Item>field</Item>
+               <Item>UsernameTextBox</Item>
+               <Item>UserName</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="Report">
+          <Members>
+           <Member Name="lblExpEndDate">
+            <Messages>
+             <Message Id="ExpEnd" TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702" Status="Excluded" Created="2007-02-23 03:15:28Z">
+              <Issue Name="ShouldBeDiscreteTerm">
+               <Item>ExpEnd</Item>
+               <Item>field</Item>
+               <Item>lblExpEndDate</Item>
+               <Item>Expend</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Rules>
+   <Rule TypeName="AssembliesShouldDeclareMinimumSecurity" Category="Microsoft.Usage" CheckId="CA2209">
+    <Resolution Name="Default">No valid permission requests were found for assembly '{0}'. You should always specify the minimum security permissions using SecurityAction.RequestMinimum.</Resolution>
+   </Rule>
+   <Rule TypeName="AssembliesShouldHaveValidStrongNames" Category="Microsoft.Design" CheckId="CA2210">
+    <Resolution Name="NoStrongName">Sign '{0}' with a strong name key.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020">
+    <Resolution Name="Default">Consider merging the types defined in '{0}' with another namespace.</Resolution>
+   </Rule>
+   <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+    <Resolution Name="Default">'{0}' appears to have no upstream public or protected callers.</Resolution>
+   </Rule>
+   <Rule TypeName="CompoundWordsShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1702">
+    <Resolution Name="ShouldBeCompoundWord">The discrete term '{0}' in {1} '{2}' should be expressed as a compound term, '{3}'.</Resolution>
+    <Resolution Name="ShouldBeDiscreteTerm">The compound word '{0}' in {1} '{2}' exists as a discrete term. If your usage is intended to be single word, case it as '{3}'.</Resolution>
+   </Rule>
+   <Rule TypeName="ConsiderPassingBaseTypesAsParameters" Category="Microsoft.Design" CheckId="CA1011">
+    <Resolution Name="Default">Consider changing the type of parameter '{0}' in {1} from {2} to its base type {3}. This method appears to only require base class members in its implementation. Suppress this violation if there is a compelling reason to require the more derived type in the method signature.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotCatchGeneralExceptionTypes" Category="Microsoft.Design" CheckId="CA1031">
+    <Resolution Name="Default">Modify '{0}' to catch a more specific exception than '{1}' or rethrow the exception.</Resolution>
+   </Rule>
+   <Rule TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201">
+    <Resolution Name="Reserved">{0} creates an exception of type '{1}', an exception type that is reserved by the runtime and should never be raised by managed code. If this exception instance might be thrown, use a different exception type.</Resolution>
+    <Resolution Name="TooGeneric">{0} creates an exception of type '{1}', an exception type that is not sufficiently specific and should never be raised by user code. If this exception instance might be thrown, use a different exception type.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
+    <Resolution Name="Member">Correct the casing of member name '{0}'.</Resolution>
+   </Rule>
+   <Rule TypeName="IdentifiersShouldNotMatchKeywords" Category="Microsoft.Naming" CheckId="CA1716">
+    <Resolution Name="Type">Change type name '{0}' so that it does not conflict with reserved keyword:'{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="LiteralsShouldBeSpelledCorrectly" Category="Microsoft.Usage" CheckId="CA2204">
+    <Resolution Name="Default">Correct the spelling of the unrecognized token '{0}' in the literal '{1}'.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
+    <Resolution Name="Default">The 'this' parameter (or 'Me' in VB) of {0} is never used. Mark the member as static (or Shared in VB) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
+    <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
+   </Rule>
+   <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
+    <Resolution Name="Default">{0} declares a local, '{1}', of type {2}, which is never used or is only assigned to. Use this local or remove it.</Resolution>
+   </Rule>
+   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
+    <Resolution Name="Default">Parameter '{0}' of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
+   </Rule>
+   <Rule TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724">
+    <Resolution Name="Default">The type name '{0}' conflicts in whole or in part with the namespace name '{1}'. Change either name to eliminate the conflict.</Resolution>
+   </Rule>
+   <Rule TypeName="UsePreferredTerms" Category="Microsoft.Naming" CheckId="CA1726">
+    <Resolution Name="Member">Replace the term '{0}' in member name '{1}' with the preferred alternate '{2}'.</Resolution>
+    <Resolution Name="Type">Replace the term '{0}' in type name '{1}' with the preferred alternate '{2}'.</Resolution>
+   </Rule>
+   <Rule TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024">
+    <Resolution Name="Default">Change '{0}' to a property if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062">
+    <Resolution Name="Default">Validate parameter {0} passed to externally visible method {1}.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
+</FxCopProject>

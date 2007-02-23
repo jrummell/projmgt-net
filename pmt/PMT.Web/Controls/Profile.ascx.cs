@@ -6,14 +6,13 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Collections;
-//using PMTComponents;
-//using PMTDataProvider;
 using PMT.BLL;
 
-namespace PMT.Controls
+namespace PMT.Web.Controls
 {
     public partial class Profile : UserControl
     {
+        private bool adminView;
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
@@ -42,7 +41,6 @@ namespace PMT.Controls
                 this.LastNameRequiredFieldValidator.Enabled = value;
 
                 this.UsernameLabel.Visible = !value;
-                //this.UsernamePromptLabel.Visible = value;
                 this.UsernameTextBox.Visible = value;
                 this.UsernameRequiredFieldValidator.Enabled = value;
 
@@ -97,7 +95,6 @@ namespace PMT.Controls
             {
                 UsernameLabel.Visible = !value;
                 UsernameTextBox.Visible = value;
-                //UsernamePromptLabel.Visible = value;
                 UsernameRequiredFieldValidator.Enabled = value;
             }
         }
@@ -133,7 +130,6 @@ namespace PMT.Controls
             set
             {
                 SecurityLabel.Visible = !value;
-                //SecurityPromptLabel.Visible = value;
                 SecurityDropDownList.Visible = value;
                 SecurityRequiredFieldValidator.Enabled = value;
             }
@@ -144,38 +140,24 @@ namespace PMT.Controls
         /// </summary>
         public bool AdminView
         {
+            get
+            {
+                return adminView;
+            }
             set
             {
+                adminView = value;
+
                 if (value == true)
                 {
                     AllowChangePassword = false;
                     AllowNewPassword = true;
-                    AllowChangeSecurity = false; //true;
+                    AllowChangeSecurity = false;
                     AllowChangeUsername = true;
                     Password1RequiredFieldValidator.Enabled = false;
                     Password2RequiredFieldValidator.Enabled = false;
                 }
             }
-        }
-        #endregion
-
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-		
-        /// <summary>
-        ///		Required method for Designer support - do not modify
-        ///		the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-
         }
         #endregion
 
@@ -232,6 +214,11 @@ namespace PMT.Controls
         /// <param name="user">A PMT user</param>
         public void FillForm(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+
             this.FirstNameTextBox.Text = user.FirstName;
             this.FirstNameLabel.Text   = user.FirstName;
             this.LastNameTextBox.Text  = user.LastName;
@@ -262,6 +249,11 @@ namespace PMT.Controls
         /// <param name="user"></param>
         public void FillUser(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+			
             user.UserName = this.UsernameTextBox.Text;
             user.Address = this.AddressTextBox.Text;
             user.City = this.CityTextBox.Text;

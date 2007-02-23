@@ -1,5 +1,4 @@
 <%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Admin.EditUser" Codebehind="EditUser.aspx.cs" %>
-<%@ Register TagPrefix="pmt" TagName="Profile" Src="~/Controls/Profile.ascx" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Edit User</h3>

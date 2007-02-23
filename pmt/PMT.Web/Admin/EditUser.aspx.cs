@@ -8,7 +8,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using PMT.Controls;
+using PMT.Web.Controls;
 using PMT.DAL;
 using PMT.DAL.UsersDataSetTableAdapters;
 using PMT.BLL;
@@ -20,16 +20,13 @@ namespace PMT.Admin
         private PMT.BLL.User user;
         private UserData userData;
 
-        protected void Page_Load(object sender, System.EventArgs e)
+        public EditUser()
         {
             userData = new UserData();
-            user = userData.GetUser(this.UserID);
+        }
 
-            if (this.UserType.Equals("new"))
-            {
-                userData.UpdateUser(user);
-            }
-
+        protected void Page_Load(object sender, System.EventArgs e)
+        {
             if (!Page.IsPostBack)
             {
                 //what to do when the page is loaded fresh
@@ -40,31 +37,9 @@ namespace PMT.Admin
             }
         }
 
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-		
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {    
-
-        }
-        #endregion
-
         protected void Submit_Click(object sender, System.EventArgs e)
         {
             //store new user information to database
-            userData = new UserData();
-
             user = userData.GetUser(this.UserID);
             ProfileControl1.FillUser(user);
             userData.UpdateUser(user);
@@ -73,7 +48,7 @@ namespace PMT.Admin
         protected void Cancel_Click(object sender, System.EventArgs e)
         {
             //cancel user profile editing, return to user list page
-            Response.Redirect("userList.aspx");
+            Response.Redirect("Users.aspx");
         }
 
         /// <summary>
@@ -82,14 +57,6 @@ namespace PMT.Admin
         public int UserID
         {
             get {   return Convert.ToInt32(Request.QueryString["id"]);  }
-        }
-
-        /// <summary>
-        /// Gets the user type from the query string
-        /// </summary>
-        public string UserType
-        {
-            get {   return Request.QueryString["type"]; }
         }
     }
 }

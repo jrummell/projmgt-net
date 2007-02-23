@@ -8,7 +8,7 @@ using System.Web.UI.HtmlControls;
 using PMTComponents;
 using PMTDataProvider;
 
-namespace PMT.Controls
+namespace PMT.Web.Controls
 {
     public partial class Report : UserControl
     {
@@ -37,25 +37,6 @@ namespace PMT.Controls
         {
             get {   return item;    }
             set {   item = value;   }
-        }
-        #endregion
-
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-		
-        /// <summary>
-        ///		Required method for Designer support - do not modify
-        ///		the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
         }
         #endregion
     }

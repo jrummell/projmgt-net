@@ -12,7 +12,7 @@ using PMT.Configuration;
 using PMTComponents;
 using PMTDataProvider;
 
-namespace PMT 
+namespace PMT.Web 
 {
 	public class Global : HttpApplication
 	{

@@ -12,12 +12,12 @@ namespace PMT.AllUsers.Msg {
     
     
     /// <summary>
-    /// viewMessage class.
+    /// ViewMessage class.
     /// </summary>
     /// <remarks>
     /// Auto-generated class.
     /// </remarks>
-    public partial class viewMessage {
+    public partial class ViewMessage {
         
         /// <summary>
         /// subjectLabel control.

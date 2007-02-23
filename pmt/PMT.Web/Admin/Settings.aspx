@@ -7,7 +7,7 @@
     <p>
         You can use this form to generate a database connection string to be placed in the 
         "connectionStrings" section of the application's web.config file, which can be found at:
-        <i><%= Request.MapPath(PMT.Configuration.Config.ApplicationPath + "web.config") %></i>.
+        <i><%= Request.MapPath("~/web.config") %></i>.
     </p>
     <table>
     <%-- 

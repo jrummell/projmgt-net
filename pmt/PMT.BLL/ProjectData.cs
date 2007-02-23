@@ -7,7 +7,7 @@ using PMT.DAL.AssignmentsDataSetTableAdapters;
 
 namespace PMT.BLL
 {
-    public class ProjectData
+    public class ProjectData : IDisposable
     {
         private ProjectsTableAdapter taProjects;
         private ProjectAssignmentsTableAdapter taAssignments;
@@ -119,5 +119,24 @@ namespace PMT.BLL
 
             return p;
         }
+
+        #region IDisposable Members
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                taAssignments.Dispose();
+                taProjects.Dispose();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(true);
+        }
+
+        #endregion
     }
 }

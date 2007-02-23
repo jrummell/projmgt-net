@@ -92,7 +92,7 @@ namespace PMT.Admin
 
             string page = Request.AppRelativeCurrentExecutionFilePath;
 
-            if (val != String.Empty)
+            if (!String.IsNullOrEmpty(val))
             {
                 page = String.Format(page+"?role={0}", val);
             }

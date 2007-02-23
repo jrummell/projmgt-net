@@ -21,20 +21,7 @@ namespace PMT.Admin
     
 		protected void Page_Load(object sender, System.EventArgs e)
 		{
-            if (!IsPostBack)
-            {
-                //rblDbType.DataSource = Enum.GetNames(typeof(DatabaseType));
-                //rblDbType.DataBind();
-            }
 		}
-
-        private void rblDbType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RadioButtonList rbl = sender as RadioButtonList;
-            DatabaseType db = (DatabaseType)Enum.Parse(typeof(DatabaseType), rbl.SelectedValue);
-
-            cbTrusted.Enabled = (db == DatabaseType.SqlServer);
-        }
 
         private void cbTrusted_CheckedChanged(object sender, EventArgs e)
         {
@@ -58,30 +45,20 @@ namespace PMT.Admin
 
             StringBuilder cs = new StringBuilder();
 
-            //DatabaseType db = (DatabaseType)Enum.Parse(typeof(DatabaseType), rblDbType.SelectedValue);
             bool trusted = cbTrusted.Checked;
 
-            //if (db == DatabaseType.MySql)
-            //{
-            //    // "Server=Server;Database=Test;Uid=UserName;Pwd=asdasd;"
-            //    cs.AppendFormat("Server={0};Database={1};Uid={2};Pwd={3};",
-            //        txtServer.Text, txtDatabase.Text, txtUsername.Text, txtPassword1.Text);
-            //}
-            //else if (db == DatabaseType.SqlServer)
-            //{
-                cs.AppendFormat("Server={0};Database={1};Trusted_Connection={2};",
-                    txtServer.Text, txtDatabase.Text, trusted.ToString());
-                if (trusted)
-                {
-                    // "Server=Aron1;Database=pubs;Trusted_Connection=True;"
-                }
-                else
-                {
-                    // "Server=Aron1;Database=pubs;User ID=sa;Password=asdasd;Trusted_Connection=False" 
-                    cs.AppendFormat("User ID={0};Password={1}",
-                        txtUsername.Text, txtPassword1.Text);
-                } 
-            //}
+            cs.AppendFormat("Server={0};Database={1};Trusted_Connection={2};",
+                txtServer.Text, txtDatabase.Text, trusted.ToString());
+            if (trusted)
+            {
+                // "Server=Aron1;Database=pubs;Trusted_Connection=True;"
+            }
+            else
+            {
+                // "Server=Aron1;Database=pubs;User ID=sa;Password=asdasd;Trusted_Connection=False" 
+                cs.AppendFormat("User ID={0};Password={1}",
+                    txtUsername.Text, txtPassword1.Text);
+            }
 
             // write the settings to web.config
             // the following line throws the exception on the next line:
@@ -89,13 +66,12 @@ namespace PMT.Admin
             //   System.Configuration.ConfigurationErrorsException: The configuration is read only. 
             // To make this work I would have to implement a custom Configuration Handler, and I'd rather
             //   not right now, so I'm just displaying it instead.
-            lblConnString.Text = "Your connection string: <br/>"+cs.ToString();
+            lblConnString.Text = "Your connection string: <br/>" + cs.ToString();
         }
 
 		override protected void OnInit(EventArgs e)
 		{
             this.Load += new System.EventHandler(this.Page_Load);
-            //rblDbType.SelectedIndexChanged += new EventHandler(rblDbType_SelectedIndexChanged);
             cbTrusted.CheckedChanged += new EventHandler(cbTrusted_CheckedChanged);
             btnUpdate.Click += new EventHandler(btnUpdate_Click);
 			base.OnInit(e);

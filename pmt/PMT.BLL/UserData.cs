@@ -11,7 +11,7 @@ namespace PMT.BLL
     /// <summary>
     /// Manages User data
     /// </summary>
-    public class UserData
+    public class UserData : IDisposable
     {
         private UsersTableAdapter taUsers;
         private UserProfileTableAdapter taUserProfile;
@@ -44,6 +44,11 @@ namespace PMT.BLL
         /// <param name="userName">username</param>
         public User GetUser(string userName)
         {
+            if (userName == null)
+            {
+                throw new ArgumentNullException("userName");
+            }
+			
             return GetUser(0, userName);
         }
 
@@ -53,11 +58,44 @@ namespace PMT.BLL
         /// <returns>the inserted user's id</returns>
         public int InsertUser(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+
+            if (UsernameExists(user.UserName))
+            {
+                throw new Exception(String.Format("User {0} already exists.", user.UserName));
+            }
+
             // add to users and get new id
-            int id = (int)taUsers.Insert(user.UserName, (short)user.Role, user.Password, user.Enabled);
-            // add user info
-            taUserProfile.Insert(id, user.FirstName, user.LastName, user.Address, user.City,
-                user.State, user.ZipCode, user.PhoneNumber, user.Email);
+            int rows = (int)taUsers.Insert(user.UserName, 
+                (short)user.Role, user.Password, user.Enabled);
+
+            if (rows != 1)
+            {
+                throw new Exception(String.Format("Could not insert user {0}.", user.UserName));
+            }
+
+            // get new id
+            UsersDataSet.UsersDataTable dt = taUsers.GetUserByUserName(user.UserName);
+            if (dt.Count != 1)
+            {
+                throw new Exception(String.Format("Could not get new user {0}.", user.UserName));
+            }
+            int id = dt[0].ID;
+
+            // add user profile
+            rows = taUserProfile.Insert(id, user.FirstName, user.LastName, 
+                user.State, user.ZipCode, user.PhoneNumber, user.Email, 
+                user.Address, user.City);
+
+            if (rows != 1)
+            {
+                DeleteUser(id);
+                throw new Exception(String.Format(
+                    "Could not insert profile. User {0} deleted.", user.UserName));
+            }
 
             return id;
         }
@@ -92,6 +130,11 @@ namespace PMT.BLL
         /// <returns>true if sucessfull</returns>
         public bool UpdateUser(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+			
             int rows = taUsers.Update(user.UserName, (short)user.Role, user.Password, user.Enabled, user.ID, user.ID);
 
             if (rows == 1)
@@ -99,6 +142,19 @@ namespace PMT.BLL
                 rows = taUserProfile.Update(user.ID, user.FirstName, user.LastName, user.Address,
                     user.City, user.State, user.ZipCode, user.PhoneNumber, user.Email, user.ID);
             }
+
+            return rows == 1;
+        }
+
+        /// <summary>
+        /// Updates the enabled.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="enabled">if set to <c>true</c> [enabled].</param>
+        /// <returns></returns>
+        public bool UpdateEnabled(int id, bool enabled)
+        {
+            int rows = taUsers.UpdateEnabled(enabled, id);
 
             return rows == 1;
         }
@@ -127,16 +183,16 @@ namespace PMT.BLL
                 dtUser = taUsers.GetUserByUserName(userName);
             }
 
-            if (dtProfile.Rows.Count == 0)
+            if (dtUser.Count == 0 || dtProfile.Count == 0)
                 return null;
 
-            UsersDataSet.UserProfileRow rProfile = dtProfile[0];
             UsersDataSet.UsersRow rUser = dtUser[0];
-
             user = User.CreateUser((UserRole)rUser.Role);
-            user.ID = rProfile.ID;
-            user.UserName = rUser.UserName;
+            user.ID = rUser.ID;
+            user.UserName = rUser.Username;
             user.Enabled = rUser.Enabled;
+
+            UsersDataSet.UserProfileRow rProfile = dtProfile[0];
             user.FirstName = rProfile.FirstName;
             user.LastName = rProfile.LastName;
             user.Email = rProfile.Email;
@@ -166,6 +222,16 @@ namespace PMT.BLL
         }
 
         /// <summary>
+        /// Gets the users.
+        /// </summary>
+        /// <param name="enabled">if set to <c>true</c> gets enabled users.</param>
+        /// <returns></returns>
+        public UsersDataSet.UsersDataTable GetUsers(bool enabled)
+        {
+            return taUsers.GetUsersByEnabled(enabled);
+        }
+
+        /// <summary>
         /// Authenticates the user.
         /// </summary>
         /// <param name="username">The username.</param>
@@ -173,6 +239,17 @@ namespace PMT.BLL
         /// <returns></returns>
         public bool AuthenticateUser(string username, string password)
         {
+            if (username == null)
+            {
+                throw new ArgumentNullException("username");
+            }
+
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+			
+			
             return 1 == (int)taUsers.AuthenticateUser(username, password);
         }
 
@@ -181,9 +258,35 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="username">The username.</param>
         /// <returns></returns>
-        public bool UserNameExists(string username)
+        public bool UsernameExists(string username)
         {
+            if (username == null)
+            {
+                throw new ArgumentNullException("username");
+            }
+			
             return taUsers.GetUserByUserName(username).Rows.Count != 0;
         }
+
+        #region IDisposable Members
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                taUsers.Dispose();
+                taUserProjects.Dispose();
+                taUserProfile.Dispose();
+                taUserManagers.Dispose();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(true);
+        }
+
+        #endregion
     }
 }

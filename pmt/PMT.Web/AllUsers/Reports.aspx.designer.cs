@@ -89,6 +89,6 @@ namespace PMT.AllUsers {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::PMT.Controls.Report report;
+        protected global::PMT.Web.Controls.Report report;
     }
 }

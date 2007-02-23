@@ -11,7 +11,7 @@ using PMTComponents;
 using PMT.BLL;
 using PMT.Web;
 
-namespace PMT.Controls
+namespace PMT.Web.Controls
 {
     public partial class Navigation : UserControl
     {
@@ -34,43 +34,22 @@ namespace PMT.Controls
                 StringBuilder sbPath = new StringBuilder();
                 sbPath.Append(dir).Append(xmlFile);
                 
-                loadXmlLinks(sbPath.ToString());
+                LoadXmlLinks(sbPath.ToString());
 
                 // managers and client get reports
                 if (role == UserRole.Manager ||
                     role == UserRole.Client)
                 {
-                    addLink("Reports", "AllUsers/Reports.aspx");
+                    AddLink("Reports", "AllUsers/Reports.aspx");
                 }
             }
         }
-
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-		
-        /// <summary>
-        ///		Required method for Designer support - do not modify
-        ///		the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-
-        }
-        #endregion
-
 
         /// <summary>
         /// Add links from an XML file
         /// </summary>
         /// <param name="xmlFile">XML file with links</param>
-        private void loadXmlLinks(string xmlFile)
+        private void LoadXmlLinks(string xmlFile)
         {
             DataSet ds = new DataSet();
             ds.ReadXml(Server.MapPath(xmlFile));
@@ -79,10 +58,10 @@ namespace PMT.Controls
             {
                 foreach(DataRow item in ds.Tables[0].Rows)
                 {
-                    addLink(item["Text"].ToString(), item["Link"].ToString());
+                    AddLink(item["Text"].ToString(), item["Link"].ToString());
                 }
             }
-            addBreak();
+            AddBreak();
         }
 
         /// <summary>
@@ -91,7 +70,7 @@ namespace PMT.Controls
         /// <param name="linkTitle">The title of the link</param>
         /// <param name="linkSource">The link source relative to the site root 
         /// (the part after "/~pmt/")</param>
-        public void addLink(string linkTitle, string linkSource)
+        public void AddLink(string linkTitle, string linkSource)
         {
             TableRow  row = new TableRow();
             TableCell cell = new TableCell();
@@ -112,7 +91,7 @@ namespace PMT.Controls
         /// <summary>
         /// Add a break to the navigation menu
         /// </summary>
-        public void addBreak()
+        public void AddBreak()
         {
             TableRow  row = new TableRow();
             TableCell cell = new TableCell();

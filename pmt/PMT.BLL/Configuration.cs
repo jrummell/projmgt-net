@@ -10,12 +10,7 @@ namespace PMT.BLL
     /// </summary>
     public abstract class ConfigBase
     {
-        private static object lockObj;
-
-        static ConfigBase()
-        {
-            lockObj = new Object();
-        }
+        private static object lockObj = new Object();
 
         protected ConfigBase() { }
 

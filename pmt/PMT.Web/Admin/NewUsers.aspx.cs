@@ -8,26 +8,24 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using PMTComponents;
-using PMTDataProvider;
+using PMT.BLL;
 
 namespace PMT.Admin
 {
-    /// <summary>
-    /// Summary description for newUser.
-    /// </summary>
     public partial class NewUser : Page
     {
+        UserData users;
+
+        public NewUser()
+        {
+            users = new UserData();
+        }
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
-            // Put user code to initialize the page here
-            if(!Page.IsPostBack)
+            if (!Page.IsPostBack)
             {
-                //fill the datagrid with wannabe users
-                IDataProvider data = DataProviderFactory.CreateInstance();
-                NewUserDataGrid.DataSource = data.GetEnabledPMTUsers(false);
-                NewUserDataGrid.DataBind();
+                BindData();
             }
         }
 
@@ -47,26 +45,30 @@ namespace PMT.Admin
         /// </summary>
         private void InitializeComponent()
         {
-            NewUserDataGrid.ItemDataBound += new DataGridItemEventHandler(NewUserDataGrid_ItemDataBound);
             this.NewUserDataGrid.DeleteCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.NewUserDataGrid_DeleteCommand);
-
         }
         #endregion
 
         private void NewUserDataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
             string delID = (NewUserDataGrid.Items[e.Item.ItemIndex].Cells[0].Text);
-            IDataProvider conn = DataProviderFactory.CreateInstance();
-            conn.DeletePMTUser(Convert.ToInt32(delID), null);
-            NewUserDataGrid.DataBind();
+            users.DeleteUser(Convert.ToInt32(delID));
+            BindData();
         }
 
-        private void NewUserDataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
+        protected void cbEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                e.Item.Cells[5].Text = Enum.GetName(typeof(PMTUserRole), Convert.ToInt32(e.Item.Cells[5].Text));
-            }
+            CheckBox cb = sender as CheckBox;
+            string id = ((DataGridItem)cb.Parent.Parent).Cells[0].Text;
+            users.UpdateEnabled(Convert.ToInt32(id), cb.Checked);
+            BindData();
+        }
+
+        private void BindData()
+        {
+            //fill the datagrid with wannabe users
+            NewUserDataGrid.DataSource = users.GetUsers(false);
+            NewUserDataGrid.DataBind();
         }
     }
 }

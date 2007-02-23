@@ -1,4 +1,4 @@
-<%@ Control Language="c#" Inherits="PMT.Controls.Profile" Codebehind="Profile.ascx.cs" %>
+<%@ Control Language="c#" Inherits="PMT.Web.Controls.Profile" Codebehind="Profile.ascx.cs" %>
 <table id="Table1" cellspacing="1" cellpadding="1" border="0">
     <tr>
         <td>
@@ -11,7 +11,7 @@
         <td>
             First Name:</td>
         <td>
-            <asp:TextBox ID="FirstNameTextBox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="FirstNameTextBox" runat="server" MaxLength="25"></asp:TextBox>
             <asp:Label ID="FirstNameLabel" runat="server" Visible="False"></asp:Label></td>
         <td>
             <asp:RequiredFieldValidator ID="FirstNameRequiredFieldValidator" runat="server" ControlToValidate="FirstNameTextBox"
@@ -21,7 +21,7 @@
         <td>
             Last Name:</td>
         <td>
-            <asp:TextBox ID="LastNameTextBox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="LastNameTextBox" runat="server" MaxLength="25"></asp:TextBox>
             <asp:Label ID="LastNameLabel" runat="server" Visible="False"></asp:Label></td>
         <td>
             <asp:RequiredFieldValidator ID="LastNameRequiredFieldValidator" runat="server" ControlToValidate="LastNameTextBox"
@@ -31,7 +31,7 @@
         <td>
             <asp:Label ID="UsernamePromptLabel" runat="server">Username:</asp:Label></td>
         <td>
-            <asp:TextBox ID="UsernameTextBox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="UsernameTextBox" runat="server" MaxLength="15"></asp:TextBox>
             <asp:Label ID="UsernameLabel" runat="server" Visible="False"></asp:Label></td>
         <td>
             <asp:RequiredFieldValidator ID="UsernameRequiredFieldValidator" runat="server" ControlToValidate="UserNameTextBox"
@@ -79,7 +79,7 @@
         <td>
             Address:</td>
         <td>
-            <asp:TextBox ID="AddressTextBox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="AddressTextBox" runat="server" MaxLength="150"></asp:TextBox>
             <asp:Label ID="AddressLabel" runat="server" Visible="False"></asp:Label></td>
         <td>
             <asp:RequiredFieldValidator ID="AddressRequiredFieldValidator" runat="server" ControlToValidate="AddressTextBox"
@@ -89,7 +89,7 @@
         <td>
             City:</td>
         <td>
-            <asp:TextBox ID="CityTextBox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="CityTextBox" runat="server" MaxLength="50"></asp:TextBox>
             <asp:Label ID="CityLabel" runat="server" Visible="False"></asp:Label></td>
         <td>
             <asp:RequiredFieldValidator ID="CityRequiredFieldValidator" runat="server" ControlToValidate="CityTextBox"
@@ -99,7 +99,7 @@
         <td>
             State:</td>
         <td>
-            <asp:TextBox ID="StateTextBox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="StateTextBox" runat="server" MaxLength="2"></asp:TextBox>
             <asp:Label ID="StateLabel" runat="server" Visible="False"></asp:Label></td>
         <td>
             <asp:RequiredFieldValidator ID="StateRequiredFieldValidator" runat="server" ControlToValidate="StateTextBox"
@@ -109,7 +109,7 @@
         <td>
             Zip:</td>
         <td>
-            <asp:TextBox ID="ZipTextBox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="ZipTextBox" runat="server" MaxLength="10"></asp:TextBox>
             <asp:Label ID="ZipLabel" runat="server" Visible="False"></asp:Label></td>
         <td>
             <asp:RequiredFieldValidator ID="ZipRequiredFieldValidator" runat="server" ControlToValidate="ZipTextBox"
@@ -122,7 +122,7 @@
         <td>
             Phone Number (123-456-7890):</td>
         <td>
-            <asp:TextBox ID="PhoneTextBox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="PhoneTextBox" runat="server" MaxLength="13"></asp:TextBox>
             <asp:Label ID="PhoneLabel" runat="server" Visible="False"></asp:Label></td>
         <td>
             <asp:RequiredFieldValidator ID="PhoneRequiredFieldValidator" runat="server" ControlToValidate="PhoneTextBox"
@@ -135,7 +135,7 @@
         <td>
             Email:</td>
         <td>
-            <asp:TextBox ID="EmailTextBox" runat="server"></asp:TextBox>
+            <asp:TextBox ID="EmailTextBox" runat="server" MaxLength="30"></asp:TextBox>
             <asp:Label ID="EmailLabel" runat="server" Visible="False"></asp:Label></td>
         <td>
             <asp:RequiredFieldValidator ID="EmailRequiredFieldValidator" runat="server" ControlToValidate="EmailTextBox"
