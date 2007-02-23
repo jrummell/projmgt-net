@@ -1,6 +1,5 @@
 <%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.AllUsers.Reports" Codebehind="Reports.aspx.cs" %>
 
-<%@ Register TagPrefix="pmt" TagName="Report" Src="~/Controls/Report.ascx" %>
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>
         Reports</h3>

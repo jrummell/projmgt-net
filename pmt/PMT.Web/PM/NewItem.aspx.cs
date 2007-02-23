@@ -9,7 +9,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using PMT.Controls;
+using PMT.Web.Controls;
 //using PMT.BLL;
 using PMTComponents;
 using PMTDataProvider;
@@ -49,7 +49,7 @@ namespace PMT.PM
             }
 
             // set the page title
-            //if (!ItemType.Equals(String.Empty))
+            //if (!ItemType.Length == 0)
             {
                 lblItemType.Text = ItemType.ToString();
             }

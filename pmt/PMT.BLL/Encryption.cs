@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PMT.BLL
 {
-	public class Encryption
+	public static class Encryption
 	{
         #region MD5
         /// <summary>

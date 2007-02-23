@@ -1,18 +1,18 @@
-<%@ Control Language="c#" Inherits="PMT.Controls.Header" Codebehind="Header.ascx.cs" %>
+<%@ Control Language="c#" Inherits="PMT.Web.Controls.Header" Codebehind="Header.ascx.cs" %>
 <%@ Import Namespace="PMT.Configuration" %>
 
 <h2>Project Management .Net</h2>
 <div style="float: left">
-    <asp:Label id="lblRole" Runat="server" />
+    <asp:Literal id="litRole" Runat="server" />
 </div>
 <div style="float: right">
-    <asp:Panel ID="pnlLoggedIn" runat="server">
-        <a href="<%= Config.ApplicationPath %>allusers/profile.aspx"><asp:Label ID="lblUsername" Runat="server" /></a> |
-        <a href="<%= Config.ApplicationPath %>allusers/msg">Messages</a> |
-        <a href="<%= Config.ApplicationPath %>logout.aspx">Logout</a>
-    </asp:Panel>
-    <asp:Panel ID="pnlLoggedOut" runat="server">
-        <a href="<%= Config.ApplicationPath %>register.aspx">Register</a> |
-        <a href="<%= Config.ApplicationPath %>login.aspx">Login</a>
-    </asp:Panel>
+    <span id="spanLoggedIn" runat="server">
+        <asp:HyperLink ID="hlProfile" runat="server" NavigateUrl="~/allusers/profile.aspx"></asp:HyperLink> |
+        <asp:HyperLink ID="hlMessages" runat="server" NavigateUrl="~/allusers/msg/default.aspx">Messages</asp:HyperLink> |
+        <asp:HyperLink ID="hlLogout" runat="server" NavigateUrl="~/logout.aspx">Logout</asp:HyperLink>
+    </span>
+    <span id="spanLoggedOut" runat="server">
+        <asp:HyperLink ID="hlRegister" runat="server" NavigateUrl="~/register.aspx">Register</asp:HyperLink> |
+        <asp:HyperLink ID="hlLogin" runat="server" NavigateUrl="~/login.aspx">Login</asp:HyperLink>
+    </span>
 </div>

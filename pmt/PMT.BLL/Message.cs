@@ -34,7 +34,6 @@ namespace PMT.BLL
             this.Sender = sender;
             this.Recipients = recipients;
             this.DateSent = dateSent;
-            //this.DateReceived = dateReceived;
             this.Subject = subject;
             this.Body = body;
         }
@@ -45,12 +44,10 @@ namespace PMT.BLL
         /// <param name="sender">Sender</param>
         /// <param name="recipients">Recipients</param>
         /// <param name="dateSent">Date Sent</param>
-        /// <param name="dateReceived">Date Sent</param>
         /// <param name="subject">Subject</param>
         /// <param name="body">Body</param>
         public Message(User sender, User[] recipients, 
-            DateTime dateSent, DateTime dateReceived,
-            string subject, string body)
+            DateTime dateSent, string subject, string body)
             : this (0, sender, recipients, dateSent, subject, body) {}
 
         /// <summary>
@@ -88,7 +85,7 @@ namespace PMT.BLL
         /// </summary>
         public User[] Recipients
         {
-            get {   return recipients;                          }
+            get {   return recipients;                       }
             set {   recipients = value.Clone() as User[];    }
         }
         /// <summary>
@@ -99,14 +96,7 @@ namespace PMT.BLL
             get {   return dateSent;    }
             set {   dateSent = value;   }
         }
-        ///// <summary>
-        ///// Gets or sets the Date Received
-        ///// </summary>
-        //public DateTime DateReceived
-        //{
-        //    get {   return dateReceived;    }
-        //    set {   dateReceived = value;   }
-        //}
+
         /// <summary>
         /// Gets or sets the Subject
         /// </summary>
@@ -138,39 +128,55 @@ namespace PMT.BLL
         /// Reply to a message
         /// </summary>
         /// <param name="m">Message to Reply to</param>
-        public void Reply(Message m)
+        public void Reply(Message message)
         {
-            Subject = String.Format("RE: {0}", m.Subject);
-            Body = GetReplyForwardBlock(m);
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+			
+            Subject = String.Format("RE: {0}", message.Subject);
+            Body = GetReplyForwardBlock(message);
 
             recipients = new User[1];
-            recipients[0] = m.Sender;
+            recipients[0] = message.Sender;
         }
 
         /// <summary>
         /// Forward a Message
         /// </summary>
         /// <param name="m">Message to Forward</param>
-        public void Forward(Message m)
+        public void Forward(Message message)
         {
-            Subject = String.Format("FW: {0}", m.Subject);
-            Body = GetReplyForwardBlock(m);
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+
+            Subject = String.Format("FW: {0}", message.Subject);
+            Body = GetReplyForwardBlock(message);
         }
 
         /// <summary>
         /// Returns a standard Reply or Forward block of text based on the given message
         /// </summary>
-        private string GetReplyForwardBlock(Message m)
+        private string GetReplyForwardBlock(Message message)
         {
+            if (message == null)
+            {
+                throw new ArgumentNullException("message");
+            }
+			
+
             StringBuilder block = new StringBuilder();
             block.Append("\r\n\r\n\r\n");
             block.Append(" --- Original Message --- \r\n");
-            block.AppendFormat("From: {1}, {0} \r\n", m.Sender.FirstName, m.Sender.LastName);
-            block.AppendFormat("Sent: {0} \r\n", m.DateSent.ToString());
+            block.AppendFormat("From: {1}, {0} \r\n", message.Sender.FirstName, message.Sender.LastName);
+            block.AppendFormat("Sent: {0} \r\n", message.DateSent.ToString());
             block.AppendFormat("To: {1}, {0} \r\n", Sender.FirstName, Sender.LastName);
-            block.AppendFormat("Subject: {0}", m.Subject);
+            block.AppendFormat("Subject: {0}", message.Subject);
             block.Append("\r\n\r\n");
-            block.Append(m.Body);
+            block.Append(message.Body);
             return block.ToString();
         }
         #endregion

@@ -8,7 +8,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using PMT.Controls;
+using PMT.Web.Controls;
 using PMT.BLL;
 using PMT.DAL.UsersDataSetTableAdapters;
 using PMT.Configuration;
@@ -39,26 +39,6 @@ namespace PMT.AllUsers
             StatusLabel.Visible = false;
 		}
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-
-        }
-		#endregion
-
         protected void SubmitButton_Click(object sender, System.EventArgs e)
         {
             StatusLabel.Visible = false;
@@ -76,13 +56,6 @@ namespace PMT.AllUsers
                 StatusLabel.Text = "Your profile has been updated.";
                 StatusLabel.Visible = true;
             }
-        }
-
-        private void TransactionFailed(Exception ex)
-        {
-            StatusLabel.Text = String.Format("Update failed.  Error {0}", ex.Message);
-            StatusLabel.ForeColor = Color.Red;
-            StatusLabel.Visible = true;
         }
 	}
 }

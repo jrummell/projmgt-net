@@ -26,7 +26,7 @@ namespace PMT.PM {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::PMT.Controls.Profile ProfileControl1;
+        protected global::PMT.Web.Controls.Profile ProfileControl1;
         
         /// <summary>
         /// ddlComp control.

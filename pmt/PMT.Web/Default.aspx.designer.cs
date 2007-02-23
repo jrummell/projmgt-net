@@ -8,11 +8,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PMT.Web
-{
-
-    public partial class _Default
-    {
-        protected System.Web.UI.HtmlControls.HtmlForm form1;
+namespace PMT.Web {
+    
+    
+    /// <summary>
+    /// Default class.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated class.
+    /// </remarks>
+    public partial class Default {
     }
 }

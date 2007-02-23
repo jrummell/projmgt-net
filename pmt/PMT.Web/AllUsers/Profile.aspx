@@ -1,5 +1,4 @@
 <%@ Page Language="c#" Inherits="PMT.AllUsers.UserProfile" MasterPageFile="~/Master/Default.master" Codebehind="Profile.aspx.cs" %>
-<%@ Register TagPrefix="pmt" TagName="Profile" Src="~/Controls/Profile.ascx" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <p><asp:Label ID="StatusLabel" runat="server" EnableViewState="false" /></p>

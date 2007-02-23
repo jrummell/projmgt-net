@@ -16,12 +16,12 @@ namespace PMT.BLL
     /// </summary>
     public abstract class ProjectItem
     {
-        protected string name;
-        protected int id;
-        protected string description;
-        protected DateTime startDate;
-        protected DateTime expEndDate;
-        protected DateTime actEndDate;
+        private string name;
+        private int id;
+        private string description;
+        private DateTime startDate;
+        private DateTime expEndDate;
+        private DateTime actEndDate;
 
         #region Constructors
         /// <summary>
@@ -222,6 +222,7 @@ namespace PMT.BLL
         private TaskStatus status;
         private TaskComplexity complexity;
 
+        #region Constructors
         /// <summary>
         /// Main Constructor
         /// </summary>
@@ -252,10 +253,10 @@ namespace PMT.BLL
         public Task(int modID, string name, string description, 
             TaskComplexity complexity, DateTime startDate)
             : this(0, modID, name, description, complexity, 
-                startDate, DateTime.MinValue, DateTime.MinValue) {}
+                startDate, DateTime.MinValue, DateTime.MinValue) { }
+        #endregion
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the module ID.
         /// </summary>
@@ -274,7 +275,16 @@ namespace PMT.BLL
             get {   return status;  }
             set {   status = value; }
         }
-        #endregion
+
+        /// <summary>
+        /// Gets or sets the complexity.
+        /// </summary>
+        /// <value>The complexity.</value>
+        public TaskComplexity Complexity
+        {
+            get { return this.complexity; }
+            set { this.complexity = value; }
+        }
 
         /// <summary>
         /// Gets the type.
@@ -284,6 +294,7 @@ namespace PMT.BLL
         {
             get { return ProjectItemType.Task; }
         }
+        #endregion
     }
     #endregion
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PMT.Controls {
+namespace PMT.Web.Controls {
     
     
     /// <summary>

@@ -21,7 +21,7 @@ namespace PMT.BLL
     /// <summary>
     /// Project Management .Net User Base Class
     /// </summary>
-    public abstract class User //: ICloneable
+    public abstract class User 
     {
         #region Attributes
         private string userName;
@@ -91,24 +91,6 @@ namespace PMT.BLL
             ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
             return (User)constructor.Invoke(new Object[0]);
         }
-
-        /// <summary>
-        /// Gets the role.
-        /// </summary>
-        /// <returns></returns>
-        //public UserRole GetRole()
-        //{
-        //    if (this is Administrator)
-        //        return UserRole.Administrator;
-        //    else if (this is Manager)
-        //        return UserRole.Manager;
-        //    else if (this is Developer)
-        //        return UserRole.Developer;
-        //    else if (this is Client)
-        //        return UserRole.Client;
-        //    else
-        //        throw new System.Exception("Could not determine User type.");
-        //}
 
         /// <summary>
         /// Gets the cookie.
@@ -230,34 +212,6 @@ namespace PMT.BLL
             get { return enabled; }
             set { enabled = value; }
         }
-        #endregion
-
-        #region ICloneable Members
-        //object ICloneable.Clone()
-        //{
-        //    // delegate to type safe Clone()
-        //    return this.Clone();
-        //}
-
-        //public virtual User Clone()
-        //{
-        //    User copy = (User)this.MemberwiseClone();
-        //    copy.UserName = UserName;
-        //    copy.Password = Password;
-        //    copy.ID = ID;
-        //    copy.Role = Role;
-        //    copy.FirstName = FirstName;
-        //    copy.LastName = LastName;
-        //    copy.Email = Email;
-        //    copy.PhoneNumber = PhoneNumber;
-        //    copy.Address = Address;
-        //    copy.City = City;
-        //    copy.State = State;
-        //    copy.ZipCode = ZipCode;
-        //    copy.Enabled = Enabled;
-
-        //    return copy;
-        //}
         #endregion
     }
 

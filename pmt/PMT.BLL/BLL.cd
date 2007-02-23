@@ -5,8 +5,9 @@
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>UserData.cs</FileName>
-      <HashCode>ACAACAEAAAAABAAEAAAABCEAAQAAAAAAEAAABAAAAAA=</HashCode>
+      <HashCode>ICAACAMAACAABAAEAAAABGEAAQAAAAAAEAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="PMT.BLL.User" Collapsed="true">
     <Position X="4.75" Y="0.5" Width="1.5" />
@@ -61,15 +62,16 @@
     <Position X="8.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>Project.cs</FileName>
-      <HashCode>AAQAQAAEAACAAAAAAAAAAAAAAAAAAAAAAQAAQAAAAAA=</HashCode>
+      <HashCode>AAQAQAAEAACAAAAAAAAAAAAAAAAAAAAAAQAAQAAAAEA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="PMT.BLL.ProjectData">
     <Position X="0.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <FileName>ProjectData.cs</FileName>
-      <HashCode>AAAAAAAAAAAIACgAAAAAAgAAAAAAAAAAQgCIgAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACAIACgAAAAAAgAAAAAAAAAAQgCIgAAAAAA=</HashCode>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="PMT.BLL.ModuleData">
     <Position X="2" Y="4.25" Width="1.5" />
@@ -103,6 +105,13 @@
     <Position X="2" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>MessageData.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.MatrixData">
+    <Position X="6.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>MatrixData.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>

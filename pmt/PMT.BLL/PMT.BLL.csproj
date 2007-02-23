@@ -36,6 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MatrixData.cs" />
     <Compile Include="MessageData.cs" />
     <Compile Include="ModuleData.cs" />
     <Compile Include="ProjectData.cs" />

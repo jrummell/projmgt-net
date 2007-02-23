@@ -1,6 +1,5 @@
-<%@ Master Language="C#" EnableTheming="true" AutoEventWireup="true" Inherits="Master_Default" Codebehind="Default.master.cs" %>
-<%@ Register TagPrefix="pmt" TagName="Navigation" Src="~/Controls/Navigation.ascx" %>
-<%@ Register TagPrefix="pmt" TagName="Header" Src="~/Controls/Header.ascx" %>
+<%@ Master AutoEventWireup="true" Codebehind="Default.master.cs" EnableTheming="true"
+    Inherits="PMT.Web.Master.Default" Language="C#" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >

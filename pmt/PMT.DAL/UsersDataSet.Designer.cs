@@ -265,8 +265,6 @@ namespace PMT.DAL {
             
             private System.Data.DataColumn columnID;
             
-            private System.Data.DataColumn columnUserName;
-            
             private System.Data.DataColumn columnRole;
             
             private System.Data.DataColumn columnPassword;
@@ -309,13 +307,6 @@ namespace PMT.DAL {
             public System.Data.DataColumn IDColumn {
                 get {
                     return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn UserNameColumn {
-                get {
-                    return this.columnUserName;
                 }
             }
             
@@ -376,14 +367,13 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public UsersRow AddUsersRow(string UserName, short Role, string Password, string Username1, bool Enabled) {
+            public UsersRow AddUsersRow(short Role, string Password, string Username, bool Enabled) {
                 UsersRow rowUsersRow = ((UsersRow)(this.NewRow()));
                 rowUsersRow.ItemArray = new object[] {
                         null,
-                        UserName,
                         Role,
                         Password,
-                        Username1,
+                        Username,
                         Enabled};
                 this.Rows.Add(rowUsersRow);
                 return rowUsersRow;
@@ -415,7 +405,6 @@ namespace PMT.DAL {
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
-                this.columnUserName = base.Columns["UserName"];
                 this.columnRole = base.Columns["Role"];
                 this.columnPassword = base.Columns["Password"];
                 this.columnUsername = base.Columns["Username"];
@@ -426,8 +415,6 @@ namespace PMT.DAL {
             private void InitClass() {
                 this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
-                this.columnUserName = new System.Data.DataColumn("UserName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnUserName);
                 this.columnRole = new System.Data.DataColumn("Role", typeof(short), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRole);
                 this.columnPassword = new System.Data.DataColumn("Password", typeof(string), null, System.Data.MappingType.Element);
@@ -438,16 +425,17 @@ namespace PMT.DAL {
                 base.Columns.Add(this.columnEnabled);
                 this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
                                 this.columnID}, true));
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint2", new System.Data.DataColumn[] {
+                                this.columnUsername}, false));
                 this.columnID.AutoIncrement = true;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
-                this.columnUserName.AllowDBNull = false;
-                this.columnUserName.MaxLength = 30;
                 this.columnRole.AllowDBNull = false;
                 this.columnPassword.AllowDBNull = false;
                 this.columnPassword.MaxLength = 32;
                 this.columnUsername.AllowDBNull = false;
+                this.columnUsername.Unique = true;
                 this.columnUsername.MaxLength = 15;
                 this.columnEnabled.AllowDBNull = false;
             }
@@ -768,15 +756,15 @@ namespace PMT.DAL {
                                 this.columnID}, true));
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
-                this.columnFirstName.MaxLength = 30;
-                this.columnLastName.MaxLength = 30;
-                this.columnState.MaxLength = 30;
+                this.columnFirstName.MaxLength = 25;
+                this.columnLastName.MaxLength = 25;
+                this.columnState.MaxLength = 2;
                 this.columnZip.MaxLength = 10;
                 this.columnPhoneNumber.MaxLength = 13;
-                this.columnEmail.MaxLength = 50;
+                this.columnEmail.MaxLength = 30;
                 this.columnUsername.ReadOnly = true;
                 this.columnUsername.MaxLength = 15;
-                this.columnAddress.MaxLength = 50;
+                this.columnAddress.MaxLength = 150;
                 this.columnCity.MaxLength = 50;
             }
             
@@ -880,16 +868,6 @@ namespace PMT.DAL {
                 }
                 set {
                     this[this.tableUsers.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string UserName {
-                get {
-                    return ((string)(this[this.tableUsers.UserNameColumn]));
-                }
-                set {
-                    this[this.tableUsers.UserNameColumn] = value;
                 }
             }
             
@@ -1342,7 +1320,6 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Users";
             tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("UserName", "UserName");
             tableMapping.ColumnMappings.Add("Role", "Role");
             tableMapping.ColumnMappings.Add("Password", "Password");
             tableMapping.ColumnMappings.Add("Username", "Username");
@@ -1388,14 +1365,14 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
             this._commandCollection = new System.Data.SqlClient.SqlCommand[7];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT     ID, Username, Role, Password, Enabled\r\nFROM         Users";
+            this._commandCollection[0].CommandText = "SELECT ID, Username, Role, Password, Enabled FROM Users";
             this._commandCollection[0].CommandType = System.Data.CommandType.Text;
             this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT     COUNT(*) AS Expr1\r\nFROM         Users\r\nWHERE     (UserName = @UserName" +
-                ") AND (Password = @Password)";
+            this._commandCollection[1].CommandText = "SELECT     COUNT(*) AS Expr1\r\nFROM         Users\r\nWHERE     (Username = @Username" +
+                ") AND (Password = @Password) AND (Enabled = 1)";
             this._commandCollection[1].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserName", System.Data.SqlDbType.VarChar, 30, System.Data.ParameterDirection.Input, 0, 0, "UserName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Username", System.Data.SqlDbType.VarChar, 15, System.Data.ParameterDirection.Input, 0, 0, "Username", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Password", System.Data.SqlDbType.VarChar, 32, System.Data.ParameterDirection.Input, 0, 0, "Password", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
@@ -1415,10 +1392,10 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
             this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
-            this._commandCollection[5].CommandText = "SELECT Enabled, ID, Password, Role, Username FROM Users WHERE (Username = @UserNa" +
+            this._commandCollection[5].CommandText = "SELECT Enabled, ID, Password, Role, Username FROM Users WHERE (Username = @Userna" +
                 "me)";
             this._commandCollection[5].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[5].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserName", System.Data.SqlDbType.VarChar, 30, System.Data.ParameterDirection.Input, 0, 0, "UserName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Username", System.Data.SqlDbType.VarChar, 15, System.Data.ParameterDirection.Input, 0, 0, "Username", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[6] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[6].Connection = this.Connection;
             this._commandCollection[6].CommandText = "UPDATE    Users\r\nSET              Enabled = @Enabled\r\nWHERE     (ID = @ID)";
@@ -1511,13 +1488,13 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual UsersDataSet.UsersDataTable GetUserByUserName(string UserName) {
+        public virtual UsersDataSet.UsersDataTable GetUserByUserName(string Username) {
             this.Adapter.SelectCommand = this.CommandCollection[5];
-            if ((UserName == null)) {
-                throw new System.ArgumentNullException("UserName");
+            if ((Username == null)) {
+                throw new System.ArgumentNullException("Username");
             }
             else {
-                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(UserName));
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Username));
             }
             UsersDataSet.UsersDataTable dataTable = new UsersDataSet.UsersDataTable();
             this.Adapter.Fill(dataTable);
@@ -1642,13 +1619,13 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual object AuthenticateUser(string UserName, string Password) {
+        public virtual System.Nullable<int> AuthenticateUser(string Username, string Password) {
             System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            if ((UserName == null)) {
-                throw new System.ArgumentNullException("UserName");
+            if ((Username == null)) {
+                throw new System.ArgumentNullException("Username");
             }
             else {
-                command.Parameters[0].Value = ((string)(UserName));
+                command.Parameters[0].Value = ((string)(Username));
             }
             if ((Password == null)) {
                 throw new System.ArgumentNullException("Password");
@@ -1672,10 +1649,10 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(System.DBNull)))) {
-                return null;
+                return new System.Nullable<int>();
             }
             else {
-                return ((object)(returnValue));
+                return new System.Nullable<int>(((int)(returnValue)));
             }
         }
         
@@ -1807,8 +1784,9 @@ namespace PMT.DAL.UsersDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [UserProfile] ([ID], [FirstName], [LastName], [State], [Zip], [PhoneNumber], [Email], [Address], [City]) VALUES (@ID, @FirstName, @LastName, @State, @Zip, @PhoneNumber, @Email, @Address, @City);
-SELECT ID, FirstName, LastName, State, Zip, PhoneNumber, Email, (SELECT Username FROM Users WHERE (UserProfile.ID = ID)) AS Username, Address, City FROM UserProfile WHERE (ID = @ID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [UserProfile] ([ID], [FirstName], [LastName], [State], [Zip], [PhoneN" +
+                "umber], [Email], [Address], [City]) VALUES (@ID, @FirstName, @LastName, @State, " +
+                "@Zip, @PhoneNumber, @Email, @Address, @City)";
             this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "FirstName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1821,8 +1799,9 @@ SELECT ID, FirstName, LastName, State, Zip, PhoneNumber, Email, (SELECT Username
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@City", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "City", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [UserProfile] SET [ID] = @ID, [FirstName] = @FirstName, [LastName] = @LastName, [State] = @State, [Zip] = @Zip, [PhoneNumber] = @PhoneNumber, [Email] = @Email, [Address] = @Address, [City] = @City WHERE (([ID] = @Original_ID));
-SELECT ID, FirstName, LastName, State, Zip, PhoneNumber, Email, (SELECT Username FROM Users WHERE (UserProfile.ID = ID)) AS Username, Address, City FROM UserProfile WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [UserProfile] SET [ID] = @ID, [FirstName] = @FirstName, [LastName] = @Last" +
+                "Name, [State] = @State, [Zip] = @Zip, [PhoneNumber] = @PhoneNumber, [Email] = @E" +
+                "mail, [Address] = @Address, [City] = @City WHERE (([ID] = @Original_ID))";
             this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@FirstName", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "FirstName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1857,7 +1836,7 @@ FROM         UserProfile";
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = @"SELECT     UserProfile.FirstName, UserProfile.LastName, UserProfile.Address, UserProfile.City, UserProfile.ID, UserProfile.State, UserProfile.Zip, 
                       UserProfile.PhoneNumber, UserProfile.Email, Users.Username, Users.Role, Users.Enabled
-FROM         Users INNER JOIN
+FROM         Users LEFT OUTER JOIN
                       UserProfile ON Users.ID = UserProfile.ID
 WHERE     (Users.ID = @ID)";
             this._commandCollection[1].CommandType = System.Data.CommandType.Text;

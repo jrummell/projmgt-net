@@ -9,7 +9,7 @@ using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using PMT.Controls;
+using PMT.Web.Controls;
 using PMT.Configuration;
 using PMTComponents;
 using PMTDataProvider;
@@ -71,26 +71,6 @@ namespace PMT.AllUsers
             ReportPanel.Visible = false;
         }
 
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-		
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {    
-
-        }
-        #endregion
-
         /// <summary>
         /// Handle View Report button clicks
         /// </summary>
@@ -130,7 +110,7 @@ namespace PMT.AllUsers
 
         protected void ProjectDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            if (ProjectDropDownList.SelectedValue.Equals(String.Empty))
+            if (ProjectDropDownList.SelectedValue.Length == 0)
             {
                 ViewProjectButton.Enabled = false;
                 enableModuleControls(false);
@@ -151,7 +131,7 @@ namespace PMT.AllUsers
 
         protected void ModuleDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            if (ModuleDropDownList.SelectedValue.Equals(String.Empty))
+            if (ModuleDropDownList.SelectedValue.Length == 0)
             {
                 ViewModuleButton.Enabled = false;
                 enableTaskControls(false);
@@ -171,7 +151,7 @@ namespace PMT.AllUsers
 
         protected void TaskDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            if (TaskDropDownList.SelectedValue.Equals(String.Empty))
+            if (TaskDropDownList.SelectedValue.Length == 0)
             {
                 ViewTaskButton.Enabled = false;
                 return;

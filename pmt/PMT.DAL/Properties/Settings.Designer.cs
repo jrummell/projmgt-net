@@ -27,7 +27,7 @@ namespace PMT.DAL.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\pmt.mdf;Integrated Secu" +
-            "rity=True;User Instance=True")]
+            "rity=True;Connect Timeout=30;User Instance=True")]
         public string PmtConnectionString {
             get {
                 return ((string)(this["PmtConnectionString"]));
