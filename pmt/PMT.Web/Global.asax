@@ -1,1 +1,1 @@
-<%@ Application Inherits="PMT.Global" Language="C#" %>
+<%@ Application Inherits="PMT.Web.Global" Language="C#" %>
