@@ -274,10 +274,17 @@ namespace PMT.BLL
         {
             if (disposing)
             {
-                taUsers.Dispose();
-                taUserProjects.Dispose();
-                taUserProfile.Dispose();
-                taUserManagers.Dispose();
+                lock (this)
+                {
+                    if (taUsers != null)
+                        taUsers.Dispose();
+                    if (taUserProjects != null)
+                        taUserProjects.Dispose();
+                    if (taUserProfile != null)
+                        taUserProfile.Dispose();
+                    if (taUserManagers != null)
+                        taUserManagers.Dispose();
+                }
             }
         }
 

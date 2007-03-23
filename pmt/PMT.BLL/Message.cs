@@ -85,8 +85,9 @@ namespace PMT.BLL
         /// </summary>
         public User[] Recipients
         {
-            get {   return recipients;                       }
-            set {   recipients = value.Clone() as User[];    }
+            get {   return recipients;  }
+            set 
+            {   recipients = value;     }
         }
         /// <summary>
         /// Gets or sets the Date Sent

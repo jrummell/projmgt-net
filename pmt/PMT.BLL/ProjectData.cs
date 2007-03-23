@@ -126,8 +126,14 @@ namespace PMT.BLL
         {
             if (disposing)
             {
-                taAssignments.Dispose();
-                taProjects.Dispose();
+                lock (this)
+                {
+                    if (taAssignments != null)
+                        taAssignments.Dispose();
+
+                    if (taProjects != null)
+                        taProjects.Dispose();
+                }
             }
         }
 
