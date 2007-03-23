@@ -238,18 +238,6 @@
               </Issue>
              </Message>
             </Messages>
-            <Accessors>
-             <Accessor Name="set_Recipients(PMT.BLL.User[]):System.Void">
-              <Messages>
-               <Message TypeName="ValidateArgumentsOfPublicMethods" Category="Microsoft.Design" CheckId="CA1062" Created="2007-02-23 02:26:59Z">
-                <Issue>
-                 <Item>'value'</Item>
-                 <Item>Message.set_Recipients(User[]):Void</Item>
-                </Issue>
-               </Message>
-              </Messages>
-             </Accessor>
-            </Accessors>
            </Member>
           </Members>
          </Type>
@@ -271,85 +259,6 @@
                <Item>parameter</Item>
                <Item>expEndDate</Item>
                <Item>expend</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
-         <Type Name="ModuleData">
-          <Members>
-           <Member Name="DeleteModule(System.Int32):System.Boolean">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>ModuleData.DeleteModule(Int32):Boolean</Item>
-              </Issue>
-             </Message>
-             <Message Id="id" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>id</Item>
-               <Item>ModuleData.DeleteModule(Int32):Boolean</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="GetModule(System.Int32):PMT.BLL.Module">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>ModuleData.GetModule(Int32):Module</Item>
-              </Issue>
-             </Message>
-             <Message Id="id" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>id</Item>
-               <Item>ModuleData.GetModule(Int32):Module</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="GetProjectModules(System.Int32):PMT.DAL.ProjectsDataSet+ModulesDataTable">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>ModuleData.GetProjectModules(Int32):ModulesDataTable</Item>
-              </Issue>
-             </Message>
-             <Message Id="projectID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>projectID</Item>
-               <Item>ModuleData.GetProjectModules(Int32):ModulesDataTable</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="InsertModule(PMT.BLL.Module):System.Boolean">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>ModuleData.InsertModule(Module):Boolean</Item>
-              </Issue>
-             </Message>
-             <Message Id="module" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>module</Item>
-               <Item>ModuleData.InsertModule(Module):Boolean</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="UpdateModule(PMT.BLL.Module):System.Boolean">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>ModuleData.UpdateModule(Module):Boolean</Item>
-              </Issue>
-             </Message>
-             <Message Id="module" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>module</Item>
-               <Item>ModuleData.UpdateModule(Module):Boolean</Item>
               </Issue>
              </Message>
             </Messages>
@@ -446,133 +355,11 @@
          </Type>
          <Type Name="TaskData">
           <Members>
-           <Member Name="AssignTask(System.Int32,System.Int32):System.Boolean">
+           <Member Name="GetAssignedTasks():PMT.DAL.AssignmentsDataSet+TaskAssignmentsDataTable">
             <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>TaskData.AssignTask(Int32, Int32):Boolean</Item>
-              </Issue>
-             </Message>
-             <Message Id="devID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>devID</Item>
-               <Item>TaskData.AssignTask(Int32, Int32):Boolean</Item>
-              </Issue>
-             </Message>
-             <Message Id="taskID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>taskID</Item>
-               <Item>TaskData.AssignTask(Int32, Int32):Boolean</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="DeleteTask(System.Int32):System.Boolean">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>TaskData.DeleteTask(Int32):Boolean</Item>
-              </Issue>
-             </Message>
-             <Message Id="id" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>id</Item>
-               <Item>TaskData.DeleteTask(Int32):Boolean</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="GetAssignedTasks():PMT.DAL.ProjectsDataSet+TasksDataTable">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>TaskData.GetAssignedTasks():TasksDataTable</Item>
-              </Issue>
-             </Message>
-             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2007-02-23 02:26:59Z">
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Excluded" Created="2007-03-23 02:14:25Z">
               <Issue Certainty="50">
                <Item>GetAssignedTasks</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="GetModuleTasks(System.Int32):PMT.DAL.ProjectsDataSet+TasksDataTable">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>TaskData.GetModuleTasks(Int32):TasksDataTable</Item>
-              </Issue>
-             </Message>
-             <Message Id="moduleID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>moduleID</Item>
-               <Item>TaskData.GetModuleTasks(Int32):TasksDataTable</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="GetTask(System.Int32):PMT.BLL.Task">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>TaskData.GetTask(Int32):Task</Item>
-              </Issue>
-             </Message>
-             <Message Id="id" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>id</Item>
-               <Item>TaskData.GetTask(Int32):Task</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="InsertTask(PMT.BLL.Task):System.Int32">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>TaskData.InsertTask(Task):Int32</Item>
-              </Issue>
-             </Message>
-             <Message Id="task" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>task</Item>
-               <Item>TaskData.InsertTask(Task):Int32</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="UnassignTask(System.Int32,System.Int32):System.Boolean">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>TaskData.UnassignTask(Int32, Int32):Boolean</Item>
-              </Issue>
-             </Message>
-             <Message Id="devID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>devID</Item>
-               <Item>TaskData.UnassignTask(Int32, Int32):Boolean</Item>
-              </Issue>
-             </Message>
-             <Message Id="taskID" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>taskID</Item>
-               <Item>TaskData.UnassignTask(Int32, Int32):Boolean</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="UpdateTask(PMT.BLL.Task):System.Boolean">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>TaskData.UpdateTask(Task):Boolean</Item>
-              </Issue>
-             </Message>
-             <Message Id="task" TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801" Created="2007-02-23 02:26:59Z" FixCategory="Breaking">
-              <Issue>
-               <Item>task</Item>
-               <Item>TaskData.UpdateTask(Task):Boolean</Item>
               </Issue>
              </Message>
             </Messages>
@@ -583,7 +370,7 @@
           <Members>
            <Member Name="GetCookie():System.Web.HttpCookie">
             <Messages>
-             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2007-02-23 02:26:59Z">
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Excluded" Created="2007-02-23 02:26:59Z">
               <Issue Certainty="50">
                <Item>GetCookie</Item>
               </Issue>
@@ -608,7 +395,7 @@
            </Member>
            <Member Name="GetUserProfiles():System.Data.DataTable">
             <Messages>
-             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Created="2007-02-23 02:26:59Z">
+             <Message TypeName="UsePropertiesWhereAppropriate" Category="Microsoft.Design" CheckId="CA1024" Status="Excluded" Created="2007-02-23 02:26:59Z">
               <Issue Certainty="50">
                <Item>GetUserProfiles</Item>
               </Issue>
@@ -697,18 +484,9 @@
            <Member Name="CustomAuthenticate(System.String,System.String):System.Boolean">
             <Messages>
              <Message TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201" Created="2007-02-23 02:26:59Z">
-              <Issue Name="Reserved">
+              <Issue Name="TooGeneric">
                <Item>Login.CustomAuthenticate(String, String):Boolean</Item>
-               <Item>System.NullReferenceException</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-           <Member Name="InitializeComponent():System.Void">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="NonBreaking">
-              <Issue>
-               <Item>Login.InitializeComponent():Void</Item>
+               <Item>System.Exception</Item>
               </Issue>
              </Message>
             </Messages>
@@ -735,17 +513,6 @@
             </Issue>
            </Message>
           </Messages>
-          <Members>
-           <Member Name="InitializeComponent():System.Void">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="NonBreaking">
-              <Issue>
-               <Item>Logout.InitializeComponent():Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
          </Type>
          <Type Name="Register">
           <Members>
@@ -887,23 +654,6 @@
               </Messages>
              </Accessor>
             </Accessors>
-           </Member>
-          </Members>
-         </Type>
-        </Types>
-       </Namespace>
-       <Namespace Name="PMT.Dev">
-        <Types>
-         <Type Name="Tasks">
-          <Members>
-           <Member Name="InitializeComponent():System.Void">
-            <Messages>
-             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2007-02-23 02:26:59Z" FixCategory="NonBreaking">
-              <Issue>
-               <Item>Tasks.InitializeComponent():Void</Item>
-              </Issue>
-             </Message>
-            </Messages>
            </Member>
           </Members>
          </Type>
@@ -1177,6 +927,86 @@
          </Type>
         </Types>
        </Namespace>
+       <Namespace Name="PMT.Web">
+        <Types>
+         <Type Name="Global">
+          <Members>
+           <Member Name="Application_AuthenticateRequest(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-03-23 02:14:25Z">
+              <Issue>
+               <Item>Global.Application_AuthenticateRequest(Object, EventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Application_BeginRequest(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-03-23 02:23:33Z">
+              <Issue>
+               <Item>Global.Application_BeginRequest(Object, EventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Application_End(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-03-23 02:23:33Z">
+              <Issue>
+               <Item>Global.Application_End(Object, EventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Application_EndRequest(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-03-23 02:23:33Z">
+              <Issue>
+               <Item>Global.Application_EndRequest(Object, EventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Application_Error(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-03-23 02:23:33Z">
+              <Issue>
+               <Item>Global.Application_Error(Object, EventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Application_Start(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-03-23 02:23:33Z">
+              <Issue>
+               <Item>Global.Application_Start(Object, EventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Session_End(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-03-23 02:23:33Z">
+              <Issue>
+               <Item>Global.Session_End(Object, EventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="Session_Start(System.Object,System.EventArgs):System.Void">
+            <Messages>
+             <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Created="2007-03-23 02:23:33Z">
+              <Issue>
+               <Item>Global.Session_Start(Object, EventArgs):Void</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
        <Namespace Name="PMT.Web.Controls">
         <Types>
          <Type Name="Header">
@@ -1342,7 +1172,6 @@
     <Resolution Name="Default">Modify '{0}' to catch a more specific exception than '{1}' or rethrow the exception.</Resolution>
    </Rule>
    <Rule TypeName="DoNotRaiseReservedExceptionTypes" Category="Microsoft.Usage" CheckId="CA2201">
-    <Resolution Name="Reserved">{0} creates an exception of type '{1}', an exception type that is reserved by the runtime and should never be raised by managed code. If this exception instance might be thrown, use a different exception type.</Resolution>
     <Resolution Name="TooGeneric">{0} creates an exception of type '{1}', an exception type that is not sufficiently specific and should never be raised by user code. If this exception instance might be thrown, use a different exception type.</Resolution>
    </Rule>
    <Rule TypeName="IdentifiersShouldBeCasedCorrectly" Category="Microsoft.Naming" CheckId="CA1709">
@@ -1354,17 +1183,11 @@
    <Rule TypeName="LiteralsShouldBeSpelledCorrectly" Category="Microsoft.Usage" CheckId="CA2204">
     <Resolution Name="Default">Correct the spelling of the unrecognized token '{0}' in the literal '{1}'.</Resolution>
    </Rule>
-   <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
-    <Resolution Name="Default">The 'this' parameter (or 'Me' in VB) of {0} is never used. Mark the member as static (or Shared in VB) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
-   </Rule>
    <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
     <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>
    </Rule>
    <Rule TypeName="RemoveUnusedLocals" Category="Microsoft.Performance" CheckId="CA1804">
     <Resolution Name="Default">{0} declares a local, '{1}', of type {2}, which is never used or is only assigned to. Use this local or remove it.</Resolution>
-   </Rule>
-   <Rule TypeName="ReviewUnusedParameters" Category="Microsoft.Usage" CheckId="CA1801">
-    <Resolution Name="Default">Parameter '{0}' of {1} is never used. Remove the parameter or use it in the method body.</Resolution>
    </Rule>
    <Rule TypeName="TypeNamesShouldNotMatchNamespaces" Category="Microsoft.Naming" CheckId="CA1724">
     <Resolution Name="Default">The type name '{0}' conflicts in whole or in part with the namespace name '{1}'. Change either name to eliminate the conflict.</Resolution>
