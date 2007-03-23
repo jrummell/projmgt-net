@@ -16,38 +16,33 @@ namespace PMT.Web
 {
 	public class Global : HttpApplication
 	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
 
 		public Global()
 		{
-			InitializeComponent();
 		}
 
         #region HttpApplication Events
-		protected void Application_Start(Object sender, EventArgs e)
-		{
-
-		}
- 
-		protected void Session_Start(Object sender, EventArgs e)
+        private void Application_Start(Object sender, EventArgs e)
 		{
 
 		}
 
-		protected void Application_BeginRequest(Object sender, EventArgs e)
+        private void Session_Start(Object sender, EventArgs e)
 		{
 
 		}
 
-		protected void Application_EndRequest(Object sender, EventArgs e)
+        private void Application_BeginRequest(Object sender, EventArgs e)
 		{
 
 		}
 
-        void Application_AuthenticateRequest (Object sender, EventArgs e)
+        private void Application_EndRequest(Object sender, EventArgs e)
+		{
+
+		}
+
+        private void Application_AuthenticateRequest(Object sender, EventArgs e)
         {
             HttpApplication app = (HttpApplication) sender;
 
@@ -68,7 +63,7 @@ namespace PMT.Web
             }
         }
 
-		protected void Application_Error(Object sender, EventArgs e)
+        private void Application_Error(Object sender, EventArgs e)
 		{
             /*
              * this code is somehow broken ... I want it email the exception to me
@@ -102,27 +97,16 @@ namespace PMT.Web
             */
         }
 
-		protected void Session_End(Object sender, EventArgs e)
+        private void Session_End(Object sender, EventArgs e)
 		{
 
 		}
 
-		protected void Application_End(Object sender, EventArgs e)
+        private void Application_End(Object sender, EventArgs e)
 		{
 
 		}
         #endregion
-
-    	#region Web Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
-			this.components = new System.ComponentModel.Container();
-		}
-		#endregion
 	}
 }
 

@@ -31,26 +31,6 @@ namespace PMT
             }
         }
 
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-
-        }
-        #endregion
-
         bool CustomAuthenticate(string username, string password)
         {
             userData = new UserData();
@@ -61,7 +41,7 @@ namespace PMT
             }
             else
             {
-                this.TransactionFailed(new NullReferenceException("User could not be authenticated"));
+                this.TransactionFailed(new Exception("User could not be authenticated"));
                 return false;
             }
 

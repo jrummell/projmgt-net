@@ -864,7 +864,7 @@ namespace PMT.DAL {
             
             private System.Data.DataColumn columnDescription;
             
-            private System.Data.DataColumn columnStatDate;
+            private System.Data.DataColumn columnStartDate;
             
             private System.Data.DataColumn columnExpEndDate;
             
@@ -933,9 +933,9 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn StatDateColumn {
+            public System.Data.DataColumn StartDateColumn {
                 get {
-                    return this.columnStatDate;
+                    return this.columnStartDate;
                 }
             }
             
@@ -996,14 +996,14 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TasksRow AddTasksRow(int ID, ModulesRow parentModulesRowByFK_Tasks_Modules, string Name, string Description, System.DateTime StatDate, System.DateTime ExpEndDate, System.DateTime ActEndDate, short Status, short Complexity) {
+            public TasksRow AddTasksRow(int ID, ModulesRow parentModulesRowByFK_Tasks_Modules, string Name, string Description, System.DateTime StartDate, System.DateTime ExpEndDate, System.DateTime ActEndDate, short Status, short Complexity) {
                 TasksRow rowTasksRow = ((TasksRow)(this.NewRow()));
                 rowTasksRow.ItemArray = new object[] {
                         ID,
                         parentModulesRowByFK_Tasks_Modules[0],
                         Name,
                         Description,
-                        StatDate,
+                        StartDate,
                         ExpEndDate,
                         ActEndDate,
                         Status,
@@ -1041,7 +1041,7 @@ namespace PMT.DAL {
                 this.columnModuleID = base.Columns["ModuleID"];
                 this.columnName = base.Columns["Name"];
                 this.columnDescription = base.Columns["Description"];
-                this.columnStatDate = base.Columns["StatDate"];
+                this.columnStartDate = base.Columns["StartDate"];
                 this.columnExpEndDate = base.Columns["ExpEndDate"];
                 this.columnActEndDate = base.Columns["ActEndDate"];
                 this.columnStatus = base.Columns["Status"];
@@ -1058,8 +1058,8 @@ namespace PMT.DAL {
                 base.Columns.Add(this.columnName);
                 this.columnDescription = new System.Data.DataColumn("Description", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDescription);
-                this.columnStatDate = new System.Data.DataColumn("StatDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnStatDate);
+                this.columnStartDate = new System.Data.DataColumn("StartDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStartDate);
                 this.columnExpEndDate = new System.Data.DataColumn("ExpEndDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnExpEndDate);
                 this.columnActEndDate = new System.Data.DataColumn("ActEndDate", typeof(System.DateTime), null, System.Data.MappingType.Element);
@@ -1546,17 +1546,17 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime StatDate {
+            public System.DateTime StartDate {
                 get {
                     try {
-                        return ((System.DateTime)(this[this.tableTasks.StatDateColumn]));
+                        return ((System.DateTime)(this[this.tableTasks.StartDateColumn]));
                     }
                     catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'StatDate\' in table \'Tasks\' is DBNull.", e);
+                        throw new System.Data.StrongTypingException("The value for column \'StartDate\' in table \'Tasks\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableTasks.StatDateColumn] = value;
+                    this[this.tableTasks.StartDateColumn] = value;
                 }
             }
             
@@ -1646,13 +1646,13 @@ namespace PMT.DAL {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsStatDateNull() {
-                return this.IsNull(this.tableTasks.StatDateColumn);
+            public bool IsStartDateNull() {
+                return this.IsNull(this.tableTasks.StartDateColumn);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetStatDateNull() {
-                this[this.tableTasks.StatDateColumn] = System.Convert.DBNull;
+            public void SetStartDateNull() {
+                this[this.tableTasks.StartDateColumn] = System.Convert.DBNull;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1911,18 +1911,18 @@ SELECT ID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM Projects WH
             this._commandCollection[0].CommandType = System.Data.CommandType.Text;
             this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT ActEndDate, Description, ExpEndDate, ID, Name, StartDate FROM Projects WHE" +
-                "RE (ID = @ID)";
-            this._commandCollection[1].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = @"SELECT     Projects.ActEndDate, Projects.Description, Projects.ExpEndDate, Projects.ID, Projects.Name, Projects.StartDate
+            this._commandCollection[1].CommandText = @"SELECT     Projects.ActEndDate, Projects.Description, Projects.ExpEndDate, Projects.ID, Projects.Name, Projects.StartDate
 FROM         Projects LEFT OUTER JOIN
                       ProjectAssignments ON Projects.ID = ProjectAssignments.ProjectID
 WHERE     (ProjectAssignments.UserID = @UserID)";
+            this._commandCollection[1].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT ActEndDate, Description, ExpEndDate, ID, Name, StartDate FROM Projects WHE" +
+                "RE (ID = @ID)";
             this._commandCollection[2].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1949,20 +1949,9 @@ WHERE     (ProjectAssignments.UserID = @UserID)";
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ProjectsDataSet.ProjectsDataTable GetProjectByID(int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
-            ProjectsDataSet.ProjectsDataTable dataTable = new ProjectsDataSet.ProjectsDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillByUserProjects(ProjectsDataSet.ProjectsDataTable dataTable, int UserID) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand = this.CommandCollection[1];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(UserID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1975,8 +1964,19 @@ WHERE     (ProjectAssignments.UserID = @UserID)";
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual ProjectsDataSet.ProjectsDataTable GetProjectsByUserProjects(int UserID) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand = this.CommandCollection[1];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(UserID));
+            ProjectsDataSet.ProjectsDataTable dataTable = new ProjectsDataSet.ProjectsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.ProjectsDataTable GetProjectByID(int ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             ProjectsDataSet.ProjectsDataTable dataTable = new ProjectsDataSet.ProjectsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -2272,15 +2272,15 @@ SELECT ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM 
             this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "SELECT     ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate\r\nF" +
-                "ROM         Modules\r\nWHERE     (ID = @ID)";
+                "ROM         Modules\r\nWHERE     (ProjectID = @ProjectID)";
             this._commandCollection[1].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProjectID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = "SELECT     ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate\r\nF" +
-                "ROM         Modules\r\nWHERE     (ProjectID = @ProjectID)";
+                "ROM         Modules\r\nWHERE     (ID = @ID)";
             this._commandCollection[2].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ProjectID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ProjectID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2307,20 +2307,9 @@ SELECT ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM 
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ProjectsDataSet.ModulesDataTable GetModuleByID(int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
-            ProjectsDataSet.ModulesDataTable dataTable = new ProjectsDataSet.ModulesDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillByProjectID(ProjectsDataSet.ModulesDataTable dataTable, int ProjectID) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand = this.CommandCollection[1];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ProjectID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -2333,8 +2322,19 @@ SELECT ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM 
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual ProjectsDataSet.ModulesDataTable GetModulesByProjectID(int ProjectID) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand = this.CommandCollection[1];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ProjectID));
+            ProjectsDataSet.ModulesDataTable dataTable = new ProjectsDataSet.ModulesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.ModulesDataTable GetModuleByID(int ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             ProjectsDataSet.ModulesDataTable dataTable = new ProjectsDataSet.ModulesDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -2580,11 +2580,11 @@ SELECT ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM 
             tableMapping.ColumnMappings.Add("ModuleID", "ModuleID");
             tableMapping.ColumnMappings.Add("Name", "Name");
             tableMapping.ColumnMappings.Add("Description", "Description");
-            tableMapping.ColumnMappings.Add("StatDate", "StatDate");
             tableMapping.ColumnMappings.Add("ExpEndDate", "ExpEndDate");
             tableMapping.ColumnMappings.Add("ActEndDate", "ActEndDate");
             tableMapping.ColumnMappings.Add("Status", "Status");
             tableMapping.ColumnMappings.Add("Complexity", "Complexity");
+            tableMapping.ColumnMappings.Add("StartDate", "StartDate");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -2593,28 +2593,29 @@ SELECT ID, ProjectID, Name, Description, StartDate, ExpEndDate, ActEndDate FROM 
             this._adapter.DeleteCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Original_ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [Tasks] ([ID], [ModuleID], [Name], [Description], [StatDate], [ExpEndDate], [ActEndDate], [Status], [Complexity]) VALUES (@ID, @ModuleID, @Name, @Description, @StatDate, @ExpEndDate, @ActEndDate, @Status, @Complexity);
-SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status, Complexity FROM Tasks WHERE (ID = @ID)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [Tasks] ([ModuleID], [Name], [Description], [StartDate], [ExpEndDate]" +
+                ", [ActEndDate], [Status], [Complexity]) VALUES (@ModuleID, @Name, @Description, " +
+                "@StartDate, @ExpEndDate, @ActEndDate, @Status, @Complexity)";
             this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Description", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StatDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StatDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StartDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StartDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ExpEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ExpEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ActEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ActEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Status", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Complexity", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Complexity", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [Tasks] SET [ID] = @ID, [ModuleID] = @ModuleID, [Name] = @Name, [Description] = @Description, [StatDate] = @StatDate, [ExpEndDate] = @ExpEndDate, [ActEndDate] = @ActEndDate, [Status] = @Status, [Complexity] = @Complexity WHERE (([ID] = @Original_ID));
-SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status, Complexity FROM Tasks WHERE (ID = @ID)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [Tasks] SET [ModuleID] = @ModuleID, [Name] = @Name, [Description] = @Descr" +
+                "iption, [StartDate] = @StartDate, [ExpEndDate] = @ExpEndDate, [ActEndDate] = @Ac" +
+                "tEndDate, [Status] = @Status, [Complexity] = @Complexity WHERE (([ID] = @Origina" +
+                "l_ID))";
             this._adapter.UpdateCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Name", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Name", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Description", System.Data.SqlDbType.VarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "Description", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StatDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StatDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@StartDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "StartDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ExpEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ExpEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ActEndDate", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "ActEndDate", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", System.Data.SqlDbType.SmallInt, 0, System.Data.ParameterDirection.Input, 0, 0, "Status", System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -2633,35 +2634,34 @@ SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status
             this._commandCollection = new System.Data.SqlClient.SqlCommand[5];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
-                "tus, Complexity\r\nFROM         Tasks";
+            this._commandCollection[0].CommandText = "SELECT     ID, ModuleID, Name, Description, StartDate, ExpEndDate, ActEndDate, St" +
+                "atus, Complexity\r\nFROM         Tasks";
             this._commandCollection[0].CommandType = System.Data.CommandType.Text;
             this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
-                "tus, Complexity\r\nFROM         Tasks\r\nWHERE     (ID = @ID)";
+            this._commandCollection[1].CommandText = "SELECT     ActEndDate, Complexity, Description, ExpEndDate, ID, ModuleID, Name, S" +
+                "tartDate, Status\r\nFROM         Tasks\r\nWHERE     (ModuleID = @ModuleID)";
             this._commandCollection[1].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
-                "tus, Complexity\r\nFROM         Tasks\r\nWHERE     (ModuleID = @ModuleID)";
+            this._commandCollection[2].CommandText = "SELECT ActEndDate, Complexity, Description, ExpEndDate, ID, ModuleID, Name, Start" +
+                "Date, Status FROM Tasks WHERE (Status = @Status)";
             this._commandCollection[2].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 0, 0, "Status", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
-                "tus, Complexity\r\nFROM         Tasks\r\nWHERE     (Status = @Status)";
+            this._commandCollection[3].CommandText = "SELECT ActEndDate, Complexity, Description, ExpEndDate, ID, ModuleID, Name, Start" +
+                "Date, Status FROM Tasks WHERE (ModuleID = @ModuleID) AND (Status = @Status)";
             this._commandCollection[3].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 0, 0, "Status", System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "SELECT     ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Sta" +
-                "tus, Complexity\r\nFROM         Tasks\r\nWHERE     (ModuleID = @ModuleID) AND (Statu" +
-                "s = @Status)";
+            this._commandCollection[4].CommandText = "SELECT     ActEndDate, Complexity, Description, ExpEndDate, ID, ModuleID, Name, S" +
+                "tartDate, Status\r\nFROM         Tasks\r\nWHERE     (ID = @ID)";
             this._commandCollection[4].CommandType = System.Data.CommandType.Text;
-            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ModuleID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ModuleID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@Status", System.Data.SqlDbType.SmallInt, 2, System.Data.ParameterDirection.Input, 0, 0, "Status", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@ID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "ID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2688,20 +2688,9 @@ SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ProjectsDataSet.TasksDataTable GetTaskByID(int ID) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
-            ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillByModuleID(ProjectsDataSet.TasksDataTable dataTable, int ModuleID) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand = this.CommandCollection[1];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ModuleID));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -2714,7 +2703,7 @@ SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual ProjectsDataSet.TasksDataTable GetTasksByModuleID(int ModuleID) {
-            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand = this.CommandCollection[1];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ModuleID));
             ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
             this.Adapter.Fill(dataTable);
@@ -2725,7 +2714,7 @@ SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillByStatus(ProjectsDataSet.TasksDataTable dataTable, short Status) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((short)(Status));
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -2738,7 +2727,7 @@ SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual ProjectsDataSet.TasksDataTable GetTasksByStatus(short Status) {
-            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((short)(Status));
             ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
             this.Adapter.Fill(dataTable);
@@ -2749,7 +2738,7 @@ SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, false)]
         public virtual int FillByStatusModuleID(ProjectsDataSet.TasksDataTable dataTable, int ModuleID, short Status) {
-            this.Adapter.SelectCommand = this.CommandCollection[4];
+            this.Adapter.SelectCommand = this.CommandCollection[3];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ModuleID));
             this.Adapter.SelectCommand.Parameters[1].Value = ((short)(Status));
             if ((this.ClearBeforeFill == true)) {
@@ -2763,9 +2752,20 @@ SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual ProjectsDataSet.TasksDataTable GetTasksByStatusModuleID(int ModuleID, short Status) {
-            this.Adapter.SelectCommand = this.CommandCollection[4];
+            this.Adapter.SelectCommand = this.CommandCollection[3];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ModuleID));
             this.Adapter.SelectCommand.Parameters[1].Value = ((short)(Status));
+            ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ProjectsDataSet.TasksDataTable GetTaskByID(int ID) {
+            this.Adapter.SelectCommand = this.CommandCollection[4];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(ID));
             ProjectsDataSet.TasksDataTable dataTable = new ProjectsDataSet.TasksDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -2820,45 +2820,44 @@ SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int ID, int ModuleID, string Name, string Description, System.Nullable<System.DateTime> StatDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate, short Status, System.Nullable<short> Complexity) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(ModuleID));
+        public virtual int Insert(int ModuleID, string Name, string Description, System.Nullable<System.DateTime> StartDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate, short Status, System.Nullable<short> Complexity) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ModuleID));
             if ((Name == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Name));
+            }
+            if ((Description == null)) {
                 this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Name));
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Description));
             }
-            if ((Description == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
+            if ((StartDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(StartDate.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Description));
+                this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
             }
-            if ((StatDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(StatDate.Value));
+            if ((ExpEndDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(ExpEndDate.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = System.DBNull.Value;
             }
-            if ((ExpEndDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(ExpEndDate.Value));
+            if ((ActEndDate.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(ActEndDate.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = System.DBNull.Value;
             }
-            if ((ActEndDate.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(ActEndDate.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = System.DBNull.Value;
-            }
-            this.Adapter.InsertCommand.Parameters[7].Value = ((short)(Status));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((short)(Status));
             if ((Complexity.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((short)(Complexity.Value));
+                this.Adapter.InsertCommand.Parameters[7].Value = ((short)(Complexity.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[8].Value = System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[7].Value = System.DBNull.Value;
             }
             System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
@@ -2879,47 +2878,46 @@ SELECT ID, ModuleID, Name, Description, StatDate, ExpEndDate, ActEndDate, Status
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int ID, int ModuleID, string Name, string Description, System.Nullable<System.DateTime> StatDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate, short Status, System.Nullable<short> Complexity, int Original_ID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(ModuleID));
+        public virtual int Update(int ModuleID, string Name, string Description, System.Nullable<System.DateTime> StartDate, System.Nullable<System.DateTime> ExpEndDate, System.Nullable<System.DateTime> ActEndDate, short Status, System.Nullable<short> Complexity, int Original_ID) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ModuleID));
             if ((Name == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(Name));
+            }
+            if ((Description == null)) {
                 this.Adapter.UpdateCommand.Parameters[2].Value = System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Name));
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Description));
             }
-            if ((Description == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = System.DBNull.Value;
+            if ((StartDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(StartDate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Description));
+                this.Adapter.UpdateCommand.Parameters[3].Value = System.DBNull.Value;
             }
-            if ((StatDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(StatDate.Value));
+            if ((ExpEndDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(ExpEndDate.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = System.DBNull.Value;
             }
-            if ((ExpEndDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(ExpEndDate.Value));
+            if ((ActEndDate.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(ActEndDate.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = System.DBNull.Value;
             }
-            if ((ActEndDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(ActEndDate.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((short)(Status));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((short)(Status));
             if ((Complexity.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((short)(Complexity.Value));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((short)(Complexity.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[7].Value = System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_ID));
             System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & System.Data.ConnectionState.Open) 
                         != System.Data.ConnectionState.Open)) {

@@ -1701,7 +1701,7 @@ SELECT TaskID, UserID, (SELECT Username FROM Users WHERE (ID = TaskAssignments.T
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[5];
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[6];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT     TaskID, UserID,
@@ -1749,6 +1749,13 @@ FROM         TaskAssignments
 WHERE     (UserID = @UserID)";
             this._commandCollection[4].CommandType = System.Data.CommandType.Text;
             this._commandCollection[4].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[5].Connection = this.Connection;
+            this._commandCollection[5].CommandText = "SELECT     COUNT(TaskID) AS Count\r\nFROM         TaskAssignments\r\nWHERE     (TaskI" +
+                "D = @TaskID) AND (UserID = @UserID)";
+            this._commandCollection[5].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[5].Parameters.Add(new System.Data.SqlClient.SqlParameter("@TaskID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "TaskID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserID", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 0, 0, "UserID", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1958,6 +1965,35 @@ WHERE     (UserID = @UserID)";
                 }
             }
             return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual object IsAssigned(int TaskID, int UserID) {
+            System.Data.SqlClient.SqlCommand command = this.CommandCollection[5];
+            command.Parameters[0].Value = ((int)(TaskID));
+            command.Parameters[1].Value = ((int)(UserID));
+            System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & System.Data.ConnectionState.Open) 
+                        != System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            object returnValue;
+            try {
+                returnValue = command.ExecuteScalar();
+            }
+            finally {
+                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(System.DBNull)))) {
+                return null;
+            }
+            else {
+                return ((object)(returnValue));
+            }
         }
     }
     
