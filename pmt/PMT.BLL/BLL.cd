@@ -18,6 +18,11 @@
       <FileName>User.cs</FileName>
       <HashCode>AAAAAEAAASBAgIApEACASAAAAAIAAAAnAQAADgEAAgg=</HashCode>
     </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
   </Class>
   <Class Name="PMT.BLL.Administrator">
     <Position X="2.5" Y="1.75" Width="1.5" />
@@ -116,6 +121,10 @@
       <FileName>Project.cs</FileName>
       <HashCode>RAAAAAAAAAAggAAAICAAAAQAAAAEAAAAASAAAEAAAgA=</HashCode>
     </TypeIdentifier>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
   </Class>
   <Class Name="PMT.BLL.Message">
     <Position X="4" Y="8.75" Width="1.5" />
