@@ -33,28 +33,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PMTComponents, Version=1.0.2536.40772, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="PMTDataProvider, Version=1.0.2536.40773, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\EditUser.aspx" />
     <Content Include="Admin\Default.aspx" />
     <Content Include="Admin\EditMatrix.aspx" />
-    <Content Include="Admin\NavLinks.xml" />
     <Content Include="Admin\NewUsers.aspx" />
     <Content Include="Admin\Users.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Error.aspx" />
-    <Content Include="HomeNavLinks.xml" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
     <Content Include="PM\Assign.aspx" />
@@ -62,7 +55,6 @@
     <Content Include="PM\Default.aspx" />
     <Content Include="PM\Developers.aspx" />
     <Content Include="PM\matrix.aspx" />
-    <Content Include="PM\NavLinks.xml" />
     <Content Include="PM\NewItem.aspx" />
     <Content Include="PM\Projects.aspx" />
     <Content Include="PM\ViewDevProfile.aspx" />
@@ -305,14 +297,12 @@
     <Content Include="App_Themes\Default\default.css" />
     <Content Include="App_Themes\Default\images\diagonals-gray.gif" />
     <Content Include="Client\Default.aspx" />
-    <Content Include="Client\NavLinks.xml" />
     <Content Include="Client\Projects.aspx" />
     <Content Include="Controls\Header.ascx" />
     <Content Include="Controls\Navigation.ascx" />
     <Content Include="Controls\Profile.ascx" />
     <Content Include="Controls\Report.ascx" />
     <Content Include="Dev\Default.aspx" />
-    <Content Include="Dev\NavLinks.xml" />
     <Content Include="Dev\Tasks.aspx" />
     <Content Include="Global.asax" />
     <Content Include="App_Themes\Default\Default.skin" />
