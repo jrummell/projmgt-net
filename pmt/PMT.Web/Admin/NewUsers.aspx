@@ -1,4 +1,4 @@
-<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Admin.NewUser" Codebehind="NewUsers.aspx.cs" %>
+<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Web.Admin.NewUser" Codebehind="NewUsers.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>New User Requests</h3>

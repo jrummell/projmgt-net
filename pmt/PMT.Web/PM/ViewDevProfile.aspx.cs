@@ -1,25 +1,15 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using PMT.Web.Controls;
-//using PMTComponents;
-//using PMTDataProvider;
 using PMT.BLL;
 
-namespace PMT.PM
+namespace PMT.Web.PM
 {
     public partial class ViewDevProfile : Page
     {
         private Developer dev;
         private UserData userData;
-        protected void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
@@ -48,7 +38,7 @@ namespace PMT.PM
         {
             get
             {
-                int id = -1;
+                int id;
                 try
                 {
                     id = Convert.ToInt32(Request["devID"]);

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PMT.PM {
+namespace PMT.Web.PM {
     
     
     /// <summary>

@@ -1,25 +1,18 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using PMTComponents;
+using PMT.BLL;
 
-namespace PMT.Dev
+namespace PMT.Web.Dev
 {
-	/// <summary>
-	/// Summary description for DevTasks.
-	/// </summary>
-	public partial class Tasks : System.Web.UI.Page
-	{
-	
+    /// <summary>
+    /// Summary description for DevTasks.
+    /// </summary>
+    public partial class Tasks : System.Web.UI.Page
+    {
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            throw new NotImplementedException();
+
 //            //initialize the DB object
 //            DBDriver myDB=new DBDriver();
 //            //set the appropriate SQL query
@@ -77,6 +70,8 @@ namespace PMT.Dev
 
         protected void CommitButton_Click(object sender, System.EventArgs e)
         {
+            throw new NotImplementedException();
+
             /*
             DBDriver db = new DBDriver();
 
@@ -95,5 +90,5 @@ namespace PMT.Dev
             Server.Transfer(Request.Url.AbsolutePath);
             */
         }
-	}
+    }
 }

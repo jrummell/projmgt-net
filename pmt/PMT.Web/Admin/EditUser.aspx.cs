@@ -1,23 +1,12 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using PMT.Web.Controls;
-using PMT.DAL;
-using PMT.DAL.UsersDataSetTableAdapters;
 using PMT.BLL;
 
-namespace PMT.Admin
+namespace PMT.Web.Admin
 {
     public partial class EditUser : Page
     {
-        private PMT.BLL.User user;
+        private User user;
         private UserData userData;
 
         public EditUser()

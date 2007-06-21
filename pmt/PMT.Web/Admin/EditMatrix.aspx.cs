@@ -1,18 +1,9 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using PMTDataProvider;
-using PMTComponents;
-//using PMT.BLL;
+using PMT.BLL;
 
-namespace PMT.Admin
+namespace PMT.Web.Admin
 {
     public partial class EditMatrix : Page
     {
@@ -26,9 +17,11 @@ namespace PMT.Admin
 
         private void BindGrid()
         {
-            IDataProvider data = DataProviderFactory.CreateInstance();
-            compMatrixGrid.DataSource = data.GetCompMatrix();
-            compMatrixGrid.DataBind();
+            throw new NotImplementedException();
+
+            //IDataProvider data = DataProviderFactory.CreateInstance();
+            //compMatrixGrid.DataSource = data.GetCompMatrix();
+            //compMatrixGrid.DataBind();
         }
 
         #region Web Form Designer generated code
@@ -85,14 +78,16 @@ namespace PMT.Admin
 
             CompLevel level = (CompLevel)Convert.ToInt32(e.Item.Cells[0].Text);
 
-            //store new values to DB
-            IDataProvider data = DataProviderFactory.CreateInstance();
-            if (data.UpdateCompMatrix(level, low, med, high, new TransactionFailedHandler(this.TransactionFailed)))
-            {
-                //make sure nothing is being edited, and reload the page
-                compMatrixGrid.EditItemIndex = -1;
-                BindGrid();
-            }
+            throw new NotImplementedException();
+
+            ////store new values to DB
+            //IDataProvider data = DataProviderFactory.CreateInstance();
+            //if (data.UpdateCompMatrix(level, low, med, high, new TransactionFailedHandler(this.TransactionFailed)))
+            //{
+            //    //make sure nothing is being edited, and reload the page
+            //    compMatrixGrid.EditItemIndex = -1;
+            //    BindGrid();
+            //}
         }
 
         private void TransactionFailed(Exception ex)

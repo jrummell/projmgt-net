@@ -1,20 +1,8 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using PMTDataProvider;
-using PMTComponents;
-using PMT.Configuration;
-using PMT.Web;
+using PMT.BLL;
 
-namespace PMT.AllUsers.Msg
+namespace PMT.Web.AllUsers.Msg
 {
     public partial class ViewMessage : Page
     {
@@ -24,22 +12,25 @@ namespace PMT.AllUsers.Msg
             {
                 int messageID = MessageID;
                 int userID = CookiesHelper.LoggedInUserID;
-                IDataProvider data = DataProviderFactory.CreateInstance();
 
-                if (!data.IsMessageOpened(messageID, userID))
-                    data.UpdateOpenedMessage(messageID, userID, true, null);
+                throw new NotImplementedException();
 
-                Message message = data.GetMessage(MessageID);
-                FillForm(message);
+                //IDataProvider data = DataProviderFactory.CreateInstance();
+
+                //if (!data.IsMessageOpened(messageID, userID))
+                //    data.UpdateOpenedMessage(messageID, userID, true, null);
+
+                //Message message = data.GetMessage(MessageID);
+                //FillForm(message);
             }
         }
 
         private void FillForm(Message message)
         {
             senderLabel.Text = String.Format("{0}, {1} ({2})",
-                message.Sender.LastName,
-                message.Sender.FirstName,
-                message.Sender.UserName);
+                                             message.Sender.LastName,
+                                             message.Sender.FirstName,
+                                             message.Sender.UserName);
             dateLabel.Text = message.DateSent.ToString();
             dlRecipients.DataSource = message.Recipients;
             dlRecipients.DataBind();

@@ -1,24 +1,12 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using PMT.Web.Controls;
-using PMTComponents;
-using PMT.DAL;
-using PMT.DAL.UsersDataSetTableAdapters;
 using PMT.BLL;
 
-namespace PMT
+namespace PMT.Web
 {
     public partial class Register : Page
     {
-        private PMT.BLL.User user;
+        private User user;
         private UserData userData;
 
         protected void Page_Load(object sender, System.EventArgs e)
@@ -33,7 +21,7 @@ namespace PMT
             }
         }
 
-        protected void SubmitButton_Click(object sender, System.EventArgs e)
+        protected void SubmitButton_Click(object sender, EventArgs e)
         {
             if (!Page.IsValid)
                 return;
@@ -62,11 +50,6 @@ namespace PMT
             userData.InsertUser(user);
             RegisterPanel.Visible = false;
             StatusLabel.Text = "Thank you for registering.  Your account will be reviewed soon.";
-        }
-
-        private void TransactionFailed(Exception ex)
-        {
-            StatusLabel.Text = String.Format("Registration failed. Error: {0}", ex.Message);
         }
     }
 }

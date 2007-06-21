@@ -1,21 +1,10 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Web.Security;
-using PMT.Configuration;
-using PMT.DAL;
-using PMT.DAL.UsersDataSetTableAdapters;
 using PMT.BLL;
 
-namespace PMT
+namespace PMT.Web
 {
     public partial class Login : Page
     {
@@ -73,7 +62,7 @@ namespace PMT
                 // this actually creates the cookie
                 FormsAuthentication.SetAuthCookie(user.UserName, persist);
 
-                if (url.ToLower().EndsWith(PathHelper.ApplicationPath + "default.aspx"))
+                if (String.Compare(url, ResolveUrl("~/default.aspx"), true) == 0)
                 {
                     url = PathHelper.GetUserDefaultPath(user.Role);
                 }

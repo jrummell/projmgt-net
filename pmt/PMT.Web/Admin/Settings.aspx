@@ -1,4 +1,4 @@
-<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Admin.Settings" Codebehind="Settings.aspx.cs" %>
+<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Web.Admin.Settings" Codebehind="Settings.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Configuration Settings</h3>

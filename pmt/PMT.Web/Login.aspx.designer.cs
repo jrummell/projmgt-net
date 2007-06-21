@@ -8,9 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PMT {
-    
-    
+namespace PMT.Web
+{
     /// <summary>
     /// Login class.
     /// </summary>

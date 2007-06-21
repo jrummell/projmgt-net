@@ -1,19 +1,9 @@
 using System;
-using System.Data;
-using System.Configuration;
-using System.Collections;
-using System.Web;
-using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using PMT.Configuration;
-using PMTDataProvider;
-using PMTComponents;
-using PMT.Web;
+using PMT.BLL;
 
-namespace PMT.PM
+namespace PMT.Web.PM
 {
     public partial class Developers : Page
     {
@@ -23,11 +13,13 @@ namespace PMT.PM
 
         protected override void OnInit(EventArgs e)
         {
+            throw new NotImplementedException();
+
             // set the object data source type name
-            dsDevelopers.TypeName = PMTDataProvider.DataProviderFactory.CreateInstance().GetType().ToString();
-            dsDevelopers.SelectMethod = "GetDevelopers";
-            dsDevelopers.SelectParameters.Add("mgrID", CookiesHelper.LoggedInUserID.ToString());
-            dsDevelopers.FilterExpression = String.Format("Selected=1");
+            //dsDevelopers.TypeName = PMTDataProvider.DataProviderFactory.CreateInstance().GetType().ToString();
+            //dsDevelopers.SelectMethod = "GetDevelopers";
+            //dsDevelopers.SelectParameters.Add("mgrID", CookiesHelper.LoggedInUserID.ToString());
+            //dsDevelopers.FilterExpression = String.Format("Selected=1");
             base.OnInit(e);
         }
 

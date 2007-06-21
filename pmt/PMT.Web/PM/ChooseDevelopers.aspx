@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Master/Default.master" AutoEventWireup="true" Inherits="PMT.PM.ChooseDevelopers" Codebehind="ChooseDevelopers.aspx.cs" %>
+<%@ Page Language="C#" MasterPageFile="~/Master/Default.master" AutoEventWireup="true" Inherits="PMT.Web.PM.ChooseDevelopers" Codebehind="ChooseDevelopers.aspx.cs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phMain" Runat="Server">
     <h3>Choose Developers</h3>
     <asp:Label ID="lblResult" ForeColor="red" runat="server" EnableViewState="false" />

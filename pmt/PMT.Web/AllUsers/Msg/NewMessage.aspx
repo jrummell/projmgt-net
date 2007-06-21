@@ -1,4 +1,4 @@
-<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.AllUsers.Msg.NewMessage" Codebehind="NewMessage.aspx.cs" %>
+<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Web.AllUsers.Msg.NewMessage" Codebehind="NewMessage.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Messaging</h3>

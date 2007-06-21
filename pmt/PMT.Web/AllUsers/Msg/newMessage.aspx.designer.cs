@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PMT.AllUsers.Msg {
+namespace PMT.Web.AllUsers.Msg {
     
     
     /// <summary>

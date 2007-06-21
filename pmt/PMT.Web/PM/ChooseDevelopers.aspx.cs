@@ -8,12 +8,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
-using PMT.Configuration;
-using PMTDataProvider;
-using PMTComponents;
+using PMT.BLL;
 using PMT.Web;
 
-namespace PMT.PM
+namespace PMT.Web.PM
 {
     public partial class ChooseDevelopers : Page
     {
@@ -24,9 +22,11 @@ namespace PMT.PM
 
         protected override void OnInit(EventArgs e)
         {
+            throw new NotImplementedException();
+
             // set the object data source type name
-            dsDevelopers.TypeName = PMTDataProvider.DataProviderFactory.CreateInstance().GetType().ToString();
-            dsDevelopers.SelectParameters.Add("mgrID", CookiesHelper.LoggedInUserID.ToString());
+            //dsDevelopers.TypeName = PMTDataProvider.DataProviderFactory.CreateInstance().GetType().ToString();
+            //dsDevelopers.SelectParameters.Add("mgrID", CookiesHelper.LoggedInUserID.ToString());
             base.OnInit(e);
         }
 
@@ -48,21 +48,21 @@ namespace PMT.PM
 
         protected void cbSelected_CheckedChanged(object sender, EventArgs e)
         {
-            IDataProvider data = DataProviderFactory.CreateInstance();
-            CheckBox cb = sender as CheckBox;
-            GridViewRow row = cb.Parent.Parent as GridViewRow;
+            //IDataProvider data = DataProviderFactory.CreateInstance();
+            //CheckBox cb = sender as CheckBox;
+            //GridViewRow row = cb.Parent.Parent as GridViewRow;
 
-            int devID = Convert.ToInt32(row.Cells[0].Text);
-            int mgrID = CookiesHelper.LoggedInUserID;
+            //int devID = Convert.ToInt32(row.Cells[0].Text);
+            //int mgrID = CookiesHelper.LoggedInUserID;
 
-            if (cb.Checked)
-            {
-                data.AssignPMTUser(devID, mgrID, new TransactionFailedHandler(this.TransactionFailed));
-            }
-            else
-            {
-                data.UnassignPMTUser(devID, mgrID, new TransactionFailedHandler(this.TransactionFailed));
-            }
+            //if (cb.Checked)
+            //{
+            //    data.AssignPMTUser(devID, mgrID, new TransactionFailedHandler(this.TransactionFailed));
+            //}
+            //else
+            //{
+            //    data.UnassignPMTUser(devID, mgrID, new TransactionFailedHandler(this.TransactionFailed));
+            //}
         }
 
         private void TransactionFailed(Exception ex)

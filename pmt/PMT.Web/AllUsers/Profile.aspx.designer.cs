@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PMT.AllUsers {
+namespace PMT.Web.AllUsers {
     
     
     /// <summary>

@@ -1,4 +1,4 @@
-<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.PM.Projects" Codebehind="Projects.aspx.cs" %>
+<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Web.PM.Projects" Codebehind="Projects.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>

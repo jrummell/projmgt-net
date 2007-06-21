@@ -1,60 +1,55 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using PMTComponents;
-using PMTDataProvider;
+using PMT.BLL;
 
-namespace PMT.AllUsers.Msg
+namespace PMT.Web.AllUsers.Msg
 {
-	/// <summary>
-	/// Summary description for newMessage.
-	/// </summary>
-	public partial class NewMessage : Page
-	{
+    /// <summary>
+    /// Summary description for newMessage.
+    /// </summary>
+    public partial class NewMessage : Page
+    {
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
+        protected void Page_Load(object sender, EventArgs e)
+        {
             if (!this.IsPostBack)
             {
+                throw new NotImplementedException();
+
                 //fill the Contacts list box
-                IDataProvider data = DataProviderFactory.CreateInstance();
-                ContactsListBox.DataSource = data.GetContacts();
-                ContactsListBox.DataTextField = "username";
-                ContactsListBox.DataValueField = "id";
-                ContactsListBox.DataBind();
+                //IDataProvider data = DataProviderFactory.CreateInstance();
+                //ContactsListBox.DataSource = data.GetContacts();
+                //ContactsListBox.DataTextField = "username";
+                //ContactsListBox.DataValueField = "id";
+                //ContactsListBox.DataBind();
 
-                if (Action != null)
-                {
-                    Message oldMessage = data.GetMessage(MessageID);
-                    Message newMessage = new Message();
-                    newMessage.Sender = data.GetPMTUser(UserID);
+                //if (Action != null)
+                //{
+                //    Message oldMessage = data.GetMessage(MessageID);
+                //    Message newMessage = new Message();
+                //    newMessage.Sender = data.GetPMTUser(UserID);
 
-                    if (Action.Equals("reply"))
-                    {
-                        newMessage.Reply(oldMessage);
-                        // add sender to recipients
-                        ListItem item = new ListItem(newMessage.Recipients[0].UserName, newMessage.Recipients[0].ID.ToString());
-                        ToListBox.Items.Add(item);
-                        item = new ListItem(item.Text, item.Value);
-                        ContactsListBox.Items.Remove(item);
-                    }
-                    else if (Action.Equals("forward"))
-                    {
-                        newMessage.Forward(oldMessage);
-                    }
+                //    if (Action.Equals("reply"))
+                //    {
+                //        newMessage.Reply(oldMessage);
+                //        // add sender to recipients
+                //        ListItem item = new ListItem(newMessage.Recipients[0].UserName, newMessage.Recipients[0].ID.ToString());
+                //        ToListBox.Items.Add(item);
+                //        item = new ListItem(item.Text, item.Value);
+                //        ContactsListBox.Items.Remove(item);
+                //    }
+                //    else if (Action.Equals("forward"))
+                //    {
+                //        newMessage.Forward(oldMessage);
+                //    }
 
-                    SubjectTextBox.Text = newMessage.Subject;
-                    MessageTextBox.Value = newMessage.Body;
-                }
+                //    SubjectTextBox.Text = newMessage.Subject;
+                //    MessageTextBox.Value = newMessage.Body;
+                //}
             }
-		}
+        }
 
         /// <summary>
         /// Remove item from contacts and put in toList
@@ -92,28 +87,30 @@ namespace PMT.AllUsers.Msg
                 toList.Add(item.Value);
             }
 
-            IDataProvider data = DataProviderFactory.CreateInstance();
-            Message msg = new Message();
-            msg.Sender = data.GetPMTUser(UserID);
-            msg.Subject = SubjectTextBox.Text;
-            msg.Body = MessageTextBox.Value;
-            msg.DateSent = DateTime.Now;
+            throw new NotImplementedException();
 
-            // add recipients
-            ArrayList recipients = new ArrayList();
-            foreach(ListItem item in ToListBox.Items)
-            {
-                recipients.Add(data.GetPMTUser(Convert.ToInt32(item.Value)));
-            }
+            //IDataProvider data = DataProviderFactory.CreateInstance();
+            //Message msg = new Message();
+            //msg.Sender = data.GetPMTUser(UserID);
+            //msg.Subject = SubjectTextBox.Text;
+            //msg.Body = MessageTextBox.Value;
+            //msg.DateSent = DateTime.Now;
 
-            // add the user if Save a Copy is checked
-            if (cbSaveCopy.Checked)
-                recipients.Add(msg.Sender);
+            //// add recipients
+            //ArrayList recipients = new ArrayList();
+            //foreach(ListItem item in ToListBox.Items)
+            //{
+            //    recipients.Add(data.GetPMTUser(Convert.ToInt32(item.Value)));
+            //}
 
-            msg.Recipients = recipients.ToArray(typeof(PMTUser)) as PMTUser[];
+            //// add the user if Save a Copy is checked
+            //if (cbSaveCopy.Checked)
+            //    recipients.Add(msg.Sender);
 
-            if (0 < data.InsertMessage(msg, new TransactionFailedHandler(this.TransactionFailed)))
-                Server.Transfer("default.aspx");
+            //msg.Recipients = recipients.ToArray(typeof(PMTUser)) as PMTUser[];
+
+            //if (0 < data.InsertMessage(msg, new TransactionFailedHandler(this.TransactionFailed)))
+            //    Server.Transfer("default.aspx");
         }
 
         private void ToCustomValidate(object source, ServerValidateEventArgs args)
@@ -162,25 +159,11 @@ namespace PMT.AllUsers.Msg
         }
         #endregion
 
-		#region Web Form Designer generated code
-		override protected void OnInit(EventArgs e)
-		{
-			//
-			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
-			//
-			InitializeComponent();
-			base.OnInit(e);
-		}
-		
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{    
+        override protected void OnInit(EventArgs e)
+        {
+            base.OnInit(e); 
             this.ToCustomValidator.ServerValidate += new System.Web.UI.WebControls.ServerValidateEventHandler(this.ToCustomValidate);
 
         }
-		#endregion
-	}
+    }
 }

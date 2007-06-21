@@ -1,5 +1,4 @@
-<%@ Page language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.PM.ViewDevProfile" Codebehind="ViewDevProfile.aspx.cs" %>
-<%@ Register TagPrefix="pmt" TagName="Profile" Src="~/Controls/PMTProfile.ascx" %>
+<%@ Page language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Web.PM.ViewDevProfile" Codebehind="ViewDevProfile.aspx.cs" %>
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>Developer Profile</h3>
     Back to <a href="Assign.aspx">Developer Assignments</a>

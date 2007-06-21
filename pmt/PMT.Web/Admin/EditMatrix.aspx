@@ -1,4 +1,4 @@
-<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Admin.EditMatrix" Codebehind="EditMatrix.aspx.cs" %>
+<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Web.Admin.EditMatrix" Codebehind="EditMatrix.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="phHead" runat="server">
 <style type="text/css">
