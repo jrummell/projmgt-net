@@ -1,27 +1,19 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
+using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Text;
-using PMTDataProvider.Configuration;
 
-namespace PMT.Admin
+namespace PMT.Web.Admin
 {
-	/// <summary>
-	/// Allows the Administrator to configure the application
-	/// </summary>
-	public partial class Settings : Page
-	{
+    /// <summary>
+    /// Allows the Administrator to configure the application
+    /// </summary>
+    public partial class Settings : Page
+    {
     
-		protected void Page_Load(object sender, System.EventArgs e)
-		{
-		}
+        protected void Page_Load(object sender, System.EventArgs e)
+        {
+        }
 
         private void cbTrusted_CheckedChanged(object sender, EventArgs e)
         {
@@ -48,7 +40,7 @@ namespace PMT.Admin
             bool trusted = cbTrusted.Checked;
 
             cs.AppendFormat("Server={0};Database={1};Trusted_Connection={2};",
-                txtServer.Text, txtDatabase.Text, trusted.ToString());
+                            txtServer.Text, txtDatabase.Text, trusted.ToString());
             if (trusted)
             {
                 // "Server=Aron1;Database=pubs;Trusted_Connection=True;"
@@ -57,7 +49,7 @@ namespace PMT.Admin
             {
                 // "Server=Aron1;Database=pubs;User ID=sa;Password=asdasd;Trusted_Connection=False" 
                 cs.AppendFormat("User ID={0};Password={1}",
-                    txtUsername.Text, txtPassword1.Text);
+                                txtUsername.Text, txtPassword1.Text);
             }
 
             // write the settings to web.config
@@ -69,12 +61,12 @@ namespace PMT.Admin
             lblConnString.Text = "Your connection string: <br/>" + cs.ToString();
         }
 
-		override protected void OnInit(EventArgs e)
-		{
+        override protected void OnInit(EventArgs e)
+        {
             this.Load += new System.EventHandler(this.Page_Load);
             cbTrusted.CheckedChanged += new EventHandler(cbTrusted_CheckedChanged);
             btnUpdate.Click += new EventHandler(btnUpdate_Click);
-			base.OnInit(e);
-		}
+            base.OnInit(e);
+        }
     }
 }

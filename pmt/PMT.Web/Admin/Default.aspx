@@ -1,5 +1,5 @@
 <%@ Page Language="c#" MasterPageFile="~/Master/Default.master"
-    Inherits="PMT.Admin.Default" AutoEventWireup="false" Codebehind="~/Admin/Default.aspx.cs" %>
+    Inherits="PMT.Web.Admin.Default" AutoEventWireup="false" Codebehind="~/Admin/Default.aspx.cs" %>
 <%@ Import Namespace="PMT.BLL" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">

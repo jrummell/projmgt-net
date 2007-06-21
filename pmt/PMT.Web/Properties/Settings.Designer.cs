@@ -22,14 +22,5 @@ namespace PMT.Web.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("jrummell@users.sourceforge.net")]
-        public string ErrorEmail {
-            get {
-                return ((string)(this["ErrorEmail"]));
-            }
-        }
     }
 }

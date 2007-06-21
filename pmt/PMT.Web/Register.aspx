@@ -1,5 +1,4 @@
-<%@ Page Language="c#" Inherits="PMT.Register" MasterPageFile="~/Master/Default.master" Codebehind="Register.aspx.cs" %>
-<%@ Register TagPrefix="pmt" TagName="Profile" Src="~/Controls/Profile.ascx" %>
+<%@ Page Language="c#" Inherits="PMT.Web.Register" MasterPageFile="~/Master/Default.master" Codebehind="Register.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <asp:Panel ID="RegisterPanel" runat="server">

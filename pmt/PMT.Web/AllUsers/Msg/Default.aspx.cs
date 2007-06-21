@@ -1,19 +1,9 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using PMT.Configuration;
-using PMTComponents;
-using PMTDataProvider;
-using PMT.Web;
 
-namespace PMT.AllUsers.Msg
+namespace PMT.Web.AllUsers.Msg
 {
     /// <summary>
     /// Summary description for Messages.
@@ -69,16 +59,20 @@ namespace PMT.AllUsers.Msg
 
         private void BindGrid()
         {
-            IDataProvider data = DataProviderFactory.CreateInstance();
-            MessagesDataGrid.DataSource = data.GetReceivedMessages(CookiesHelper.LoggedInUserID);
-            MessagesDataGrid.DataBind();
+            throw new NotImplementedException();
+
+            //IDataProvider data = DataProviderFactory.CreateInstance();
+            //MessagesDataGrid.DataSource = data.GetReceivedMessages(CookiesHelper.LoggedInUserID);
+            //MessagesDataGrid.DataBind();
         }
 
         private void MessagesDataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
-            int delID = Convert.ToInt32(e.Item.Cells[0].Text);
-            IDataProvider data = DataProviderFactory.CreateInstance();
-            data.DeleteMessage(delID, CookiesHelper.LoggedInUserID, null); 
+            throw new NotImplementedException();
+
+            //int delID = Convert.ToInt32(e.Item.Cells[0].Text);
+            //IDataProvider data = DataProviderFactory.CreateInstance();
+            //data.DeleteMessage(delID, CookiesHelper.LoggedInUserID, null); 
             BindGrid();
         }
     }

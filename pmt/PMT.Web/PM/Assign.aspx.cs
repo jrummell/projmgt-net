@@ -7,12 +7,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using PMT.Configuration;
-using PMTComponents;
-using PMTDataProvider;
+using PMT.BLL;
 using PMT.Web;
 
-namespace PMT.PM
+namespace PMT.Web.PM
 {
     public partial class Assign : Page
     {
@@ -33,13 +31,15 @@ namespace PMT.PM
 
         private void BindGrids()
         {
-            IDataProvider data = DataProviderFactory.CreateInstance();
+            throw new NotImplementedException();
 
-            dgAssignments.DataSource = data.GetTaskAssignments(CookiesHelper.LoggedInUserID);
-            dgAssignments.DataBind();
+            //IDataProvider data = DataProviderFactory.CreateInstance();
 
-            dgAvailableDevs.DataSource = data.GetAvailableDevelopers(Convert.ToInt32(ddlTaskThreshold.SelectedValue));
-            dgAvailableDevs.DataBind();
+            //dgAssignments.DataSource = data.GetTaskAssignments(CookiesHelper.LoggedInUserID);
+            //dgAssignments.DataBind();
+
+            //dgAvailableDevs.DataSource = data.GetAvailableDevelopers(Convert.ToInt32(ddlTaskThreshold.SelectedValue));
+            //dgAvailableDevs.DataBind();
         }
 
         #region dg ItemDataBound
@@ -56,22 +56,22 @@ namespace PMT.PM
             if (e.Item.ItemType == ListItemType.EditItem)
             {
                 // bind unassigned tasks ddl
-                IDataProvider data = DataProviderFactory.CreateInstance();
-                DataTable dt = data.GetTasks();
-                DataView dv = dt.DefaultView;
-                dv.RowFilter = "status=0";
+                //IDataProvider data = DataProviderFactory.CreateInstance();
+                //DataTable dt = data.GetTasks();
+                //DataView dv = dt.DefaultView;
+                //dv.RowFilter = "status=0";
 
-                DropDownList ddl = e.Item.Cells[4].FindControl("ddlTasks") as DropDownList;
-                ddl.DataSource = dv;
-                ddl.DataTextField = "name";
-                ddl.DataValueField = "id";
-                ddl.DataBind();
+                //DropDownList ddl = e.Item.Cells[4].FindControl("ddlTasks") as DropDownList;
+                //ddl.DataSource = dv;
+                //ddl.DataTextField = "name";
+                //ddl.DataValueField = "id";
+                //ddl.DataBind();
 
-                if (ddl.Items.Count == 0)
-                {
-                    e.Item.Cells[4].Text = "[no unassigned tasks]";
-                    dg.UpdateCommand -= new DataGridCommandEventHandler(this.dgAvailableDevs_UpdateCommand);
-                }
+                //if (ddl.Items.Count == 0)
+                //{
+                //    e.Item.Cells[4].Text = "[no unassigned tasks]";
+                //    dg.UpdateCommand -= new DataGridCommandEventHandler(this.dgAvailableDevs_UpdateCommand);
+                //}
             }
         }
 
@@ -142,8 +142,8 @@ namespace PMT.PM
                 // assign the task
                 int devID = Convert.ToInt32(e.Item.Cells[0].Text);
                 int taskID = Convert.ToInt32(ddl.SelectedValue);
-                IDataProvider data = DataProviderFactory.CreateInstance();
-                data.AssignTask(taskID, devID, new TransactionFailedHandler(this.TransactionFailed));
+                //IDataProvider data = DataProviderFactory.CreateInstance();
+                //data.AssignTask(taskID, devID, new TransactionFailedHandler(this.TransactionFailed));
             }
             else
             {
@@ -208,8 +208,8 @@ namespace PMT.PM
                 {
                     int id = Convert.ToInt32(item.Cells[1].Text);
                     TaskStatus status = cb.Checked ? TaskStatus.Approved : TaskStatus.Complete;
-                    IDataProvider data = DataProviderFactory.CreateInstance();
-                    data.UpdateTaskStatus(id, status, new TransactionFailedHandler(this.TransactionFailed));
+                    //IDataProvider data = DataProviderFactory.CreateInstance();
+                    //data.UpdateTaskStatus(id, status, new TransactionFailedHandler(this.TransactionFailed));
                 }
             }
             BindGrids();

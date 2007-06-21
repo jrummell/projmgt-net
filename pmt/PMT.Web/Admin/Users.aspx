@@ -1,4 +1,4 @@
-<%@ Page Language="c#" AutoEventWireup="False" MasterPageFile="~/Master/Default.master" Inherits="PMT.Admin.Users" Codebehind="Users.aspx.cs" %>
+<%@ Page Language="c#" AutoEventWireup="False" MasterPageFile="~/Master/Default.master" Inherits="PMT.Web.Admin.Users" Codebehind="Users.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
     <h3>User Administration</h3>

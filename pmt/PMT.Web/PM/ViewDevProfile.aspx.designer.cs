@@ -8,9 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PMT.PM {
-    
-    
+namespace PMT.Web.PM
+{
     /// <summary>
     /// ViewDevProfile class.
     /// </summary>

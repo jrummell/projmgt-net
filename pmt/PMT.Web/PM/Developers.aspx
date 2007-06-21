@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/Master/Default.master" AutoEventWireup="true" Inherits="PMT.PM.Developers" Codebehind="Developers.aspx.cs" %>
+<%@ Page Language="C#" MasterPageFile="~/Master/Default.master" AutoEventWireup="true" Inherits="PMT.Web.PM.Developers" Codebehind="Developers.aspx.cs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="phMain" Runat="Server">
     <h3>Your Developers</h3>
     <p><a href="ChooseDevelopers.aspx">Choose Developers</a></p>

@@ -1,28 +1,22 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using PMTDataProvider;
-using PMTComponents;
+using PMT.BLL;
 
-namespace PMT.PM
+namespace PMT.Web.PM
 {
     public partial class Matrix : Page
     {
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
-                IDataProvider data = DataProviderFactory.CreateInstance();
-                dgCompMatrix.DataSource = data.GetCompMatrix();
-                dgCompMatrix.DataBind();
+                throw new NotImplementedException();
+
+                //IDataProvider data = DataProviderFactory.CreateInstance();
+                //dgCompMatrix.DataSource = data.GetCompMatrix();
+                //dgCompMatrix.DataBind();
             }
         }
 

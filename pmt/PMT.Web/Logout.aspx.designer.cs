@@ -8,15 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PMT {
-    
-    
-    /// <summary>
-    /// Logout class.
-    /// </summary>
-    /// <remarks>
-    /// Auto-generated class.
-    /// </remarks>
-    public partial class Logout {
-    }
+
+
+/// <summary>
+/// Logout class.
+/// </summary>
+/// <remarks>
+/// Auto-generated class.
+/// </remarks>
+public partial class Logout {
 }
