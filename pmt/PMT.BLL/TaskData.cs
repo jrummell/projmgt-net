@@ -1,33 +1,29 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using PMT.DAL;
-using PMT.DAL.ProjectsDataSetTableAdapters;
-using PMT.DAL.AssignmentsDataSetTableAdapters;
+using SubSonic;
 
 namespace PMT.BLL
 {
-    public class TaskData : IDisposable
+    public class TaskData
     {
-        private TasksTableAdapter taTasks;
-        private TaskAssignmentsTableAdapter taAssignments;
+        private readonly TaskAssignmentController _taskAssignmentController;
+        private readonly TaskController _tasksController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskData"/> class.
         /// </summary>
         public TaskData()
         {
-            taTasks = new TasksTableAdapter();
-            taAssignments = new TaskAssignmentsTableAdapter();
+            _tasksController = new TaskController();
+            _taskAssignmentController = new TaskAssignmentController();
         }
 
         /// <summary>
         /// Gets the assigned tasks.
         /// </summary>
         /// <returns></returns>
-        public AssignmentsDataSet.TaskAssignmentsDataTable GetAssignedTasks()
+        public TaskAssignmentCollection GetAssignedTasks()
         {
-            return taAssignments.GetTaskAssignments();
+            return _taskAssignmentController.FetchAll();
         }
 
         /// <summary>
@@ -35,17 +31,17 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="task">The task.</param>
         /// <returns></returns>
-        public bool InsertTask(Task task)
+        public void InsertTask(Task task)
         {
-            return 1 == taTasks.Insert(
+            _tasksController.Insert(
                 task.ModuleID,
                 task.Name,
                 task.Description,
                 task.StartDate,
                 task.ExpEndDate,
                 task.ActEndDate,
-                (short)task.Status,
-                (short)task.Complexity);
+                (short) task.Status,
+                (short) task.Complexity);
         }
 
         /// <summary>
@@ -53,18 +49,17 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="task">The task.</param>
         /// <returns></returns>
-        public bool UpdateTask(Task task)
+        public void UpdateTask(Task task)
         {
-            return 1 == taTasks.Update(
-                task.ModuleID,
-                task.Name,
-                task.Description,
-                task.StartDate,
-                task.ExpEndDate,
-                task.ActEndDate,
-                (short)task.Status,
-                (short)task.Complexity,
-                task.ID);
+            _tasksController.Update(task.ID,
+                           task.ModuleID,
+                           task.Name,
+                           task.Description,
+                           task.StartDate,
+                           task.ExpEndDate,
+                           task.ActEndDate,
+                           (short) task.Status,
+                           (short) task.Complexity);
         }
 
         /// <summary>
@@ -72,9 +67,9 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        public bool DeleteTask(int id)
+        public void DeleteTask(int id)
         {
-            return 1 == taTasks.Delete(id);
+            _tasksController.Delete(id);
         }
 
         /// <summary>
@@ -82,9 +77,10 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="moduleID">The module ID.</param>
         /// <returns></returns>
-        public ProjectsDataSet.TasksDataTable GetModuleTasks(int moduleID)
+        public TaskCollection GetModuleTasks(int moduleID)
         {
-            return taTasks.GetTasksByModuleID(moduleID);
+            Query query = DAL.Task.CreateQuery().WHERE(DAL.Task.Columns.ModuleID, Comparison.Equals, moduleID);
+            return _tasksController.FetchByQuery(query);
         }
 
         /// <summary>
@@ -93,18 +89,9 @@ namespace PMT.BLL
         /// <param name="taskID">The task ID.</param>
         /// <param name="devID">The dev ID.</param>
         /// <returns></returns>
-        public bool AssignTask(int taskID, int devID)
+        public void AssignTask(int taskID, int devID)
         {
-            object count = taAssignments.IsAssigned(taskID, devID);
-
-            if (count is int)
-            {
-                // already asigned ?
-                if ((int)count == 1)
-                    return false;
-            }
-
-            return 1 == taAssignments.Insert(taskID, devID);
+            _taskAssignmentController.Insert(taskID, devID);
         }
 
         /// <summary>
@@ -113,9 +100,9 @@ namespace PMT.BLL
         /// <param name="taskID">The task ID.</param>
         /// <param name="devID">The dev ID.</param>
         /// <returns></returns>
-        public bool UnassignTask(int taskID, int devID)
+        public void UnassignTask(int taskID, int devID)
         {
-            return 1 == taAssignments.Delete(taskID, devID);
+            _taskAssignmentController.Delete(taskID, devID);
         }
 
         /// <summary>
@@ -123,51 +110,9 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        public Task GetTask(int id)
+        public DAL.Task GetTask(int id)
         {
-            ProjectsDataSet.TasksDataTable dt = taTasks.GetTaskByID(id);
-
-            if (dt.Count != 1)
-                return null;
-
-            ProjectsDataSet.TasksRow row = dt[0];
-
-            Task task = new Task(
-                row.ID,
-                row.ModuleID,
-                row.Name,
-                row.Description,
-                (TaskComplexity)row.Complexity,
-                row.StartDate,
-                row.ExpEndDate,
-                row.ActEndDate);
-
-            return task;
+            return ReadOnlyRecord<DAL.Task>.FetchByID(id);
         }
-
-        #region IDisposable Members
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                lock (this)
-                {
-                    if (taAssignments != null)
-                        taAssignments.Dispose();
-
-                    if (taTasks != null)
-                        taTasks.Dispose();
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(true);
-        }
-
-        #endregion
     }
 }

@@ -1,34 +1,28 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
 using PMT.DAL;
-using PMT.DAL.UsersDataSetTableAdapters;
-using PMT.DAL.AssignmentsDataSetTableAdapters;
-using System.Data;
+using SubSonic;
 
 namespace PMT.BLL
 {
     /// <summary>
     /// Manages User data
     /// </summary>
-    public class UserData : IDisposable
+    public class UserData
     {
-        private UsersTableAdapter taUsers;
-        private UserProfileTableAdapter taUserProfile;
-        private ManagerAssignmentsTableAdapter taUserManagers;
-        private ProjectAssignmentsTableAdapter taUserProjects;
+        private readonly UserProfileController taUserProfile;
+        private readonly UserController taUsers;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserData"/> class.
         /// </summary>
         public UserData()
         {
-            taUsers = new UsersTableAdapter();
-            taUserProfile = new UserProfileTableAdapter();
-            taUserManagers = new ManagerAssignmentsTableAdapter();
-            taUserProjects = new ProjectAssignmentsTableAdapter();
+            taUsers = new UserController();
+            taUserProfile = new UserProfileController();
         }
-    
+
         /// <summary>
         /// Get a User by id
         /// </summary>
@@ -48,7 +42,7 @@ namespace PMT.BLL
             {
                 throw new ArgumentNullException("userName");
             }
-			
+
             return GetUser(0, userName);
         }
 
@@ -56,7 +50,7 @@ namespace PMT.BLL
         /// Inserts a new User
         /// </summary>
         /// <returns>the inserted user's id</returns>
-        public int InsertUser(User user)
+        public void InsertUser(User user)
         {
             if (user == null)
             {
@@ -68,36 +62,21 @@ namespace PMT.BLL
                 throw new Exception(String.Format("User {0} already exists.", user.UserName));
             }
 
-            // add to users and get new id
-            int rows = (int)taUsers.Insert(user.UserName, 
-                (short)user.Role, user.Password, user.Enabled);
-
-            if (rows != 1)
-            {
-                throw new Exception(String.Format("Could not insert user {0}.", user.UserName));
-            }
-
-            // get new id
-            UsersDataSet.UsersDataTable dt = taUsers.GetUserByUserName(user.UserName);
-            if (dt.Count != 1)
-            {
-                throw new Exception(String.Format("Could not get new user {0}.", user.UserName));
-            }
-            int id = dt[0].ID;
+            // insert the user
+            DAL.User newUser = new DAL.User();
+            newUser.Enabled = false;
+            newUser.Password = user.Password;
+            newUser.Role = (short) user.Role;
+            newUser.Username = user.UserName;
+            newUser.Save();
 
             // add user profile
-            rows = taUserProfile.Insert(id, user.FirstName, user.LastName, 
-                user.State, user.ZipCode, user.PhoneNumber, user.Email, 
-                user.Address, user.City);
+            taUserProfile.Insert(user.ID, user.FirstName, user.LastName,
+                                 user.State, user.ZipCode, user.PhoneNumber, user.Email,
+                                 user.Address, user.City);
 
-            if (rows != 1)
-            {
-                DeleteUser(id);
-                throw new Exception(String.Format(
-                    "Could not insert profile. User {0} deleted.", user.UserName));
-            }
-
-            return id;
+            // update the passed in user object
+            user.Update(newUser, new UserProfile(user.ID));
         }
 
         /// <summary>
@@ -105,22 +84,13 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="id">user id</param>
         /// <returns>true if successfull</returns>
-        public bool DeleteUser(int id)
+        public void DeleteUser(int id)
         {
-            int rows = taUsers.Delete(id);
+            taUsers.Delete(id);
+            taUserProfile.Delete(id);
 
-            if (rows == 1)
-            {
-                rows = taUserProfile.Delete(id);
-
-                if (rows == 1)
-                {
-                    taUserManagers.DeleteByUserID(id);
-                    taUserProjects.DeleteByUserID(id);
-                }
-            }
-
-            return rows == 1;
+            ActiveRecord<ManagerAssignment>.Delete(ManagerAssignment.Columns.UserID, id);
+            ActiveRecord<ProjectAssignment>.Delete(ProjectAssignment.Columns.UserID, id);
         }
 
         /// <summary>
@@ -128,22 +98,14 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="user">user</param>
         /// <returns>true if sucessfull</returns>
-        public bool UpdateUser(User user)
+        public void UpdateUser(User user)
         {
             if (user == null)
             {
                 throw new ArgumentNullException("user");
             }
-			
-            int rows = taUsers.Update(user.UserName, (short)user.Role, user.Password, user.Enabled, user.ID, user.ID);
 
-            if (rows == 1)
-            {
-                rows = taUserProfile.Update(user.ID, user.FirstName, user.LastName, user.Address,
-                    user.City, user.State, user.ZipCode, user.PhoneNumber, user.Email, user.ID);
-            }
-
-            return rows == 1;
+            taUsers.Update(user.ID, user.UserName, (short) user.Role, user.Enabled, user.Password);
         }
 
         /// <summary>
@@ -152,11 +114,11 @@ namespace PMT.BLL
         /// <param name="id">The id.</param>
         /// <param name="enabled">if set to <c>true</c> [enabled].</param>
         /// <returns></returns>
-        public bool UpdateEnabled(int id, bool enabled)
+        public void UpdateEnabled(int id, bool enabled)
         {
-            int rows = taUsers.UpdateEnabled(enabled, id);
-
-            return rows == 1;
+            DAL.User user = ReadOnlyRecord<DAL.User>.FetchByID(id);
+            user.Enabled = enabled;
+            user.Save();
         }
 
         /// <summary>
@@ -167,58 +129,30 @@ namespace PMT.BLL
         /// <returns></returns>
         private User GetUser(int id, string userName)
         {
-            User user = null;
-
-            UsersDataSet.UserProfileDataTable dtProfile;
-            UsersDataSet.UsersDataTable dtUser;
+            Query query = DAL.User.CreateQuery();
 
             if (userName == null)
             {
-                dtProfile = taUserProfile.GetUserProfileByID(id);
-                dtUser = taUsers.GetUserByID(id);
+                query.AddWhere(DAL.User.Columns.Username, Comparison.Equals, userName);
             }
             else
             {
-                dtProfile = taUserProfile.GetUserProfileByUsername(userName);
-                dtUser = taUsers.GetUserByUserName(userName);
+                query.AddWhere(DAL.User.Columns.Id, Comparison.Equals, id);
             }
 
-            if (dtUser.Count == 0 || dtProfile.Count == 0)
+            UserCollection collection = taUsers.FetchByQuery(query);
+
+            if (collection.Count != 1)
+            {
                 return null;
+            }
 
-            UsersDataSet.UsersRow rUser = dtUser[0];
-            user = User.CreateUser((UserRole)rUser.Role);
-            user.ID = rUser.ID;
-            user.UserName = rUser.Username;
-            user.Enabled = rUser.Enabled;
+            DAL.User dalUser = collection[0];
+            var profile = new UserProfile(dalUser.Id);
 
-            UsersDataSet.UserProfileRow rProfile = dtProfile[0];
-            user.FirstName = rProfile.FirstName;
-            user.LastName = rProfile.LastName;
-            user.Email = rProfile.Email;
-            user.Address = rProfile.Address;
-            user.City = rProfile.City;
-            user.State = rProfile.State;
-            user.ZipCode = rProfile.Zip;
-            user.PhoneNumber = rProfile.PhoneNumber;
+            User user = new User(dalUser, profile);
 
             return user;
-        }
-
-        /// <summary>
-        /// Gets the user profiles.
-        /// </summary>
-        /// <returns></returns>
-        public DataTable GetUserProfiles()
-        {
-            UsersDataSet.UsersDataTable dtUsers = taUsers.GetUsers();
-            UsersDataSet.UserProfileDataTable dtProfiles = taUserProfile.GetUserProfiles();
-
-            DataTable dt = new DataTable();
-            dt.Merge(dtUsers);
-            dt.Merge(dtProfiles);
-
-            return dt;
         }
 
         /// <summary>
@@ -226,9 +160,35 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="enabled">if set to <c>true</c> gets enabled users.</param>
         /// <returns></returns>
-        public UsersDataSet.UsersDataTable GetUsers(bool enabled)
+        public ICollection<User> GetUsers(bool enabled)
         {
-            return taUsers.GetUsersByEnabled(enabled);
+            Query query = DAL.User.CreateQuery().AddWhere(DAL.User.Columns.Enabled, Comparison.Equals, enabled);
+            UserCollection collection = taUsers.FetchByQuery(query);
+
+#warning //TODO: optimize
+            return CreateUserCollection(collection);
+        }
+
+        private static ICollection<User> CreateUserCollection(IEnumerable<DAL.User> collection)
+        {
+            Collection<User> users = new Collection<User>();
+            foreach (DAL.User user in collection)
+            {
+                users.Add(new User(user, new UserProfile(user.Id)));
+            }
+
+            return users;
+        }
+
+        public ICollection<User> GetUsers()
+        {
+            return CreateUserCollection(taUsers.FetchAll());
+        }
+
+        public ICollection<User> GetUsersByRole(UserRole role)
+        {
+            Query query = DAL.User.CreateQuery().AddWhere(DAL.User.Columns.Role, Comparison.Equals, (short) role);
+            return CreateUserCollection(taUsers.FetchByQuery(query));
         }
 
         /// <summary>
@@ -248,9 +208,16 @@ namespace PMT.BLL
             {
                 throw new ArgumentNullException("password");
             }
-			
-			
-            return 1 == (int)taUsers.AuthenticateUser(username, password);
+
+            password = Encryption.Encrypt(password);
+
+            Query query = DAL.User.CreateQuery();
+            query.AddWhere(DAL.User.Columns.Username, Comparison.Equals, username);
+            query.AddWhere(DAL.User.Columns.Password, Comparison.Equals, password);
+
+            UserCollection collection = taUsers.FetchByQuery(query);
+
+            return collection.Count == 1;
         }
 
         /// <summary>
@@ -264,36 +231,74 @@ namespace PMT.BLL
             {
                 throw new ArgumentNullException("username");
             }
-			
-            return taUsers.GetUserByUserName(username).Rows.Count != 0;
+
+            Query query = DAL.User.CreateQuery().AddWhere(
+                DAL.User.Columns.Username, Comparison.Equals, username);
+            return taUsers.FetchByQuery(query).Count == 1;
         }
 
-        #region IDisposable Members
-
-        protected virtual void Dispose(bool disposing)
+        public ICollection<User> GetDevelopersByManager(int managerID)
         {
-            if (disposing)
+            ManagerAssignmentCollection assignmentCollection =
+                new ManagerAssignmentCollection().Where(ManagerAssignment.Columns.ManagerID,
+                                                        Comparison.Equals, managerID);
+#warning //TODO: optimize
+            Collection<User> userCollection = new Collection<User>();
+            foreach (ManagerAssignment assignment in assignmentCollection)
             {
-                lock (this)
-                {
-                    if (taUsers != null)
-                        taUsers.Dispose();
-                    if (taUserProjects != null)
-                        taUserProjects.Dispose();
-                    if (taUserProfile != null)
-                        taUserProfile.Dispose();
-                    if (taUserManagers != null)
-                        taUserManagers.Dispose();
-                }
+                userCollection.Add(new User(assignment.UserID));
             }
+
+            return userCollection;
         }
 
-        public void Dispose()
+        public UserStatistics GetStatistics()
         {
-            Dispose(true);
-            GC.SuppressFinalize(true);
+            int admins = GetCount(UserRole.Administrator);
+            int managers = GetCount(UserRole.Manager);
+            int developers = GetCount(UserRole.Developer);
+            int clients = GetCount(UserRole.Client);
+
+            Where where = new Where
+                              {
+                                  ColumnName = DAL.User.Columns.Enabled,
+                                  Comparison = Comparison.Equals,
+                                  ParameterValue = false
+                              };
+
+            int newUsers = GetCount(where);
+
+            return new UserStatistics(admins, managers, developers, clients, newUsers);
         }
 
-        #endregion
+        private static int GetCount(UserRole role)
+        {
+            Where where = new Where
+                              {
+                                  ColumnName = DAL.User.Columns.Role,
+                                  Comparison = Comparison.Equals,
+                                  ParameterValue = ((short) role)
+                              };
+
+            return GetCount(where);
+        }
+
+        private static int GetCount(Where where)
+        {
+            return DAL.User.CreateQuery().AddWhere(where).GetCount(DAL.User.Columns.Id);
+        }
+
+        public int GetManagerID(int userID)
+        {
+            ManagerAssignmentCollection assignments =
+                new ManagerAssignmentController().FetchByQuery(
+                    ManagerAssignment.CreateQuery().AddWhere(ManagerAssignment.Columns.UserID, Comparison.Equals, userID));
+            if (assignments.Count != 1)
+            {
+                return -1;
+            }
+
+            return assignments[0].ManagerID;
+        }
     }
 }

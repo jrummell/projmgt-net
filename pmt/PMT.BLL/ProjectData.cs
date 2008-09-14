@@ -1,24 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using PMT.DAL;
-using PMT.DAL.ProjectsDataSetTableAdapters;
-using PMT.DAL.AssignmentsDataSetTableAdapters;
+using SubSonic;
 
 namespace PMT.BLL
 {
-    public class ProjectData : IDisposable
+    public class ProjectData
     {
-        private ProjectsTableAdapter taProjects;
-        private ProjectAssignmentsTableAdapter taAssignments;
+        private readonly ProjectAssignmentController _assignmentController;
+        private readonly ProjectController _projectController;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectData"/> class.
         /// </summary>
         public ProjectData()
         {
-            taProjects = new ProjectsTableAdapter();
-            taAssignments = new ProjectAssignmentsTableAdapter();
+            _projectController = new ProjectController();
+            _assignmentController = new ProjectAssignmentController();
         }
 
         /// <summary>
@@ -26,9 +22,12 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="userID">The user ID.</param>
         /// <returns></returns>
-        public ProjectsDataSet.ProjectsDataTable GetAssignedProjects(int userID)
+        public ProjectAssignmentCollection GetAssignedProjects(int userID)
         {
-            return taProjects.GetProjectsByUserProjects(userID);
+            Query query = ProjectAssignment.CreateQuery().AddWhere(ProjectAssignment.Columns.UserID, Comparison.Equals,
+                                                                   userID);
+
+            return _assignmentController.FetchByQuery(query);
         }
 
         /// <summary>
@@ -36,12 +35,10 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="project">The project.</param>
         /// <returns></returns>
-        public int InsertProject(Project project)
+        public void InsertProject(Project project)
         {
-            int id = taProjects.Insert(project.Name, project.Description,
-                project.StartDate, project.ExpEndDate, project.ActEndDate);
-
-            return id;
+            _projectController.Insert(project.Name, project.Description,
+                              project.StartDate, project.ExpEndDate, project.ActEndDate);
         }
 
         /// <summary>
@@ -49,13 +46,10 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="project">The project.</param>
         /// <returns></returns>
-        public bool UpdateProject(Project project)
+        public void UpdateProject(Project project)
         {
-            int rows = taProjects.Update(project.Name, project.Description,
-                project.StartDate, project.ExpEndDate, project.ActEndDate,
-                project.ID, project.ID);
-
-            return rows == 1;
+            _projectController.Update(project.ID, project.Name, project.Description,
+                              project.StartDate, project.ExpEndDate, project.ActEndDate);
         }
 
         /// <summary>
@@ -63,11 +57,9 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        public bool DeleteProject(int id)
+        public void DeleteProject(int id)
         {
-            int rows = taProjects.Delete(id);
-
-            return rows == 1;
+            _projectController.Delete(id);
         }
 
         /// <summary>
@@ -76,11 +68,9 @@ namespace PMT.BLL
         /// <param name="projectID">The project ID.</param>
         /// <param name="userID">The user ID.</param>
         /// <returns></returns>
-        public bool AssignProject(int projectID, int userID)
+        public void AssignProject(int projectID, int userID)
         {
-            int rows = taAssignments.Insert(projectID, userID);
-
-            return rows == 1;
+            _assignmentController.Insert(projectID, userID);
         }
 
         /// <summary>
@@ -89,11 +79,9 @@ namespace PMT.BLL
         /// <param name="projectID">The project ID.</param>
         /// <param name="userID">The user ID.</param>
         /// <returns></returns>
-        public bool UnassignProject(int projectID, int userID)
+        public void UnassignProject(int projectID, int userID)
         {
-            int rows = taAssignments.Delete(projectID, userID);
-
-            return rows == 1;
+            _assignmentController.Delete(projectID, userID);
         }
 
         /// <summary>
@@ -101,48 +89,9 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        public Project GetProject(int id)
+        public DAL.Project GetProject(int id)
         {
-            ProjectsDataSet.ProjectsDataTable dt =
-                taProjects.GetProjectByID(id);
-
-            if (dt.Count != 1)
-                return null;
-
-            Project p = new Project();
-            p.ID = id;
-            p.Name = dt[0].Name;
-            p.Description = dt[0].Description;
-            p.StartDate = dt[0].StartDate;
-            p.ExpEndDate = dt[0].ExpEndDate;
-            p.ActEndDate = dt[0].ActEndDate;
-
-            return p;
+            return ReadOnlyRecord<DAL.Project>.FetchByID(id);
         }
-
-        #region IDisposable Members
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                lock (this)
-                {
-                    if (taAssignments != null)
-                        taAssignments.Dispose();
-
-                    if (taProjects != null)
-                        taProjects.Dispose();
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(true);
-        }
-
-        #endregion
     }
 }

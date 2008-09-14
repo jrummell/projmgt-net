@@ -1,345 +1,216 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
 using PMT.DAL;
-using PMT.DAL.UsersDataSetTableAdapters;
-using System.Web;
 
 namespace PMT.BLL
 {
     /// <summary>
     /// User Roles
     /// </summary>
-    public enum UserRole { Client = 0, Developer, Manager, Administrator }
+    public enum UserRole
+    {
+        Client = 0,
+        Developer,
+        Manager,
+        Administrator
+    }
 
     /// <summary>
     /// Developer Competency Levels
     /// </summary>
-    public enum CompLevel { Low = 0, Medium, High }
+    public enum CompLevel
+    {
+        Low = 0,
+        Medium,
+        High
+    }
 
     /// <summary>
     /// Project Management .Net User Base Class
     /// </summary>
-    public abstract class User 
+    public class User
     {
-        #region Attributes
-        private string userName;
-        private string password;
-        private int id;
-        private string firstName;
-        private string lastName;
-        private string email;
-        private string phone;
-        private string address;
-        private string city;
-        private string state;
-        private string zip;
-        private bool enabled;
-        #endregion
+        private UserProfile _profile;
+        private DAL.User _user;
 
         #region Constructors
-        /// <summary>
-        /// Main constructor
-        /// </summary>
-        /// <param name="id">User ID</param>
-        /// <param name="user">Username</param>
-        /// <param name="pwd">Encrypted Password</param>
-        /// <param name="role">Role (Security)</param>
-        /// <param name="firstName">First Name</param>
-        /// <param name="lastName">Last Name</param>
-        /// <param name="email">Email Address</param>
-        /// <param name="phone">Phone Number</param>
-        /// <param name="address">Street Address</param>
-        /// <param name="city">City</param>
-        /// <param name="state">State</param>
-        /// <param name="zip">Zip Code</param>
-        /// <param name="enabled">Is the user enabled?</param>
-        protected User(int id, string user, string pwd, string firstName, string lastName,
-            string email, string phone, string address, string city, string state, string zip, bool enabled)
-        {
-            this.userName = user;
-            this.password = pwd;
-            this.id = id;
-            //this.role = role;
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
-            this.phone = phone;
-            this.address = address;
-            this.city = city;
-            this.state = state;
-            this.zip = zip;
-            this.enabled = enabled;
-        }
 
         /// <summary>
         /// Default Constructor. Creates a blank User
         /// </summary>
-        protected User()
-            : this(0, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty, false) { }
+        public User(UserRole role)
+        {
+            _user = new DAL.User {Role = ((short) role)};
+            _profile = new UserProfile();
+        }
+
+        /// <summary>
+        /// Main constructor
+        /// </summary>
+        /// <param name="id">User ID</param>
+        public User(int id)
+        {
+            _user = new DAL.User(id);
+            _profile = new UserProfile(id);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="profile">The profile.</param>
+        internal User(DAL.User user, UserProfile profile)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
+
+            _user = user;
+            _profile = profile;
+        }
+
         #endregion
 
         /// <summary>
-        /// Creates the user.
+        /// Gets or sets a value indicating whether this <see cref="User"/> is enabled.
         /// </summary>
-        /// <param name="role">The role.</param>
-        /// <returns></returns>
-        public static User CreateUser(UserRole role)
+        /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
+        public bool Enabled
         {
-            Type t = Type.GetType(typeof(User).Namespace + "." + role.ToString());
-            ConstructorInfo constructor = t.GetConstructor(Type.EmptyTypes);
-            return (User)constructor.Invoke(new Object[0]);
+            get { return _user.Enabled; }
+            set { _user.Enabled = value; }
         }
 
         /// <summary>
-        /// Gets the cookie.
+        /// Gets the hashed password and sets the unhashed password.
         /// </summary>
-        /// <returns></returns>
-        public HttpCookie GetCookie()
+        /// <remarks>Hashes the password when it is set.</remarks>
+        /// <value>The password.</value>
+        public string Password
         {
-            HttpCookie cookie = new HttpCookie("user");
-            cookie.Values.Add("role", Role.ToString());
-            cookie.Values.Add("id", ID.ToString());
-            cookie.Values.Add("name", UserName);
-            cookie.Values.Add("fname", FirstName);
-            cookie.Values.Add("lname", LastName);
-
-            return cookie;
+            get { return _user.Password; }
+            set { _user.Password = Encryption.Encrypt(value); }
         }
 
-        #region Properties
         /// <summary>
         /// Gets or sets the ID
         /// </summary>
         public int ID
         {
-            get { return id; }
-            set { id = value; }
+            get { return _user.Id; }
         }
-        /// <summary>
-        /// Gets or sets the **Encrypted** password
-        /// </summary>
-        public string Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
+
         /// <summary>
         /// Gets or sets the first name
         /// </summary>
         public string FirstName
         {
-            get { return firstName; }
-            set { firstName = value; }
+            get { return _profile.FirstName; }
+            set { _profile.FirstName = value; }
         }
+
         /// <summary>
         /// Gets or sets the last name
         /// </summary>
         public string LastName
         {
-            get { return lastName; }
-            set { lastName = value; }
+            get { return _profile.LastName; }
+            set { _profile.LastName = value; }
         }
+
         /// <summary>
         /// Gets or sets the username
         /// </summary>
         public string UserName
         {
-            get { return userName; }
-            set { userName = value; }
+            get { return _user.Username; }
+            set { _user.Username = value; }
         }
+
         /// <summary>
         /// Gets or sets the street address
         /// </summary>
         public string Address
         {
-            get { return address; }
-            set { address = value; }
+            get { return _profile.Address; }
+            set { _profile.Address = value; }
         }
+
         /// <summary>
         /// Gets or sets the city
         /// </summary>
         public string City
         {
-            get { return city; }
-            set { city = value; }
+            get { return _profile.City; }
+            set { _profile.City = value; }
         }
+
         /// <summary>
         /// Getsor sets the state
         /// </summary>
         public string State
         {
-            get { return state; }
-            set { state = value; }
+            get { return _profile.State; }
+            set { _profile.State = value; }
         }
+
         /// <summary>
         /// Gets or sets the zip code
         /// </summary>
         public string ZipCode
         {
-            get { return zip; }
-            set { zip = value; }
+            get { return _profile.Zip; }
+            set { _profile.Zip = value; }
         }
+
         /// <summary>
         /// Gets or sets the phone number
         /// </summary>
         public string PhoneNumber
         {
-            get { return phone; }
-            set { phone = value; }
+            get { return _profile.PhoneNumber; }
+            set { _profile.PhoneNumber = value; }
         }
+
         /// <summary>
         /// Gets or sets the email address
         /// </summary>
         public string Email
         {
-            get { return email; }
-            set { email = value; }
+            get { return _profile.Email; }
+            set { _profile.Email = value; }
         }
+
         /// <summary>
         /// Gets or sets the role (security level)
         /// </summary>
-        public abstract UserRole Role
+        public UserRole Role
         {
-            get;
+            get { return (UserRole) _user.Role; }
         }
-        /// <summary>
-        /// Gets or sets if the user is approved
-        /// </summary>
-        public bool Enabled
-        {
-            get { return enabled; }
-            set { enabled = value; }
-        }
-        #endregion
-    }
-
-    /// <summary>
-    /// Administrator
-    /// </summary>
-    public class Administrator : User
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Administrator"/> class.
-        /// </summary>
-        public Administrator() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Administrator"/> class.
+        /// Updates the specified user.
         /// </summary>
         /// <param name="user">The user.</param>
-        public Administrator(User user)
-            : base(user.ID, user.UserName, user.Password, user.FirstName, user.LastName, user.Email,
-            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
-        {}
-
-        /// <summary>
-        /// Gets the role (security level)
-        /// </summary>
-        /// <value></value>
-        public override UserRole Role
+        /// <param name="profile">The profile.</param>
+        internal void Update(DAL.User user, UserProfile profile)
         {
-            get { return UserRole.Administrator; }
-        }
-    }
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+            if (profile == null)
+            {
+                throw new ArgumentNullException("profile");
+            }
 
-    /// <summary>
-    /// Manager
-    /// </summary>
-    public class Manager : User
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Manager"/> class.
-        /// </summary>
-        public Manager() { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Manager"/> class.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        public Manager(User user)
-            : base(user.ID, user.UserName, user.Password, user.FirstName, user.LastName, user.Email,
-            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
-        {}
-        /// <summary>
-        /// Gets the role (security level)
-        /// </summary>
-        /// <value></value>
-        public override UserRole Role
-        {
-            get { return UserRole.Manager; }
-        }
-    }
-
-    /// <summary>
-    /// Developer
-    /// </summary>
-    public class Developer : User
-    {
-        private CompLevel compentency;
-
-        /// <summary>
-        /// Creates a blank Developer.
-        /// </summary>
-        public Developer() { }
-
-        /// <summary>
-        /// Creates a Developer from a PMTUser.
-        /// </summary>
-        public Developer(User user)
-            : base(user.ID, user.UserName, user.Password, user.FirstName, user.LastName, user.Email,
-            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
-        {
-            this.Competency = CompLevel.Low;
-        }
-
-        /// <summary>
-        /// Gets or sets the competency.
-        /// </summary>
-        /// <value>The competency.</value>
-        public CompLevel Competency
-        {
-            get { return compentency; }
-            set { compentency = value; }
-        }
-
-        /// <summary>
-        /// Gets the role (security level)
-        /// </summary>
-        /// <value></value>
-        public override UserRole Role
-        {
-            get { return UserRole.Developer; }
-        }
-    }
-
-    /// <summary>
-    /// Client
-    /// </summary>
-    public class Client : User
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Client"/> class.
-        /// </summary>
-        public Client() { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Client"/> class.
-        /// </summary>
-        /// <param name="user">The user.</param>
-        public Client(User user)
-            : base(user.ID, user.UserName, user.Password, user.FirstName, user.LastName, user.Email,
-            user.PhoneNumber, user.Address, user.City, user.State, user.ZipCode, user.Enabled)
-        { }
-
-        /// <summary>
-        /// Gets the role (security level)
-        /// </summary>
-        /// <value></value>
-        public override UserRole Role
-        {
-            get { return UserRole.Client; }
+            _user = user;
+            _profile = profile;
         }
     }
 }

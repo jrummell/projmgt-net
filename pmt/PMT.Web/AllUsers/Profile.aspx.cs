@@ -18,7 +18,7 @@ namespace PMT.Web.AllUsers
                 ProfileControl1.AllowChangeSecurity = false;
 
                 userData = new UserData();
-                user = userData.GetUser(CookiesHelper.LoggedInUserID);
+                user = userData.GetUser(Global.LoggedInUser.ID);
 
                 // fill the form with the user's information
                 ProfileControl1.FillForm(user);
@@ -34,15 +34,12 @@ namespace PMT.Web.AllUsers
 
             // create a user obj, fill it from the profile control, 
             //  and update the database
-            user = userData.GetUser(CookiesHelper.LoggedInUserID);
+            user = userData.GetUser(Global.LoggedInUser.ID);
 
             ProfileControl1.FillUser(user);
 
-            if (userData.UpdateUser(user))
-            {
-                StatusLabel.Text = "Your profile has been updated.";
-                StatusLabel.Visible = true;
-            }
+           StatusLabel.Text = "Your profile has been updated.";
+            StatusLabel.Visible = true;
         }
     }
 }

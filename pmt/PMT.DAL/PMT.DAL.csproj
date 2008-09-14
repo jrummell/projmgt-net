@@ -1,8 +1,8 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7C4D657E-AE15-44E1-9B96-993A1FAED76E}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -11,6 +11,12 @@
     <AssemblyName>PMT.DAL</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>pmt.snk</AssemblyOriginatorKeyFile>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <PublishUrl>http://localhost/PMT.DAL/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -21,8 +27,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -43,107 +50,54 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SubSonic, Version=2.1.0.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SubSonic.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssignmentsDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AssignmentsDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="MatrixDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MatrixDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="MessagingDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MessagingDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectsDataSet.cs">
-      <DependentUpon>ProjectsDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ProjectsDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProjectsDataSet.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="Generated\AllStructs.cs" />
+    <Compile Include="Generated\CvCMatrix.cs" />
+    <Compile Include="Generated\CvCMatrixController.cs" />
+    <Compile Include="Generated\ManagerAssignment.cs" />
+    <Compile Include="Generated\ManagerAssignmentController.cs" />
+    <Compile Include="Generated\Message.cs" />
+    <Compile Include="Generated\MessageController.cs" />
+    <Compile Include="Generated\MessageRecipient.cs" />
+    <Compile Include="Generated\MessageRecipientController.cs" />
+    <Compile Include="Generated\ModuleX.cs" />
+    <Compile Include="Generated\ModuleXController.cs" />
+    <Compile Include="Generated\Project.cs" />
+    <Compile Include="Generated\ProjectAssignment.cs" />
+    <Compile Include="Generated\ProjectAssignmentController.cs" />
+    <Compile Include="Generated\ProjectController.cs" />
+    <Compile Include="Generated\SPs.cs" />
+    <Compile Include="Generated\Task.cs" />
+    <Compile Include="Generated\TaskAssignment.cs" />
+    <Compile Include="Generated\TaskAssignmentController.cs" />
+    <Compile Include="Generated\TaskController.cs" />
+    <Compile Include="Generated\User.cs" />
+    <Compile Include="Generated\UserController.cs" />
+    <Compile Include="Generated\UserProfile.cs" />
+    <Compile Include="Generated\UserProfileController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="UsersDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UsersDataSet.xsd</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="AssignmentsDataSet.xsc">
-      <DependentUpon>AssignmentsDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="AssignmentsDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>AssignmentsDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="AssignmentsDataSet.xss">
-      <DependentUpon>AssignmentsDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="MatrixDataSet.xsc">
-      <DependentUpon>MatrixDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="MatrixDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MatrixDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="MatrixDataSet.xss">
-      <DependentUpon>MatrixDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="MessagingDataSet.xsc">
-      <DependentUpon>MessagingDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="MessagingDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MessagingDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="MessagingDataSet.xss">
-      <DependentUpon>MessagingDataSet.xsd</DependentUpon>
-    </None>
     <None Include="pmt.snk" />
-    <None Include="ProjectsDataSet.xsc">
-      <DependentUpon>ProjectsDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="ProjectsDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ProjectsDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="ProjectsDataSet.xss">
-      <DependentUpon>ProjectsDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="UsersDataSet.xsc">
-      <DependentUpon>UsersDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="UsersDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>UsersDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="UsersDataSet.xss">
-      <DependentUpon>UsersDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -156,10 +110,30 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0</ProductName>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
       <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Sql.Server.Express.1.0">
       <Visible>False</Visible>

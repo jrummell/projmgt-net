@@ -7,40 +7,15 @@ namespace PMT.Web.Admin
 {
     public partial class NewUser : Page
     {
-        UserData users;
+        private readonly UserData users = new UserData();
 
-        public NewUser()
-        {
-            users = new UserData();
-        }
-
-        protected void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
                 BindData();
             }
         }
-
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-		
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.NewUserDataGrid.DeleteCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.NewUserDataGrid_DeleteCommand);
-        }
-        #endregion
 
         private void NewUserDataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
@@ -51,8 +26,8 @@ namespace PMT.Web.Admin
 
         protected void cbEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox cb = sender as CheckBox;
-            string id = ((DataGridItem)cb.Parent.Parent).Cells[0].Text;
+            CheckBox cb = (CheckBox) sender;
+            string id = ((DataGridItem) cb.Parent.Parent).Cells[0].Text;
             users.UpdateEnabled(Convert.ToInt32(id), cb.Checked);
             BindData();
         }
@@ -63,5 +38,28 @@ namespace PMT.Web.Admin
             NewUserDataGrid.DataSource = users.GetUsers(false);
             NewUserDataGrid.DataBind();
         }
+
+        #region Web Form Designer generated code
+
+        protected override void OnInit(EventArgs e)
+        {
+            //
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            //
+            InitializeComponent();
+            base.OnInit(e);
+        }
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.NewUserDataGrid.DeleteCommand +=
+                new System.Web.UI.WebControls.DataGridCommandEventHandler(this.NewUserDataGrid_DeleteCommand);
+        }
+
+        #endregion
     }
 }
