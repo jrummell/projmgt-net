@@ -9,7 +9,7 @@ namespace PMT.Web
         private User user;
         private UserData userData;
 
-        protected void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             // Put user code to initialize the page here
             if (!Page.IsPostBack)
@@ -43,7 +43,7 @@ namespace PMT.Web
             }
 
             // insert the new user
-            user = PMT.BLL.User.CreateUser((UserRole)Enum.Parse(typeof(UserRole), ProfileControl1.Security));
+            user = new User((UserRole) Enum.Parse(typeof (UserRole), ProfileControl1.Security));
             ProfileControl1.FillUser(user);
             user.Enabled = false;
 

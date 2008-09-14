@@ -1,21 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using PMT.DAL;
-using PMT.DAL.ProjectsDataSetTableAdapters;
+using SubSonic;
 
 namespace PMT.BLL
 {
-    public class ModuleData : IDisposable
+    public class ModuleData
     {
-        private ModulesTableAdapter taModules;
+        private readonly ModuleXController _controller;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModuleData"/> class.
         /// </summary>
         public ModuleData()
         {
-            taModules = new ModulesTableAdapter();
+            _controller = new ModuleXController();
         }
 
         /// <summary>
@@ -23,9 +20,11 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="projectID">The project ID.</param>
         /// <returns></returns>
-        public ProjectsDataSet.ModulesDataTable GetProjectModules(int projectID)
+        public ModuleXCollection GetProjectModules(int projectID)
         {
-            return taModules.GetModulesByProjectID(projectID);
+            Query query = new Query(Tables.ModuleX).WHERE(ModuleX.Columns.ProjectID, Comparison.Equals,
+                                                          projectID);
+            return _controller.FetchByQuery(query);
         }
 
         /// <summary>
@@ -33,9 +32,9 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="module">The module.</param>
         /// <returns></returns>
-        public bool InsertModule(Module module)
+        public void InsertModule(Module module)
         {
-            return 1 == taModules.Insert(
+            _controller.Insert(
                 module.ProjectID,
                 module.Name,
                 module.Description,
@@ -49,17 +48,15 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="module">The module.</param>
         /// <returns></returns>
-        public bool UpdateModule(Module module)
+        public void UpdateModule(Module module)
         {
-            return 1 == taModules.Update(
-                module.ProjectID,
-                module.Name,
-                module.Description,
-                module.StartDate,
-                module.ExpEndDate,
-                module.ActEndDate,
-                module.ID,
-                module.ID);
+            _controller.Update(module.ID,
+                             module.ProjectID,
+                             module.Name,
+                             module.Description,
+                             module.StartDate,
+                             module.ExpEndDate,
+                             module.ActEndDate);
         }
 
         /// <summary>
@@ -67,9 +64,9 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        public bool DeleteModule(int id)
+        public void DeleteModule(int id)
         {
-            return 1 == taModules.Delete(id);
+            _controller.Delete(id);
         }
 
         /// <summary>
@@ -77,47 +74,9 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        public Module GetModule(int id)
+        public ModuleX GetModule(int id)
         {
-            ProjectsDataSet.ModulesDataTable dt = taModules.GetModuleByID(id);
-
-            if (dt.Count != 1)
-                return null;
-
-            ProjectsDataSet.ModulesRow row = dt[0];
-
-            Module module = new Module(
-                row.ID,
-                row.ProjectID,
-                row.Name,
-                row.Description,
-                row.StartDate,
-                row.ExpEndDate,
-                row.ActEndDate);
-
-            return module;
+            return ReadOnlyRecord<ModuleX>.FetchByID(id);
         }
-
-        #region IDisposable Members
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                lock (this)
-                {
-                    if (taModules != null)
-                        taModules.Dispose();
-                }
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(true);
-        }
-
-        #endregion
     }
 }

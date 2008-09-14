@@ -7,7 +7,7 @@ namespace PMT.Web.Controls
     {
         protected static UserRole GetRole()
         {
-            return CookiesHelper.LoggedInUserRole;
+            return Global.LoggedInUser.Role;
         }
     }
 }

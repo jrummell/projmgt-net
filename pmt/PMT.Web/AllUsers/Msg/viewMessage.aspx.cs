@@ -11,7 +11,7 @@ namespace PMT.Web.AllUsers.Msg
             if (!IsPostBack)
             {
                 int messageID = MessageID;
-                int userID = CookiesHelper.LoggedInUserID;
+                int userID = Global.LoggedInUser.ID;
 
                 throw new NotImplementedException();
 

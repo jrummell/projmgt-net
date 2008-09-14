@@ -1,11 +1,5 @@
 using System;
-using System.Data;
-using System.Drawing;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.Collections;
 using PMT.BLL;
 
 namespace PMT.Web.Controls
@@ -14,157 +8,20 @@ namespace PMT.Web.Controls
     {
         private bool adminView;
 
-        protected void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             // Put user code to initialize the page here
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
-                SecurityDropDownList.DataSource = Enum.GetNames(typeof(UserRole));
+                SecurityDropDownList.DataSource = Enum.GetNames(typeof (UserRole));
                 SecurityDropDownList.DataBind();
             }
         }
 
-        #region Profile Settings Properties
-        /// <summary>
-        /// Sets the profile to be editable or not
-        /// </summary>
-        public bool Editable
-        {
-            set
-            {
-                this.FirstNameLabel.Visible = !value;
-                this.FirstNameTextBox.Visible = value;
-                this.FirstNameRequiredFieldValidator.Enabled = value;
-
-                this.LastNameLabel.Visible = !value;
-                this.LastNameTextBox.Visible = value;
-                this.LastNameRequiredFieldValidator.Enabled = value;
-
-                this.UsernameLabel.Visible = !value;
-                this.UsernameTextBox.Visible = value;
-                this.UsernameRequiredFieldValidator.Enabled = value;
-
-                this.AddressLabel.Visible = !value;
-                this.AddressTextBox.Visible = value;
-                this.AddressRequiredFieldValidator.Enabled = value;
-
-                this.CityLabel.Visible = !value;
-                this.CityTextBox.Visible = value;
-                this.CityRequiredFieldValidator.Enabled = value;
-
-                this.StateLabel.Visible = !value;
-                this.StateTextBox.Visible = value;
-                this.StateRequiredFieldValidator.Enabled = value;
-
-                this.ZipLabel.Visible = !value;
-                this.ZipTextBox.Visible = value;
-                this.ZipRequiredFieldValidator.Enabled = value;
-                this.ZipRegularExpressionValidator.Enabled = value;
-
-                this.PhoneLabel.Visible = !value;
-                this.PhoneTextBox.Visible = value;
-                this.PhoneRequiredFieldValidator.Enabled = value;
-                this.PhoneRegularExpressionValidator.Enabled = value;
-
-                this.EmailLabel.Visible = !value;
-                this.EmailTextBox.Visible = value;
-                this.EmailRequiredFieldValidator.Enabled = value;
-                this.EmailRegularExpressionValidator.Enabled = value;
-
-                this.SecurityLabel.Visible = !value;
-                this.SecurityDropDownList.Visible = value;
-                this.SecurityRequiredFieldValidator.Enabled = value;
-
-                AllowChangeUsername = value;
-                AllowChangePassword = value;
-                AllowNewPassword = value;
-                AllowChangeSecurity = value;
-            }
-            get
-            {   return FirstNameTextBox.Visible;    }
-        }
-
-        /// <summary>
-        /// Gets or sets "Change Username" checkbox enabled
-        /// </summary>
-        public bool AllowChangeUsername
-        {
-            get
-            {   return UsernameTextBox.Visible; }
-            set
-            {
-                UsernameLabel.Visible = !value;
-                UsernameTextBox.Visible = value;
-                UsernameRequiredFieldValidator.Enabled = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets change password enabled
-        /// </summary>
-        public bool AllowChangePassword
-        {
-            get {   return ChangePasswordCheckBox.Visible;    }
-            set 
-            {   
-                ChangePasswordCheckBox.Visible = value;
-                showChangePassword(false); 
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets new password enabled
-        /// </summary>
-        public bool AllowNewPassword
-        {
-            get {   return NewPassword1TextBox.Visible;    }
-            set {   showNewPassword(value);         }
-        }
-
-        /// <summary>
-        /// Gets or sets changing security enabled
-        /// </summary>
-        public bool AllowChangeSecurity
-        {
-            get {   return SecurityPromptLabel.Visible;   }
-            set
-            {
-                SecurityLabel.Visible = !value;
-                SecurityDropDownList.Visible = value;
-                SecurityRequiredFieldValidator.Enabled = value;
-            }
-        }
-
-        /// <summary>
-        /// Sets appropriate properties for the Administrative view
-        /// </summary>
-        public bool AdminView
-        {
-            get
-            {
-                return adminView;
-            }
-            set
-            {
-                adminView = value;
-
-                if (value == true)
-                {
-                    AllowChangePassword = false;
-                    AllowNewPassword = true;
-                    AllowChangeSecurity = false;
-                    AllowChangeUsername = true;
-                    Password1RequiredFieldValidator.Enabled = false;
-                    Password2RequiredFieldValidator.Enabled = false;
-                }
-            }
-        }
-        #endregion
-
         /// <summary>
         /// Show or hide the old and new password fields
         /// </summary>
-        protected void ChangePasswordCheckBox_CheckedChanged(object sender, System.EventArgs e)
+        protected void ChangePasswordCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             showChangePassword(ChangePasswordCheckBox.Checked);
         }
@@ -179,7 +36,7 @@ namespace PMT.Web.Controls
             OldPasswordTextBox.Visible = val;
             OldPasswordRequiredFieldValidator.Enabled = val;
 
-            if (val == true)
+            if (val)
             {
                 NewPassword1Label.Text = "New Password:";
                 NewPassword2Label.Text = "Re-enter New Password:";
@@ -189,7 +46,7 @@ namespace PMT.Web.Controls
                 NewPassword1Label.Text = "Password:";
                 NewPassword2Label.Text = "Re-enter Password:";
             }
-           
+
             showNewPassword(val);
         }
 
@@ -219,28 +76,28 @@ namespace PMT.Web.Controls
                 throw new ArgumentNullException("user");
             }
 
-            this.FirstNameTextBox.Text = user.FirstName;
-            this.FirstNameLabel.Text   = user.FirstName;
-            this.LastNameTextBox.Text  = user.LastName;
-            this.LastNameLabel.Text    = user.LastName;
-            this.AddressTextBox.Text   = user.Address;
-            this.AddressLabel.Text     = user.Address;
-            this.CityTextBox.Text	   = user.City;
-            this.CityLabel.Text        = user.City;
-            this.StateTextBox.Text     = user.State;
-            this.StateLabel.Text       = user.State;
-            this.ZipTextBox.Text       = user.ZipCode;
-            this.ZipLabel.Text         = user.ZipCode;
-            this.PhoneTextBox.Text     = user.PhoneNumber;
-            this.PhoneLabel.Text       = user.PhoneNumber;
-            this.EmailTextBox.Text     = user.Email;
-            this.EmailLabel.Text       = user.Email;
-            this.UsernameTextBox.Text  = user.UserName;
-            this.UsernameLabel.Text    = user.UserName;
+            FirstNameTextBox.Text = user.FirstName;
+            FirstNameLabel.Text = user.FirstName;
+            LastNameTextBox.Text = user.LastName;
+            LastNameLabel.Text = user.LastName;
+            AddressTextBox.Text = user.Address;
+            AddressLabel.Text = user.Address;
+            CityTextBox.Text = user.City;
+            CityLabel.Text = user.City;
+            StateTextBox.Text = user.State;
+            StateLabel.Text = user.State;
+            ZipTextBox.Text = user.ZipCode;
+            ZipLabel.Text = user.ZipCode;
+            PhoneTextBox.Text = user.PhoneNumber;
+            PhoneLabel.Text = user.PhoneNumber;
+            EmailTextBox.Text = user.Email;
+            EmailLabel.Text = user.Email;
+            UsernameTextBox.Text = user.UserName;
+            UsernameLabel.Text = user.UserName;
 
             // select the correct Security in the dropdown
-            SecurityDropDownList.SelectedIndex = (int)user.Role;
-            this.SecurityLabel.Text = user.Role.ToString();
+            SecurityDropDownList.SelectedIndex = (int) user.Role;
+            SecurityLabel.Text = user.Role.ToString();
         }
 
         /// <summary>
@@ -253,114 +110,261 @@ namespace PMT.Web.Controls
             {
                 throw new ArgumentNullException("user");
             }
-			
-            user.UserName = this.UsernameTextBox.Text;
-            user.Address = this.AddressTextBox.Text;
-            user.City = this.CityTextBox.Text;
-            user.Email = this.EmailTextBox.Text;
-            user.FirstName = this.FirstNameTextBox.Text;
-            user.LastName = this.LastNameTextBox.Text;
-            user.PhoneNumber = this.PhoneTextBox.Text;
+
+            user.UserName = UsernameTextBox.Text;
+            user.Address = AddressTextBox.Text;
+            user.City = CityTextBox.Text;
+            user.Email = EmailTextBox.Text;
+            user.FirstName = FirstNameTextBox.Text;
+            user.LastName = LastNameTextBox.Text;
+            user.PhoneNumber = PhoneTextBox.Text;
             //if(this.AllowChangeSecurity)
             //    user.GetRole() = (UserRole)Enum.Parse(typeof(UserRole), this.SecurityDropDownList.SelectedItem.Text);
-            user.State = this.StateTextBox.Text;
-            user.ZipCode = this.ZipTextBox.Text;
-            if (NewPassword1TextBox.Text.Length > 0)
-                user.Password = Encryption.MD5Encrypt(this.NewPassword1TextBox.Text);
+            user.State = StateTextBox.Text;
+            user.ZipCode = ZipTextBox.Text;
+            user.Password = NewPassword1TextBox.Text;
         }
 
         #region User Properties
+
         /// <summary>
         /// Gets username
         /// </summary>
-        public string Username 
+        public string Username
         {
-            get {   return UsernameTextBox.Text;    }
+            get { return UsernameTextBox.Text; }
         }
+
         /// <summary>
         /// Gets first name
         /// </summary>
         public string FirstName
         {
-            get {   return FirstNameTextBox.Text;   }
+            get { return FirstNameTextBox.Text; }
         }
+
         /// <summary>
         /// Gets lastname
         /// </summary>
         public string LastName
         {
-            get {   return LastNameTextBox.Text;    }
+            get { return LastNameTextBox.Text; }
         }
+
         /// <summary>
         /// Gets old password
         /// </summary>
         public string OldPassword
         {
-            get {   return OldPasswordTextBox.Text; }
+            get { return OldPasswordTextBox.Text; }
         }
+
         /// <summary>
         /// Gets first new password
         /// </summary>
         public string NewPassword1
         {
-            get {   return NewPassword1TextBox.Text;    }
+            get { return NewPassword1TextBox.Text; }
         }
+
         /// <summary>
         /// Gets second new password
         /// </summary>
         public string NewPassword2
         {
-            get {   return NewPassword2TextBox.Text;    }
+            get { return NewPassword2TextBox.Text; }
         }
+
         /// <summary>
         /// Gets address
         /// </summary>
         public string Address
         {
-            get {   return AddressTextBox.Text;    }
+            get { return AddressTextBox.Text; }
         }
+
         /// <summary>
         /// Gets city
         /// </summary>
         public string City
         {
-            get {   return CityTextBox.Text;    }
+            get { return CityTextBox.Text; }
         }
+
         /// <summary>
         /// Gets state
         /// </summary>
         public string State
         {
-            get {   return StateTextBox.Text;    }
+            get { return StateTextBox.Text; }
         }
+
         /// <summary>
         /// Gets zip code
         /// </summary>
         public string Zip
         {
-            get {   return ZipTextBox.Text;    }
+            get { return ZipTextBox.Text; }
         }
+
         /// <summary>
         /// Gets phone number
         /// </summary>
         public string Phone
         {
-            get {   return PhoneTextBox.Text;    }
+            get { return PhoneTextBox.Text; }
         }
+
         /// <summary>
         /// Gets email address
         /// </summary>
         public string Email
         {
-            get {   return EmailTextBox.Text;    }
+            get { return EmailTextBox.Text; }
         }
+
         /// <summary>
         /// Gets security level (user type)
         /// </summary>
         public string Security
         {
-            get {   return SecurityDropDownList.SelectedItem.Text;    }
+            get { return SecurityDropDownList.SelectedItem.Text; }
         }
+
+        #endregion
+
+        #region Profile Settings Properties
+
+        /// <summary>
+        /// Sets the profile to be editable or not
+        /// </summary>
+        public bool Editable
+        {
+            set
+            {
+                FirstNameLabel.Visible = !value;
+                FirstNameTextBox.Visible = value;
+                FirstNameRequiredFieldValidator.Enabled = value;
+
+                LastNameLabel.Visible = !value;
+                LastNameTextBox.Visible = value;
+                LastNameRequiredFieldValidator.Enabled = value;
+
+                UsernameLabel.Visible = !value;
+                UsernameTextBox.Visible = value;
+                UsernameRequiredFieldValidator.Enabled = value;
+
+                AddressLabel.Visible = !value;
+                AddressTextBox.Visible = value;
+                AddressRequiredFieldValidator.Enabled = value;
+
+                CityLabel.Visible = !value;
+                CityTextBox.Visible = value;
+                CityRequiredFieldValidator.Enabled = value;
+
+                StateLabel.Visible = !value;
+                StateTextBox.Visible = value;
+                StateRequiredFieldValidator.Enabled = value;
+
+                ZipLabel.Visible = !value;
+                ZipTextBox.Visible = value;
+                ZipRequiredFieldValidator.Enabled = value;
+                ZipRegularExpressionValidator.Enabled = value;
+
+                PhoneLabel.Visible = !value;
+                PhoneTextBox.Visible = value;
+                PhoneRequiredFieldValidator.Enabled = value;
+                PhoneRegularExpressionValidator.Enabled = value;
+
+                EmailLabel.Visible = !value;
+                EmailTextBox.Visible = value;
+                EmailRequiredFieldValidator.Enabled = value;
+                EmailRegularExpressionValidator.Enabled = value;
+
+                SecurityLabel.Visible = !value;
+                SecurityDropDownList.Visible = value;
+                SecurityRequiredFieldValidator.Enabled = value;
+
+                AllowChangeUsername = value;
+                AllowChangePassword = value;
+                AllowNewPassword = value;
+                AllowChangeSecurity = value;
+            }
+            get { return FirstNameTextBox.Visible; }
+        }
+
+        /// <summary>
+        /// Gets or sets "Change Username" checkbox enabled
+        /// </summary>
+        public bool AllowChangeUsername
+        {
+            get { return UsernameTextBox.Visible; }
+            set
+            {
+                UsernameLabel.Visible = !value;
+                UsernameTextBox.Visible = value;
+                UsernameRequiredFieldValidator.Enabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets change password enabled
+        /// </summary>
+        public bool AllowChangePassword
+        {
+            get { return ChangePasswordCheckBox.Visible; }
+            set
+            {
+                ChangePasswordCheckBox.Visible = value;
+                showChangePassword(false);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets new password enabled
+        /// </summary>
+        public bool AllowNewPassword
+        {
+            get { return NewPassword1TextBox.Visible; }
+            set { showNewPassword(value); }
+        }
+
+        /// <summary>
+        /// Gets or sets changing security enabled
+        /// </summary>
+        public bool AllowChangeSecurity
+        {
+            get { return SecurityPromptLabel.Visible; }
+            set
+            {
+                SecurityLabel.Visible = !value;
+                SecurityDropDownList.Visible = value;
+                SecurityRequiredFieldValidator.Enabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets appropriate properties for the Administrative view
+        /// </summary>
+        public bool AdminView
+        {
+            get { return adminView; }
+            set
+            {
+                adminView = value;
+
+                if (value)
+                {
+                    AllowChangePassword = false;
+                    AllowNewPassword = true;
+                    AllowChangeSecurity = false;
+                    AllowChangeUsername = true;
+                    Password1RequiredFieldValidator.Enabled = false;
+                    Password2RequiredFieldValidator.Enabled = false;
+                }
+            }
+        }
+
         #endregion
     }
 }
