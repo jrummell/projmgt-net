@@ -1,8 +1,0 @@
-in MySqlDataProvider
-- make sure all datareaders are closed, or are in a using block
-
-PM/Projects
-- edit is broken ... not getting correct ItemType
-
-Refactoring:
-x split userreference into two tables: usermanagers, userprojects
