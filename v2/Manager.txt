@@ -1,8 +1,0 @@
-Assigning a developer requires the following:
-(assumes a manager is already set up)
-- a developer
-- a project with at least one module and one task
-- the developer is assigned to a manager
-- the manager has set the developers competency
-- the manager has assigned the developer to a project
-- the task must be unassigned or the manager must unassign it
