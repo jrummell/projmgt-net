@@ -24,6 +24,25 @@ namespace PMT.Web
 
         private void Application_Start(Object sender, EventArgs e)
         {
+            // make sure we have one admin and one manager
+            UserData data = new UserData();
+            if (!data.UsernameExists("admin"))
+            {
+                User admin = new User(UserRole.Administrator);
+                admin.UserName = "admin";
+                admin.Password = "asdf";
+                
+                data.InsertUser(admin);
+            }
+
+            if (!data.UsernameExists("manager"))
+            {
+                User manager = new User(UserRole.Manager);
+                manager.UserName = "manager";
+                manager.Password = "asdf";
+                
+                data.InsertUser(manager);
+            }
         }
 
         private void Session_Start(Object sender, EventArgs e)
