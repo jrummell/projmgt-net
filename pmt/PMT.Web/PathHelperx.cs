@@ -8,10 +8,10 @@ namespace PMT.Web
         /// <summary>
         /// Gets the users default path based on their role.
         /// </summary>
-        public static string GetUserDefaultPath(UserRole role)
+        public static string GetUserDefaultPath()
         {
             string path;
-            switch (role)
+            switch (Global.LoggedInUser.Role)
             {
                 case UserRole.Administrator:
                     path = "Admin/";
@@ -29,7 +29,7 @@ namespace PMT.Web
                     return null;
             }
 
-            return VirtualPathUtility.ToAbsolute("~/"+path);
+            return "~/" + path;
         }
     }
 }
