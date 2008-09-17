@@ -8,6 +8,12 @@ namespace PMT.Web.Controls
     {
         private ProjectItem item;
 
+        public ProjectItem Item
+        {
+            get { return item; }
+            set { item = value; }
+        }
+
         public void FillForm()
         {
             if (item != null)
@@ -15,9 +21,9 @@ namespace PMT.Web.Controls
                 lblType.Text = item.Type.ToString();
                 lblName.Text = item.Name;
                 lblDescription.Text = item.Description;
-                lblStartDate.Text = item.StartDate.ToShortDateString();
-                lblExpEndDate.Text = item.ExpEndDate.ToShortDateString();
-                lblActEndDate.Text = item.ActEndDate.ToShortDateString();
+                lblStartDate.Text = Utility.MaskNull(item.StartDate);
+                lblExpEndDate.Text = Utility.MaskNull(item.ExpEndDate);
+                lblActEndDate.Text = Utility.MaskNull(item.ActEndDate);
 
                 throw new NotImplementedException();
 
@@ -27,13 +33,5 @@ namespace PMT.Web.Controls
                 //lblItemStatus.Text = status.ToString("p");
             }
         }
-
-        #region Properties
-        public ProjectItem Item
-        {
-            get {   return item;    }
-            set {   item = value;   }
-        }
-        #endregion
     }
 }

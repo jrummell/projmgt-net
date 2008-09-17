@@ -6,7 +6,7 @@ namespace PMT.Web.AllUsers
     public partial class UserProfile : Page
     {
         private User user;
-        private UserData userData;
+        private UserService userData;
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
@@ -17,8 +17,8 @@ namespace PMT.Web.AllUsers
                 ProfileControl1.AllowChangePassword = true;
                 ProfileControl1.AllowChangeSecurity = false;
 
-                userData = new UserData();
-                user = userData.GetUser(Global.LoggedInUser.ID);
+                userData = new UserService();
+                user = userData.GetByID(Global.LoggedInUser.ID);
 
                 // fill the form with the user's information
                 ProfileControl1.FillForm(user);
@@ -34,7 +34,7 @@ namespace PMT.Web.AllUsers
 
             // create a user obj, fill it from the profile control, 
             //  and update the database
-            user = userData.GetUser(Global.LoggedInUser.ID);
+            user = userData.GetByID(Global.LoggedInUser.ID);
 
             ProfileControl1.FillUser(user);
 

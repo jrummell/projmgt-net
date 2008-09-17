@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GotDotNet.Elmah, Version=2.0.50727.42, Culture=neutral, PublicKeyToken=89e7ba9b9c08cfca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GotDotNet.Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="SubSonic, Version=2.1.0.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SubSonic.dll</HintPath>

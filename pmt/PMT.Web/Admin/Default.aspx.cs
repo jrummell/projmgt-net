@@ -8,7 +8,7 @@ namespace PMT.Web.Admin
     {
         private void Page_Load(object sender, EventArgs e)
         {
-            var taUsers = new UserData();
+            var taUsers = new UserService();
 
             UserStatistics statistics = taUsers.GetStatistics();
 

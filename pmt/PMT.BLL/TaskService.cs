@@ -1,21 +1,13 @@
+using System.Collections.Generic;
 using PMT.DAL;
 using SubSonic;
 
 namespace PMT.BLL
 {
-    public class TaskData
+    public class TaskService : IDataService<Task>
     {
-        private readonly TaskAssignmentController _taskAssignmentController;
-        private readonly TaskController _tasksController;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TaskData"/> class.
-        /// </summary>
-        public TaskData()
-        {
-            _tasksController = new TaskController();
-            _taskAssignmentController = new TaskAssignmentController();
-        }
+        private readonly TaskAssignmentController _taskAssignmentController = new TaskAssignmentController();
+        private readonly TaskController _tasksController = new TaskController();
 
         /// <summary>
         /// Gets the assigned tasks.
@@ -31,7 +23,7 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="task">The task.</param>
         /// <returns></returns>
-        public void InsertTask(Task task)
+        public void Insert(Task task)
         {
             _tasksController.Insert(
                 task.ModuleID,
@@ -49,7 +41,7 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="task">The task.</param>
         /// <returns></returns>
-        public void UpdateTask(Task task)
+        public void Update(Task task)
         {
             _tasksController.Update(task.ID,
                            task.ModuleID,
@@ -62,14 +54,34 @@ namespace PMT.BLL
                            (short) task.Complexity);
         }
 
+        public ICollection<Task> GetAll()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Does the specificed record exist?
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns></returns>
+        public bool Exists(int id)
+        {
+            return GetByID(id) != null;
+        }
+
         /// <summary>
         /// Deletes the task.
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        public void DeleteTask(int id)
+        public void Delete(int id)
         {
             _tasksController.Delete(id);
+        }
+
+        public void VerifyDefaults()
+        {
+            throw new System.NotImplementedException();
         }
 
         /// <summary>
@@ -77,7 +89,7 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="moduleID">The module ID.</param>
         /// <returns></returns>
-        public TaskCollection GetModuleTasks(int moduleID)
+        public TaskCollection GetTasksByModule(int moduleID)
         {
             Query query = DAL.Task.CreateQuery().WHERE(DAL.Task.Columns.ModuleID, Comparison.Equals, moduleID);
             return _tasksController.FetchByQuery(query);
@@ -89,7 +101,7 @@ namespace PMT.BLL
         /// <param name="taskID">The task ID.</param>
         /// <param name="devID">The dev ID.</param>
         /// <returns></returns>
-        public void AssignTask(int taskID, int devID)
+        public void Assign(int taskID, int devID)
         {
             _taskAssignmentController.Insert(taskID, devID);
         }
@@ -100,7 +112,7 @@ namespace PMT.BLL
         /// <param name="taskID">The task ID.</param>
         /// <param name="devID">The dev ID.</param>
         /// <returns></returns>
-        public void UnassignTask(int taskID, int devID)
+        public void Unassign(int taskID, int devID)
         {
             _taskAssignmentController.Delete(taskID, devID);
         }
@@ -110,9 +122,10 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns></returns>
-        public DAL.Task GetTask(int id)
+        public Task GetByID(int id)
         {
-            return ReadOnlyRecord<DAL.Task>.FetchByID(id);
+            DAL.Task dalTask = ReadOnlyRecord<DAL.Task>.FetchByID(id);
+            return new Task(dalTask);
         }
     }
 }

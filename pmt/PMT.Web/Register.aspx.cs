@@ -7,7 +7,7 @@ namespace PMT.Web
     public partial class Register : Page
     {
         private User user;
-        private UserData userData;
+        private UserService userData;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,7 +26,7 @@ namespace PMT.Web
             if (!Page.IsValid)
                 return;
 
-            userData = new UserData();
+            userData = new UserService();
 
             // clear the status label and display it, allowing for error messages
             StatusLabel.Text = "";
@@ -47,7 +47,7 @@ namespace PMT.Web
             ProfileControl1.FillUser(user);
             user.Enabled = false;
 
-            userData.InsertUser(user);
+            userData.Insert(user);
             RegisterPanel.Visible = false;
             StatusLabel.Text = "Thank you for registering.  Your account will be reviewed soon.";
         }

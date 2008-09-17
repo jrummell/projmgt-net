@@ -6,14 +6,14 @@ namespace PMT.Web
 {
     public class Global : HttpApplication
     {
-        public static User LoggedInUser
+        internal static User LoggedInUser
         {
             get
             {
                 if (HttpContext.Current.Session["user"] == null && HttpContext.Current.User.Identity.IsAuthenticated)
                 {
-                    UserData data = new UserData();
-                    HttpContext.Current.Session["user"] = data.GetUser(HttpContext.Current.User.Identity.Name);
+                    UserService data = new UserService();
+                    HttpContext.Current.Session["user"] = data.GetByUsername(HttpContext.Current.User.Identity.Name);
                 }
 
                 return (User) HttpContext.Current.Session["user"];
@@ -25,23 +25,19 @@ namespace PMT.Web
         private void Application_Start(Object sender, EventArgs e)
         {
             // make sure we have one admin and one manager
-            UserData data = new UserData();
+            UserService data = new UserService();
             if (!data.UsernameExists("admin"))
             {
-                User admin = new User(UserRole.Administrator);
-                admin.UserName = "admin";
-                admin.Password = "asdf";
-                
-                data.InsertUser(admin);
+                User admin = new User(UserRole.Administrator) {UserName = "admin", Password = "asdf"};
+
+                data.Insert(admin);
             }
 
             if (!data.UsernameExists("manager"))
             {
-                User manager = new User(UserRole.Manager);
-                manager.UserName = "manager";
-                manager.Password = "asdf";
-                
-                data.InsertUser(manager);
+                User manager = new User(UserRole.Manager) {UserName = "manager", Password = "asdf"};
+
+                data.Insert(manager);
             }
         }
 
