@@ -8,8 +8,8 @@ namespace PMT.Web.PM
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            UserData data = new UserData();
-            dvDevs.DataSource = data.GetDevelopersByManager(Global.LoggedInUser.ID);
+            UserService data = new UserService();
+            dvDevs.DataSource = data.GetByManager(Global.LoggedInUser.ID);
             dvDevs.DataBind();
         }
     }

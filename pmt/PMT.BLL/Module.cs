@@ -3,43 +3,44 @@ using System;
 namespace PMT.BLL
 {
     /// <summary>
-    /// A project item
+    /// A module report item
     /// </summary>
-    public class Project : ProjectItem
+    public class Module : ProjectItem
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Project"/> class.
-        /// </summary>
-        public Project()
-            : this(0, "", "", DateTime.MinValue, DateTime.MinValue, DateTime.MinValue)
-        {
-        }
-
         /// <summary>
         /// Main Constructor
         /// </summary>
-        /// <param name="id">project id</param>
+        /// <param name="id">Module id</param>
+        /// <param name="projectID">The project ID.</param>
         /// <param name="name">name</param>
         /// <param name="description">description</param>
         /// <param name="startDate">start date</param>
         /// <param name="expEndDate">expected end date</param>
         /// <param name="actEndDate">actual end date</param>
-        public Project(int id, string name, string description, DateTime? startDate, DateTime? expEndDate,
-                       DateTime? actEndDate)
+        public Module(int id, int projectID, string name, string description,
+                      DateTime startDate, DateTime expEndDate, DateTime actEndDate)
             : base(id, name, description, startDate, expEndDate, actEndDate)
         {
+            ProjectID = projectID;
         }
 
         /// <summary>
-        /// Constructor used for a new Project
+        /// Constructor used for a new Module
         /// </summary>
+        /// <param name="projID">Project id</param>
         /// <param name="name">name</param>
         /// <param name="description">description</param>
         /// <param name="startDate">start date</param>
-        public Project(string name, string description, DateTime startDate)
-            : this(0, name, description, startDate, DateTime.MinValue, DateTime.MinValue)
+        public Module(int projID, string name, string description, DateTime startDate)
+            : this(0, projID, name, description, startDate, DateTime.MinValue, DateTime.MinValue)
         {
         }
+
+
+        /// <summary>
+        /// Gets or sets the Project id this Module belongs to
+        /// </summary>
+        public int ProjectID { get; set; }
 
         /// <summary>
         /// Gets the type.
@@ -47,7 +48,7 @@ namespace PMT.BLL
         /// <value>The type.</value>
         public override ProjectItemType Type
         {
-            get { return ProjectItemType.Project; }
+            get { return ProjectItemType.Module; }
         }
     }
 }

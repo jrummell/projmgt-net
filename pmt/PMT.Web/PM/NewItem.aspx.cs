@@ -10,13 +10,67 @@ namespace PMT.Web.PM
     /// </summary>
     public partial class NewItem : Page
     {
-        protected CustomValidator ProjectDropDownValidator;
-        // the id of the parent item
-        protected Project parentProject;
         protected Label ParentDateLabel;
         protected Module parentModule;
-	
-        protected void Page_Load(object sender, System.EventArgs e)
+        protected Project parentProject;
+        protected CustomValidator ProjectDropDownValidator;
+
+        public ProjectItemType ItemType
+        {
+            get
+            {
+                try
+                {
+                    return (ProjectItemType) Enum.Parse(typeof (ProjectItemType), Request["item"]);
+                }
+                catch
+                {
+                    throw new Exception("Invalid Item Type");
+                }
+            }
+        }
+
+        public int ParentID
+        {
+            get
+            {
+                try
+                {
+                    return Convert.ToInt32(Request["parentID"]);
+                }
+                catch
+                {
+                    return -1;
+                }
+            }
+        }
+
+        #region Web Form Designer generated code
+
+        protected override void OnInit(EventArgs e)
+        {
+            //
+            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
+            //
+            InitializeComponent();
+            base.OnInit(e);
+        }
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.StartDateCustomValidator.ServerValidate +=
+                new ServerValidateEventHandler(this.ValidateStartDate);
+            this.DescriptionCustomValidator.ServerValidate +=
+                new ServerValidateEventHandler(this.ValidateDescription);
+        }
+
+        #endregion
+
+        protected void Page_Load(object sender, EventArgs e)
         {
             // get parent item id, this will be useful when you would click
             //  a link like PMNewItem.aspx?item=task&parentID=5.  This will avoid
@@ -44,7 +98,7 @@ namespace PMT.Web.PM
 //            {
 //                lblItemType.Text = ItemType.ToString();
 //            }
-            
+
 
 //            // if there is no request item, or is not a valid option, 
 //            //  ask what to create
@@ -99,78 +153,55 @@ namespace PMT.Web.PM
 //                    fillProjectDropDownList();
 //                }
 //            }
-            
         }
-
-        #region Web Form Designer generated code
-        override protected void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-		
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {    
-            this.StartDateCustomValidator.ServerValidate += new System.Web.UI.WebControls.ServerValidateEventHandler(this.ValidateStartDate);
-            this.DescriptionCustomValidator.ServerValidate += new System.Web.UI.WebControls.ServerValidateEventHandler(this.ValidateDescription);
-
-        }
-        #endregion
 
         private void fillProjectDropDownList()
         {
             // build project drop down list and
             // select list item that has value = id (if value != null)
-        //    IDataProvider data = DataProviderFactory.CreateInstance();
-        //    //fill the dropdown list
-        //    ProjectDropDownList.DataSource = data.GetManagerProjects(UserID);
-        //    ProjectDropDownList.DataTextField="name";
-        //    ProjectDropDownList.DataValueField="id";
-        //    ProjectDropDownList.DataBind();
-        //    ProjectDropDownList.Items.Insert(0,"");
+            //    IDataProvider data = DataProviderFactory.CreateInstance();
+            //    //fill the dropdown list
+            //    ProjectDropDownList.DataSource = data.GetManagerProjects(UserID);
+            //    ProjectDropDownList.DataTextField="name";
+            //    ProjectDropDownList.DataValueField="id";
+            //    ProjectDropDownList.DataBind();
+            //    ProjectDropDownList.Items.Insert(0,"");
 
-        //    // select parent Project
-        //    if (ParentID != -1)
-        //    {
-        //        ProjectDropDownList.SelectedIndex 
-        //            = ProjectDropDownList.Items.IndexOf(
-        //                ProjectDropDownList.Items.FindByValue(parentProject.ID.ToString()));
-        //        ProjectDropDownList.Enabled = false;
+            //    // select parent Project
+            //    if (ParentID != -1)
+            //    {
+            //        ProjectDropDownList.SelectedIndex 
+            //            = ProjectDropDownList.Items.IndexOf(
+            //                ProjectDropDownList.Items.FindByValue(parentProject.ID.ToString()));
+            //        ProjectDropDownList.Enabled = false;
 
-        //        if (ItemType.Equals(ProjectItemType.Task))
-        //            fillModuleDropDownList();
-        //    }
+            //        if (ItemType.Equals(ProjectItemType.Task))
+            //            fillModuleDropDownList();
+            //    }
         }
 
         private void fillModuleDropDownList()
         {
-        //    //build the module list
-        //    IDataProvider data = DataProviderFactory.CreateInstance();
-        //    //fill the dropdown list
-        //    ModuleDropDownList.DataSource = data.GetProjectModules(Convert.ToInt32(ProjectDropDownList.SelectedValue));
-        //    ModuleDropDownList.DataTextField="name";
-        //    ModuleDropDownList.DataValueField="id";
-        //    ModuleDropDownList.DataBind();
-        //    ModuleDropDownList.Items.Insert(0, "");
+            //    //build the module list
+            //    IDataProvider data = DataProviderFactory.CreateInstance();
+            //    //fill the dropdown list
+            //    ModuleDropDownList.DataSource = data.GetProjectModules(Convert.ToInt32(ProjectDropDownList.SelectedValue));
+            //    ModuleDropDownList.DataTextField="name";
+            //    ModuleDropDownList.DataValueField="id";
+            //    ModuleDropDownList.DataBind();
+            //    ModuleDropDownList.Items.Insert(0, "");
 
-        //    // select parent Module
-        //    if (ParentID != -1)
-        //    {
-        //        ModuleDropDownList.SelectedIndex 
-        //            = ModuleDropDownList.Items.IndexOf(
-        //                ModuleDropDownList.Items.FindByValue(parentModule.ID.ToString()));
-        //        ModuleDropDownList.Enabled = false;
-        //    }
+            //    // select parent Module
+            //    if (ParentID != -1)
+            //    {
+            //        ModuleDropDownList.SelectedIndex 
+            //            = ModuleDropDownList.Items.IndexOf(
+            //                ModuleDropDownList.Items.FindByValue(parentModule.ID.ToString()));
+            //        ModuleDropDownList.Enabled = false;
+            //    }
         }
 
-        protected void SubmitButton_Click(object sender, System.EventArgs e)
+        protected void SubmitButton_Click(object sender, EventArgs e)
         {
             // return if the form did not pass validation
             if (!Page.IsValid)
@@ -231,6 +262,7 @@ namespace PMT.Web.PM
             //CreateItemPanel.Visible = false;
             //creationSuccessPanel.Visible = true;
         }
+
         /// <summary>
         /// Validates if the start date is after its parent start date
         /// </summary>
@@ -247,12 +279,12 @@ namespace PMT.Web.PM
             args.IsValid = true;
 
             DateTime start = Convert.ToDateTime(StartTextBox.Text);
-            DateTime parentStart = new DateTime();
 
             // check parent's start date against start date if not a project
-            if (!ItemType.Equals(ProjectItemType.Project))
+            if (ItemType != ProjectItemType.Project)
             {
-                if (ItemType.Equals(ProjectItemType.Module))
+                DateTime? parentStart;
+                if (ItemType == ProjectItemType.Module)
                 {
                     parentStart = parentProject.StartDate;
                 }
@@ -264,8 +296,8 @@ namespace PMT.Web.PM
                 if (start < parentStart)
                 {
                     args.IsValid = false;
-                    this.StartDateCustomValidator.ErrorMessage
-                        += " (" + parentStart.ToShortDateString() + ")";
+                    StartDateCustomValidator.ErrorMessage
+                        += " (" + Utility.MaskNull(parentStart) + ")";
                 }
             }
         }
@@ -276,64 +308,15 @@ namespace PMT.Web.PM
         /// </summary>
         private void ValidateDescription(object sender, ServerValidateEventArgs args)
         {
-            if (descriptionTextArea.InnerText.Length < 256)
-                args.IsValid = true;
-            else
-                args.IsValid = false;
+            args.IsValid = descriptionTextArea.InnerText.Length < 256;
         }
 
-        protected void ProjectDropDownList_SelectedIndexChanged(object sender, System.EventArgs e)
+        protected void ProjectDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ItemType.Equals(ProjectItemType.Task))
             {
                 fillModuleDropDownList();
             }
         }
-
-        #region Properties
-        public ProjectItemType ItemType
-        {
-            get 
-            {
-                try
-                {
-                    return (ProjectItemType)Enum.Parse(typeof(ProjectItemType), Request["item"]);   
-                }
-                catch
-                {
-                    throw new Exception("Invalid Item Type");
-                }
-            }
-        }
-        public int ParentID
-        {
-            get 
-            {
-                try
-                {
-                    return Convert.ToInt32(Request["parentID"]);    
-                }
-                catch
-                {
-                    return -1;
-                }
-            }
-        }
-        public int UserID
-        {
-            get
-            {
-                try
-                {
-                    return Convert.ToInt32(Request.Cookies["user"]["id"]);
-                }
-                catch
-                {
-                    return -1;
-                }
-            }
-
-        }
-        #endregion
     }
 }

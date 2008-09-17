@@ -7,11 +7,11 @@ namespace PMT.Web.Admin
     public partial class EditUser : Page
     {
         private User user;
-        private UserData userData;
+        private UserService userData;
 
         public EditUser()
         {
-            userData = new UserData();
+            userData = new UserService();
         }
 
         protected void Page_Load(object sender, System.EventArgs e)
@@ -22,16 +22,16 @@ namespace PMT.Web.Admin
                 //set the control to show admin field set
                 //then fill it with the appropriate user information
                 ProfileControl1.AdminView = true;
-                ProfileControl1.FillForm(userData.GetUser(this.UserID));
+                ProfileControl1.FillForm(userData.GetByID(this.UserID));
             }
         }
 
         protected void Submit_Click(object sender, System.EventArgs e)
         {
             //store new user information to database
-            user = userData.GetUser(this.UserID);
+            user = userData.GetByID(this.UserID);
             ProfileControl1.FillUser(user);
-            userData.UpdateUser(user);
+            userData.Update(user);
         }
 
         protected void Cancel_Click(object sender, System.EventArgs e)

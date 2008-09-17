@@ -29,6 +29,8 @@ namespace PMT.BLL
     /// </summary>
     public class User
     {
+        private User _manager;
+        private int _managerID = -1;
         private UserProfile _profile;
         private DAL.User _user;
 
@@ -191,6 +193,42 @@ namespace PMT.BLL
         public UserRole Role
         {
             get { return (UserRole) _user.Role; }
+        }
+
+        /// <summary>
+        /// Gets or sets the manager ID.
+        /// </summary>
+        /// <value>The manager ID.</value>
+        public int ManagerID
+        {
+            get
+            {
+                if (_managerID == -1)
+                {
+                    UserService data = new UserService();
+                    _managerID = data.GetManagerID(ID);
+                }
+                return _managerID;
+            }
+            set { _managerID = value; }
+        }
+
+        /// <summary>
+        /// Gets the manager.
+        /// </summary>
+        /// <value>The manager.</value>
+        public User Manager
+        {
+            get
+            {
+                if (_manager == null && ManagerID != -1)
+                {
+                    UserService data = new UserService();
+                    _manager = data.GetByID(ManagerID);
+                }
+
+                return _manager;
+            }
         }
 
         /// <summary>

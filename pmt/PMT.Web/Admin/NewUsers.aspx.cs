@@ -7,7 +7,7 @@ namespace PMT.Web.Admin
 {
     public partial class NewUser : Page
     {
-        private readonly UserData users = new UserData();
+        private readonly UserService users = new UserService();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,7 +20,7 @@ namespace PMT.Web.Admin
         private void NewUserDataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
             string delID = (NewUserDataGrid.Items[e.Item.ItemIndex].Cells[0].Text);
-            users.DeleteUser(Convert.ToInt32(delID));
+            users.Delete(Convert.ToInt32(delID));
             BindData();
         }
 
@@ -28,14 +28,14 @@ namespace PMT.Web.Admin
         {
             CheckBox cb = (CheckBox) sender;
             string id = ((DataGridItem) cb.Parent.Parent).Cells[0].Text;
-            users.UpdateEnabled(Convert.ToInt32(id), cb.Checked);
+            users.Enable(Convert.ToInt32(id), cb.Checked);
             BindData();
         }
 
         private void BindData()
         {
             //fill the datagrid with wannabe users
-            NewUserDataGrid.DataSource = users.GetUsers(false);
+            NewUserDataGrid.DataSource = users.GetByEnabled(false);
             NewUserDataGrid.DataBind();
         }
 

@@ -36,18 +36,18 @@ namespace PMT.Web.Admin
                 ddlRoles.Items.Insert(0, new ListItem("All", String.Empty));
 
                 // bind users datagrid
-                UserData userData = new UserData();
+                UserService userData = new UserService();
                 ICollection<User> users;
                 // filter by selected role
                 UserRole role = Role;
                 if (Enum.IsDefined(typeof (UserRole), role))
                 {
-                    users = userData.GetUsersByRole(role);
+                    users = userData.GetByRole(role);
                     ddlRoles.SelectedValue = role.ToString("d");
                 }
                 else
                 {
-                    users = userData.GetUsers();
+                    users = userData.GetAll();
                 }
 
                 UserDataGrid.DataSource = users;

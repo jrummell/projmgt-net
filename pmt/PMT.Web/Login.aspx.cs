@@ -28,8 +28,8 @@ namespace PMT.Web
 
         private static bool CustomAuthenticate(string username, string password)
         {
-            UserData userData = new UserData();
-            return userData.AuthenticateUser(username, password);
+            UserService userData = new UserService();
+            return userData.Authenticate(username, password);
         }
     }
 }
