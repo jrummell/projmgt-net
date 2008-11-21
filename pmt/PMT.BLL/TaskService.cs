@@ -1,21 +1,17 @@
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using PMT.DAL;
 using SubSonic;
 
 namespace PMT.BLL
 {
-    public class TaskService : IDataService<Task>
+    public class TaskService : DataService<Task>
     {
         private readonly TaskAssignmentController _taskAssignmentController = new TaskAssignmentController();
         private readonly TaskController _tasksController = new TaskController();
 
-        /// <summary>
-        /// Gets the assigned tasks.
-        /// </summary>
-        /// <returns></returns>
-        public TaskAssignmentCollection GetAssignedTasks()
+        public TaskService()
+            : base(new TaskController())
         {
-            return _taskAssignmentController.FetchAll();
         }
 
         /// <summary>
@@ -23,7 +19,7 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="task">The task.</param>
         /// <returns></returns>
-        public void Insert(Task task)
+        public override void Insert(Task task)
         {
             _tasksController.Insert(
                 task.ModuleID,
@@ -41,47 +37,44 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="task">The task.</param>
         /// <returns></returns>
-        public void Update(Task task)
+        public override void Update(Task task)
         {
             _tasksController.Update(task.ID,
-                           task.ModuleID,
-                           task.Name,
-                           task.Description,
-                           task.StartDate,
-                           task.ExpEndDate,
-                           task.ActEndDate,
-                           (short) task.Status,
-                           (short) task.Complexity);
+                                    task.ModuleID,
+                                    task.Name,
+                                    task.Description,
+                                    task.StartDate,
+                                    task.ExpEndDate,
+                                    task.ActEndDate,
+                                    (short) task.Status,
+                                    (short) task.Complexity);
         }
 
-        public ICollection<Task> GetAll()
-        {
-            throw new System.NotImplementedException();
-        }
 
         /// <summary>
-        /// Does the specificed record exist?
+        /// Gets the assigned tasks.
         /// </summary>
-        /// <param name="id">The id.</param>
         /// <returns></returns>
-        public bool Exists(int id)
+        public Collection<Task> GetAssigned()
         {
-            return GetByID(id) != null;
+            Collection<Task> collection = new Collection<Task>();
+            TaskAssignmentCollection dalAssignments = _taskAssignmentController.FetchAll();
+
+#warning optimize
+            foreach (TaskAssignment taskAssignment in dalAssignments)
+            {
+                collection.Add(CreateRecord(taskAssignment.Task));
+            }
+
+            return collection;
         }
 
-        /// <summary>
-        /// Deletes the task.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns></returns>
-        public void Delete(int id)
+        protected override Task CreateRecord(IActiveRecord activeRecord)
         {
-            _tasksController.Delete(id);
-        }
-
-        public void VerifyDefaults()
-        {
-            throw new System.NotImplementedException();
+            DAL.Task dalTask = (DAL.Task) activeRecord;
+            return new Task(dalTask.Id, dalTask.ModuleID, dalTask.Name, dalTask.Description,
+                            (TaskComplexity) dalTask.Complexity, dalTask.StartDate, dalTask.ExpEndDate,
+                            dalTask.ActEndDate);
         }
 
         /// <summary>
@@ -89,10 +82,10 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="moduleID">The module ID.</param>
         /// <returns></returns>
-        public TaskCollection GetTasksByModule(int moduleID)
+        public Collection<Task> GetByModule(int moduleID)
         {
             Query query = DAL.Task.CreateQuery().WHERE(DAL.Task.Columns.ModuleID, Comparison.Equals, moduleID);
-            return _tasksController.FetchByQuery(query);
+            return CreateCollection(_tasksController.FetchByQuery(query));
         }
 
         /// <summary>
@@ -115,17 +108,6 @@ namespace PMT.BLL
         public void Unassign(int taskID, int devID)
         {
             _taskAssignmentController.Delete(taskID, devID);
-        }
-
-        /// <summary>
-        /// Gets the task.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns></returns>
-        public Task GetByID(int id)
-        {
-            DAL.Task dalTask = ReadOnlyRecord<DAL.Task>.FetchByID(id);
-            return new Task(dalTask);
         }
     }
 }

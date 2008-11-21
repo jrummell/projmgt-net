@@ -28,14 +28,14 @@ namespace PMT.Web
             UserService data = new UserService();
             if (!data.UsernameExists("admin"))
             {
-                User admin = new User(UserRole.Administrator) {UserName = "admin", Password = "asdf"};
+                User admin = new User(UserRole.Administrator, "admin", "asdf");
 
                 data.Insert(admin);
             }
 
             if (!data.UsernameExists("manager"))
             {
-                User manager = new User(UserRole.Manager) {UserName = "manager", Password = "asdf"};
+                User manager = new User(UserRole.Manager, "manager", "asdf");
 
                 data.Insert(manager);
             }

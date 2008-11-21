@@ -6,13 +6,31 @@ namespace PMT.Web.PM
 {
     public partial class ViewDevProfile : Page
     {
+        private int DevID
+        {
+            get
+            {
+                int id;
+                try
+                {
+                    id = Convert.ToInt32(Request["devID"]);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Developer ID is required.");
+                }
+                return id;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 ProfileControl1.Editable = false;
                 // get the developer
-                User dev = new User(DevID);
+                UserService service = new UserService();
+                User dev = service.GetByID(DevID);
 
                 // fill the form
                 ProfileControl1.FillForm(dev);
@@ -36,26 +54,5 @@ namespace PMT.Web.PM
 
             throw new NotImplementedException("ViewDevProfile.btnUpdate_Click is not implemented.");
         }
-
-        #region Properties
-
-        private int DevID
-        {
-            get
-            {
-                int id;
-                try
-                {
-                    id = Convert.ToInt32(Request["devID"]);
-                }
-                catch (Exception)
-                {
-                    throw new Exception("Developer ID is required.");
-                }
-                return id;
-            }
-        }
-
-        #endregion
     }
 }

@@ -9,12 +9,15 @@ namespace PMT.BLL
     /// <summary>
     /// Manages User data
     /// </summary>
-    public class UserService : DataServiceBase<User>, IDataService<User>
+    public class UserService : DataService<User>
     {
         private readonly UserProfileController _profileController = new UserProfileController();
         private readonly UserController _userController = new UserController();
 
-        #region IDataService<User> Members
+        public UserService()
+            : base(new UserController())
+        {
+        }
 
         /// <summary>
         /// Get a User by id
@@ -36,9 +39,9 @@ namespace PMT.BLL
                 throw new ArgumentNullException("user");
             }
 
-            if (UsernameExists(user.UserName))
+            if (UsernameExists(user.Username))
             {
-                throw new Exception(String.Format("User {0} already exists.", user.UserName));
+                throw new Exception(String.Format("User {0} already exists.", user.Username));
             }
 
             // insert the user
@@ -47,7 +50,7 @@ namespace PMT.BLL
                                        Enabled = false,
                                        Password = user.Password,
                                        Role = ((short) user.Role),
-                                       Username = user.UserName
+                                       Username = user.Username
                                    };
             newUser.Save();
 
@@ -57,7 +60,7 @@ namespace PMT.BLL
                                       user.Address, user.City);
 
             // update the passed in user object
-            user.Update(newUser, new UserProfile(user.ID));
+            user.ID = newUser.Id;
         }
 
         /// <summary>
@@ -86,40 +89,50 @@ namespace PMT.BLL
                 throw new ArgumentNullException("user");
             }
 
-            _userController.Update(user.ID, user.UserName, (short) user.Role, user.Enabled, user.Password);
+            _userController.Update(user.ID, user.Username, (short) user.Role, user.Enabled, user.Password);
             _profileController.Update(user.ID, user.FirstName, user.LastName, user.Address, user.City, user.State,
                                       user.ZipCode, user.PhoneNumber, user.Email);
-        }
-
-        public override ICollection<User> GetAll()
-        {
-            return CreateCollection(_userController.FetchAll());
         }
 
         public override void VerifyDefaults()
         {
             if (!UsernameExists("admin"))
             {
-                User admin = new User(UserRole.Administrator) {UserName = "admin", Password = "asdf"};
+                User admin = new User(UserRole.Administrator, "admin", "asdf");
 
                 Insert(admin);
             }
 
             if (!UsernameExists("manager"))
             {
-                User manager = new User(UserRole.Manager) {UserName = "manager", Password = "asdf"};
+                User manager = new User(UserRole.Manager, "manager", "asdf");
 
                 Insert(manager);
             }
         }
 
-        #endregion
-
         protected override User CreateRecord(IActiveRecord activeRecord)
         {
 #warning //TODO: optimize
             DAL.User dalUser = ((DAL.User) activeRecord);
-            return new User(dalUser, new UserProfile(dalUser.Id));
+            UserProfile profile = new UserProfile(dalUser.Id);
+
+            User user = new User(dalUser.Id, (UserRole) dalUser.Role, dalUser.Username, dalUser.Password)
+                            {
+                                Address = profile.Address,
+                                City = profile.City,
+                                Email = profile.Email,
+                                Enabled = dalUser.Enabled,
+                                FirstName = profile.FirstName,
+                                LastName = profile.LastName,
+                                PhoneNumber = profile.PhoneNumber,
+                                State = profile.State,
+                                ZipCode = profile.Zip
+                            };
+
+            user.ManagerID = GetManagerID(user.ID);
+
+            return user;
         }
 
         /// <summary>
@@ -174,12 +187,7 @@ namespace PMT.BLL
                 return null;
             }
 
-            DAL.User dalUser = collection[0];
-            var profile = new UserProfile(dalUser.Id);
-
-            User user = new User(dalUser, profile);
-
-            return user;
+            return CreateRecord(collection[0]);
         }
 
         /// <summary>
@@ -205,7 +213,7 @@ namespace PMT.BLL
         /// Authenticates the user.
         /// </summary>
         /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
+        /// <param name="password">The unhashed password.</param>
         /// <returns></returns>
         public bool Authenticate(string username, string password)
         {
@@ -219,11 +227,11 @@ namespace PMT.BLL
                 throw new ArgumentNullException("password");
             }
 
-            password = Encryption.Encrypt(password);
+            User user = new User(UserRole.Client, username, password);
 
             Query query = DAL.User.CreateQuery();
-            query.AddWhere(DAL.User.Columns.Username, Comparison.Equals, username);
-            query.AddWhere(DAL.User.Columns.Password, Comparison.Equals, password);
+            query.AddWhere(DAL.User.Columns.Username, Comparison.Equals, user.Username);
+            query.AddWhere(DAL.User.Columns.Password, Comparison.Equals, user.Password);
 
             UserCollection collection = _userController.FetchByQuery(query);
 
@@ -256,7 +264,7 @@ namespace PMT.BLL
             Collection<User> userCollection = new Collection<User>();
             foreach (ManagerAssignment assignment in assignmentCollection)
             {
-                userCollection.Add(new User(assignment.UserID));
+                userCollection.Add(CreateRecord(assignment.User));
             }
 
             return userCollection;
@@ -281,6 +289,11 @@ namespace PMT.BLL
             return new UserStatistics(admins, managers, developers, clients, newUsers);
         }
 
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <returns></returns>
         private static int GetCount(UserRole role)
         {
             Where where = new Where
@@ -293,6 +306,11 @@ namespace PMT.BLL
             return GetCount(where);
         }
 
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <param name="where">The where.</param>
+        /// <returns></returns>
         private static int GetCount(Where where)
         {
             return DAL.User.CreateQuery().AddWhere(where).GetCount(DAL.User.Columns.Id);

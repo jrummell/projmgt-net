@@ -45,17 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataServiceBase.cs" />
+    <Compile Include="DataService.cs" />
     <Compile Include="IDataService.cs" />
+    <Compile Include="IRecord.cs" />
     <Compile Include="Module.cs" />
-    <Compile Include="ModuleData.cs" />
+    <Compile Include="ModuleService.cs" />
     <Compile Include="ProjectService.cs" />
     <Compile Include="ProjectItem.cs" />
     <Compile Include="ServiceException.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskService.cs" />
     <Compile Include="UserService.cs" />
-    <Compile Include="Encryption.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

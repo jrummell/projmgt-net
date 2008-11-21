@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PMT.BLL.Tests
@@ -9,22 +8,15 @@ namespace PMT.BLL.Tests
     ///to contain all ProjectServiceTests Unit Tests
     ///</summary>
     [TestClass]
-    public class ProjectServiceTests
+    public class ProjectServiceTests : DataServiceTests
     {
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
+        public ProjectServiceTests()
+            : base(new ProjectService())
         {
-            get { return testContextInstance; }
-            set { testContextInstance = value; }
         }
 
-        [ClassInitialize]
-        public static void VerifyDefaults(TestContext testContext)
+        [TestInitialize]
+        public override void TestInitialize()
         {
             UserService userService = new UserService();
             userService.VerifyDefaults();
@@ -37,10 +29,10 @@ namespace PMT.BLL.Tests
         ///A test for Update
         ///</summary>
         [TestMethod]
-        public void Update()
+        public override void Update()
         {
             ProjectService target = new ProjectService();
-            Project project = new Project("Name", "Description", DateTime.Now);
+            Project project = new Project("Name", "Description");
             target.Insert(project);
 
             project.Description = "Updated";
@@ -60,8 +52,8 @@ namespace PMT.BLL.Tests
         public void Unassign()
         {
             ProjectService target = new ProjectService();
-            int projectID = 1;
-            int userID = 1;
+            const int projectID = 1;
+            const int userID = 1;
 
             // make sure we have an assigned project
             List<Project> projects = new List<Project>(target.GetByUser(userID));
@@ -82,7 +74,7 @@ namespace PMT.BLL.Tests
 
         private static bool Contains(List<Project> projects, int projectID)
         {
-            Project found = projects.Find(delegate(Project project) { return project.ID == projectID; });
+            Project found = projects.Find(project => project.ID == projectID);
 
             return found != null;
         }
@@ -91,10 +83,10 @@ namespace PMT.BLL.Tests
         ///A test for Insert
         ///</summary>
         [TestMethod]
-        public void Insert()
+        public override void Insert()
         {
             ProjectService target = new ProjectService();
-            Project project = new Project("Name", "Description", DateTime.Now);
+            Project project = new Project("Name", "Description");
             target.Insert(project);
 
             Assert.IsTrue(target.Exists(project.ID));
@@ -119,10 +111,34 @@ namespace PMT.BLL.Tests
         ///A test for GetByID
         ///</summary>
         [TestMethod]
-        public void GetByID()
+        public override void GetByID()
+        {
+            Project project = new Project("Name", "Description");
+            InsertAndGetById(project);
+        }
+
+        /// <summary>
+        /// A test for Exists
+        /// </summary>
+        [TestMethod]
+        public override void Exists()
+        {
+            Project project = new Project("Name", "Description");
+
+            InsertAndGetById(project);
+
+            ProjectService service = new ProjectService();
+            Assert.IsTrue(service.Exists(project.ID));
+        }
+
+        protected override IRecord CreateRecord()
+        {
+            return new Project("Name", "Description");
+        }
+
+        private static void InsertAndGetById(Project project)
         {
             ProjectService target = new ProjectService();
-            Project project = new Project("Name", "Description", DateTime.Now);
             target.Insert(project);
 
             Project actual = target.GetByID(project.ID);
@@ -131,22 +147,10 @@ namespace PMT.BLL.Tests
         }
 
         /// <summary>
-        ///A test for GetAll
-        ///</summary>
-        [TestMethod]
-        public void GetAll()
-        {
-            ProjectService target = new ProjectService();
-            ICollection<Project> actual = target.GetAll();
-
-            Assert.IsTrue(actual.Count > 0);
-        }
-
-        /// <summary>
         ///A test for Delete
         ///</summary>
         [TestMethod]
-        public void Delete()
+        public override void Delete()
         {
             ProjectService target = new ProjectService();
             UserService userService = new UserService();
@@ -156,9 +160,9 @@ namespace PMT.BLL.Tests
             Project project = projects[0];
 
             ICollection<User> users = userService.GetByProject(project.ID);
-            
+
             target.Delete(project.ID);
-            
+
             Assert.IsFalse(target.Exists(project.ID));
 
             // restore
@@ -176,8 +180,8 @@ namespace PMT.BLL.Tests
         public void Assign()
         {
             ProjectService target = new ProjectService();
-            int projectID = 1;
-            int userID = 1;
+            const int projectID = 1;
+            const int userID = 1;
 
             // unassign project if it's already assigned
             List<Project> projects = new List<Project>(target.GetByUser(userID));
@@ -190,37 +194,5 @@ namespace PMT.BLL.Tests
 
             Assert.IsTrue(target.GetByUser(userID).Count > 0);
         }
-
-        #region Additional test attributes
-
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-
-        #endregion
     }
 }

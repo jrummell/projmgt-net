@@ -10,17 +10,11 @@ namespace PMT.BLL.Tests
     [TestClass]
     public class UserServiceTests
     {
-        private TestContext testContextInstance;
-
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get { return testContextInstance; }
-            set { testContextInstance = value; }
-        }
+        public TestContext TestContext { get; set; }
 
         [ClassInitialize]
         public static void VerifyUsers(TestContext testContext)
@@ -71,7 +65,7 @@ namespace PMT.BLL.Tests
             User user = target.GetByUsername("admin");
 
             bool enabled = user.Enabled;
-            
+
             user.Enabled = !user.Enabled;
             target.Enable(user.ID, user.Enabled);
 
@@ -91,11 +85,11 @@ namespace PMT.BLL.Tests
         {
             UserService target = new UserService();
 
-            User user = new User(UserRole.Client) {UserName = "testUser"};
+            User user = new User(UserRole.Client, "testUser", "asdf");
             target.Insert(user);
 
             Assert.IsNotNull(target.GetByID(user.ID));
-            Assert.IsNotNull(target.GetByUsername(user.UserName));
+            Assert.IsNotNull(target.GetByUsername(user.Username));
 
             target.Delete(user.ID);
         }
@@ -173,7 +167,7 @@ namespace PMT.BLL.Tests
             User user = target.GetByUsername("admin");
 
             Assert.IsNotNull(user);
-            Assert.AreEqual("admin", user.UserName);
+            Assert.AreEqual("admin", user.Username);
         }
 
         /// <summary>
@@ -211,7 +205,7 @@ namespace PMT.BLL.Tests
         {
             UserService target = new UserService();
 
-            User user = new User(UserRole.Client) {UserName = "testUser"};
+            User user = new User(UserRole.Client, "testUser", "asdf");
             target.Insert(user);
 
             target.Delete(user.ID);
@@ -228,37 +222,5 @@ namespace PMT.BLL.Tests
             UserService target = new UserService();
             Assert.IsTrue(target.Authenticate("admin", "asdf"));
         }
-
-        #region Additional test attributes
-
-        // 
-        //You can use the following additional attributes as you write your tests:
-        //
-        //Use ClassInitialize to run code before running the first test in the class
-        //[ClassInitialize()]
-        //public static void MyClassInitialize(TestContext testContext)
-        //{
-        //}
-        //
-        //Use ClassCleanup to run code after all tests in a class have run
-        //[ClassCleanup()]
-        //public static void MyClassCleanup()
-        //{
-        //}
-        //
-        //Use TestInitialize to run code before running each test
-        //[TestInitialize()]
-        //public void MyTestInitialize()
-        //{
-        //}
-        //
-        //Use TestCleanup to run code after each test has run
-        //[TestCleanup()]
-        //public void MyTestCleanup()
-        //{
-        //}
-        //
-
-        #endregion
     }
 }

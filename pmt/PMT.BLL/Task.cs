@@ -54,20 +54,10 @@ namespace PMT.BLL
         /// <param name="name">name</param>
         /// <param name="description">description</param>
         /// <param name="complexity">complexity</param>
-        /// <param name="startDate">start date</param>
         public Task(int moduleID, string name, string description,
-                    TaskComplexity complexity, DateTime startDate)
+                    TaskComplexity complexity)
             : this(0, moduleID, name, description, complexity,
-                   startDate, DateTime.MinValue, DateTime.MinValue)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Task"/> class.
-        /// </summary>
-        /// <param name="task">The task.</param>
-        internal Task(DAL.Task task)
-            : this(task.Id, task.ModuleID, task.Name, task.Description, (TaskComplexity) task.Complexity, task.StartDate, task.ExpEndDate, task.ActEndDate)
+                   null, null, null)
         {
         }
 

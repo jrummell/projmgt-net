@@ -64,6 +64,7 @@
     <Compile Include="Generated\AllStructs.cs" />
     <Compile Include="Generated\CvCMatrix.cs" />
     <Compile Include="Generated\CvCMatrixController.cs" />
+    <Compile Include="IController.cs" />
     <Compile Include="Generated\ManagerAssignment.cs" />
     <Compile Include="Generated\ManagerAssignmentController.cs" />
     <Compile Include="Generated\Message.cs" />
@@ -85,7 +86,11 @@
     <Compile Include="Generated\UserController.cs" />
     <Compile Include="Generated\UserProfile.cs" />
     <Compile Include="Generated\UserProfileController.cs" />
+    <Compile Include="ModuleXController.cs" />
+    <Compile Include="ProjectController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskController.cs" />
+    <Compile Include="UserController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
