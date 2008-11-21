@@ -1,16 +1,18 @@
-using System;
 using System.Collections.Generic;
 using PMT.DAL;
 using SubSonic;
 
 namespace PMT.BLL
 {
-    public class ProjectService : DataServiceBase<Project>, IDataService<Project>
+    public class ProjectService : DataService<Project>
     {
         private readonly ProjectAssignmentController _assignmentController = new ProjectAssignmentController();
         private readonly ProjectController _projectController = new ProjectController();
 
-        #region IDataService<Project> Members
+        public ProjectService()
+            : base(new ProjectController())
+        {
+        }
 
         /// <summary>
         /// Inserts the project.
@@ -47,15 +49,6 @@ namespace PMT.BLL
         }
 
         /// <summary>
-        /// Gets all of the records.
-        /// </summary>
-        /// <returns></returns>
-        public override ICollection<Project> GetAll()
-        {
-            return CreateCollection(_projectController.FetchAll());
-        }
-
-        /// <summary>
         /// Deletes the project.
         /// </summary>
         /// <param name="id">The id.</param>
@@ -74,7 +67,7 @@ namespace PMT.BLL
             Project project = GetByName("Project1");
             if (project == null)
             {
-                project = new Project("Project1", "Your first project", DateTime.Now);
+                project = new Project("Project1", "Your first project");
                 Insert(project);
             }
 
@@ -85,26 +78,6 @@ namespace PMT.BLL
                 Assign(project.ID, manager.ID);
             }
         }
-
-        /// <summary>
-        /// Gets the project.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns></returns>
-        public override Project GetByID(int id)
-        {
-            DAL.Project dalProject = ReadOnlyRecord<DAL.Project>.FetchByID(id);
-            if (dalProject == null)
-            {
-                return null;
-            }
-
-            Project project = CreateRecord(dalProject);
-
-            return project;
-        }
-
-        #endregion
 
         /// <summary>
         /// Unassigns the users.

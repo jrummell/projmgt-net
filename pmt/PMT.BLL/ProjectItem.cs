@@ -1,5 +1,4 @@
 using System;
-using System.Data.SqlTypes;
 
 namespace PMT.BLL
 {
@@ -16,7 +15,7 @@ namespace PMT.BLL
     /// <summary>
     /// Base class for Project, Module, Task
     /// </summary>
-    public abstract class ProjectItem
+    public abstract class ProjectItem : IRecord
     {
         /// <summary>
         /// Main Constructor
@@ -27,15 +26,9 @@ namespace PMT.BLL
             ID = id;
             Name = name;
             Description = description;
-            StartDate = Validate(startDate);
-            ExpEndDate = Validate(expEndDate);
-            ActEndDate = Validate(actEndDate);
-        }
-
-        private static DateTime? Validate(DateTime? date)
-        {
-            DateTime sqlMin = (DateTime) SqlDateTime.MinValue;
-            return date < sqlMin ? sqlMin : date;
+            StartDate = startDate;
+            ExpEndDate = expEndDate;
+            ActEndDate = actEndDate;
         }
 
         /// <summary>
@@ -46,12 +39,11 @@ namespace PMT.BLL
         {
         }
 
-        public abstract ProjectItemType Type { get; }
-
         /// <summary>
-        /// Gets or sets the id
+        /// Gets the type.
         /// </summary>
-        public int ID { get; internal set; }
+        /// <value>The type.</value>
+        public abstract ProjectItemType Type { get; }
 
         /// <summary>
         /// Gets or sets the name
@@ -77,5 +69,14 @@ namespace PMT.BLL
         /// Gets or sets the actual end date
         /// </summary>
         public DateTime? ActEndDate { get; set; }
+
+        #region IRecord Members
+
+        /// <summary>
+        /// Gets or sets the id
+        /// </summary>
+        public int ID { get; internal set; }
+
+        #endregion
     }
 }

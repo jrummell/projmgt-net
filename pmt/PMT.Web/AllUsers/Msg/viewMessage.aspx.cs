@@ -30,7 +30,7 @@ namespace PMT.Web.AllUsers.Msg
             senderLabel.Text = String.Format("{0}, {1} ({2})",
                                              message.Sender.LastName,
                                              message.Sender.FirstName,
-                                             message.Sender.UserName);
+                                             message.Sender.Username);
             dateLabel.Text = message.DateSent.ToString();
             dlRecipients.DataSource = message.Recipients;
             dlRecipients.DataBind();

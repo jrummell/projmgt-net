@@ -35,9 +35,8 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="name">name</param>
         /// <param name="description">description</param>
-        /// <param name="startDate">start date</param>
-        public Project(string name, string description, DateTime startDate)
-            : this(0, name, description, startDate, DateTime.MinValue, DateTime.MinValue)
+        public Project(string name, string description)
+            : this(0, name, description, null, null, null)
         {
         }
 

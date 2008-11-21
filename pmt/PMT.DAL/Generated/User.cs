@@ -181,7 +181,7 @@ namespace PMT.DAL
 				TableSchema.TableColumn colvarPassword = new TableSchema.TableColumn(schema);
 				colvarPassword.ColumnName = "Password";
 				colvarPassword.DataType = DbType.AnsiString;
-				colvarPassword.MaxLength = 32;
+				colvarPassword.MaxLength = 40;
 				colvarPassword.AutoIncrement = false;
 				colvarPassword.IsNullable = false;
 				colvarPassword.IsPrimaryKey = false;

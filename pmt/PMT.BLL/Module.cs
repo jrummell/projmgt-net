@@ -18,7 +18,7 @@ namespace PMT.BLL
         /// <param name="expEndDate">expected end date</param>
         /// <param name="actEndDate">actual end date</param>
         public Module(int id, int projectID, string name, string description,
-                      DateTime startDate, DateTime expEndDate, DateTime actEndDate)
+                      DateTime? startDate, DateTime? expEndDate, DateTime? actEndDate)
             : base(id, name, description, startDate, expEndDate, actEndDate)
         {
             ProjectID = projectID;
@@ -30,9 +30,8 @@ namespace PMT.BLL
         /// <param name="projID">Project id</param>
         /// <param name="name">name</param>
         /// <param name="description">description</param>
-        /// <param name="startDate">start date</param>
-        public Module(int projID, string name, string description, DateTime startDate)
-            : this(0, projID, name, description, startDate, DateTime.MinValue, DateTime.MinValue)
+        public Module(int projID, string name, string description)
+            : this(0, projID, name, description, null, null, null)
         {
         }
 

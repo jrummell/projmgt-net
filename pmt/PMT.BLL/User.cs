@@ -1,5 +1,6 @@
 using System;
-using PMT.DAL;
+using System.Web.Configuration;
+using System.Web.Security;
 
 namespace PMT.BLL
 {
@@ -27,65 +28,75 @@ namespace PMT.BLL
     /// <summary>
     /// Project Management .Net User Base Class
     /// </summary>
-    public class User
+    public class User : IRecord
     {
+        private readonly UserRole _role;
         private User _manager;
         private int _managerID = -1;
-        private UserProfile _profile;
-        private DAL.User _user;
-
-        #region Constructors
+        private string _password;
 
         /// <summary>
-        /// Default Constructor. Creates a blank User
+        /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
-        public User(UserRole role)
+        /// <param name="role">The role.</param>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        public User(UserRole role, string username, string password)
+            : this(-1, role, username, password, false)
         {
-            _user = new DAL.User {Role = ((short) role)};
-            _profile = new UserProfile();
-        }
-
-        /// <summary>
-        /// Main constructor
-        /// </summary>
-        /// <param name="id">User ID</param>
-        public User(int id)
-        {
-            _user = new DAL.User(id);
-            _profile = new UserProfile(id);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="User"/> class.
         /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="profile">The profile.</param>
-        internal User(DAL.User user, UserProfile profile)
+        /// <param name="id">The id.</param>
+        /// <param name="role">The role.</param>
+        /// <param name="username">The username.</param>
+        /// <param name="hashedPassword">The hashed password.</param>
+        internal User(int id, UserRole role, string username, string hashedPassword)
+            : this(id, role, username, hashedPassword, true)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-            if (profile == null)
-            {
-                throw new ArgumentNullException("profile");
-            }
-
-            _user = user;
-            _profile = profile;
+            
         }
 
-        #endregion
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="role">The role.</param>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="isPasswordHashed">if set to <c>true</c> [is password hashed].</param>
+        private User(int id, UserRole role, string username, string password, bool isPasswordHashed)
+        {
+            if (username == null)
+            {
+                throw new ArgumentNullException("username");
+            }
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+
+            ID = id;
+            Username = username;
+            _role = role;
+
+            if (isPasswordHashed)
+            {
+                _password = password;
+            }
+            else
+            {
+                Password = password;
+            }
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="User"/> is enabled.
         /// </summary>
         /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
-        public bool Enabled
-        {
-            get { return _user.Enabled; }
-            set { _user.Enabled = value; }
-        }
+        public bool Enabled { get; set; }
 
         /// <summary>
         /// Gets the hashed password and sets the unhashed password.
@@ -94,105 +105,67 @@ namespace PMT.BLL
         /// <value>The password.</value>
         public string Password
         {
-            get { return _user.Password; }
-            set { _user.Password = Encryption.Encrypt(value); }
+            get { return _password; }
+            set { _password = HashPassword(value); }
         }
 
         /// <summary>
         /// Gets or sets the ID
         /// </summary>
-        public int ID
-        {
-            get { return _user.Id; }
-        }
+        public int ID { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the username.
+        /// </summary>
+        /// <value>The username.</value>
+        public string Username { get; set; }
 
         /// <summary>
         /// Gets or sets the first name
         /// </summary>
-        public string FirstName
-        {
-            get { return _profile.FirstName; }
-            set { _profile.FirstName = value; }
-        }
+        public string FirstName { get; set; }
 
         /// <summary>
         /// Gets or sets the last name
         /// </summary>
-        public string LastName
-        {
-            get { return _profile.LastName; }
-            set { _profile.LastName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the username
-        /// </summary>
-        public string UserName
-        {
-            get { return _user.Username; }
-            set { _user.Username = value; }
-        }
+        public string LastName { get; set; }
 
         /// <summary>
         /// Gets or sets the street address
         /// </summary>
-        public string Address
-        {
-            get { return _profile.Address; }
-            set { _profile.Address = value; }
-        }
+        public string Address { get; set; }
 
         /// <summary>
         /// Gets or sets the city
         /// </summary>
-        public string City
-        {
-            get { return _profile.City; }
-            set { _profile.City = value; }
-        }
+        public string City { get; set; }
 
         /// <summary>
         /// Getsor sets the state
         /// </summary>
-        public string State
-        {
-            get { return _profile.State; }
-            set { _profile.State = value; }
-        }
+        public string State { get; set; }
 
         /// <summary>
         /// Gets or sets the zip code
         /// </summary>
-        public string ZipCode
-        {
-            get { return _profile.Zip; }
-            set { _profile.Zip = value; }
-        }
+        public string ZipCode { get; set; }
 
         /// <summary>
         /// Gets or sets the phone number
         /// </summary>
-        public string PhoneNumber
-        {
-            get { return _profile.PhoneNumber; }
-            set { _profile.PhoneNumber = value; }
-        }
+        public string PhoneNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the email address
         /// </summary>
-        public string Email
-        {
-            get { return _profile.Email; }
-            set { _profile.Email = value; }
-        }
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets the role (security level)
         /// </summary>
         public UserRole Role
         {
-            get { return (UserRole) _user.Role; }
+            get { return _role; }
         }
 
         /// <summary>
@@ -232,23 +205,13 @@ namespace PMT.BLL
         }
 
         /// <summary>
-        /// Updates the specified user.
+        /// Hashes the password.
         /// </summary>
-        /// <param name="user">The user.</param>
-        /// <param name="profile">The profile.</param>
-        internal void Update(DAL.User user, UserProfile profile)
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        private static string HashPassword(string value)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-            if (profile == null)
-            {
-                throw new ArgumentNullException("profile");
-            }
-
-            _user = user;
-            _profile = profile;
+            return FormsAuthentication.HashPasswordForStoringInConfigFile(value, FormsAuthPasswordFormat.SHA1.ToString());
         }
     }
 }

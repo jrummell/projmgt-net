@@ -43,7 +43,8 @@ namespace PMT.Web
             }
 
             // insert the new user
-            user = new User((UserRole) Enum.Parse(typeof (UserRole), ProfileControl1.Security));
+            user = new User((UserRole) Enum.Parse(typeof (UserRole), ProfileControl1.Security), ProfileControl1.Username,
+                            ProfileControl1.NewPassword1);
             ProfileControl1.FillUser(user);
             user.Enabled = false;
 

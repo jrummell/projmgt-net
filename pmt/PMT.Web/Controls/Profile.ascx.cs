@@ -92,8 +92,8 @@ namespace PMT.Web.Controls
             PhoneLabel.Text = user.PhoneNumber;
             EmailTextBox.Text = user.Email;
             EmailLabel.Text = user.Email;
-            UsernameTextBox.Text = user.UserName;
-            UsernameLabel.Text = user.UserName;
+            UsernameTextBox.Text = user.Username;
+            UsernameLabel.Text = user.Username;
 
             // select the correct Security in the dropdown
             SecurityDropDownList.SelectedIndex = (int) user.Role;
@@ -111,7 +111,7 @@ namespace PMT.Web.Controls
                 throw new ArgumentNullException("user");
             }
 
-            user.UserName = UsernameTextBox.Text;
+            user.Username = UsernameTextBox.Text;
             user.Address = AddressTextBox.Text;
             user.City = CityTextBox.Text;
             user.Email = EmailTextBox.Text;
