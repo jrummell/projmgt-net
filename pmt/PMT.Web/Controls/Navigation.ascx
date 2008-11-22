@@ -21,8 +21,6 @@
     <br />
     <asp:HyperLink ID="HyperLink12" runat="server" NavigateUrl="~/PM/Assign.aspx">Task Assignments</asp:HyperLink>
     <br />
-    <asp:HyperLink ID="HyperLink13" runat="server" NavigateUrl="~/PM/Matrix.aspx">Competency Matrix</asp:HyperLink>
-    <br />
 </div>
 <div id="divAdministrator" runat="server" visible="false">
     <asp:HyperLink ID="HyperLink0" runat="server" NavigateUrl="~/Admin/">Administrator Home</asp:HyperLink>
@@ -30,10 +28,6 @@
     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Admin/NewUsers.aspx">New Users</asp:HyperLink>
     <br />
     <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Admin/Users.aspx">User Administration</asp:HyperLink>
-    <br />
-    <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/Admin/EditMatrix.aspx">Competency Matrix Editor</asp:HyperLink>
-    <br />
-    <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/Admin/Settings.aspx">Application Settings</asp:HyperLink>
     <br />
     <asp:HyperLink ID="hlElmah" runat="server" Target="_blank">Error Log</asp:HyperLink>
     <br />

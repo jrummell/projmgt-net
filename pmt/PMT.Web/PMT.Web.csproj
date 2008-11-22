@@ -72,7 +72,6 @@
   <ItemGroup>
     <Content Include="Admin\EditUser.aspx" />
     <Content Include="Admin\Default.aspx" />
-    <Content Include="Admin\EditMatrix.aspx" />
     <Content Include="Admin\NewUsers.aspx" />
     <Content Include="Admin\Users.aspx" />
     <Content Include="Default.aspx" />
@@ -83,7 +82,6 @@
     <Content Include="PM\ChooseDevelopers.aspx" />
     <Content Include="PM\Default.aspx" />
     <Content Include="PM\Developers.aspx" />
-    <Content Include="PM\matrix.aspx" />
     <Content Include="PM\NewItem.aspx" />
     <Content Include="PM\Projects.aspx" />
     <Content Include="PM\ViewDevProfile.aspx" />
@@ -105,13 +103,6 @@
     <Compile Include="Admin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\EditMatrix.aspx.cs">
-      <DependentUpon>EditMatrix.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\EditMatrix.aspx.designer.cs">
-      <DependentUpon>EditMatrix.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\NewUsers.aspx.cs">
       <DependentUpon>NewUsers.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -119,40 +110,12 @@
     <Compile Include="Admin\NewUsers.aspx.designer.cs">
       <DependentUpon>NewUsers.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Settings.aspx.cs">
-      <DependentUpon>Settings.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Settings.aspx.designer.cs">
-      <DependentUpon>Settings.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\Users.aspx.designer.cs">
       <DependentUpon>Users.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AllUsers\Msg\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AllUsers\Msg\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AllUsers\Msg\newMessage.aspx.cs">
-      <DependentUpon>NewMessage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AllUsers\Msg\newMessage.aspx.designer.cs">
-      <DependentUpon>NewMessage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="AllUsers\Msg\viewMessage.aspx.cs">
-      <DependentUpon>ViewMessage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AllUsers\Msg\viewMessage.aspx.designer.cs">
-      <DependentUpon>ViewMessage.aspx</DependentUpon>
     </Compile>
     <Compile Include="AllUsers\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
@@ -263,13 +226,6 @@
     <Compile Include="PM\Developers.aspx.designer.cs">
       <DependentUpon>Developers.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PM\matrix.aspx.cs">
-      <DependentUpon>matrix.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="PM\matrix.aspx.designer.cs">
-      <DependentUpon>matrix.aspx</DependentUpon>
-    </Compile>
     <Compile Include="PM\NewItem.aspx.cs">
       <DependentUpon>NewItem.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -316,10 +272,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\Settings.aspx" />
-    <Content Include="AllUsers\Msg\Default.aspx" />
-    <Content Include="AllUsers\Msg\NewMessage.aspx" />
-    <Content Include="AllUsers\Msg\ViewMessage.aspx" />
     <Content Include="AllUsers\Profile.aspx" />
     <Content Include="AllUsers\Reports.aspx" />
     <Content Include="App_Data\pmt.mdf">
