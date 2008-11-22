@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PMT.BLL.Tests
@@ -8,51 +9,30 @@ namespace PMT.BLL.Tests
     ///to contain all UserService Unit Tests
     ///</summary>
     [TestClass]
-    public class UserServiceTests
+    public class UserServiceTests : DataServiceTests
     {
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext { get; set; }
+        private const string _password = "asdf";
 
-        [ClassInitialize]
-        public static void VerifyUsers(TestContext testContext)
+        public UserServiceTests()
+            : base(new UserService())
         {
-            // make sure we have one admin and one manager
-            UserService data = new UserService();
-            data.VerifyDefaults();
-        }
-
-        /// <summary>
-        ///A test for UsernameExists
-        ///</summary>
-        [TestMethod]
-        public void UsernameExists()
-        {
-            UserService target = new UserService();
-            Assert.IsTrue(target.UsernameExists("admin"));
         }
 
         /// <summary>
         ///A test for UpdateUser
         ///</summary>
         [TestMethod]
-        public void UpdateUser()
+        public override void Update()
         {
             UserService target = new UserService();
-            User user = target.GetByUsername("admin");
-            string lastName = user.LastName;
+            User user = (User) CreateRecord();
+            Insert(user);
 
             user.LastName = "updated last name";
             target.Update(user);
 
             User updated = target.GetByID(user.ID);
             Assert.AreEqual(user.LastName, updated.LastName);
-
-            // revert back to original last name
-            updated.LastName = lastName;
-            target.Update(updated);
         }
 
         /// <summary>
@@ -62,9 +42,8 @@ namespace PMT.BLL.Tests
         public void UpdateEnabled()
         {
             UserService target = new UserService();
-            User user = target.GetByUsername("admin");
-
-            bool enabled = user.Enabled;
+            User user = (User) CreateRecord();
+            Insert(user);
 
             user.Enabled = !user.Enabled;
             target.Enable(user.ID, user.Enabled);
@@ -72,37 +51,30 @@ namespace PMT.BLL.Tests
             User updated = target.GetByID(user.ID);
 
             Assert.AreEqual(user.Enabled, updated.Enabled);
-
-            // revert
-            target.Enable(user.ID, enabled);
         }
 
         /// <summary>
         ///A test for InsertUser
         ///</summary>
         [TestMethod]
-        public void InsertUser()
+        public override void Insert()
         {
             UserService target = new UserService();
-
-            User user = new User(UserRole.Client, "testUser", "asdf");
-            target.Insert(user);
+            User user = (User) CreateRecord();
+            Insert(user);
 
             Assert.IsNotNull(target.GetByID(user.ID));
-            Assert.IsNotNull(target.GetByUsername(user.Username));
-
-            target.Delete(user.ID);
+            Assert.IsTrue(target.Exists(user.ID));
         }
 
         /// <summary>
         ///A test for GetUsersByRole
         ///</summary>
         [TestMethod]
-        public void GetUsersByRole()
+        public void GetByRole()
         {
             UserService target = new UserService();
-
-            ICollection<User> users = target.GetByRole(UserRole.Administrator);
+            Collection<User> users = target.GetByRole(UserRole.Administrator);
 
             Assert.IsTrue(users.Count > 0);
             foreach (User user in users)
@@ -115,59 +87,54 @@ namespace PMT.BLL.Tests
         ///A test for GetUsers
         ///</summary>
         [TestMethod]
-        public void GetUsers()
+        public void GetByEnabled()
         {
+            // disabled
             UserService target = new UserService();
-
-            Assert.IsTrue(target.GetAll().Count > 0);
-        }
-
-        /// <summary>
-        ///A test for GetUsers
-        ///</summary>
-        [TestMethod]
-        public void GetUsersByEnabled()
-        {
-            UserService target = new UserService();
-
-            ICollection<User> enabled = target.GetByEnabled(true);
-            foreach (User user in enabled)
+            for (int i = 0; i < 5; i++)
             {
-                Assert.AreEqual(true, user.Enabled);
+                User user = (User) CreateRecord();
+                user.Enabled = false;
+                Insert(user);
             }
 
-            ICollection<User> disabled = target.GetByEnabled(false);
+            // enabled
+            for (int i = 0; i < 4; i++)
+            {
+                User user = (User) CreateRecord();
+                user.Enabled = true;
+                Insert(user);
+            }
+
+            Collection<User> disabled = target.GetByEnabled(false);
+            Assert.IsTrue(disabled.Count >= 5);
             foreach (User user in disabled)
             {
                 Assert.AreEqual(false, user.Enabled);
             }
+
+            Collection<User> enabled = target.GetByEnabled(true);
+            Assert.IsTrue(enabled.Count >= 4);
+            foreach (User user in enabled)
+            {
+                Assert.AreEqual(true, user.Enabled);
+            }
         }
 
         /// <summary>
         ///A test for GetUser
         ///</summary>
         [TestMethod]
-        public void GetUserById()
+        public void GetByUsername()
         {
             UserService target = new UserService();
-            int id = target.GetByUsername("admin").ID;
-            User admin = target.GetByID(id);
+            User user = (User) CreateRecord();
+            Insert(user);
 
-            Assert.IsNotNull(admin);
-            Assert.AreEqual(id, admin.ID);
-        }
+            User user2 = target.GetByID(user.Username);
 
-        /// <summary>
-        ///A test for GetUser
-        ///</summary>
-        [TestMethod]
-        public void GetUserByUsername()
-        {
-            UserService target = new UserService();
-            User user = target.GetByUsername("admin");
-
-            Assert.IsNotNull(user);
-            Assert.AreEqual("admin", user.Username);
+            Assert.IsNotNull(user2);
+            Assert.AreEqual(user.Username, user2.Username);
         }
 
         /// <summary>
@@ -188,9 +155,10 @@ namespace PMT.BLL.Tests
         public void GetDevelopersByManager()
         {
             UserService target = new UserService();
-            User manager = target.GetByUsername("manager");
+            User manager = new User(UserRole.Manager, Guid.NewGuid().ToString(), _password);
+            Insert(manager);
 
-            ICollection<User> developers = target.GetByManager(manager.ID);
+            Collection<User> developers = target.GetByManager(manager.ID);
             foreach (User developer in developers)
             {
                 Assert.AreEqual(manager.ID, developer.ManagerID);
@@ -198,29 +166,21 @@ namespace PMT.BLL.Tests
         }
 
         /// <summary>
-        ///A test for DeleteUser
-        ///</summary>
-        [TestMethod]
-        public void DeleteUser()
-        {
-            UserService target = new UserService();
-
-            User user = new User(UserRole.Client, "testUser", "asdf");
-            target.Insert(user);
-
-            target.Delete(user.ID);
-
-            Assert.IsNull(target.GetByID(user.ID));
-        }
-
-        /// <summary>
         ///A test for AuthenticateUser
         ///</summary>
         [TestMethod]
-        public void AuthenticateUser()
+        public void Authenticate()
         {
             UserService target = new UserService();
-            Assert.IsTrue(target.Authenticate("admin", "asdf"));
+            User user = (User) CreateRecord();
+            Insert(user);
+
+            Assert.IsTrue(target.Authenticate(user.Username, _password));
+        }
+
+        protected override IRecord CreateRecord()
+        {
+            return new User(UserRole.Client, Guid.NewGuid().ToString(), _password);
         }
     }
 }

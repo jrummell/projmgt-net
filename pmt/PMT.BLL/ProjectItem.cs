@@ -38,14 +38,6 @@ namespace PMT.BLL
         }
 
         /// <summary>
-        /// Creates a blank ProjectItem
-        /// </summary>
-        protected ProjectItem()
-            : this(0, "", "", DateTime.MinValue, DateTime.MinValue, DateTime.MinValue)
-        {
-        }
-
-        /// <summary>
         /// Gets the type.
         /// </summary>
         /// <value>The type.</value>

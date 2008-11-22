@@ -25,9 +25,6 @@ namespace PMT.BLL
         High
     }
 
-    /// <summary>
-    /// Project Management .Net User Base Class
-    /// </summary>
     public class User : IRecord
     {
         private readonly UserRole _role;

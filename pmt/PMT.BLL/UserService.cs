@@ -20,15 +20,6 @@ namespace PMT.BLL
         }
 
         /// <summary>
-        /// Get a User by id
-        /// </summary>
-        /// <param name="id">user id</param>
-        public override User GetByID(int id)
-        {
-            return Get(id, null);
-        }
-
-        /// <summary>
         /// Inserts a new User
         /// </summary>
         /// <returns>the inserted user's id</returns>
@@ -39,7 +30,7 @@ namespace PMT.BLL
                 throw new ArgumentNullException("user");
             }
 
-            if (UsernameExists(user.Username))
+            if (Exists(user.Username))
             {
                 throw new Exception(String.Format("User {0} already exists.", user.Username));
             }
@@ -47,7 +38,7 @@ namespace PMT.BLL
             // insert the user
             DAL.User newUser = new DAL.User
                                    {
-                                       Enabled = false,
+                                       Enabled = user.Enabled,
                                        Password = user.Password,
                                        Role = ((short) user.Role),
                                        Username = user.Username
@@ -94,59 +85,22 @@ namespace PMT.BLL
                                       user.ZipCode, user.PhoneNumber, user.Email);
         }
 
-        public override void VerifyDefaults()
-        {
-            if (!UsernameExists("admin"))
-            {
-                User admin = new User(UserRole.Administrator, "admin", "asdf");
-
-                Insert(admin);
-            }
-
-            if (!UsernameExists("manager"))
-            {
-                User manager = new User(UserRole.Manager, "manager", "asdf");
-
-                Insert(manager);
-            }
-        }
-
-        protected override User CreateRecord(IActiveRecord activeRecord)
-        {
-#warning //TODO: optimize
-            DAL.User dalUser = ((DAL.User) activeRecord);
-            UserProfile profile = new UserProfile(dalUser.Id);
-
-            User user = new User(dalUser.Id, (UserRole) dalUser.Role, dalUser.Username, dalUser.Password)
-                            {
-                                Address = profile.Address,
-                                City = profile.City,
-                                Email = profile.Email,
-                                Enabled = dalUser.Enabled,
-                                FirstName = profile.FirstName,
-                                LastName = profile.LastName,
-                                PhoneNumber = profile.PhoneNumber,
-                                State = profile.State,
-                                ZipCode = profile.Zip
-                            };
-
-            user.ManagerID = GetManagerID(user.ID);
-
-            return user;
-        }
-
         /// <summary>
         /// Get a User by username
         /// </summary>
-        /// <param name="userName">username</param>
-        public User GetByUsername(string userName)
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
+        public User GetByID(string username)
         {
-            if (userName == null)
+            if (username == null)
             {
-                throw new ArgumentNullException("userName");
+                throw new ArgumentNullException("username");
             }
 
-            return Get(0, userName);
+            Query query = DAL.User.CreateQuery()
+                .AddWhere(DAL.User.Columns.Username, Comparison.Equals, username);
+
+            return CreateRecord(query);
         }
 
         /// <summary>
@@ -162,51 +116,26 @@ namespace PMT.BLL
         }
 
         /// <summary>
-        /// Gets the user.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <returns></returns>
-        private User Get(int id, string userName)
-        {
-            Query query = DAL.User.CreateQuery();
-
-            if (userName != null)
-            {
-                query.AddWhere(DAL.User.Columns.Username, Comparison.Equals, userName);
-            }
-            else
-            {
-                query.AddWhere(DAL.User.Columns.Id, Comparison.Equals, id);
-            }
-
-            UserCollection collection = _userController.FetchByQuery(query);
-
-            if (collection.Count != 1)
-            {
-                return null;
-            }
-
-            return CreateRecord(collection[0]);
-        }
-
-        /// <summary>
         /// Gets the users.
         /// </summary>
         /// <param name="enabled">if set to <c>true</c> gets enabled users.</param>
         /// <returns></returns>
-        public ICollection<User> GetByEnabled(bool enabled)
+        public Collection<User> GetByEnabled(bool enabled)
         {
             Query query = DAL.User.CreateQuery().AddWhere(DAL.User.Columns.Enabled, Comparison.Equals, enabled);
-            UserCollection collection = _userController.FetchByQuery(query);
-
-            return CreateCollection(collection);
+            return CreateCollection(query);
         }
 
-        public ICollection<User> GetByRole(UserRole role)
+        public Collection<User> GetByRole(UserRole role)
         {
             Query query = DAL.User.CreateQuery().AddWhere(DAL.User.Columns.Role, Comparison.Equals, (short) role);
-            return CreateCollection(_userController.FetchByQuery(query));
+            return CreateCollection(query);
+        }
+
+        public Collection<User> GetByProject(int projectID)
+        {
+            UserCollection dalUsers = DAL.Project.GetUserCollection(projectID);
+            return CreateCollection(dalUsers);
         }
 
         /// <summary>
@@ -243,7 +172,7 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="username">The username.</param>
         /// <returns></returns>
-        public bool UsernameExists(string username)
+        public bool Exists(string username)
         {
             if (username == null)
             {
@@ -255,7 +184,7 @@ namespace PMT.BLL
             return _userController.FetchByQuery(query).Count == 1;
         }
 
-        public ICollection<User> GetByManager(int managerID)
+        public Collection<User> GetByManager(int managerID)
         {
             ManagerAssignmentCollection assignmentCollection =
                 new ManagerAssignmentCollection().Where(ManagerAssignment.Columns.ManagerID,
@@ -272,10 +201,12 @@ namespace PMT.BLL
 
         public UserStatistics GetStatistics()
         {
-            int admins = GetCount(UserRole.Administrator);
-            int managers = GetCount(UserRole.Manager);
-            int developers = GetCount(UserRole.Developer);
-            int clients = GetCount(UserRole.Client);
+            Dictionary<UserRole, int> dictionary = new Dictionary<UserRole, int>();
+            
+            foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
+            {
+                dictionary.Add(role, GetCount(role));
+            }
 
             Where where = new Where
                               {
@@ -284,9 +215,10 @@ namespace PMT.BLL
                                   ParameterValue = false
                               };
 
+            int totalUsers = DAL.User.CreateQuery().GetCount(DAL.User.Columns.Id);
             int newUsers = GetCount(where);
 
-            return new UserStatistics(admins, managers, developers, clients, newUsers);
+            return new UserStatistics(dictionary, totalUsers, newUsers);
         }
 
         /// <summary>
@@ -318,22 +250,50 @@ namespace PMT.BLL
 
         internal int GetManagerID(int userID)
         {
-            ManagerAssignmentCollection assignments =
-                new ManagerAssignmentController().FetchByQuery(
-                    ManagerAssignment.CreateQuery().AddWhere(ManagerAssignment.Columns.UserID, Comparison.Equals, userID));
-            if (assignments.Count != 1)
+            Query query = ManagerAssignment.CreateQuery().AddWhere(ManagerAssignment.Columns.UserID, Comparison.Equals,
+                                                                   userID);
+            User user = CreateRecord(query);
+
+            if (user != null)
             {
-                return -1;
+                return user.ID;
             }
 
-            return assignments[0].ManagerID;
+            return -1;
         }
 
-        public ICollection<User> GetByProject(int projectID)
+        public override void VerifyDefaults()
         {
-            UserCollection dalUsers = DAL.Project.GetUserCollection(projectID);
+            if (!Exists("admin"))
+            {
+                User admin = new User(UserRole.Administrator, "admin", "asdf");
+                admin.Enabled = true;
+                Insert(admin);
+            }
+        }
 
-            return CreateCollection(dalUsers);
+        protected override User CreateRecord(IActiveRecord activeRecord)
+        {
+#warning //TODO: optimize
+            DAL.User dalUser = ((DAL.User) activeRecord);
+            UserProfile profile = new UserProfile(dalUser.Id);
+
+            User user = new User(dalUser.Id, (UserRole) dalUser.Role, dalUser.Username, dalUser.Password)
+                            {
+                                Address = profile.Address,
+                                City = profile.City,
+                                Email = profile.Email,
+                                Enabled = dalUser.Enabled,
+                                FirstName = profile.FirstName,
+                                LastName = profile.LastName,
+                                PhoneNumber = profile.PhoneNumber,
+                                State = profile.State,
+                                ZipCode = profile.Zip
+                            };
+
+            user.ManagerID = GetManagerID(user.ID);
+
+            return user;
         }
     }
 }

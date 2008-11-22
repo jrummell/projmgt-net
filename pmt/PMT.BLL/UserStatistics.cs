@@ -1,53 +1,56 @@
+using System;
+using System.Collections.Generic;
+
 namespace PMT.BLL
 {
     public class UserStatistics
     {
-        private readonly int _admins;
-        private readonly int _clients;
-        private readonly int _developers;
-        private readonly int _managers;
-        private readonly int _users;
+        private readonly int _newUsers;
+        private readonly IDictionary<UserRole, int> _roleCounts;
+        private readonly int _totalUsers;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserStatistics"/> class.
         /// </summary>
-        /// <param name="admins">The admins.</param>
-        /// <param name="managers">The managers.</param>
-        /// <param name="developers">The developers.</param>
-        /// <param name="clients">The clients.</param>
-        /// <param name="users">The users.</param>
-        public UserStatistics(int admins, int managers, int developers, int clients, int users)
+        /// <param name="roleCounts">The role counts.</param>
+        /// <param name="totalUsers">The total users.</param>
+        /// <param name="newUsers">The new users.</param>
+        public UserStatistics(IDictionary<UserRole, int> roleCounts, int totalUsers, int newUsers)
         {
-            _admins = admins;
-            _managers = managers;
-            _developers = developers;
-            _clients = clients;
-            _users = users;
+            if (roleCounts == null)
+            {
+                throw new ArgumentNullException("roleCounts");
+            }
+            _roleCounts = roleCounts;
+            _totalUsers = totalUsers;
+            _newUsers = newUsers;
         }
 
-        public int Users
+        /// <summary>
+        /// Gets the total users.
+        /// </summary>
+        /// <value>The total users.</value>
+        public int TotalUsers
         {
-            get { return _users; }
+            get { return _totalUsers; }
         }
 
-        public int Clients
+        /// <summary>
+        /// Gets the new users.
+        /// </summary>
+        /// <value>The new users.</value>
+        public int NewUsers
         {
-            get { return _clients; }
+            get { return _newUsers; }
         }
 
-        public int Developers
+        /// <summary>
+        /// Gets the role counts.
+        /// </summary>
+        /// <value>The role counts.</value>
+        public IDictionary<UserRole, int> RoleCounts
         {
-            get { return _developers; }
-        }
-
-        public int Managers
-        {
-            get { return _managers; }
-        }
-
-        public int Admins
-        {
-            get { return _admins; }
+            get { return _roleCounts; }
         }
     }
 }

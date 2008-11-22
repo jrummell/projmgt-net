@@ -35,7 +35,7 @@ namespace PMT.Web
             //username verification
             //this requires two parts, one to make sure said username does not already exist
             //second, make sure said username is not already requested
-            if (userData.UsernameExists(ProfileControl1.Username))
+            if (userData.Exists(ProfileControl1.Username))
             {
                 //error out, username already exists
                 StatusLabel.Text = "Username Not Available.";

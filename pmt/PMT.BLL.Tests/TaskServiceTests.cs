@@ -32,7 +32,7 @@ namespace PMT.BLL.Tests
             moduleService.Insert(_module);
 
             UserService userService = new UserService();
-            _developer = new User(UserRole.Developer, "dev" + new Random().Next(), "asdf");
+            _developer = new User(UserRole.Developer, Guid.NewGuid().ToString(), "asdf");
             userService.Insert(_developer);
 
             base.TestInitialize();

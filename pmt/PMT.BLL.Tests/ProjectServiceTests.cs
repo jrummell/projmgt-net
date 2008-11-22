@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -66,12 +65,12 @@ namespace PMT.BLL.Tests
         {
             ProjectService target = new ProjectService();
             Project project = (Project) CreateRecord();
-            target.Insert(project);
+            Insert(project);
 
             target.Assign(project.ID, _manager.ID);
 
             target.Unassign(project.ID, _manager.ID);
-            
+
             CollectionAssert.DoesNotContain(target.GetByUser(_manager.ID), project);
         }
 
@@ -101,24 +100,73 @@ namespace PMT.BLL.Tests
         public override void Delete()
         {
             ProjectService target = new ProjectService();
-            UserService userService = new UserService();
-            User manager = userService.GetByUsername("manager");
-
-            List<Project> projects = new List<Project>(target.GetByUser(manager.ID));
-            Project project = projects[0];
-
-            ICollection<User> users = userService.GetByProject(project.ID);
+            Project project = (Project) CreateRecord();
+            Insert(project);
 
             target.Delete(project.ID);
 
             Assert.IsFalse(target.Exists(project.ID));
+        }
 
-            // restore
-            target.Insert(project);
-            foreach (User user in users)
+        [TestMethod]
+        public void DeleteWithModules()
+        {
+            ProjectService service = new ProjectService();
+            Project project = (Project) CreateRecord();
+            Insert(project);
+
+            ModuleService moduleService = new ModuleService();
+            for (int i = 0; i < 5; i++)
             {
-                target.Assign(project.ID, user.ID);
+                moduleService.Insert(new Module(project.ID, "Module", "Description"));
             }
+
+            service.Delete(project.ID);
+
+            Assert.AreEqual(0, moduleService.GetByProject(project.ID).Count);
+        }
+
+        [TestMethod]
+        public void DeleteWithTasks()
+        {
+            ProjectService service = new ProjectService();
+            Project project = (Project) CreateRecord();
+            Insert(project);
+
+            ModuleService moduleService = new ModuleService();
+            Module module = new Module(project.ID, "Name", "Description");
+            moduleService.Insert(module);
+
+            TaskService taskService = new TaskService();
+            for (int i = 0; i < 5; i++)
+            {
+                taskService.Insert(new Task(module.ID, "Task", "Description", TaskComplexity.Medium));
+            }
+
+            service.Delete(project.ID);
+
+            Assert.AreEqual(0, moduleService.GetByProject(project.ID).Count);
+            Assert.AreEqual(0, taskService.GetByModule(module.ID).Count);
+        }
+
+        [TestMethod]
+        public void DeleteAssigned()
+        {
+            ProjectService service = new ProjectService();
+            Project project = (Project) CreateRecord();
+            Insert(project);
+
+            UserService userService = new UserService();
+            User manager = new User(UserRole.Manager, String.Format("project{0}User", project.ID), "asdf");
+            userService.Insert(manager);
+
+            service.Assign(project.ID, manager.ID);
+
+            service.Delete(project.ID);
+
+            Assert.AreEqual(0, service.GetByUser(manager.ID).Count);
+
+            userService.Delete(manager.ID);
         }
 
         /// <summary>
@@ -133,7 +181,7 @@ namespace PMT.BLL.Tests
 
             target.Assign(project.ID, _manager.ID);
 
-            Assert.IsTrue(target.GetByUser(_manager.ID).Count == 1);
+            Assert.AreEqual(1, target.GetByUser(_manager.ID).Count);
 
             target.Unassign(project.ID, _manager.ID);
         }

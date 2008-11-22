@@ -13,7 +13,7 @@ namespace PMT.Web
                 if (HttpContext.Current.Session["user"] == null && HttpContext.Current.User.Identity.IsAuthenticated)
                 {
                     UserService data = new UserService();
-                    HttpContext.Current.Session["user"] = data.GetByUsername(HttpContext.Current.User.Identity.Name);
+                    HttpContext.Current.Session["user"] = data.GetByID(HttpContext.Current.User.Identity.Name);
                 }
 
                 return (User) HttpContext.Current.Session["user"];
@@ -24,21 +24,9 @@ namespace PMT.Web
 
         private void Application_Start(Object sender, EventArgs e)
         {
-            // make sure we have one admin and one manager
-            UserService data = new UserService();
-            if (!data.UsernameExists("admin"))
-            {
-                User admin = new User(UserRole.Administrator, "admin", "asdf");
-
-                data.Insert(admin);
-            }
-
-            if (!data.UsernameExists("manager"))
-            {
-                User manager = new User(UserRole.Manager, "manager", "asdf");
-
-                data.Insert(manager);
-            }
+            // make sure we an admin
+            UserService service = new UserService();
+            service.VerifyDefaults();
         }
 
         private void Session_Start(Object sender, EventArgs e)
