@@ -141,7 +141,7 @@ namespace PMT.DAL
 				TableSchema.TableColumn colvarUsername = new TableSchema.TableColumn(schema);
 				colvarUsername.ColumnName = "Username";
 				colvarUsername.DataType = DbType.AnsiString;
-				colvarUsername.MaxLength = 15;
+				colvarUsername.MaxLength = 36;
 				colvarUsername.AutoIncrement = false;
 				colvarUsername.IsNullable = false;
 				colvarUsername.IsPrimaryKey = false;
@@ -258,14 +258,6 @@ namespace PMT.DAL
 		{
 			return new PMT.DAL.ManagerAssignmentCollection().Where(ManagerAssignment.Columns.UserID, Id).Load();
 		}
-		public PMT.DAL.MessageRecipientCollection MessageRecipients()
-		{
-			return new PMT.DAL.MessageRecipientCollection().Where(MessageRecipient.Columns.UserID, Id).Load();
-		}
-		public PMT.DAL.MessageCollection Messages()
-		{
-			return new PMT.DAL.MessageCollection().Where(Message.Columns.SenderID, Id).Load();
-		}
 		public PMT.DAL.ProjectAssignmentCollection ProjectAssignments()
 		{
 			return new PMT.DAL.ProjectAssignmentCollection().Where(ProjectAssignment.Columns.UserID, Id).Load();
@@ -287,77 +279,6 @@ namespace PMT.DAL
 		
 		
 		#region Many To Many Helpers
-		
-		 
-		public PMT.DAL.MessageCollection GetMessageCollection() { return User.GetMessageCollection(this.Id); }
-		public static PMT.DAL.MessageCollection GetMessageCollection(int varId)
-		{
-		    SubSonic.QueryCommand cmd = new SubSonic.QueryCommand("SELECT * FROM [dbo].[Messages] INNER JOIN [MessageRecipients] ON [Messages].[ID] = [MessageRecipients].[MessageID] WHERE [MessageRecipients].[UserID] = @UserID", User.Schema.Provider.Name);
-			cmd.AddParameter("@UserID", varId, DbType.Int32);
-			IDataReader rdr = SubSonic.DataService.GetReader(cmd);
-			MessageCollection coll = new MessageCollection();
-			coll.LoadAndCloseReader(rdr);
-			return coll;
-		}
-		
-		public static void SaveMessageMap(int varId, MessageCollection items)
-		{
-			QueryCommandCollection coll = new SubSonic.QueryCommandCollection();
-			//delete out the existing
-			QueryCommand cmdDel = new QueryCommand("DELETE FROM [MessageRecipients] WHERE [MessageRecipients].[UserID] = @UserID", User.Schema.Provider.Name);
-			cmdDel.AddParameter("@UserID", varId, DbType.Int32);
-			coll.Add(cmdDel);
-			DataService.ExecuteTransaction(coll);
-			foreach (Message item in items)
-			{
-				MessageRecipient varMessageRecipient = new MessageRecipient();
-				varMessageRecipient.SetColumnValue("UserID", varId);
-				varMessageRecipient.SetColumnValue("MessageID", item.GetPrimaryKeyValue());
-				varMessageRecipient.Save();
-			}
-		}
-		public static void SaveMessageMap(int varId, System.Web.UI.WebControls.ListItemCollection itemList) 
-		{
-			QueryCommandCollection coll = new SubSonic.QueryCommandCollection();
-			//delete out the existing
-			 QueryCommand cmdDel = new QueryCommand("DELETE FROM [MessageRecipients] WHERE [MessageRecipients].[UserID] = @UserID", User.Schema.Provider.Name);
-			cmdDel.AddParameter("@UserID", varId, DbType.Int32);
-			coll.Add(cmdDel);
-			DataService.ExecuteTransaction(coll);
-			foreach (System.Web.UI.WebControls.ListItem l in itemList) 
-			{
-				if (l.Selected) 
-				{
-					MessageRecipient varMessageRecipient = new MessageRecipient();
-					varMessageRecipient.SetColumnValue("UserID", varId);
-					varMessageRecipient.SetColumnValue("MessageID", l.Value);
-					varMessageRecipient.Save();
-				}
-			}
-		}
-		public static void SaveMessageMap(int varId , int[] itemList) 
-		{
-			QueryCommandCollection coll = new SubSonic.QueryCommandCollection();
-			//delete out the existing
-			 QueryCommand cmdDel = new QueryCommand("DELETE FROM [MessageRecipients] WHERE [MessageRecipients].[UserID] = @UserID", User.Schema.Provider.Name);
-			cmdDel.AddParameter("@UserID", varId, DbType.Int32);
-			coll.Add(cmdDel);
-			DataService.ExecuteTransaction(coll);
-			foreach (int item in itemList) 
-			{
-				MessageRecipient varMessageRecipient = new MessageRecipient();
-				varMessageRecipient.SetColumnValue("UserID", varId);
-				varMessageRecipient.SetColumnValue("MessageID", item);
-				varMessageRecipient.Save();
-			}
-		}
-		
-		public static void DeleteMessageMap(int varId) 
-		{
-			QueryCommand cmdDel = new QueryCommand("DELETE FROM [MessageRecipients] WHERE [MessageRecipients].[UserID] = @UserID", User.Schema.Provider.Name);
-			cmdDel.AddParameter("@UserID", varId, DbType.Int32);
-			DataService.ExecuteQuery(cmdDel);
-		}
 		
 		 
 		public PMT.DAL.ProjectCollection GetProjectCollection() { return User.GetProjectCollection(this.Id); }

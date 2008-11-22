@@ -12,10 +12,7 @@ namespace PMT.Web.Admin
 
             UserStatistics statistics = taUsers.GetStatistics();
 
-            lblAdmins.Text = statistics.Admins.ToString();
-            lblManagers.Text = statistics.Managers.ToString();
-            lblDevelopers.Text = statistics.Developers.ToString();
-            lblClients.Text = statistics.Clients.ToString();
+            //TODO: make the labels a repeater
         }
 
         protected override void OnInit(EventArgs e)

@@ -62,15 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generated\AllStructs.cs" />
-    <Compile Include="Generated\CvCMatrix.cs" />
-    <Compile Include="Generated\CvCMatrixController.cs" />
+    <Compile Include="Generated\StoredProcedures.cs" />
     <Compile Include="IController.cs" />
     <Compile Include="Generated\ManagerAssignment.cs" />
     <Compile Include="Generated\ManagerAssignmentController.cs" />
-    <Compile Include="Generated\Message.cs" />
-    <Compile Include="Generated\MessageController.cs" />
-    <Compile Include="Generated\MessageRecipient.cs" />
-    <Compile Include="Generated\MessageRecipientController.cs" />
     <Compile Include="Generated\ModuleX.cs" />
     <Compile Include="Generated\ModuleXController.cs" />
     <Compile Include="Generated\Project.cs" />
@@ -95,6 +90,8 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="pmt.snk" />
+    <None Include="SqlScripts\Schema.sql" />
+    <None Include="SqlScripts\Data.sql" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="pmt.mdf">

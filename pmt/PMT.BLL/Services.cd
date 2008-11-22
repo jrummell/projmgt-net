@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PMT.BLL.DataService&lt;TRecord&gt;">
+    <Position X="6.75" Y="2" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAEAIAAAEQAAAAAAAAAAAAAEAAAAAAgAAkEEAgAA=</HashCode>
+      <FileName>DataService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PMT.BLL.ModuleService">
+    <Position X="3.5" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>ModuleService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.ProjectService">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAERABAAEAAAAAAAAAAAAAAEAAAAAAgAAIQAAAAA=</HashCode>
+      <FileName>ProjectService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.TaskService">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAERAAAAEAgAAAAAAAAAAAAgCAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>TaskService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PMT.BLL.UserService">
+    <Position X="10.25" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAQEAgAAQFAAAAAAAQCQMAAAEAAAAAAAAAkgEAAAA=</HashCode>
+      <FileName>UserService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="PMT.BLL.IDataService">
+    <Position X="3.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAkAEAAAA=</HashCode>
+      <FileName>IDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PMT.BLL.IDataService&lt;TRecord&gt;">
+    <Position X="3.25" Y="11.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAgAAAAAA=</HashCode>
+      <FileName>IDataService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

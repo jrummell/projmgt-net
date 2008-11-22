@@ -43,10 +43,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\GotDotNet.Elmah.dll</HintPath>
     </Reference>
-    <Reference Include="SubSonic, Version=2.1.0.0, Culture=neutral, PublicKeyToken=eadb47849839a332, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\SubSonic.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -265,10 +261,6 @@
     <ProjectReference Include="..\PMT.BLL\PMT.BLL.csproj">
       <Project>{23E5EC33-32C3-422F-AB40-3E261F072F9B}</Project>
       <Name>PMT.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PMT.DAL\PMT.DAL.csproj">
-      <Project>{7C4D657E-AE15-44E1-9B96-993A1FAED76E}</Project>
-      <Name>PMT.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

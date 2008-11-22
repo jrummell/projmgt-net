@@ -69,13 +69,6 @@ namespace PMT.BLL
             _projectController.Delete(id);
         }
 
-        private Project GetByName(string name)
-        {
-            Query query = DAL.Project.CreateQuery().AddWhere(DAL.Project.Columns.Name, Comparison.Equals, name);
-
-            return CreateRecord(query);
-        }
-
         /// <summary>
         /// Gets the assigned projects.
         /// </summary>
@@ -118,24 +111,6 @@ namespace PMT.BLL
         public void Unassign(int projectID, int userID)
         {
             _assignmentController.Delete(projectID, userID);
-        }
-
-        public override void VerifyDefaults()
-        {
-            Project project = GetByName("Project1");
-            if (project == null)
-            {
-                project = new Project("Project1", "Your first project");
-                Insert(project);
-            }
-
-            UserService userService = new UserService();
-            userService.VerifyDefaults();
-            User manager = userService.GetByUsername("manager");
-            if (GetByUser(manager.ID).Count == 0)
-            {
-                Assign(project.ID, manager.ID);
-            }
         }
 
         protected override Project CreateRecord(IActiveRecord activeRecord)

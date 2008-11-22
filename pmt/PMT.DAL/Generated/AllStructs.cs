@@ -17,13 +17,7 @@ namespace PMT.DAL
 	public partial struct Tables
 	{
 		
-		public static string CvCMatrix = @"CvCMatrix";
-        
 		public static string ManagerAssignment = @"ManagerAssignments";
-        
-		public static string MessageRecipient = @"MessageRecipients";
-        
-		public static string Message = @"Messages";
         
 		public static string ModuleX = @"Modules";
         
@@ -44,20 +38,8 @@ namespace PMT.DAL
     #region Schemas
     public partial class Schemas {
 		
-		public static TableSchema.Table CvCMatrix{
-            get { return DataService.GetSchema("CvCMatrix","SqlServer"); }
-		}
-        
 		public static TableSchema.Table ManagerAssignment{
             get { return DataService.GetSchema("ManagerAssignments","SqlServer"); }
-		}
-        
-		public static TableSchema.Table MessageRecipient{
-            get { return DataService.GetSchema("MessageRecipients","SqlServer"); }
-		}
-        
-		public static TableSchema.Table Message{
-            get { return DataService.GetSchema("Messages","SqlServer"); }
 		}
         
 		public static TableSchema.Table ModuleX{
