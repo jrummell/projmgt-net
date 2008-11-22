@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using System;
+using System.Collections.ObjectModel;
 using PMT.DAL;
 using SubSonic;
 
@@ -31,9 +32,6 @@ namespace PMT.BLL
                                          };
             dalProject.Save();
 
-            _projectController.Insert(project.Name, project.Description,
-                                      project.StartDate, project.ExpEndDate, project.ActEndDate);
-
             project.ID = dalProject.Id;
         }
 
@@ -62,23 +60,6 @@ namespace PMT.BLL
             _projectController.Delete(id);
         }
 
-        public override void VerifyDefaults()
-        {
-            Project project = GetByName("Project1");
-            if (project == null)
-            {
-                project = new Project("Project1", "Your first project");
-                Insert(project);
-            }
-
-            UserService userService = new UserService();
-            User manager = userService.GetByUsername("manager");
-            if (GetByUser(manager.ID).Count == 0)
-            {
-                Assign(project.ID, manager.ID);
-            }
-        }
-
         /// <summary>
         /// Unassigns the users.
         /// </summary>
@@ -92,20 +73,7 @@ namespace PMT.BLL
         {
             Query query = DAL.Project.CreateQuery().AddWhere(DAL.Project.Columns.Name, Comparison.Equals, name);
 
-            ProjectCollection collection = _projectController.FetchByQuery(query);
-            if (collection.Count == 0)
-            {
-                return null;
-            }
-
-            return CreateRecord(collection[0]);
-        }
-
-        protected override Project CreateRecord(IActiveRecord activeRecord)
-        {
-            DAL.Project dalProject = (DAL.Project) activeRecord;
-            return new Project(dalProject.Id, dalProject.Name, dalProject.Description, dalProject.StartDate,
-                               dalProject.ExpEndDate, dalProject.ActEndDate);
+            return CreateRecord(query);
         }
 
         /// <summary>
@@ -113,7 +81,7 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="userID">The user ID.</param>
         /// <returns></returns>
-        public ICollection<Project> GetByUser(int userID)
+        public Collection<Project> GetByUser(int userID)
         {
             ProjectCollection dalProjects = DAL.User.GetProjectCollection(userID);
             return CreateCollection(dalProjects);
@@ -129,13 +97,13 @@ namespace PMT.BLL
         {
             if (!Exists(projectID))
             {
-                throw new ServiceException("A project with ID = " + projectID + " does not exist.");
+                throw new ServiceException(String.Format("A project with ID = {0} does not exist.", projectID));
             }
 
             UserService userService = new UserService();
             if (!userService.Exists(userID))
             {
-                throw new ServiceException("A user with ID = " + userID + " does not exist.");
+                throw new ServiceException(String.Format("A user with ID = {0} does not exist.", userID));
             }
 
             _assignmentController.Insert(projectID, userID);
@@ -150,6 +118,31 @@ namespace PMT.BLL
         public void Unassign(int projectID, int userID)
         {
             _assignmentController.Delete(projectID, userID);
+        }
+
+        public override void VerifyDefaults()
+        {
+            Project project = GetByName("Project1");
+            if (project == null)
+            {
+                project = new Project("Project1", "Your first project");
+                Insert(project);
+            }
+
+            UserService userService = new UserService();
+            userService.VerifyDefaults();
+            User manager = userService.GetByUsername("manager");
+            if (GetByUser(manager.ID).Count == 0)
+            {
+                Assign(project.ID, manager.ID);
+            }
+        }
+
+        protected override Project CreateRecord(IActiveRecord activeRecord)
+        {
+            DAL.Project dalProject = (DAL.Project) activeRecord;
+            return new Project(dalProject.Id, dalProject.Name, dalProject.Description, dalProject.StartDate,
+                               dalProject.ExpEndDate, dalProject.ActEndDate);
         }
     }
 }

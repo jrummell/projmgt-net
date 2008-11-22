@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using PMT.DAL;
 using SubSonic;
@@ -21,15 +22,27 @@ namespace PMT.BLL
         /// <returns></returns>
         public override void Insert(Task task)
         {
-            _tasksController.Insert(
-                task.ModuleID,
-                task.Name,
-                task.Description,
-                task.StartDate,
-                task.ExpEndDate,
-                task.ActEndDate,
-                (short) task.Status,
-                (short) task.Complexity);
+            if (task == null)
+            {
+                throw new ArgumentNullException("task");
+            }
+
+            DAL.Task dalTask = new DAL.Task
+                                   {
+                                       ModuleID = task.ModuleID,
+                                       Name = task.Name,
+                                       Description = task.Description,
+                                       StartDate = task.StartDate,
+                                       ExpEndDate = task.ExpEndDate,
+                                       ActEndDate = task.ActEndDate,
+                                       Status = (short) task.Status,
+                                       Complexity = (short) task.Complexity
+
+                                   };
+
+            dalTask.Save();
+
+            task.ID = dalTask.Id;
         }
 
         /// <summary>
@@ -60,7 +73,7 @@ namespace PMT.BLL
             Collection<Task> collection = new Collection<Task>();
             TaskAssignmentCollection dalAssignments = _taskAssignmentController.FetchAll();
 
-#warning optimize
+#warning //TODO: optimize
             foreach (TaskAssignment taskAssignment in dalAssignments)
             {
                 collection.Add(CreateRecord(taskAssignment.Task));
@@ -96,6 +109,25 @@ namespace PMT.BLL
         /// <returns></returns>
         public void Assign(int taskID, int devID)
         {
+            if (!Exists(taskID))
+            {
+                throw new ServiceException(String.Format("A task with ID = {0} does not exist.", taskID));
+            }
+
+            UserService userService = new UserService();
+            if (!userService.Exists(devID))
+            {
+                throw new ServiceException(String.Format("A user with ID = {0} does not exist.", devID));
+            }
+
+            Query query = TaskAssignment.CreateQuery()
+                .AddWhere(TaskAssignment.Columns.TaskID, Comparison.Equals, taskID);
+
+            if (_taskAssignmentController.FetchByQuery(query).Count != 0)
+            {
+                throw new ServiceException(String.Format("Task with ID = {0} is already assigned.", taskID));
+            }
+
             _taskAssignmentController.Insert(taskID, devID);
         }
 
@@ -103,11 +135,29 @@ namespace PMT.BLL
         /// Unassigns the task.
         /// </summary>
         /// <param name="taskID">The task ID.</param>
-        /// <param name="devID">The dev ID.</param>
-        /// <returns></returns>
-        public void Unassign(int taskID, int devID)
+        public void Unassign(int taskID)
         {
-            _taskAssignmentController.Delete(taskID, devID);
+            if (!Exists(taskID))
+            {
+                throw new ServiceException(String.Format("A task with ID = {0} does not exist.", taskID));
+            }
+
+            _taskAssignmentController.Delete(taskID);
+        }
+
+        public Collection<Task> GetByUser(int devID)
+        {
+            Query query = TaskAssignment.CreateQuery().AddWhere(TaskAssignment.Columns.UserID, Comparison.Equals, devID);
+            TaskAssignmentCollection assignmentCollection = _taskAssignmentController.FetchByQuery(query);
+
+#warning //TODO: optimize
+            Collection<Task> tasks = new Collection<Task>();
+            foreach (TaskAssignment assignment in assignmentCollection)
+            {
+                tasks.Add(CreateRecord(assignment.Task));
+            }
+
+            return tasks;
         }
     }
 }

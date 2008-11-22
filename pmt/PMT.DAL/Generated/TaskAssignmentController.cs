@@ -74,18 +74,6 @@ namespace PMT.DAL
         }
         
         
-        
-        [DataObjectMethod(DataObjectMethodType.Delete, true)]
-        public bool Delete(int TaskID,int UserID)
-        {
-            Query qry = new Query(TaskAssignment.Schema);
-            qry.QueryType = QueryType.Delete;
-            qry.AddWhere("TaskID", TaskID).AND("UserID", UserID);
-            qry.Execute();
-            return (true);
-        }        
-       
-    	
     	
 	    /// <summary>
 	    /// Inserts a record, can be used with the Object Data Source

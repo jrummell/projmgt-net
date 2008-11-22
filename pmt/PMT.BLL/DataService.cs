@@ -171,5 +171,26 @@ namespace PMT.BLL
         /// <param name="activeRecord">The active record.</param>
         /// <returns></returns>
         protected abstract TRecord CreateRecord(IActiveRecord activeRecord);
+
+        /// <summary>
+        /// Creates a single record from the query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns></returns>
+        protected TRecord CreateRecord(Query query)
+        {
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+
+            Collection<TRecord> collection = CreateCollection(query);
+            if (collection.Count == 0)
+            {
+                return null;
+            }
+
+            return collection[0];
+        }
     }
 }
