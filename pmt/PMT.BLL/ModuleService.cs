@@ -35,13 +35,18 @@ namespace PMT.BLL
         /// <returns></returns>
         public override void Insert(Module module)
         {
-            _controller.Insert(
-                module.ProjectID,
-                module.Name,
-                module.Description,
-                module.StartDate,
-                module.ExpEndDate,
-                module.ActEndDate);
+            ModuleX dalModule = new ModuleX
+                                    {
+                                        ActEndDate = module.ActEndDate,
+                                        Description = module.Description,
+                                        ExpEndDate = module.ExpEndDate,
+                                        Name = module.Name,
+                                        ProjectID = module.ProjectID,
+                                        StartDate = module.StartDate
+                                    };
+            dalModule.Save();
+
+            module.ID = dalModule.Id;
         }
 
         /// <summary>

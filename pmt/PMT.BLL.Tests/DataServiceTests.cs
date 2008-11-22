@@ -30,6 +30,21 @@ namespace PMT.BLL.Tests
         ///</summary>
         public TestContext TestContext { get; set; }
 
+        [TestInitialize]
+        public virtual void TestInitialize()
+        {
+            _dataService.VerifyDefaults();
+        }
+
+        [TestCleanup]
+        public virtual void TestCleanup()
+        {
+            foreach (IRecord record in _insertedRecords)
+            {
+                _dataService.Delete(record.ID);
+            }
+        }
+
         /// <summary>
         ///A test for Update
         ///</summary>
@@ -87,10 +102,17 @@ namespace PMT.BLL.Tests
         }
 
         /// <summary>
-        /// Creates the record.
-        /// </summary>
-        /// <returns></returns>
-        protected abstract IRecord CreateRecord();
+        ///A test for Delete
+        ///</summary>
+        [TestMethod]
+        public virtual void Delete()
+        {
+            IRecord record = CreateRecord();
+
+            _dataService.Delete(record.ID);
+            Assert.IsNull(_dataService.GetByID(record.ID));
+            Assert.IsFalse(_dataService.Exists(record.ID));
+        }
 
         /// <summary>
         /// Inserts the specified record.
@@ -109,31 +131,9 @@ namespace PMT.BLL.Tests
         }
 
         /// <summary>
-        ///A test for Delete
-        ///</summary>
-        [TestMethod]
-        public virtual void Delete()
-        {
-            IRecord record = CreateRecord();
-
-            _dataService.Delete(record.ID);
-            Assert.IsNull(_dataService.GetByID(record.ID));
-            Assert.IsFalse(_dataService.Exists(record.ID));
-        }
-
-        [TestInitialize]
-        public virtual void TestInitialize()
-        {
-            _dataService.VerifyDefaults();
-        }
-
-        [TestCleanup]
-        public virtual void TestCleanup()
-        {
-            foreach (IRecord record in _insertedRecords)
-            {
-                _dataService.Delete(record.ID);
-            }
-        }
+        /// Creates the record.
+        /// </summary>
+        /// <returns></returns>
+        protected abstract IRecord CreateRecord();
     }
 }

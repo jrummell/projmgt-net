@@ -136,7 +136,7 @@ namespace PMT.DAL
 				colvarTaskID.IsReadOnly = false;
 				colvarTaskID.DefaultSetting = @"";
 				
-					colvarTaskID.ForeignKeyTableName = "Users";
+					colvarTaskID.ForeignKeyTableName = "Tasks";
 				schema.Columns.Add(colvarTaskID);
 				
 				TableSchema.TableColumn colvarUserID = new TableSchema.TableColumn(schema);
@@ -145,11 +145,12 @@ namespace PMT.DAL
 				colvarUserID.MaxLength = 0;
 				colvarUserID.AutoIncrement = false;
 				colvarUserID.IsNullable = false;
-				colvarUserID.IsPrimaryKey = true;
-				colvarUserID.IsForeignKey = false;
+				colvarUserID.IsPrimaryKey = false;
+				colvarUserID.IsForeignKey = true;
 				colvarUserID.IsReadOnly = false;
 				colvarUserID.DefaultSetting = @"";
-				colvarUserID.ForeignKeyTableName = "";
+				
+					colvarUserID.ForeignKeyTableName = "Users";
 				schema.Columns.Add(colvarUserID);
 				
 				BaseSchema = schema;
@@ -202,8 +203,8 @@ namespace PMT.DAL
 		/// </summary>
 		public PMT.DAL.User User
 		{
-			get { return PMT.DAL.User.FetchByID(this.TaskID); }
-			set { SetColumnValue("TaskID", value.Id); }
+			get { return PMT.DAL.User.FetchByID(this.UserID); }
+			set { SetColumnValue("UserID", value.Id); }
 		}
 		
 		

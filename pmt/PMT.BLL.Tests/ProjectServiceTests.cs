@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PMT.BLL.Tests
@@ -10,6 +12,8 @@ namespace PMT.BLL.Tests
     [TestClass]
     public class ProjectServiceTests : DataServiceTests
     {
+        private User _manager;
+
         public ProjectServiceTests()
             : base(new ProjectService())
         {
@@ -19,10 +23,19 @@ namespace PMT.BLL.Tests
         public override void TestInitialize()
         {
             UserService userService = new UserService();
-            userService.VerifyDefaults();
+            _manager = new User(UserRole.Manager, "Name" + new Random().Next(), "asdf");
+            userService.Insert(_manager);
 
-            ProjectService projectService = new ProjectService();
-            projectService.VerifyDefaults();
+            base.TestInitialize();
+        }
+
+        [TestCleanup]
+        public override void TestCleanup()
+        {
+            UserService userService = new UserService();
+            userService.Delete(_manager.ID);
+
+            base.TestCleanup();
         }
 
         /// <summary>
@@ -52,46 +65,14 @@ namespace PMT.BLL.Tests
         public void Unassign()
         {
             ProjectService target = new ProjectService();
-            const int projectID = 1;
-            const int userID = 1;
-
-            // make sure we have an assigned project
-            List<Project> projects = new List<Project>(target.GetByUser(userID));
-            if (projects.Count == 0 || !Contains(projects, projectID))
-            {
-                target.Assign(projectID, userID);
-            }
-
-            target.Unassign(projectID, userID);
-
-            foreach (Project project in target.GetByUser(userID))
-            {
-                Assert.AreNotEqual(projectID, project.ID);
-            }
-
-            target.Assign(projectID, userID);
-        }
-
-        private static bool Contains(List<Project> projects, int projectID)
-        {
-            Project found = projects.Find(project => project.ID == projectID);
-
-            return found != null;
-        }
-
-        /// <summary>
-        ///A test for Insert
-        ///</summary>
-        [TestMethod]
-        public override void Insert()
-        {
-            ProjectService target = new ProjectService();
-            Project project = new Project("Name", "Description");
+            Project project = (Project) CreateRecord();
             target.Insert(project);
 
-            Assert.IsTrue(target.Exists(project.ID));
+            target.Assign(project.ID, _manager.ID);
 
-            target.Delete(project.ID);
+            target.Unassign(project.ID, _manager.ID);
+            
+            CollectionAssert.DoesNotContain(target.GetByUser(_manager.ID), project);
         }
 
         /// <summary>
@@ -101,49 +82,16 @@ namespace PMT.BLL.Tests
         public void GetByUser()
         {
             ProjectService target = new ProjectService();
-            User manager = new UserService().GetByUsername("manager");
-            ICollection<Project> actual = target.GetByUser(manager.ID);
+            Project project = (Project) CreateRecord();
+            Insert(project);
 
-            Assert.IsTrue(actual.Count > 0);
-        }
+            target.Assign(project.ID, _manager.ID);
 
-        /// <summary>
-        ///A test for GetByID
-        ///</summary>
-        [TestMethod]
-        public override void GetByID()
-        {
-            Project project = new Project("Name", "Description");
-            InsertAndGetById(project);
-        }
+            Collection<Project> actual = target.GetByUser(_manager.ID);
 
-        /// <summary>
-        /// A test for Exists
-        /// </summary>
-        [TestMethod]
-        public override void Exists()
-        {
-            Project project = new Project("Name", "Description");
+            Assert.IsTrue(actual.Count == 1);
 
-            InsertAndGetById(project);
-
-            ProjectService service = new ProjectService();
-            Assert.IsTrue(service.Exists(project.ID));
-        }
-
-        protected override IRecord CreateRecord()
-        {
-            return new Project("Name", "Description");
-        }
-
-        private static void InsertAndGetById(Project project)
-        {
-            ProjectService target = new ProjectService();
-            target.Insert(project);
-
-            Project actual = target.GetByID(project.ID);
-            Assert.IsNotNull(actual);
-            Assert.AreEqual(project.ID, actual.ID);
+            target.Unassign(project.ID, _manager.ID);
         }
 
         /// <summary>
@@ -180,19 +128,19 @@ namespace PMT.BLL.Tests
         public void Assign()
         {
             ProjectService target = new ProjectService();
-            const int projectID = 1;
-            const int userID = 1;
+            Project project = (Project) CreateRecord();
+            Insert(project);
 
-            // unassign project if it's already assigned
-            List<Project> projects = new List<Project>(target.GetByUser(userID));
-            if (Contains(projects, projectID))
-            {
-                target.Unassign(projectID, userID);
-            }
+            target.Assign(project.ID, _manager.ID);
 
-            target.Assign(projectID, userID);
+            Assert.IsTrue(target.GetByUser(_manager.ID).Count == 1);
 
-            Assert.IsTrue(target.GetByUser(userID).Count > 0);
+            target.Unassign(project.ID, _manager.ID);
+        }
+
+        protected override IRecord CreateRecord()
+        {
+            return new Project("Name", "Description");
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 namespace PMT.BLL
 {
     /// <summary>
-    /// The type of the Project Item ...
+    /// The type of the Project Item
     /// </summary>
     public enum ProjectItemType
     {
@@ -20,6 +20,12 @@ namespace PMT.BLL
         /// <summary>
         /// Main Constructor
         /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="startDate">The start date.</param>
+        /// <param name="expEndDate">The exp end date.</param>
+        /// <param name="actEndDate">The act end date.</param>
         protected ProjectItem(int id, string name, string description,
                               DateTime? startDate, DateTime? expEndDate, DateTime? actEndDate)
         {

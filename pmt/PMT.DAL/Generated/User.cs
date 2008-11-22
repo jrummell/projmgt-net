@@ -232,10 +232,7 @@ namespace PMT.DAL
 			get { return GetColumnValue<bool>(Columns.Enabled); }
 			set { SetColumnValue(Columns.Enabled, value); }
 		}
-
-        /// <summary>
-        /// Gets or sets the **Encrypted** password
-        /// </summary>
+		  
 		[XmlAttribute("Password")]
 		[Bindable(true)]
 		public string Password 
@@ -275,7 +272,7 @@ namespace PMT.DAL
 		}
 		public PMT.DAL.TaskAssignmentCollection TaskAssignments()
 		{
-			return new PMT.DAL.TaskAssignmentCollection().Where(TaskAssignment.Columns.TaskID, Id).Load();
+			return new PMT.DAL.TaskAssignmentCollection().Where(TaskAssignment.Columns.UserID, Id).Load();
 		}
 		public PMT.DAL.UserProfileCollection UserProfileRecords()
 		{
@@ -430,77 +427,6 @@ namespace PMT.DAL
 		{
 			QueryCommand cmdDel = new QueryCommand("DELETE FROM [ProjectAssignments] WHERE [ProjectAssignments].[UserID] = @UserID", User.Schema.Provider.Name);
 			cmdDel.AddParameter("@UserID", varId, DbType.Int32);
-			DataService.ExecuteQuery(cmdDel);
-		}
-		
-		 
-		public PMT.DAL.TaskCollection GetTaskCollection() { return User.GetTaskCollection(this.Id); }
-		public static PMT.DAL.TaskCollection GetTaskCollection(int varId)
-		{
-		    SubSonic.QueryCommand cmd = new SubSonic.QueryCommand("SELECT * FROM [dbo].[Tasks] INNER JOIN [TaskAssignments] ON [Tasks].[ID] = [TaskAssignments].[TaskID] WHERE [TaskAssignments].[TaskID] = @TaskID", User.Schema.Provider.Name);
-			cmd.AddParameter("@TaskID", varId, DbType.Int32);
-			IDataReader rdr = SubSonic.DataService.GetReader(cmd);
-			TaskCollection coll = new TaskCollection();
-			coll.LoadAndCloseReader(rdr);
-			return coll;
-		}
-		
-		public static void SaveTaskMap(int varId, TaskCollection items)
-		{
-			QueryCommandCollection coll = new SubSonic.QueryCommandCollection();
-			//delete out the existing
-			QueryCommand cmdDel = new QueryCommand("DELETE FROM [TaskAssignments] WHERE [TaskAssignments].[TaskID] = @TaskID", User.Schema.Provider.Name);
-			cmdDel.AddParameter("@TaskID", varId, DbType.Int32);
-			coll.Add(cmdDel);
-			DataService.ExecuteTransaction(coll);
-			foreach (Task item in items)
-			{
-				TaskAssignment varTaskAssignment = new TaskAssignment();
-				varTaskAssignment.SetColumnValue("TaskID", varId);
-				varTaskAssignment.SetColumnValue("TaskID", item.GetPrimaryKeyValue());
-				varTaskAssignment.Save();
-			}
-		}
-		public static void SaveTaskMap(int varId, System.Web.UI.WebControls.ListItemCollection itemList) 
-		{
-			QueryCommandCollection coll = new SubSonic.QueryCommandCollection();
-			//delete out the existing
-			 QueryCommand cmdDel = new QueryCommand("DELETE FROM [TaskAssignments] WHERE [TaskAssignments].[TaskID] = @TaskID", User.Schema.Provider.Name);
-			cmdDel.AddParameter("@TaskID", varId, DbType.Int32);
-			coll.Add(cmdDel);
-			DataService.ExecuteTransaction(coll);
-			foreach (System.Web.UI.WebControls.ListItem l in itemList) 
-			{
-				if (l.Selected) 
-				{
-					TaskAssignment varTaskAssignment = new TaskAssignment();
-					varTaskAssignment.SetColumnValue("TaskID", varId);
-					varTaskAssignment.SetColumnValue("TaskID", l.Value);
-					varTaskAssignment.Save();
-				}
-			}
-		}
-		public static void SaveTaskMap(int varId , int[] itemList) 
-		{
-			QueryCommandCollection coll = new SubSonic.QueryCommandCollection();
-			//delete out the existing
-			 QueryCommand cmdDel = new QueryCommand("DELETE FROM [TaskAssignments] WHERE [TaskAssignments].[TaskID] = @TaskID", User.Schema.Provider.Name);
-			cmdDel.AddParameter("@TaskID", varId, DbType.Int32);
-			coll.Add(cmdDel);
-			DataService.ExecuteTransaction(coll);
-			foreach (int item in itemList) 
-			{
-				TaskAssignment varTaskAssignment = new TaskAssignment();
-				varTaskAssignment.SetColumnValue("TaskID", varId);
-				varTaskAssignment.SetColumnValue("TaskID", item);
-				varTaskAssignment.Save();
-			}
-		}
-		
-		public static void DeleteTaskMap(int varId) 
-		{
-			QueryCommand cmdDel = new QueryCommand("DELETE FROM [TaskAssignments] WHERE [TaskAssignments].[TaskID] = @TaskID", User.Schema.Provider.Name);
-			cmdDel.AddParameter("@TaskID", varId, DbType.Int32);
 			DataService.ExecuteQuery(cmdDel);
 		}
 		
