@@ -1,32 +1,33 @@
-<%@ Page Language="c#" MasterPageFile="~/Master/Default.master"
-    Inherits="PMT.Web.Admin.Default" AutoEventWireup="false" Codebehind="~/Admin/Default.aspx.cs" %>
-<%@ Import Namespace="PMT.BLL" %>
+<%@ Page Language="c#" MasterPageFile="~/Master/Default.master" Inherits="PMT.Web.Admin.Default"
+    AutoEventWireup="false" CodeBehind="~/Admin/Default.aspx.cs" %>
 
+<%@ Import Namespace="PMT.BLL" %>
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
-    <h3>Admin</h3>
-    <a href="NewUsers.aspx">New/Disabled Users</a>: <asp:Label ID="lblNewUsers" runat="server"></asp:Label>
-    <br /><br />
-    <a href="Users.aspx">Total Active Users</a>: <asp:Label ID="lblTotalUsers" runat="server"></asp:Label>
-    <table>
-        <tr>
-            <td><a href="Users.aspx?role=<%= (int)UserRole.Administrator %>">Adminstrators</a>:</td>
-            <td>
-                <asp:Label ID="lblAdmins" runat="server"></asp:Label></td>
-        </tr>
-        <tr>
-            <td><a href="Users.aspx?role=<%= (int)UserRole.Manager %>">Managers</a>:</td>
-            <td>
-                <asp:Label ID="lblManagers" runat="server"></asp:Label></td>
-        </tr>
-        <tr>
-            <td><a href="Users.aspx?role=<%= (int)UserRole.Developer %>">Developers</a>:</td>
-            <td>
-                <asp:Label ID="lblDevelopers" runat="server"></asp:Label></td>
-        </tr>
-        <tr>
-            <td><a href="Users.aspx?role=<%= (int)UserRole.Client %>">Clients</a>:</td>
-            <td>
-                <asp:Label ID="lblClients" runat="server"></asp:Label></td>
-        </tr>
-    </table>
+    <h3>
+        Admin</h3>
+    <p>
+        <a href="NewUsers.aspx">New/Disabled Users</a>:
+        <asp:Label ID="lblNewUsers" runat="server"></asp:Label></p>
+    <p>
+        <a href="Users.aspx">Total Active Users</a>:
+        <asp:Label ID="lblTotalUsers" runat="server"></asp:Label></p>
+    <asp:Repeater ID="rptUsers" runat="server">
+        <HeaderTemplate>
+            <table>
+        </HeaderTemplate>
+        <ItemTemplate>
+            <tr>
+                <td>
+                    <a href="Users.aspx?role=<%# Eval("Key") %>">
+                        <%# Eval("Key") %>s</a>:
+                </td>
+                <td>
+                    <%# Eval("Value") %>
+                </td>
+            </tr>
+        </ItemTemplate>
+        <FooterTemplate>
+            </table>
+        </FooterTemplate>
+    </asp:Repeater>
 </asp:Content>
