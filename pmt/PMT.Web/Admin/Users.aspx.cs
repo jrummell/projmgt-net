@@ -8,18 +8,10 @@ namespace PMT.Web.Admin
 {
     public partial class Users : Page
     {
-        protected UserRole Role
+        protected override void OnInit(EventArgs e)
         {
-            get
-            {
-                string s = Request["role"];
-
-                if (s == null)
-                {
-                    return (UserRole) (-1);
-                }
-                return (UserRole) Enum.Parse(typeof (UserRole), s);
-            }
+            base.OnInit(e);
+            Load += Page_Load;
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -27,23 +19,23 @@ namespace PMT.Web.Admin
             if (!IsPostBack)
             {
                 // bind roles ddl
-                int[] values = (int[]) Enum.GetValues(typeof (UserRole));
-                string[] names = Enum.GetNames(typeof (UserRole));
-                for (int i = 0; i < values.Length; i++)
+                foreach (UserRole userRole in Enum.GetValues(typeof (UserRole)))
                 {
-                    ddlRoles.Items.Add(new ListItem(names[i], values[i].ToString()));
+                    ddlRole.Items.Add(new ListItem(userRole.ToString(), userRole.ToString("d")));
                 }
-                ddlRoles.Items.Insert(0, new ListItem("All", String.Empty));
+                ddlRole.Items.Insert(0, new ListItem("All", String.Empty));
 
                 // bind users datagrid
                 UserService userData = new UserService();
                 ICollection<User> users;
+                
                 // filter by selected role
-                UserRole role = Role;
-                if (Enum.IsDefined(typeof (UserRole), role))
+                string roleString = Request["role"];
+                if (!String.IsNullOrEmpty(roleString))
                 {
+                    UserRole role = (UserRole) Enum.Parse(typeof(UserRole), roleString);
                     users = userData.GetByRole(role);
-                    ddlRoles.SelectedValue = role.ToString("d");
+                    ddlRole.Items.FindByValue(role.ToString("d")).Selected = true;
                 }
                 else
                 {
@@ -53,38 +45,6 @@ namespace PMT.Web.Admin
                 UserDataGrid.DataSource = users;
                 UserDataGrid.DataBind();
             }
-        }
-
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            UserDataGrid.ItemDataBound += UserDataGrid_ItemDataBound;
-            Load += Page_Load;
-        }
-
-        private void UserDataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                e.Item.Cells[e.Item.Cells.Count - 1].Text = Enum.GetName(typeof (UserRole),
-                                                                         Convert.ToInt32(
-                                                                             e.Item.Cells[e.Item.Cells.Count - 1].Text));
-            }
-        }
-
-        protected void ddlRoles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DropDownList ddl = (DropDownList) sender;
-            string val = ddl.SelectedValue;
-
-            string page = Request.AppRelativeCurrentExecutionFilePath;
-
-            if (!String.IsNullOrEmpty(val))
-            {
-                page = String.Format(page + "?role={0}", val);
-            }
-
-            Response.Redirect(page);
         }
     }
 }

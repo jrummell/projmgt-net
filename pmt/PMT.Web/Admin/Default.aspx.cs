@@ -6,19 +6,22 @@ namespace PMT.Web.Admin
 {
     public partial class Default : Page
     {
-        private void Page_Load(object sender, EventArgs e)
-        {
-            var taUsers = new UserService();
-
-            UserStatistics statistics = taUsers.GetStatistics();
-
-            //TODO: make the labels a repeater
-        }
-
         protected override void OnInit(EventArgs e)
         {
             base.OnInit(e);
             Load += Page_Load;
+        }
+
+        private void Page_Load(object sender, EventArgs e)
+        {
+            UserService service = new UserService();
+            UserStatistics statistics = service.GetStatistics();
+
+            lblNewUsers.Text = statistics.NewUsers.ToString();
+            lblTotalUsers.Text = statistics.TotalUsers.ToString();
+
+            rptUsers.DataSource = statistics.RoleCounts;
+            rptUsers.DataBind();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace PMT.BLL
         /// <param name="roleCounts">The role counts.</param>
         /// <param name="totalUsers">The total users.</param>
         /// <param name="newUsers">The new users.</param>
-        public UserStatistics(IDictionary<UserRole, int> roleCounts, int totalUsers, int newUsers)
+        internal UserStatistics(IDictionary<UserRole, int> roleCounts, int totalUsers, int newUsers)
         {
             if (roleCounts == null)
             {

@@ -14,7 +14,7 @@ namespace PMT.Web.Controls
 
         private void Page_Load(object sender, EventArgs e)
         {
-            hlElmah.NavigateUrl = "~/Admin/elmah/default.aspx";
+            hlElmah.NavigateUrl = "~/Admin/elmah.axd";
 
             if (Context.User.Identity.IsAuthenticated)
             {
