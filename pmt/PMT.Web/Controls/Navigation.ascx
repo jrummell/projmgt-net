@@ -5,12 +5,14 @@
     <br />
     <asp:HyperLink ID="HyperLink6" runat="server" NavigateUrl="~/Client/Projects.aspx">Projects</asp:HyperLink>
     <br />
+    <asp:HyperLink ID="HyperLink4" runat="server" NavigateUrl="~/AllUsers/Reports.aspx">Reports</asp:HyperLink>
 </div>
 <div id="divDevloper" runat="server" visible="false">
     <asp:HyperLink ID="HyperLink7" runat="server" NavigateUrl="~/Dev/">Developer Home</asp:HyperLink>
     <br />
     <asp:HyperLink ID="HyperLink8" runat="server" NavigateUrl="~/Dev/Tasks.aspx">Tasks</asp:HyperLink>
     <br />
+    <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/AllUsers/Reports.aspx">Reports</asp:HyperLink>
 </div>
 <div id="divManager" runat="server" visible="false">
     <asp:HyperLink ID="HyperLink9" runat="server" NavigateUrl="~/PM/">Manager Home</asp:HyperLink>
@@ -21,6 +23,7 @@
     <br />
     <asp:HyperLink ID="HyperLink12" runat="server" NavigateUrl="~/PM/Assign.aspx">Task Assignments</asp:HyperLink>
     <br />
+    <asp:HyperLink ID="HyperLink14" runat="server" NavigateUrl="~/AllUsers/Reports.aspx">Reports</asp:HyperLink>
 </div>
 <div id="divAdministrator" runat="server" visible="false">
     <asp:HyperLink ID="HyperLink0" runat="server" NavigateUrl="~/Admin/">Administrator Home</asp:HyperLink>
@@ -32,5 +35,3 @@
     <asp:HyperLink ID="hlElmah" runat="server" Target="_blank">Error Log</asp:HyperLink>
     <br />
 </div>
-<asp:HyperLink ID="HyperLink14" runat="server" NavigateUrl="~/AllUsers/Reports.aspx">Reports</asp:HyperLink>
-<br />

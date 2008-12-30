@@ -191,6 +191,7 @@
     <Compile Include="Master\Default.master.designer.cs">
       <DependentUpon>Default.master</DependentUpon>
     </Compile>
+    <Compile Include="PmtRoleProvider.cs" />
     <Compile Include="PM\Assign.aspx.cs">
       <DependentUpon>Assign.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

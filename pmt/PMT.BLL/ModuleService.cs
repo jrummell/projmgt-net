@@ -12,7 +12,7 @@ namespace PMT.BLL
         /// Initializes a new instance of the <see cref="ModuleService"/> class.
         /// </summary>
         public ModuleService()
-            : base(new ModuleXController())
+            : base(typeof(ModuleXController))
         {
         }
 

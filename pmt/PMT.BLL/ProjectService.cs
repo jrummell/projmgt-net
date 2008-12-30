@@ -11,7 +11,7 @@ namespace PMT.BLL
         private readonly ProjectController _projectController = new ProjectController();
 
         public ProjectService()
-            : base(new ProjectController())
+            : base(typeof(ProjectController))
         {
         }
 

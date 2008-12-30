@@ -1,5 +1,6 @@
 using System;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using PMT.BLL;
 
 namespace PMT.Web.Controls
@@ -13,8 +14,11 @@ namespace PMT.Web.Controls
             // Put user code to initialize the page here
             if (!IsPostBack)
             {
-                SecurityDropDownList.DataSource = Enum.GetNames(typeof (UserRole));
-                SecurityDropDownList.DataBind();
+                UserRole[] roles = (UserRole[]) Enum.GetValues(typeof (UserRole));
+                foreach (UserRole role in roles)
+                {
+                    SecurityDropDownList.Items.Add(new ListItem(role.ToString(), role.ToString("d")));
+                }
             }
         }
 
@@ -96,7 +100,7 @@ namespace PMT.Web.Controls
             UsernameLabel.Text = user.Username;
 
             // select the correct Security in the dropdown
-            SecurityDropDownList.SelectedIndex = (int) user.Role;
+            SecurityDropDownList.SelectedValue = user.Role.ToString("d");
             SecurityLabel.Text = user.Role.ToString();
         }
 
@@ -118,11 +122,13 @@ namespace PMT.Web.Controls
             user.FirstName = FirstNameTextBox.Text;
             user.LastName = LastNameTextBox.Text;
             user.PhoneNumber = PhoneTextBox.Text;
-            //if(this.AllowChangeSecurity)
-            //    user.GetRole() = (UserRole)Enum.Parse(typeof(UserRole), this.SecurityDropDownList.SelectedItem.Text);
             user.State = StateTextBox.Text;
             user.ZipCode = ZipTextBox.Text;
-            user.Password = NewPassword1TextBox.Text;
+
+            if (NewPassword1TextBox.Text.Length > 0)
+            {
+                user.Password = NewPassword1TextBox.Text;
+            }
         }
 
         #region User Properties

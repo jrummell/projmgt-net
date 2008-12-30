@@ -1,44 +1,41 @@
+using System;
 using System.Web.UI;
 using PMT.BLL;
 
 namespace PMT.Web.AllUsers
 {
-    public partial class UserProfile : Page
+    public partial class Profile : Page
     {
-        private User user;
-        private UserService userData;
-
-        protected void Page_Load(object sender, System.EventArgs e)
+        protected override void OnInit(EventArgs e)
         {
-            // Put user code to initialize the page here
-            if (!Page.IsPostBack)
+            base.OnInit(e);
+
+            Load += Page_Load;
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
             {
-                ProfileControl1.AllowChangeUsername = false;
-                ProfileControl1.AllowChangePassword = true;
-                ProfileControl1.AllowChangeSecurity = false;
-
-                userData = new UserService();
-                user = userData.GetByID(Global.LoggedInUser.ID);
-
-                // fill the form with the user's information
-                ProfileControl1.FillForm(user);
+                ProfileControl1.FillForm(Global.LoggedInUser);
             }
             StatusLabel.Visible = false;
         }
 
-        protected void SubmitButton_Click(object sender, System.EventArgs e)
+        protected void SubmitButton_Click(object sender, EventArgs e)
         {
             StatusLabel.Visible = false;
             if (!Page.IsValid)
+            {
                 return;
+            }
 
-            // create a user obj, fill it from the profile control, 
-            //  and update the database
-            user = userData.GetByID(Global.LoggedInUser.ID);
+            ProfileControl1.FillUser(Global.LoggedInUser);
 
-            ProfileControl1.FillUser(user);
+            UserService service = new UserService();
+            service.Update(Global.LoggedInUser);
 
-           StatusLabel.Text = "Your profile has been updated.";
+            StatusLabel.Text = "Your profile has been updated.";
             StatusLabel.Visible = true;
         }
     }

@@ -24,13 +24,15 @@ namespace PMT.Web
 
         private void Application_Start(Object sender, EventArgs e)
         {
-            // make sure we an admin
-            UserService service = new UserService();
-            service.VerifyDefaults();
         }
 
         private void Session_Start(Object sender, EventArgs e)
         {
+            // make sure we have an admin
+            // I would do this in Application_Start but the Subsonic controller needs 
+            // an HttpContext.Current.User.Identity.Name and its not created before then.
+            UserService service = new UserService();
+            service.VerifyDefaults();
         }
 
         private void Application_BeginRequest(Object sender, EventArgs e)
