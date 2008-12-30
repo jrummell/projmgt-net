@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB.cs" />
     <Compile Include="Generated\AllStructs.cs" />
     <Compile Include="Generated\StoredProcedures.cs" />
     <Compile Include="IController.cs" />

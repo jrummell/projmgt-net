@@ -15,7 +15,7 @@ namespace PMT.BLL
         private readonly UserController _userController = new UserController();
 
         public UserService()
-            : base(new UserController())
+            : base(typeof(UserController))
         {
         }
 
@@ -47,8 +47,7 @@ namespace PMT.BLL
 
             // add user profile
             _profileController.Insert(newUser.Id, user.FirstName, user.LastName,
-                                      user.State, user.ZipCode, user.PhoneNumber, user.Email,
-                                      user.Address, user.City);
+                                      user.Address, user.City, user.State, user.ZipCode, user.PhoneNumber, user.Email);
 
             // update the passed in user object
             user.ID = newUser.Id;
@@ -202,8 +201,8 @@ namespace PMT.BLL
         public UserStatistics GetStatistics()
         {
             Dictionary<UserRole, int> dictionary = new Dictionary<UserRole, int>();
-            
-            foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
+
+            foreach (UserRole role in Enum.GetValues(typeof (UserRole)))
             {
                 dictionary.Add(role, GetCount(role));
             }
@@ -266,8 +265,7 @@ namespace PMT.BLL
         {
             if (!Exists("admin"))
             {
-                User admin = new User(UserRole.Administrator, "admin", "asdf");
-                admin.Enabled = true;
+                User admin = new User(UserRole.Administrator, "admin", "asdf") {Enabled = true};
                 Insert(admin);
             }
         }

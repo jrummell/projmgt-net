@@ -41,6 +41,15 @@ namespace PMT.Web.Controls {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink6;
         
         /// <summary>
+        /// HyperLink4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink4;
+        
+        /// <summary>
         /// divDevloper control.
         /// </summary>
         /// <remarks>
@@ -66,6 +75,15 @@ namespace PMT.Web.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink8;
+        
+        /// <summary>
+        /// HyperLink3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink3;
         
         /// <summary>
         /// divManager control.
@@ -113,6 +131,15 @@ namespace PMT.Web.Controls {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink12;
         
         /// <summary>
+        /// HyperLink14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink14;
+        
+        /// <summary>
         /// divAdministrator control.
         /// </summary>
         /// <remarks>
@@ -156,14 +183,5 @@ namespace PMT.Web.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink hlElmah;
-        
-        /// <summary>
-        /// HyperLink14 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink14;
     }
 }

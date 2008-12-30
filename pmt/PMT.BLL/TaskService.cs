@@ -11,7 +11,7 @@ namespace PMT.BLL
         private readonly TaskController _tasksController = new TaskController();
 
         public TaskService()
-            : base(new TaskController())
+            : base(typeof(TaskController))
         {
         }
 

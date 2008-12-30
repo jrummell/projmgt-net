@@ -9,19 +9,39 @@ namespace PMT.BLL
     public abstract class DataService<TRecord> : IDataService<TRecord>
         where TRecord : class, IRecord
     {
-        private readonly IController _controller;
+        private readonly Type _controllerType;
+        private IController _controller;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataService&lt;TRecord&gt;"/> class.
         /// </summary>
-        /// <param name="controller">The controller.</param>
-        protected DataService(IController controller)
+        /// <param name="controllerType">Type of the controller.</param>
+        protected DataService(Type controllerType)
         {
-            if (controller == null)
+            if (controllerType == null)
             {
-                throw new ArgumentNullException("controller");
+                throw new ArgumentNullException("controllerType");
             }
-            _controller = controller;
+            _controllerType = controllerType;
+        }
+
+        private IController Controller
+        {
+            get
+            {
+                if (_controller == null)
+                {
+                    _controller = (IController) Activator.CreateInstance(_controllerType);
+
+                    if (_controller == null)
+                    {
+                        throw new InvalidOperationException(String.Format(
+                                                                "Could not create an instance of {0} from {1}",
+                                                                typeof (IController), _controllerType));
+                    }
+                }
+                return _controller;
+            }
         }
 
         #region IDataService<TRecord> Members
@@ -32,7 +52,7 @@ namespace PMT.BLL
         /// <returns></returns>
         public virtual Collection<TRecord> GetAll()
         {
-            return CreateCollection(_controller.FetchAll());
+            return CreateCollection(Controller.FetchAll());
         }
 
         /// <summary>
@@ -51,7 +71,7 @@ namespace PMT.BLL
         /// <returns></returns>
         public virtual TRecord GetByID(int id)
         {
-            IList collection = _controller.FetchByID(id);
+            IList collection = Controller.FetchByID(id);
 
             if (collection.Count == 0)
             {
@@ -117,7 +137,7 @@ namespace PMT.BLL
         /// <param name="id">The id.</param>
         public virtual void Delete(int id)
         {
-            _controller.Delete(id);
+            Controller.Delete(id);
         }
 
         /// <summary>
@@ -162,7 +182,7 @@ namespace PMT.BLL
                 throw new ArgumentNullException("query");
             }
 
-            return CreateCollection(_controller.FetchByQuery(query));
+            return CreateCollection(Controller.FetchByQuery(query));
         }
 
         /// <summary>
