@@ -110,13 +110,6 @@
     <Compile Include="AllUsers\Profile.aspx.designer.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
-    <Compile Include="AllUsers\Reports.aspx.cs">
-      <DependentUpon>Reports.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="AllUsers\Reports.aspx.designer.cs">
-      <DependentUpon>Reports.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Client\Projects.aspx.cs">
       <DependentUpon>Projects.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -251,7 +244,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AllUsers\Profile.aspx" />
-    <Content Include="AllUsers\Reports.aspx" />
     <Content Include="App_Themes\Default\default.css" />
     <Content Include="App_Themes\Default\images\diagonals-gray.gif" />
     <Content Include="Client\Default.aspx" />

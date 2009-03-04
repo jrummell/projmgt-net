@@ -7,59 +7,65 @@ namespace PMT.Web.Admin
 {
     public partial class NewUser : Page
     {
-        private readonly UserService users = new UserService();
+        private readonly UserService services = new UserService();
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event to initialize the page.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+
+            Load += Page_Load;
+        }
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            if (!IsPostBack)
             {
                 BindData();
             }
         }
 
-        private void NewUserDataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
+        /// <summary>
+        /// Handles the DeleteCommand event of the NewUserDataGrid control.
+        /// </summary>
+        /// <param name="source">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Web.UI.WebControls.DataGridCommandEventArgs"/> instance containing the event data.</param>
+        protected void NewUserDataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
             string delID = (NewUserDataGrid.Items[e.Item.ItemIndex].Cells[0].Text);
-            users.Delete(Convert.ToInt32(delID));
+            services.Delete(Convert.ToInt32(delID));
             BindData();
         }
 
+        /// <summary>
+        /// Handles the CheckedChanged event of the cbEnabled control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void cbEnabled_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox) sender;
             string id = ((DataGridItem) cb.Parent.Parent).Cells[0].Text;
-            users.Enable(Convert.ToInt32(id), cb.Checked);
+            services.Enable(Convert.ToInt32(id), cb.Checked);
             BindData();
         }
 
+        /// <summary>
+        /// Binds the data.
+        /// </summary>
         private void BindData()
         {
             //fill the datagrid with wannabe users
-            NewUserDataGrid.DataSource = users.GetByEnabled(false);
+            NewUserDataGrid.DataSource = services.GetByEnabled(false);
             NewUserDataGrid.DataBind();
         }
-
-        #region Web Form Designer generated code
-
-        protected override void OnInit(EventArgs e)
-        {
-            //
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
-            //
-            InitializeComponent();
-            base.OnInit(e);
-        }
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            this.NewUserDataGrid.DeleteCommand +=
-                new System.Web.UI.WebControls.DataGridCommandEventHandler(this.NewUserDataGrid_DeleteCommand);
-        }
-
-        #endregion
     }
 }

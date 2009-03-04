@@ -51,6 +51,23 @@ namespace PMT.BLL
 
             // update the passed in user object
             user.ID = newUser.Id;
+
+            // assign the user to a manager
+            if (user.ManagerID > 0)
+            {
+                AssignManager(user.ID, user.ManagerID);
+            }
+        }
+
+        /// <summary>
+        /// Assigns a manager to a user.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="managerID">The manager ID.</param>
+        public void AssignManager(int id, int managerID)
+        {
+            ManagerAssignment assignment = new ManagerAssignment {UserID = id, ManagerID = managerID};
+            assignment.Save();
         }
 
         /// <summary>
@@ -188,7 +205,7 @@ namespace PMT.BLL
             ManagerAssignmentCollection assignmentCollection =
                 new ManagerAssignmentCollection().Where(ManagerAssignment.Columns.ManagerID,
                                                         Comparison.Equals, managerID);
-#warning //TODO: optimize
+            //TODO: optimize UserService.GetByManager()
             Collection<User> userCollection = new Collection<User>();
             foreach (ManagerAssignment assignment in assignmentCollection)
             {
@@ -198,6 +215,31 @@ namespace PMT.BLL
             return userCollection;
         }
 
+        /// <summary>
+        /// Gets the developers by manager.
+        /// </summary>
+        /// <param name="managerID">The manager ID.</param>
+        /// <returns></returns>
+        public Collection<User> GetDevelopersByManager(int managerID)
+        {
+            SqlQuery query = DB.SelectAllColumnsFrom<DAL.User>()
+                .InnerJoin(ManagerAssignment.UserIDColumn, DAL.User.IdColumn)
+                .Where("ManagerID").IsEqualTo(managerID);
+
+            Collection<User> collection = CreateCollection(query.ExecuteAsCollection<UserCollection>());
+
+            foreach (User user in collection)
+            {
+                user.ManagerID = managerID;
+            }
+
+            return collection;
+        }
+
+        /// <summary>
+        /// Gets the statistics.
+        /// </summary>
+        /// <returns></returns>
         public UserStatistics GetStatistics()
         {
             Dictionary<UserRole, int> dictionary = new Dictionary<UserRole, int>();
@@ -247,6 +289,11 @@ namespace PMT.BLL
             return DAL.User.CreateQuery().AddWhere(where).GetCount(DAL.User.Columns.Id);
         }
 
+        /// <summary>
+        /// Gets the manager ID.
+        /// </summary>
+        /// <param name="userID">The user ID.</param>
+        /// <returns></returns>
         internal int GetManagerID(int userID)
         {
             Query query = ManagerAssignment.CreateQuery().AddWhere(ManagerAssignment.Columns.UserID, Comparison.Equals,
@@ -272,7 +319,7 @@ namespace PMT.BLL
 
         protected override User CreateRecord(IActiveRecord activeRecord)
         {
-#warning //TODO: optimize
+            //TODO: optimize UserService.CreateRecord()
             DAL.User dalUser = ((DAL.User) activeRecord);
             UserProfile profile = new UserProfile(dalUser.Id);
 

@@ -1,16 +1,20 @@
-<%@ Page Language="c#" AutoEventWireup="False" MasterPageFile="~/Master/Default.master" Inherits="PMT.Web.Admin.Users" Codebehind="Users.aspx.cs" %>
+<%@ Page Language="c#" AutoEventWireup="False" MasterPageFile="~/Master/Default.master"
+    Inherits="PMT.Web.Admin.Users" CodeBehind="Users.aspx.cs" %>
 
 <asp:Content ContentPlaceHolderID="phMain" runat="server">
+
     <script type="text/javascript">
         function changeRole(role)
         {
             window.location = "?role=" + role;
         }
     </script>
-    <h3>User Administration</h3>
+
+    <h3>
+        User Administration</h3>
     <p>
-        Filter by role: 
-        <select ID="ddlRole" runat="server" onchange="changeRole(this.value);" />
+        Filter by role:
+        <select id="ddlRole" runat="server" onchange="changeRole(this.value);" />
     </p>
     <asp:DataGrid ID="UserDataGrid" runat="server" AutoGenerateColumns="False" AllowPaging="True">
         <Columns>
