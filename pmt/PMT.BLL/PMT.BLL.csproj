@@ -40,6 +40,7 @@
       <HintPath>..\SubSonic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -52,6 +53,7 @@
     <Compile Include="ModuleService.cs" />
     <Compile Include="ProjectService.cs" />
     <Compile Include="ProjectItem.cs" />
+    <Compile Include="ProjectSummary.cs" />
     <Compile Include="ServiceException.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="TaskService.cs" />

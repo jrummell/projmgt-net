@@ -93,6 +93,26 @@ namespace PMT.BLL.Tests
             target.Unassign(project.ID, _manager.ID);
         }
 
+        [TestMethod]
+        public void GetSummariesByUser()
+        {
+            ProjectService service = new ProjectService();
+
+            Project project = (Project) CreateRecord();
+            Insert(project);
+
+            service.Assign(project.ID, _manager.ID);
+            Collection<ProjectSummary> summaries = service.GetSummariesByUser(_manager.ID);
+
+            Assert.IsTrue(summaries.Count == 1);
+
+            ProjectSummary summary = summaries[0];
+
+            Assert.AreEqual(project.ID, summary.ProjectID);
+
+            service.Unassign(project.ID, _manager.ID);
+        }
+
         /// <summary>
         ///A test for Delete
         ///</summary>

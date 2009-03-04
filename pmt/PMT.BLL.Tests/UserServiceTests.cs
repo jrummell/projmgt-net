@@ -152,7 +152,7 @@ namespace PMT.BLL.Tests
         ///A test for GetDevelopersByManager
         ///</summary>
         [TestMethod]
-        public void GetDevelopersByManager()
+        public void GetUsersByManager()
         {
             UserService target = new UserService();
             User manager = new User(UserRole.Manager, Guid.NewGuid().ToString(), _password);
@@ -161,6 +161,32 @@ namespace PMT.BLL.Tests
             Collection<User> developers = target.GetByManager(manager.ID);
             foreach (User developer in developers)
             {
+                Assert.AreEqual(manager.ID, developer.ManagerID);
+            }
+        }
+
+        [TestMethod]
+        public void GetDevelopersByManager()
+        {
+            UserService target = new UserService();
+            User manager = new User(UserRole.Manager, Guid.NewGuid().ToString(), _password);
+            Insert(manager);
+
+            for (int i = 0; i < 5; i++)
+            {
+                User developer = new User(UserRole.Developer, Guid.NewGuid().ToString(), _password)
+                                     {ManagerID = manager.ID};
+
+                Insert(developer);
+            }
+
+            Collection<User> developers = target.GetDevelopersByManager(manager.ID);
+
+            Assert.AreEqual(5, developers.Count);
+
+            foreach (User developer in developers)
+            {
+                Assert.AreEqual(UserRole.Developer, developer.Role);
                 Assert.AreEqual(manager.ID, developer.ManagerID);
             }
         }

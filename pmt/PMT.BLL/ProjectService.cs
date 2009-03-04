@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using PMT.DAL;
 using SubSonic;
@@ -10,8 +11,11 @@ namespace PMT.BLL
         private readonly ProjectAssignmentController _assignmentController = new ProjectAssignmentController();
         private readonly ProjectController _projectController = new ProjectController();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjectService"/> class.
+        /// </summary>
         public ProjectService()
-            : base(typeof(ProjectController))
+            : base(typeof (ProjectController))
         {
         }
 
@@ -78,6 +82,29 @@ namespace PMT.BLL
         {
             ProjectCollection dalProjects = DAL.User.GetProjectCollection(userID);
             return CreateCollection(dalProjects);
+        }
+
+        /// <summary>
+        /// Gets the summaries by user.
+        /// </summary>
+        /// <param name="userID">The user ID.</param>
+        /// <returns></returns>
+        public Collection<ProjectSummary> GetSummariesByUser(int userID)
+        {
+            string[] columns = {
+                                   "Projects.ID as ProjectID",
+                                   "Projects.Name as ProjectName"
+                               };
+
+            // be careful when editing this query. It took many tries to get SubSonic to like this ...
+            SqlQuery query = DB.Select(columns).From<DAL.Project>()
+                .InnerJoin(ProjectAssignment.ProjectIDColumn, DAL.Project.IdColumn)
+                .InnerJoin(DAL.User.IdColumn, ProjectAssignment.UserIDColumn)
+                .Where("UserID").IsEqualTo(userID);
+
+            List<ProjectSummary> summaries = query.ExecuteTypedList<ProjectSummary>();
+
+            return new Collection<ProjectSummary>(summaries);
         }
 
         /// <summary>
