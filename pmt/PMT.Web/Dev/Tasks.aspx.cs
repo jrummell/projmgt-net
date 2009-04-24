@@ -1,5 +1,5 @@
 using System;
-using System.Web.UI.WebControls;
+using System.Web.UI;
 using PMT.BLL;
 
 namespace PMT.Web.Dev
@@ -7,48 +7,51 @@ namespace PMT.Web.Dev
     /// <summary>
     /// Summary description for DevTasks.
     /// </summary>
-    public partial class Tasks : System.Web.UI.Page
+    public partial class Tasks : Page
     {
-        protected void Page_Load(object sender, System.EventArgs e)
-        {
-            //TODO: ~/Dev/Tasks.aspx
-            throw new NotImplementedException();
+        //TODO: finish and test ~/Dev/Tasks.aspx. UpdateButton_Click and CancelButton_Click could be easily handled with javascript (jQuery).
 
-//            //initialize the DB object
-//            DBDriver myDB=new DBDriver();
-//            //set the appropriate SQL query
-//			myDB.Query = "select t.ID as taskID, t.name as name, m.name as moduleName, p.name as projectName,\n"
-//					   + "t.actEndDate as actEndDate, t.complete as complete, a.dateAss as dateAss, a.devID, a.taskID\n"
-//					   + "from tasks t, assignments a, modules m, projects p\n" 
-//					   + "where t.ID = a.taskID and a.devID = @devID\n"
-//                       + "and t.moduleID = m.ID\n"
-//                       + "and m.projectID = p.ID\n"
-//                       + "order by p.name, m.name, t.name;";
-//            myDB.addParam("@devID", Request.Cookies["user"]["id"]);					  
-//
-//            //initialize the dataset
-//            DataSet ds=new DataSet();
-//            //initialize the data adapter
-//            //fill the dataset;this is updated
-//            myDB.createAdapter().Fill(ds);
-//            //fill the display grid
-//            DataGrid1.DataSource=ds;
-//            if (!Page.IsPostBack)
-//                DataGrid1.DataBind();
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event to initialize the page.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> that contains the event data.</param>
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+
+            Load += Page_Load;
         }
 
-        protected void UpdateButton_Click(object sender, System.EventArgs e)
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                TaskService service = new TaskService();
+                dgTasks.DataSource = service.GetByUser(Global.LoggedInUser.ID);
+                dgTasks.DataBind();
+            }
+        }
+
+        protected void UpdateButton_Click(object sender, EventArgs e)
+        {
+            //TODO: this can be done with jQuery
+            throw new NotImplementedException();
+            /*
             // show the complete column
-            UpdateButton.Enabled = false;
-            CommitButton.Enabled = true;
-            CancelButton.Enabled = true;
-            DataGrid1.Columns[6].Visible = true;
+            btnUpdate.Enabled = false;
+            btnCommit.Enabled = true;
+            btnCancel.Enabled = true;
+            dgTasks.Columns[6].Visible = true;
 
             // set check boxes to checked, not checked or checked and disabled
-            foreach (DataGridItem item in DataGrid1.Items)
+            foreach (DataGridItem item in dgTasks.Items)
             {
-                CheckBox cb = (CheckBox)item.FindControl("CompleteCheckBox");
+                CheckBox cb = (CheckBox) item.FindControl("CompleteCheckBox");
                 if (item.Cells[7].Text.Equals(TaskStatus.Approved.ToString()))
                 {
                     cb.Checked = true;
@@ -59,17 +62,23 @@ namespace PMT.Web.Dev
                     cb.Checked = true;
                 }
             }
+            */
         }
 
-        protected void CancelButton_Click(object sender, System.EventArgs e)
+        protected void CancelButton_Click(object sender, EventArgs e)
         {
-            DataGrid1.Columns[6].Visible = false;
-            UpdateButton.Enabled = true;
-            CommitButton.Enabled = false;
-            CancelButton.Enabled = false;
+            //TODO: this can be done with jQuery
+
+            throw new NotImplementedException();
+            /*
+            dgTasks.Columns[6].Visible = false;
+            btnUpdate.Enabled = true;
+            btnCommit.Enabled = false;
+            btnCancel.Enabled = false;
+            */
         }
 
-        protected void CommitButton_Click(object sender, System.EventArgs e)
+        protected void CommitButton_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
 
