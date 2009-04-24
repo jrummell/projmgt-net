@@ -68,6 +68,17 @@ namespace PMT.BLL
         /// </summary>
         public DateTime? ActEndDate { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this item is complete.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this item is complete; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsComplete
+        {
+            get { return ActEndDate != null; }
+        }
+
         #region IRecord Members
 
         /// <summary>

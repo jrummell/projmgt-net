@@ -206,6 +206,16 @@ namespace PMT.BLL.Tests
             target.Unassign(project.ID, _manager.ID);
         }
 
+        [TestMethod]
+        public void IsComplete()
+        {
+            Project project = (Project) CreateRecord();
+            Assert.IsFalse(project.IsComplete);
+
+            project.ActEndDate = DateTime.Now;
+            Assert.IsTrue(project.IsComplete);
+        }
+
         protected override IRecord CreateRecord()
         {
             return new Project("Name", "Description");
