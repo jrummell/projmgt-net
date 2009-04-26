@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace PMT.BLL.Tests
 {
@@ -8,7 +8,7 @@ namespace PMT.BLL.Tests
     ///This is a test class for UserService and is intended
     ///to contain all UserService Unit Tests
     ///</summary>
-    [TestClass]
+    [TestFixture]
     public class UserServiceTests : DataServiceTests
     {
         private const string _password = "asdf";
@@ -21,7 +21,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for UpdateUser
         ///</summary>
-        [TestMethod]
+        [Test]
         public override void Update()
         {
             UserService target = new UserService();
@@ -38,7 +38,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for UpdateEnabled
         ///</summary>
-        [TestMethod]
+        [Test]
         public void UpdateEnabled()
         {
             UserService target = new UserService();
@@ -56,7 +56,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for InsertUser
         ///</summary>
-        [TestMethod]
+        [Test]
         public override void Insert()
         {
             UserService target = new UserService();
@@ -70,7 +70,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for GetUsersByRole
         ///</summary>
-        [TestMethod]
+        [Test]
         public void GetByRole()
         {
             UserService target = new UserService();
@@ -86,7 +86,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for GetUsers
         ///</summary>
-        [TestMethod]
+        [Test]
         public void GetByEnabled()
         {
             // disabled
@@ -124,7 +124,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for GetUser
         ///</summary>
-        [TestMethod]
+        [Test]
         public void GetByUsername()
         {
             UserService target = new UserService();
@@ -140,7 +140,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for GetStatistics
         ///</summary>
-        [TestMethod]
+        [Test]
         public void GetStatistics()
         {
             UserService target = new UserService();
@@ -151,7 +151,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for GetDevelopersByManager
         ///</summary>
-        [TestMethod]
+        [Test]
         public void GetUsersByManager()
         {
             UserService target = new UserService();
@@ -165,7 +165,7 @@ namespace PMT.BLL.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void GetDevelopersByManager()
         {
             UserService target = new UserService();
@@ -194,7 +194,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for AuthenticateUser
         ///</summary>
-        [TestMethod]
+        [Test]
         public void Authenticate()
         {
             UserService target = new UserService();

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace PMT.BLL.Tests
 {
@@ -8,7 +8,7 @@ namespace PMT.BLL.Tests
     ///This is a test class for ModuleServiceTests and is intended
     ///to contain all ModuleServiceTests Unit Tests
     ///</summary>
-    [TestClass]
+    [TestFixture]
     public class ModuleServiceTests : DataServiceTests
     {
         private Project _project;
@@ -18,27 +18,39 @@ namespace PMT.BLL.Tests
         {
         }
 
-        /// <summary>
-        ///A test for Update
-        ///</summary>
-        [TestMethod]
-        public override void Update()
+        protected override IRecord CreateRecord()
         {
-            ModuleService target = new ModuleService();
-            Module module = (Module) CreateRecord();
-            Insert(module);
+            return new Module(_project.ID, "Name", "Description");
+        }
 
-            module.Description = "asdf 123";
-            target.Update(module);
+        [TestFixtureSetUp]
+        public override void TestFixtureSetUp()
+        {
+            ProjectService projectService = new ProjectService();
+            _project = new Project("Name", "Description")
+                           {
+                               StartDate = DateTime.Now.AddDays(-7),
+                               ExpEndDate = DateTime.Now.AddDays(1)
+                           };
 
-            Module updated = target.GetByID(module.ID);
-            Assert.AreEqual(module.Description, updated.Description);
+            projectService.Insert(_project);
+
+            base.TestFixtureSetUp();
+        }
+
+        [TestFixtureTearDown]
+        public override void TestFixtureTearDown()
+        {
+            base.TestFixtureTearDown();
+
+            ProjectService projectService = new ProjectService();
+            projectService.Delete(_project.ID);
         }
 
         /// <summary>
         ///A test for GetByProject
         ///</summary>
-        [TestMethod]
+        [Test]
         public void GetByProject()
         {
             for (int i = 0; i < 10; i++)
@@ -57,33 +69,21 @@ namespace PMT.BLL.Tests
             }
         }
 
-        protected override IRecord CreateRecord()
+        /// <summary>
+        ///A test for Update
+        ///</summary>
+        [Test]
+        public override void Update()
         {
-            return new Module(_project.ID, "Name", "Description");
-        }
+            ModuleService target = new ModuleService();
+            Module module = (Module) CreateRecord();
+            Insert(module);
 
-        [TestInitialize]
-        public override void TestInitialize()
-        {
-            ProjectService projectService = new ProjectService();
-            _project = new Project("Name", "Description")
-                           {
-                               StartDate = DateTime.Now.AddDays(-7),
-                               ExpEndDate = DateTime.Now.AddDays(1)
-                           };
+            module.Description = "asdf 123";
+            target.Update(module);
 
-            projectService.Insert(_project);
-
-            base.TestInitialize();
-        }
-
-        [TestCleanup]
-        public override void TestCleanup()
-        {
-            base.TestCleanup();
-
-            ProjectService projectService = new ProjectService();
-            projectService.Delete(_project.ID);
+            Module updated = target.GetByID(module.ID);
+            Assert.AreEqual(module.Description, updated.Description);
         }
     }
 }
