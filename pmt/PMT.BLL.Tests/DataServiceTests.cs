@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace PMT.BLL.Tests
 {
     public abstract class DataServiceTests
     {
-        private readonly Collection<IRecord> _insertedRecords = new Collection<IRecord>();
         private readonly IDataService _dataService;
+        private readonly Collection<IRecord> _insertedRecords = new Collection<IRecord>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataServiceTests"/> class.
@@ -24,20 +24,14 @@ namespace PMT.BLL.Tests
             _dataService = dataService;
         }
 
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext { get; set; }
-
-        [TestInitialize]
-        public virtual void TestInitialize()
+        [TestFixtureSetUp]
+        public virtual void TestFixtureSetUp()
         {
             _dataService.VerifyDefaults();
         }
 
-        [TestCleanup]
-        public virtual void TestCleanup()
+        [TestFixtureTearDown]
+        public virtual void TestFixtureTearDown()
         {
             foreach (IRecord record in _insertedRecords)
             {
@@ -48,13 +42,13 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for Update
         ///</summary>
-        [TestMethod]
+        [Test]
         public abstract void Update();
 
         /// <summary>
         ///A test for Insert
         ///</summary>
-        [TestMethod]
+        [Test]
         public virtual void Insert()
         {
             IRecord record = CreateRecord();
@@ -66,7 +60,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for GetByID
         ///</summary>
-        [TestMethod]
+        [Test]
         public virtual void GetByID()
         {
             IRecord record = CreateRecord();
@@ -78,7 +72,8 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for Exists
         ///</summary>
-        public virtual void Exists()
+        [Test]
+        public void Exists()
         {
             IRecord record = CreateRecord();
             Insert(record);
@@ -89,7 +84,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for GetAll
         ///</summary>
-        [TestMethod]
+        [Test]
         public virtual void GetAll()
         {
             for (int i = 0; i < 15; i++)
@@ -104,7 +99,7 @@ namespace PMT.BLL.Tests
         /// <summary>
         ///A test for Delete
         ///</summary>
-        [TestMethod]
+        [Test]
         public virtual void Delete()
         {
             IRecord record = CreateRecord();
@@ -118,7 +113,7 @@ namespace PMT.BLL.Tests
         /// Inserts the specified record.
         /// </summary>
         /// <param name="record">The record.</param>
-        protected virtual void Insert(IRecord record)
+        protected void Insert(IRecord record)
         {
             if (record == null)
             {
