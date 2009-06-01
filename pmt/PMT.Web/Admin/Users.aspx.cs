@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using PMT.BLL;
@@ -23,7 +22,7 @@ namespace PMT.Web.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void Page_Load(object sender, EventArgs e)
+        private void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
@@ -34,25 +33,13 @@ namespace PMT.Web.Admin
                 }
                 ddlRole.Items.Insert(0, new ListItem("All", String.Empty));
 
-                // bind users datagrid
-                UserService userData = new UserService();
-                ICollection<User> users;
-                
                 // filter by selected role
                 string roleString = Request["role"];
                 if (!String.IsNullOrEmpty(roleString))
                 {
-                    UserRole role = (UserRole) Enum.Parse(typeof(UserRole), roleString);
-                    users = userData.GetByRole(role);
+                    UserRole role = (UserRole) Enum.Parse(typeof (UserRole), roleString);
                     ddlRole.Items.FindByValue(role.ToString("d")).Selected = true;
                 }
-                else
-                {
-                    users = userData.GetAll();
-                }
-
-                UserDataGrid.DataSource = users;
-                UserDataGrid.DataBind();
             }
         }
     }

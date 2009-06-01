@@ -1,24 +1,33 @@
-<%@ Master AutoEventWireup="true" Codebehind="Default.master.cs" EnableTheming="true"
+<%@ Master AutoEventWireup="true" CodeBehind="Default.master.cs" EnableTheming="true"
     Inherits="PMT.Web.Master.Default" Language="C#" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Project Management .Net</title>
-    <asp:ContentPlaceHolder id="phHead" runat="server" />
+    <asp:ContentPlaceHolder ID="phHead" runat="server" />
 </head>
 <body>
+
+    <script type="text/javascript" src="<%= ResolveUrl("~/js/jquery-1.3.2.min.js") %>"></script>
+
+    <% if (false) // js intellisense hack
+       { %>
+
+    <script type="text/javascript" src="../js/jquery-1.3.2-vsdoc2.js"></script>
+
+    <% } %>
     <div>
         <form id="form1" runat="server">
-            <div id="Header">
-               <pmt:Header ID="header"  runat="server" />
-            </div>
-            <div id="Navigation">
-                <pmt:Navigation ID="navigation" runat="server" />
-            </div>
-            <div id="Main">
-                <asp:ContentPlaceHolder id="phMain" runat="server" />
-            </div>
+        <div id="Header">
+            <pmt:Header ID="header" runat="server" />
+        </div>
+        <div id="Navigation">
+            <pmt:Navigation ID="navigation" runat="server" />
+        </div>
+        <div id="Main">
+            <asp:ContentPlaceHolder ID="phMain" runat="server" />
+        </div>
         </form>
     </div>
 </body>

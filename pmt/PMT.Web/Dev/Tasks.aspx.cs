@@ -9,7 +9,7 @@ namespace PMT.Web.Dev
     /// </summary>
     public partial class Tasks : Page
     {
-        //TODO: finish and test ~/Dev/Tasks.aspx. UpdateButton_Click and CancelButton_Click could be easily handled with javascript (jQuery).
+        //TODO: finish and test ~/Dev/Tasks.aspx.
 
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event to initialize the page.
@@ -39,66 +39,7 @@ namespace PMT.Web.Dev
 
         protected void UpdateButton_Click(object sender, EventArgs e)
         {
-            //TODO: this can be done with jQuery
-            throw new NotImplementedException();
-            /*
-            // show the complete column
-            btnUpdate.Enabled = false;
-            btnCommit.Enabled = true;
-            btnCancel.Enabled = true;
-            dgTasks.Columns[6].Visible = true;
-
-            // set check boxes to checked, not checked or checked and disabled
-            foreach (DataGridItem item in dgTasks.Items)
-            {
-                CheckBox cb = (CheckBox) item.FindControl("CompleteCheckBox");
-                if (item.Cells[7].Text.Equals(TaskStatus.Approved.ToString()))
-                {
-                    cb.Checked = true;
-                    cb.Enabled = false;
-                }
-                if (item.Cells[7].Text.Equals(TaskStatus.Complete.ToString()))
-                {
-                    cb.Checked = true;
-                }
-            }
-            */
-        }
-
-        protected void CancelButton_Click(object sender, EventArgs e)
-        {
-            //TODO: this can be done with jQuery
-
-            throw new NotImplementedException();
-            /*
-            dgTasks.Columns[6].Visible = false;
-            btnUpdate.Enabled = true;
-            btnCommit.Enabled = false;
-            btnCancel.Enabled = false;
-            */
-        }
-
-        protected void CommitButton_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-
-            /*
-            DBDriver db = new DBDriver();
-
-            foreach (DataGridItem itm in DataGrid1.Items)
-            {
-                CheckBox cb = (CheckBox)itm.FindControl("CompleteCheckBox");
-                if(cb.Enabled)
-                {
-                    db.Query = "update tasks set complete=@complete\n"
-                        + "where id=@id;";
-                    db.addParam("@complete", cb.Checked?TaskStatus.Complete:TaskStatus.INPROGRESS);
-                    db.addParam("@id", itm.Cells[0].Text);
-                    db.nonQuery();
-                }
-            }
-            Server.Transfer(Request.Url.AbsolutePath);
-            */
+            //TODO: update DB
         }
     }
 }

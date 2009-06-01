@@ -186,6 +186,34 @@ namespace PMT.BLL
         }
 
         /// <summary>
+        /// Creates a <see cref="Collection{T}"/> from the given <see cref="Query"/> and paging parameters.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="startRowIndex">Start index of the row.</param>
+        /// <param name="maximumRows">The maximum rows.</param>
+        /// <returns></returns>
+        protected Collection<TRecord> CreateCollection(Query query, int startRowIndex, int maximumRows)
+        {
+            if (query == null)
+            {
+                throw new ArgumentNullException("query");
+            }
+
+            query.PageSize = maximumRows;
+
+            if (maximumRows > 0)
+            {
+                query.PageIndex = startRowIndex/maximumRows + 1;
+            }
+            else
+            {
+                query.PageIndex = 1;
+            }
+
+            return CreateCollection(Controller.FetchByQuery(query));
+        }
+
+        /// <summary>
         /// Creates a <see cref="TRecord"/> from an <see cref="IActiveRecord"/>.
         /// </summary>
         /// <param name="activeRecord">The active record.</param>
