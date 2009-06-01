@@ -15,7 +15,7 @@ namespace PMT.BLL
         private readonly UserController _userController = new UserController();
 
         public UserService()
-            : base(typeof(UserController))
+            : base(typeof (UserController))
         {
         }
 
@@ -142,12 +142,45 @@ namespace PMT.BLL
             return CreateCollection(query);
         }
 
+        /// <summary>
+        /// Gets the users by role.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <returns></returns>
         public Collection<User> GetByRole(UserRole role)
         {
-            Query query = DAL.User.CreateQuery().AddWhere(DAL.User.Columns.Role, Comparison.Equals, (short) role);
-            return CreateCollection(query);
+            return GetByRole(role, 0, 1000);
         }
 
+        /// <summary>
+        /// Gets a page of users by role.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <param name="startRowIndex">Start index of the row.</param>
+        /// <param name="maximumRows">The maximum rows.</param>
+        /// <returns></returns>
+        public Collection<User> GetByRole(UserRole? role, int startRowIndex, int maximumRows)
+        {
+            Query query = GetQuery(role);
+
+            return CreateCollection(query, startRowIndex, maximumRows);
+        }
+
+        /// <summary>
+        /// Gets the count by role.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <returns></returns>
+        public int GetCountByRole(UserRole? role)
+        {
+            return GetCount(role);
+        }
+
+        /// <summary>
+        /// Gets the users by project.
+        /// </summary>
+        /// <param name="projectID">The project ID.</param>
+        /// <returns></returns>
         public Collection<User> GetByProject(int projectID)
         {
             UserCollection dalUsers = DAL.Project.GetUserCollection(projectID);
@@ -200,6 +233,11 @@ namespace PMT.BLL
             return _userController.FetchByQuery(query).Count == 1;
         }
 
+        /// <summary>
+        /// Gets the users by manager.
+        /// </summary>
+        /// <param name="managerID">The manager ID.</param>
+        /// <returns></returns>
         public Collection<User> GetByManager(int managerID)
         {
             ManagerAssignmentCollection assignmentCollection =
@@ -267,16 +305,49 @@ namespace PMT.BLL
         /// </summary>
         /// <param name="role">The role.</param>
         /// <returns></returns>
-        private static int GetCount(UserRole role)
+        private static int GetCount(UserRole? role)
         {
-            Where where = new Where
-                              {
-                                  ColumnName = DAL.User.Columns.Role,
-                                  Comparison = Comparison.Equals,
-                                  ParameterValue = ((short) role)
-                              };
+            return GetCount(GetWhere(role));
+        }
 
-            return GetCount(where);
+        /// <summary>
+        /// Gets the query.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <returns></returns>
+        private static Query GetQuery(UserRole? role)
+        {
+            Query query = DAL.User.CreateQuery();
+
+            if (role != null)
+            {
+                query.AddWhere(GetWhere(role));
+            }
+
+            query.OrderBy = OrderBy.Asc(DAL.User.Columns.Username);
+
+            return query;
+        }
+
+        /// <summary>
+        /// Gets the where.
+        /// </summary>
+        /// <param name="role">The role.</param>
+        /// <returns></returns>
+        private static Where GetWhere(UserRole? role)
+        {
+            Where where = null;
+
+            if (role != null)
+            {
+                where = new Where
+                            {
+                                ColumnName = DAL.User.Columns.Role,
+                                Comparison = Comparison.Equals,
+                                ParameterValue = ((short) role)
+                            };
+            }
+            return where;
         }
 
         /// <summary>
@@ -286,7 +357,13 @@ namespace PMT.BLL
         /// <returns></returns>
         private static int GetCount(Where where)
         {
-            return DAL.User.CreateQuery().AddWhere(where).GetCount(DAL.User.Columns.Id);
+            Query query = DAL.User.CreateQuery();
+            if (where != null)
+            {
+                query.AddWhere(where);
+            }
+
+            return query.GetCount(DAL.User.Columns.Id);
         }
 
         /// <summary>

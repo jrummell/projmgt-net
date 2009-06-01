@@ -4,7 +4,7 @@ using SubSonic;
 namespace PMT.DAL
 {
     /// <summary>
-    /// And interface for SubSonic controllers.
+    /// An interface for SubSonic controllers.
     /// </summary>
     public interface IController
     {

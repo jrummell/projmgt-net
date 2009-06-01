@@ -16,13 +16,21 @@
         Filter by role:
         <select id="ddlRole" runat="server" onchange="changeRole(this.value);" />
     </p>
-    <asp:DataGrid ID="UserDataGrid" runat="server" AutoGenerateColumns="False" AllowPaging="True">
+    <asp:GridView ID="gvUsers" runat="server" DataSourceID="odsUsers" AutoGenerateColumns="False"
+        AllowPaging="True">
         <Columns>
-            <asp:HyperLinkColumn DataNavigateUrlField="id" DataNavigateUrlFormatString="EditUser.aspx?id={0}&amp;type=current"
-                DataTextField="Username" HeaderText="User"></asp:HyperLinkColumn>
-            <asp:BoundColumn DataField="FirstName" HeaderText="First Name"></asp:BoundColumn>
-            <asp:BoundColumn DataField="LastName" HeaderText="Last Name"></asp:BoundColumn>
-            <asp:BoundColumn DataField="Role" HeaderText="Role"></asp:BoundColumn>
+            <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="EditUser.aspx?id={0}&amp;type=current"
+                DataTextField="Username" HeaderText="User" />
+            <asp:BoundField DataField="FirstName" HeaderText="First Name" />
+            <asp:BoundField DataField="LastName" HeaderText="Last Name" />
+            <asp:BoundField DataField="Role" HeaderText="Role" />
         </Columns>
-    </asp:DataGrid>
+    </asp:GridView>
+    <asp:ObjectDataSource ID="odsUsers" runat="server" SelectMethod="GetByRole" TypeName="PMT.BLL.UserService"
+        EnablePaging="true" StartRowIndexParameterName="startRowIndex" MaximumRowsParameterName="maximumRows"
+        SelectCountMethod="GetCountByRole">
+        <SelectParameters>
+            <asp:QueryStringParameter Name="role" QueryStringField="role" Type="Object" ConvertEmptyStringToNull="true" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
 </asp:Content>
